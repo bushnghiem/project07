@@ -8,32 +8,66 @@ public class ClickAndFling : MonoBehaviour
 
     Vector3 mouseStart; float zDistance;
     [SerializeField] bool flingable = true;
+    [SerializeField] bool projectileMode = true;
+    [SerializeField] float projectileSpawnRadius = 2.0f;
+    bool isDragging = false;
 
     [Header("Force Settings")]
     public float minForce = 2f;
     public float maxForce = 20f;
     public float maxDragDistance = 200f;
-    public float linearDamping = 2.0f; public float angularDamping = 2.0f;
+    public float linearDamping = 2.0f;
+    public float angularDamping = 2.0f;
 
     void Start()
-    { cam = Camera.main;
+    { 
+        cam = Camera.main;
         rb = GetComponent<Rigidbody>();
         rb.linearDamping = linearDamping;
         rb.angularDamping = angularDamping;
         startRotation = transform.rotation;
     }
 
-    void OnMouseDown()
+    void Update()
     {
-        if (!flingable) return;
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        mouseStart = Input.mousePosition;
-        transform.rotation = startRotation;
-        FlingEvent.OnPowerChanged?.Invoke(0f);
+        if (Input.GetMouseButtonDown(0))
+        {
+            TryStartDrag();
+        }
+
+        if (Input.GetMouseButton(0) && isDragging)
+        {
+            HandleDrag();
+        }
+
+        if (Input.GetMouseButtonUp(0) && isDragging)
+        {
+            HandleRelease();
+            isDragging = false;
+        }
     }
 
-    void OnMouseDrag()
+    void TryStartDrag()
+    {
+        if (!flingable) return;
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            if (hit.collider.gameObject == gameObject)
+            {
+                isDragging = true;
+
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+                mouseStart = Input.mousePosition;
+                transform.rotation = startRotation;
+                FlingEvent.OnPowerChanged?.Invoke(0f);
+            }
+        }
+    }
+
+    void HandleDrag()
     {
         if (!flingable) return;
         Vector3 drag = Input.mousePosition - mouseStart;
@@ -42,10 +76,9 @@ public class ClickAndFling : MonoBehaviour
         transform.rotation = startRotation * Quaternion.Euler(0f, angleY, 0f);
         float t = Mathf.Clamp01(drag.magnitude / maxDragDistance);
         FlingEvent.OnPowerChanged?.Invoke(t);
-    
     }
 
-    void OnMouseUp()
+    void HandleRelease()
     {
         if (!flingable) return;
         Vector3 mouseEnd = Input.mousePosition;
@@ -56,9 +89,17 @@ public class ClickAndFling : MonoBehaviour
         float forceStrength = Mathf.Lerp(minForce, maxForce, t);
         Vector3 direction = new Vector3(-drag.x, 0, -drag.y);
         direction.Normalize();
-        rb.AddForce(direction * forceStrength, ForceMode.Impulse);
-        //Debug.Log(forceStrength);
-        FlingEvent.OnFling?.Invoke(direction, forceStrength);
+        Vector3 projectileSpawnPosition = transform.position + direction.normalized * projectileSpawnRadius;
+        if (projectileMode)
+        {
+            ProjectileSpawnEvent.OnProjectileSpawn?.Invoke(projectileSpawnPosition, direction, forceStrength);
+        }
+        else
+        {
+            rb.AddForce(direction * forceStrength, ForceMode.Impulse);
+            FlingEvent.OnFling?.Invoke(direction, forceStrength);
+            //Debug.Log(forceStrength);
+        }
         FlingEvent.OnPowerChanged?.Invoke(0f);
     }
 }
