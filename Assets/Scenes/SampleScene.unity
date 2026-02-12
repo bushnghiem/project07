@@ -133,6 +133,8 @@ GameObject:
   - component: {fileID: 123491616}
   - component: {fileID: 123491620}
   - component: {fileID: 123491621}
+  - component: {fileID: 123491622}
+  - component: {fileID: 123491623}
   m_Layer: 0
   m_Name: BreakableWall
   m_TagString: Untagged
@@ -261,6 +263,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DestructableEnvironment
   healthComp: {fileID: 123491620}
+--- !u!54 &123491622
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123491615}
+  serializedVersion: 5
+  m_Mass: 100
+  m_LinearDamping: 2
+  m_AngularDamping: 2
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &123491623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123491615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dbc194c2475d134a8e20e68bf5cbcc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageOnCollision
+  contactDamage: 20
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,6 +599,7 @@ GameObject:
   - component: {fileID: 483394261}
   - component: {fileID: 483394262}
   - component: {fileID: 483394263}
+  - component: {fileID: 483394264}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -683,7 +726,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 4
   m_CollisionDetection: 0
 --- !u!114 &483394261
 MonoBehaviour:
@@ -733,6 +776,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   healthComp: {fileID: 483394262}
+--- !u!114 &483394264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483394255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dbc194c2475d134a8e20e68bf5cbcc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageOnCollision
+  contactDamage: 20
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1003,6 +1059,7 @@ GameObject:
   - component: {fileID: 1356032192}
   - component: {fileID: 1356032194}
   - component: {fileID: 1356032195}
+  - component: {fileID: 1356032196}
   m_Layer: 0
   m_Name: Start
   m_TagString: Untagged
@@ -1063,6 +1120,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileSpawner
   projectilePrefab: {fileID: 5911925321295324075, guid: 7417268370692fd4a8a59bc4b541bf4d, type: 3}
+--- !u!114 &1356032196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356032191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c093132d556f15c48917e3ebb8c87c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeathManager
 --- !u!1 &1475353069
 GameObject:
   m_ObjectHideFlags: 0

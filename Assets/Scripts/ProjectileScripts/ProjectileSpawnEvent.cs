@@ -3,5 +3,5 @@ using UnityEngine;
 
 public static class ProjectileSpawnEvent
 {
-    public static Action<Vector3, Vector3, float> OnProjectileSpawn;
+    public static Action<Vector3, Vector3, float> OnProjectileSpawn; // Spawn Position, Direction, and Force Strength
 }
