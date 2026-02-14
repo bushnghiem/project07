@@ -27,10 +27,6 @@ public class DeathManager : MonoBehaviour
     public void HandleDeath(Entity entity)
     {
         Debug.Log(entity + "death occured at: " + entity.Position);
-        // If it’s a MonoBehaviour, destroy the GameObject
-        if (entity is MonoBehaviour mb)
-        {
-            Destroy(mb.gameObject);
-        }
+        entity.Kill();
     }
 }

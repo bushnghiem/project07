@@ -8,7 +8,7 @@ public class EnemyTurnState : BattleState
     public override void Enter()
     {
         Debug.Log(manager.enemy);
-        if (manager.enemy != null)
+        if (!manager.enemy.isDead)
         {
             manager.StartCoroutine(EnemyRoutine());
         }
@@ -19,7 +19,7 @@ public class EnemyTurnState : BattleState
         Debug.Log("Enemy Thinking...");
         yield return new WaitForSeconds(1f);
 
-        if (manager.enemy != null)
+        if (!manager.enemy.isDead)
         {
             manager.enemy.Attack(manager.player);
         }

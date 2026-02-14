@@ -7,11 +7,11 @@ public class PlayerTurnState : BattleState
     public override void Enter()
     {
         Debug.Log("Player Turn");
-        manager.player.EnablePlayer(true);
+        TurnEvent.OnPlayerTurnStart?.Invoke(manager.player);
     }
 
     public override void Exit()
     {
-        manager.player.EnablePlayer(false);
+        manager.player.EndOfTurn();
     }
 }

@@ -103,13 +103,13 @@ public class ClickAndFling : MonoBehaviour
         if (projectileMode)
         {
             ProjectileSpawnEvent.OnProjectileSpawn?.Invoke(projectileSpawnPosition, direction, forceStrength);
-            TurnEvent.OnPlayerTurnEnd?.Invoke((Entity)this.transform.parent);
+            TurnEvent.OnPlayerTurnEnd?.Invoke((Unit)this.transform.parent);
         }
         else
         {
             rb.AddForce(direction * forceStrength, ForceMode.Impulse);
             FlingEvent.OnFling?.Invoke(direction, forceStrength);
-            TurnEvent.OnPlayerTurnEnd?.Invoke((Entity)this.transform.parent);
+            TurnEvent.OnPlayerTurnEnd?.Invoke((Unit)this.transform.parent);
             //Debug.Log(forceStrength);
         }
         FlingEvent.OnPowerChanged?.Invoke(0f);

@@ -49,7 +49,6 @@ public class BattleManager : MonoBehaviour
     public void HandlePlayerTurnEnd(Entity player)
     {
         Debug.Log(player + " has ended turn");
-
         SwitchState(new EnemyTurnState(this));
     }
 

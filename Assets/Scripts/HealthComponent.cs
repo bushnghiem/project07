@@ -6,7 +6,7 @@ public class HealthComponent : MonoBehaviour
     [Header("Health")]
     [SerializeField] private float currentHealth;
     [SerializeField] private float maxHealth;
-    public bool isDead;
+    public bool isDead = false;
 
     public event Action<float> OnDamaged;
     public event Action<float> OnHealed;

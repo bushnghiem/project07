@@ -1,15 +1,64 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour, Entity
+public class Player : MonoBehaviour, Unit
 {
     public ClickAndFling clickAndFlingComponent;
     public HealthComponent healthComp;
 
     public Vector3 Position => transform.position;
+    public bool isDead => healthComp.isDead;
+
+    private Collider[] colliders;
+    private Renderer[] renderers;
 
     private void Awake()
     {
         healthComp = GetComponent<HealthComponent>();
+        colliders = GetComponentsInChildren<Collider>();
+        renderers = GetComponentsInChildren<Renderer>();
+    }
+
+    void DisablePhysics()
+    {
+        foreach (var col in colliders)
+            col.enabled = false;
+    }
+
+    void DisableVisuals()
+    {
+        foreach (var r in renderers)
+            r.enabled = false;
+    }
+
+    public void Move()
+    {
+        clickAndFlingComponent.SetFlingable(true);
+        clickAndFlingComponent.SetProjectileMode(false);
+    }
+
+    public void Shoot()
+    {
+        clickAndFlingComponent.SetFlingable(true);
+        clickAndFlingComponent.SetProjectileMode(true);
+    }
+
+    public void Item()
+    {
+        Debug.Log("Player Used Item");
+        TurnEvent.OnPlayerTurnEnd?.Invoke(this);
+    }
+
+    public void EndOfTurn()
+    {
+        clickAndFlingComponent.SetFlingable(false);
+        clickAndFlingComponent.SetProjectileMode(false);
+    }
+
+    public void Kill()
+    {
+        DisablePhysics();
+        DisableVisuals();
+        Destroy(gameObject, 1.0f);
     }
 
     private void OnEnable()
@@ -44,11 +93,6 @@ public class Player : MonoBehaviour, Entity
     public bool GetIsDead()
     {
         return healthComp.isDead;
-    }
-
-    public void EnablePlayer(bool value)
-    {
-        clickAndFlingComponent.SetFlingable(value);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
