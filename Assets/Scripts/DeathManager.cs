@@ -24,9 +24,13 @@ public class DeathManager : MonoBehaviour
         DeathEvent.OnEntityDeath -= HandleDeath;
     }
 
-    public void HandleDeath(Vector3 deathPosition, GameObject gameObject)
+    public void HandleDeath(Entity entity)
     {
-        Debug.Log(gameObject.name + "death occured at: " + deathPosition);
-        Destroy(gameObject);
+        Debug.Log(entity + "death occured at: " + entity.Position);
+        // If it’s a MonoBehaviour, destroy the GameObject
+        if (entity is MonoBehaviour mb)
+        {
+            Destroy(mb.gameObject);
+        }
     }
 }

@@ -1,8 +1,10 @@
 using UnityEngine;
 
-public class DestructableEnvironment : MonoBehaviour
+public class DestructableEnvironment : MonoBehaviour, Entity
 {
     public HealthComponent healthComp;
+
+    public Vector3 Position => transform.position;
 
     private void Awake()
     {
@@ -35,7 +37,7 @@ public class DestructableEnvironment : MonoBehaviour
 
     private void HandleDeath()
     {
-        DeathEvent.OnEntityDeath?.Invoke(transform.position, gameObject);
+        DeathEvent.OnEntityDeath?.Invoke(this);
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

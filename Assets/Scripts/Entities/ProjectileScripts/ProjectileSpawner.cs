@@ -19,7 +19,6 @@ public class ProjectileSpawner : MonoBehaviour
     private void OnEnable()
     {
         ProjectileSpawnEvent.OnProjectileSpawn += SpawnProjectile;
-        Debug.Log("Spawner subscribed on: " + gameObject.name);
     }
 
     private void OnDisable()

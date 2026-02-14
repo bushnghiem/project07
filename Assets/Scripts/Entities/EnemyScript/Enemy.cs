@@ -1,17 +1,13 @@
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Enemy : MonoBehaviour, Entity
 {
-    Rigidbody rb;
-    public float linearDamping = 2.0f;
-    public float angularDamping = 2.0f;
-    public float lifeTime = 5.0f;
-
     public HealthComponent healthComp;
+
+    public Vector3 Position => transform.position;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
         healthComp = GetComponent<HealthComponent>();
     }
 
@@ -31,36 +27,35 @@ public class Projectile : MonoBehaviour
 
     private void HandleDamaged(float damage)
     {
-        Debug.Log($"Projectile took {damage} damage");
+        Debug.Log($"Enemy took {damage} damage");
     }
 
     private void HandleHealed(float amount)
     {
-        Debug.Log($"Projectile healed {amount}");
+        Debug.Log($"Enemy healed {amount}");
     }
 
     private void HandleDeath()
     {
-        DeathEvent.OnEntityDeath?.Invoke(transform.position, gameObject);
+        DeathEvent.OnEntityDeath?.Invoke(this);
     }
+
+    public void Attack(Player target)
+    {
+        Debug.Log("Enemy attacks!");
+        TurnEvent.OnEnemyTurnEnd?.Invoke(this);
+    }
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rb.linearDamping = linearDamping;
-        rb.angularDamping = angularDamping;
-        Invoke("HandleDeath", lifeTime);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-
-    public void Fling(Vector3 direction, float forceStrength)
-    {
-        rb.AddForce(direction * forceStrength, ForceMode.Impulse);
     }
 }

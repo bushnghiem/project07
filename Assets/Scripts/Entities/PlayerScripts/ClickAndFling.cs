@@ -7,8 +7,8 @@ public class ClickAndFling : MonoBehaviour
     Quaternion startRotation;
 
     Vector3 mouseStart; float zDistance;
-    [SerializeField] bool flingable = true;
-    [SerializeField] bool projectileMode = true;
+    [SerializeField] bool flingable = false;
+    [SerializeField] bool projectileMode = false;
     [SerializeField] float projectileSpawnRadius = 2.0f;
     bool isDragging = false;
 
@@ -26,6 +26,16 @@ public class ClickAndFling : MonoBehaviour
         rb.linearDamping = linearDamping;
         rb.angularDamping = angularDamping;
         startRotation = transform.rotation;
+    }
+
+    public void SetFlingable(bool value)
+    {
+        flingable = value;
+    }
+
+    public void SetProjectileMode(bool value)
+    {
+        projectileMode = value;
     }
 
     void Update()
@@ -93,11 +103,13 @@ public class ClickAndFling : MonoBehaviour
         if (projectileMode)
         {
             ProjectileSpawnEvent.OnProjectileSpawn?.Invoke(projectileSpawnPosition, direction, forceStrength);
+            TurnEvent.OnPlayerTurnEnd?.Invoke((Entity)this.transform.parent);
         }
         else
         {
             rb.AddForce(direction * forceStrength, ForceMode.Impulse);
             FlingEvent.OnFling?.Invoke(direction, forceStrength);
+            TurnEvent.OnPlayerTurnEnd?.Invoke((Entity)this.transform.parent);
             //Debug.Log(forceStrength);
         }
         FlingEvent.OnPowerChanged?.Invoke(0f);

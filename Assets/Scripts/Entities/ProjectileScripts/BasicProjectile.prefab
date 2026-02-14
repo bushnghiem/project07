@@ -130,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   linearDamping: 2
   angularDamping: 2
+  lifeTime: 5
   healthComp: {fileID: 0}
 --- !u!54 &323944487683256840
 Rigidbody:
@@ -170,7 +171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dbc194c2475d134a8e20e68bf5cbcc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnCollision
-  contactDamage: 15
+  contactDamage: 20
+  knockbackStrength: 2
 --- !u!114 &8815638795568486749
 MonoBehaviour:
   m_ObjectHideFlags: 0

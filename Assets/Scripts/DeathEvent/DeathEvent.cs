@@ -3,5 +3,5 @@ using UnityEngine;
 
 public static class DeathEvent
 {
-    public static Action<Vector3, GameObject> OnEntityDeath; // Death Position, Entity
+    public static Action<Entity> OnEntityDeath; // Entity
 }
