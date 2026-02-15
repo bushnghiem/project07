@@ -13,8 +13,10 @@ public class ClickAndFling : MonoBehaviour
     bool isDragging = false;
 
     [Header("Force Settings")]
-    public float minForce = 2f;
-    public float maxForce = 20f;
+    public float minMovementForce = 2f;
+    public float maxMovementForce = 20f;
+    public float minShootingForce = 2f;
+    public float maxShootingForce = 20f;
     public float maxDragDistance = 200f;
     public float linearDamping = 2.0f;
     public float angularDamping = 2.0f;
@@ -96,17 +98,18 @@ public class ClickAndFling : MonoBehaviour
         float dragLength = drag.magnitude;
         if (dragLength < 10f) return;
         float t = Mathf.Clamp01(dragLength / maxDragDistance);
-        float forceStrength = Mathf.Lerp(minForce, maxForce, t);
         Vector3 direction = new Vector3(-drag.x, 0, -drag.y);
         direction.Normalize();
         Vector3 projectileSpawnPosition = transform.position + direction.normalized * projectileSpawnRadius;
         if (projectileMode)
         {
+            float forceStrength = Mathf.Lerp(minShootingForce, maxShootingForce, t);
             ProjectileSpawnEvent.OnProjectileSpawn?.Invoke(projectileSpawnPosition, direction, forceStrength);
             TurnEvent.OnPlayerTurnEnd?.Invoke((Unit)this.transform.parent);
         }
         else
         {
+            float forceStrength = Mathf.Lerp(minMovementForce, maxMovementForce, t);
             rb.AddForce(direction * forceStrength, ForceMode.Impulse);
             FlingEvent.OnFling?.Invoke(direction, forceStrength);
             TurnEvent.OnPlayerTurnEnd?.Invoke((Unit)this.transform.parent);

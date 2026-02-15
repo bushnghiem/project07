@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour, Unit
     private Collider[] colliders;
     private Renderer[] renderers;
 
+    private ShipRunData runData;
+
     private void Awake()
     {
         healthComp = GetComponent<HealthComponent>();
@@ -27,6 +29,16 @@ public class Enemy : MonoBehaviour, Unit
     {
         foreach (var r in renderers)
             r.enabled = false;
+    }
+
+    public void Initialize(ShipRunData data)
+    {
+        runData = data;
+
+        // Set starting HP
+        Debug.Log("Spawning Enemy Unit with HP: " + runData.currentHealth);
+        healthComp.SetMaxHealth(runData.maxHealth);
+        healthComp.SetCurrentHealth(runData.currentHealth);
     }
 
     public void Move()

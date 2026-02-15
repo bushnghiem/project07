@@ -6,8 +6,6 @@ public class ItemAction : TurnAction
 
     public void Execute(Unit unit)
     {
-        //Debug.Log(unit + " is moving");
-        // enter movement targeting mode
         unit.Item();
     }
 }

@@ -13,4 +13,6 @@ public interface Shootable
 public interface Unit : Movable, Shootable, Entity
 {
     void Item();
+
+    void Initialize(ShipRunData runData);
 }
