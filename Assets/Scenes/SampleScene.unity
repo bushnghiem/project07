@@ -615,7 +615,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 443994104}
   serializedVersion: 5
-  m_Mass: 50
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1574,10 +1574,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2875450249567645148, guid: 4446399962f7f4445ad433ea34dd50d2, type: 3}
+      propertyPath: currentHealth
+      value: 4900
+      objectReference: {fileID: 0}
     - target: {fileID: 7295725305768939094, guid: 4446399962f7f4445ad433ea34dd50d2, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8694316127547506820, guid: 4446399962f7f4445ad433ea34dd50d2, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8818979304575841573, guid: 4446399962f7f4445ad433ea34dd50d2, type: 3}
+      propertyPath: startingItem
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f09db5fc03733746b28b882d1bd11d1, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

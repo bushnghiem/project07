@@ -13,11 +13,16 @@ public class Player : MonoBehaviour, Unit
 
     private ShipRunData runData;
 
+    public ActiveItem startingItem;
+
+    private ActiveItemInstance activeItem;
+
     private void Awake()
     {
         healthComp = GetComponent<HealthComponent>();
         colliders = GetComponentsInChildren<Collider>();
         renderers = GetComponentsInChildren<Renderer>();
+        activeItem = new ActiveItemInstance(startingItem);
     }
 
     void DisablePhysics()
@@ -56,7 +61,7 @@ public class Player : MonoBehaviour, Unit
 
     public void Item()
     {
-        Debug.Log("Player Used Item");
+        activeItem.Use(this, this);
         TurnEvent.OnPlayerTurnEnd?.Invoke(this);
     }
 
@@ -71,6 +76,16 @@ public class Player : MonoBehaviour, Unit
         DisablePhysics();
         DisableVisuals();
         Destroy(gameObject, 1.0f);
+    }
+
+    public void Hurt(float amount)
+    {
+        healthComp.Hurt(amount);
+    }
+
+    public void Heal(float amount)
+    {
+        healthComp.Heal(amount);
     }
 
     private void OnEnable()

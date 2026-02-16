@@ -8,10 +8,10 @@ public class DamageOnCollision : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //Debug.Log("Hit");
-        HealthComponent health = collision.collider.GetComponentInParent<HealthComponent>();
-        if (health == null) return;
+        Entity entity = collision.collider.GetComponentInParent<Entity>();
+        if (entity == null) return;
 
-        health.Hurt(contactDamage);
+        entity.Hurt(contactDamage);
 
         Rigidbody rb = collision.rigidbody;
         if (rb != null)

@@ -11,10 +11,10 @@ public class DamageTrigger : MonoBehaviour
     {
         if (Time.time < lastDamageTime + damageCooldown) return;
 
-        HealthComponent health = other.GetComponentInParent<HealthComponent>();
-        if (health == null) return;
+        Entity entity = other.GetComponentInParent<Entity>();
+        if (entity == null) return;
 
-        health.Hurt(damage);
+        entity.Hurt(damage);
         lastDamageTime = Time.time;
     }
 }

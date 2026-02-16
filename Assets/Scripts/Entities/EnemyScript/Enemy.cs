@@ -63,6 +63,16 @@ public class Enemy : MonoBehaviour, Unit
         Destroy(gameObject, 1.0f);
     }
 
+    public void Hurt(float amount)
+    {
+        healthComp.Hurt(amount);
+    }
+
+    public void Heal(float amount)
+    {
+        healthComp.Heal(amount);
+    }
+
     private void OnEnable()
     {
         healthComp.OnDamaged += HandleDamaged;
