@@ -755,6 +755,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   healthComp: {fileID: 443994110}
+  initiative: 10
 --- !u!114 &443994112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1577,6 +1578,14 @@ PrefabInstance:
     - target: {fileID: 2875450249567645148, guid: 4446399962f7f4445ad433ea34dd50d2, type: 3}
       propertyPath: currentHealth
       value: 4900
+      objectReference: {fileID: 0}
+    - target: {fileID: 7007496768919672062, guid: 4446399962f7f4445ad433ea34dd50d2, type: 3}
+      propertyPath: maxMovementForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7007496768919672062, guid: 4446399962f7f4445ad433ea34dd50d2, type: 3}
+      propertyPath: maxShootingForce
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7295725305768939094, guid: 4446399962f7f4445ad433ea34dd50d2, type: 3}
       propertyPath: m_Name

@@ -12,7 +12,15 @@ public interface Shootable
 
 public interface Unit : Movable, Shootable, Entity
 {
+    bool IsPlayerControllable { get;}
+
+    int Initiative {  get;}
+
     void Item();
 
     void Initialize(ShipRunData runData);
+
+    void StartTurn();
+
+    void EndTurn();
 }

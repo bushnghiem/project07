@@ -4,7 +4,11 @@ public class Enemy : MonoBehaviour, Unit
 {
     public HealthComponent healthComp;
 
+    public int initiative = 10;
+
     public Vector3 Position => transform.position;
+    public bool IsPlayerControllable => false;
+    public int Initiative => initiative;
     public bool isDead => healthComp.isDead;
 
     private Collider[] colliders;
@@ -19,16 +23,18 @@ public class Enemy : MonoBehaviour, Unit
         renderers = GetComponentsInChildren<Renderer>();
     }
 
-    void DisablePhysics()
+    private void OnEnable()
     {
-        foreach (var col in colliders)
-            col.enabled = false;
+        healthComp.OnDamaged += HandleDamaged;
+        healthComp.OnHealed += HandleHealed;
+        healthComp.OnDeath += HandleDeath;
     }
 
-    void DisableVisuals()
+    private void OnDisable()
     {
-        foreach (var r in renderers)
-            r.enabled = false;
+        healthComp.OnDamaged -= HandleDamaged;
+        healthComp.OnHealed -= HandleHealed;
+        healthComp.OnDeath -= HandleDeath;
     }
 
     public void Initialize(ShipRunData data)
@@ -39,6 +45,18 @@ public class Enemy : MonoBehaviour, Unit
         Debug.Log("Spawning Enemy Unit with HP: " + runData.currentHealth);
         healthComp.SetMaxHealth(runData.maxHealth);
         healthComp.SetCurrentHealth(runData.currentHealth);
+    }
+
+    void DisablePhysics()
+    {
+        foreach (var col in colliders)
+            col.enabled = false;
+    }
+
+    void DisableVisuals()
+    {
+        foreach (var r in renderers)
+            r.enabled = false;
     }
 
     public void Move()
@@ -63,6 +81,16 @@ public class Enemy : MonoBehaviour, Unit
         Destroy(gameObject, 1.0f);
     }
 
+    public void StartTurn()
+    {
+
+    }
+
+    public void EndTurn()
+    {
+
+    }
+
     public void Hurt(float amount)
     {
         healthComp.Hurt(amount);
@@ -71,20 +99,6 @@ public class Enemy : MonoBehaviour, Unit
     public void Heal(float amount)
     {
         healthComp.Heal(amount);
-    }
-
-    private void OnEnable()
-    {
-        healthComp.OnDamaged += HandleDamaged;
-        healthComp.OnHealed += HandleHealed;
-        healthComp.OnDeath += HandleDeath;
-    }
-
-    private void OnDisable()
-    {
-        healthComp.OnDamaged -= HandleDamaged;
-        healthComp.OnHealed -= HandleHealed;
-        healthComp.OnDeath -= HandleDeath;
     }
 
     private void HandleDamaged(float damage)
