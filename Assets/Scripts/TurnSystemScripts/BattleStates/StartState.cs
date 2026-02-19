@@ -6,9 +6,10 @@ public class StartState : BattleState
 
     public override void Enter()
     {
-        Debug.Log("Battle Started");
-
-        manager.SwitchState(new PlayerTurnState(manager));
+        Debug.Log("Round Started");
+        manager.RoundStart();
+        //manager.SwitchState(new PlayerTurnState(manager));
+        manager.SwitchState(new UnitTurnState(manager));
     }
 }
 

@@ -10,6 +10,7 @@ public class TestRun : MonoBehaviour
     {
         RunData runData = RunManager.Instance.CurrentRun;
         spawner.SpawnTeam(runData);
+        spawner.SpawnUnit(spawner.enemyData, 3);
     }
 
     // Update is called once per frame

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class ClickAndFling : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class ClickAndFling : MonoBehaviour
     public float maxDragDistance = 200f;
     public float linearDamping = 2.0f;
     public float angularDamping = 2.0f;
+
+    public event Action<Vector3, float> OnFling; // direction, force
 
     void Start()
     { 
@@ -105,16 +108,15 @@ public class ClickAndFling : MonoBehaviour
         {
             float forceStrength = Mathf.Lerp(minShootingForce, maxShootingForce, t);
             ProjectileSpawnEvent.OnProjectileSpawn?.Invoke(projectileSpawnPosition, direction, forceStrength);
-            TurnEvent.OnPlayerTurnEnd?.Invoke((Unit)this.transform.parent);
+            OnFling?.Invoke(direction, forceStrength);
         }
         else
         {
             float forceStrength = Mathf.Lerp(minMovementForce, maxMovementForce, t);
             rb.AddForce(direction * forceStrength, ForceMode.Impulse);
-            FlingEvent.OnFling?.Invoke(direction, forceStrength);
-            TurnEvent.OnPlayerTurnEnd?.Invoke((Unit)this.transform.parent);
-            //Debug.Log(forceStrength);
+            OnFling?.Invoke(direction, forceStrength);
         }
+        Debug.Log("Set power to 0");
         FlingEvent.OnPowerChanged?.Invoke(0f);
     }
 }

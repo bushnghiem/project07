@@ -2,22 +2,22 @@ using UnityEngine;
 
 public class UnitSpawner : MonoBehaviour
 {
-    public GameObject unitPrefab;
+    public GameObject[] unitPrefab;
     public Transform[] spawnPoints;
+    public ShipRunData enemyData;
 
-    public void SpawnUnit(ShipRunData ShipRunData)
+    public void SpawnUnit(ShipRunData ShipRunData, int spawnIndex)
     {
-        GameObject unit = Instantiate(unitPrefab);
-        Unit unitComponent = unit.GetComponent<Unit>();
+        GameObject obj = Instantiate(unitPrefab[1], spawnPoints[spawnIndex].position, Quaternion.identity);
+        obj.GetComponent<Unit>().Initialize(ShipRunData);
 
-        unitComponent.Initialize(ShipRunData);
     }
 
     public void SpawnTeam(RunData runData)
     {
         for (int i = 0; i < runData.team.Count; i++)
         {
-            GameObject obj = Instantiate(unitPrefab, spawnPoints[i].position, Quaternion.identity);
+            GameObject obj = Instantiate(unitPrefab[0], spawnPoints[i].position, Quaternion.identity);
 
             obj.GetComponent<Unit>().Initialize(runData.team[i]);
         }

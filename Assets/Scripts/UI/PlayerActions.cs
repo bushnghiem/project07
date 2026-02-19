@@ -8,7 +8,8 @@ public class PlayerActions : MonoBehaviour
     public Button attackButton;
     public Button itemButton;
     public Button endTurnButton;
-    public GameObject panel;
+    public GameObject playerActionPanel;
+    public GameObject barPanel;
 
     private Unit currentUnit;
 
@@ -20,26 +21,31 @@ public class PlayerActions : MonoBehaviour
     {
         TurnEvent.OnPlayerTurnStart += HandlePlayerTurnStart;
         TurnEvent.OnPlayerTurnEnd += HandlePlayerTurnEnd;
+        TurnEvent.OnUnitTurnStart += HandleUnitTurnStart;
+        TurnEvent.OnUnitTurnEnd += HandleUnitTurnEnd;
     }
 
     private void OnDisable()
     {
         TurnEvent.OnPlayerTurnStart -= HandlePlayerTurnStart;
         TurnEvent.OnPlayerTurnEnd -= HandlePlayerTurnEnd;
+        TurnEvent.OnUnitTurnStart -= HandleUnitTurnStart;
+        TurnEvent.OnUnitTurnEnd -= HandleUnitTurnEnd;
     }
 
     private void Awake()
     {
-        moveButton.onClick.AddListener(() => Execute(moveAction));
-        attackButton.onClick.AddListener(() => Execute(shootAction));
-        itemButton.onClick.AddListener(() => Execute(itemAction));
-        endTurnButton.onClick.AddListener(() => TurnEvent.OnPlayerTurnEnd?.Invoke(currentUnit));
+        
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Debug.Log("Added button clicks");
+        moveButton.onClick.AddListener(() => Execute(moveAction));
+        attackButton.onClick.AddListener(() => Execute(shootAction));
+        itemButton.onClick.AddListener(() => Execute(itemAction));
+        endTurnButton.onClick.AddListener(() => currentUnit.EndTurn());
     }
 
     // Update is called once per frame
@@ -50,30 +56,50 @@ public class PlayerActions : MonoBehaviour
 
     public void HandlePlayerTurnStart(Unit unit)
     {
-        Debug.Log("Show UI");
         ShowActions(unit);
     }
 
     public void HandlePlayerTurnEnd(Unit unit)
     {
-        Debug.Log("Hide UI");
-        currentUnit = unit;
         Hide();
+    }
+
+    public void HandleUnitTurnStart(Unit unit)
+    {
+        if (unit.IsPlayerControllable)
+        {
+            Debug.Log("Is Player");
+            ShowActions(unit);
+        }
+    }
+
+    public void HandleUnitTurnEnd(Unit unit)
+    {
+        if (unit.IsPlayerControllable)
+        {
+            Debug.Log("Is Player");
+            Hide();
+        }
     }
 
     public void ShowActions(Unit unit)
     {
+        Debug.Log("Show UI");
         currentUnit = unit;
-        panel.SetActive(true);
+        playerActionPanel.SetActive(true);
+        barPanel.SetActive(true);
     }
 
     public void Hide()
     {
-        panel.SetActive(false);
+        Debug.Log("Hide UI");
+        playerActionPanel.SetActive(false);
+        barPanel.SetActive(false);
     }
 
     private void Execute(TurnAction action)
     {
+        Debug.Log(action);
         action.Execute(currentUnit);
     }
 }

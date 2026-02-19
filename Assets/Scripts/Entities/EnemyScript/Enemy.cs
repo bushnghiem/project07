@@ -45,6 +45,8 @@ public class Enemy : MonoBehaviour, Unit
         Debug.Log("Spawning Enemy Unit with HP: " + runData.currentHealth);
         healthComp.SetMaxHealth(runData.maxHealth);
         healthComp.SetCurrentHealth(runData.currentHealth);
+        SpawnEvent.OnUnitSpawned?.Invoke(this);
+        Debug.Log("Enemy Spawned");
     }
 
     void DisablePhysics()
@@ -83,12 +85,14 @@ public class Enemy : MonoBehaviour, Unit
 
     public void StartTurn()
     {
-
+        Debug.Log("Enemy Thinking...");
+        TurnEvent.OnUnitTurnStart?.Invoke(this);
+        Attack();
     }
 
     public void EndTurn()
     {
-
+        TurnEvent.OnUnitTurnEnd?.Invoke(this);
     }
 
     public void Hurt(float amount)
@@ -116,17 +120,19 @@ public class Enemy : MonoBehaviour, Unit
         DeathEvent.OnEntityDeath?.Invoke(this);
     }
 
-    public void Attack(Player target)
+    public void Attack()
     {
         Debug.Log("Enemy attacks!");
-        TurnEvent.OnEnemyTurnEnd?.Invoke(this);
+        //TurnEvent.OnEnemyTurnEnd?.Invoke(this);
+        EndTurn();
     }
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        //SpawnEvent.OnUnitSpawned?.Invoke(this);
+        //Debug.Log("Enemy Spawned");
     }
 
     // Update is called once per frame

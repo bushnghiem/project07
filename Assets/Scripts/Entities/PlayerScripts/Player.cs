@@ -8,7 +8,7 @@ public class Player : MonoBehaviour, Unit
     public int initiative = 10;
 
     public Vector3 Position => transform.position;
-    public bool IsPlayerControllable => false;
+    public bool IsPlayerControllable => true;
     public int Initiative => initiative;
     public bool isDead => healthComp.isDead;
 
@@ -34,6 +34,7 @@ public class Player : MonoBehaviour, Unit
         healthComp.OnDamaged += HandleDamaged;
         healthComp.OnHealed += HandleHealed;
         healthComp.OnDeath += HandleDeath;
+        clickAndFlingComponent.OnFling += HandleFling;
     }
 
     private void OnDisable()
@@ -41,6 +42,7 @@ public class Player : MonoBehaviour, Unit
         healthComp.OnDamaged -= HandleDamaged;
         healthComp.OnHealed -= HandleHealed;
         healthComp.OnDeath -= HandleDeath;
+        clickAndFlingComponent.OnFling -= HandleFling;
     }
 
     public void Initialize(ShipRunData data)
@@ -51,6 +53,8 @@ public class Player : MonoBehaviour, Unit
         Debug.Log("Spawning Player Unit with HP: " + runData.currentHealth);
         healthComp.SetMaxHealth(runData.maxHealth);
         healthComp.SetCurrentHealth(runData.currentHealth);
+        SpawnEvent.OnUnitSpawned?.Invoke(this);
+        Debug.Log("Player Spawned");
     }
 
     void DisablePhysics()
@@ -80,7 +84,7 @@ public class Player : MonoBehaviour, Unit
     public void Item()
     {
         activeItem.Use(this, this);
-        TurnEvent.OnPlayerTurnEnd?.Invoke(this);
+        EndTurn();
     }
 
     public void Kill()
@@ -92,18 +96,20 @@ public class Player : MonoBehaviour, Unit
 
     public void StartTurn()
     {
-
+        TurnEvent.OnUnitTurnStart?.Invoke(this);
     }
 
     public void EndTurn()
     {
-
+        clickAndFlingComponent.SetFlingable(false);
+        clickAndFlingComponent.SetProjectileMode(false);
+        //TurnEvent.OnPlayerTurnEnd?.Invoke(this);
+        TurnEvent.OnUnitTurnEnd?.Invoke(this);
     }
 
     public void EndOfTurn()
     {
-        clickAndFlingComponent.SetFlingable(false);
-        clickAndFlingComponent.SetProjectileMode(false);
+
     }
 
     public void Hurt(float amount)
@@ -131,6 +137,12 @@ public class Player : MonoBehaviour, Unit
         DeathEvent.OnEntityDeath?.Invoke(this);
     }
 
+    private void HandleFling(Vector3 direction, float forceStrength)
+    {
+        Debug.Log("Fling in " +  direction + " at this this strength " + forceStrength);
+        EndTurn();
+    }
+
     public bool GetIsDead()
     {
         return healthComp.isDead;
@@ -139,7 +151,8 @@ public class Player : MonoBehaviour, Unit
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        //SpawnEvent.OnUnitSpawned?.Invoke(this);
+        //Debug.Log("Player Spawned");
     }
 
     // Update is called once per frame

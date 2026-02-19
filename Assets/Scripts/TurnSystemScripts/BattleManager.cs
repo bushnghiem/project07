@@ -1,17 +1,26 @@
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
     private BattleState currentState;
 
-    public Player player;
-    public Enemy enemy;
+    public Unit currentUnit;
+    private int currentIndex = 0;
+    private int currentRound = 0;
+
+    public List<Unit> allUnits = new List<Unit>();
+    public List<Unit> allPlayers = new List<Unit>();
+    public List<Unit> allEnemies = new List<Unit>();
 
     private void OnEnable()
     {
         DeathEvent.OnEntityDeath += HandleBattleDeath;
         TurnEvent.OnPlayerTurnEnd += HandlePlayerTurnEnd;
         TurnEvent.OnEnemyTurnEnd += HandleEnemyTurnEnd;
+        TurnEvent.OnUnitTurnEnd += HandleUnitTurnEnd;
+        SpawnEvent.OnUnitSpawned += HandleUnitSpawned;
     }
 
     private void OnDisable()
@@ -19,14 +28,8 @@ public class BattleManager : MonoBehaviour
         DeathEvent.OnEntityDeath -= HandleBattleDeath;
         TurnEvent.OnPlayerTurnEnd -= HandlePlayerTurnEnd;
         TurnEvent.OnEnemyTurnEnd -= HandleEnemyTurnEnd;
-    }
-
-    private void HandleBattleDeath(Entity deadEntity)
-    {
-        if (deadEntity is Player)
-            SwitchState(new LoseState(this));
-        else if (deadEntity is Enemy)
-            SwitchState(new WinState(this));
+        TurnEvent.OnUnitTurnEnd -= HandleUnitTurnEnd;
+        SpawnEvent.OnUnitSpawned -= HandleUnitSpawned;
     }
 
     private void Start()
@@ -46,15 +49,122 @@ public class BattleManager : MonoBehaviour
         currentState.Enter();
     }
 
+    public void RoundStart()
+    {
+        currentRound += 1;
+        Debug.Log(currentRound);
+        SortByInitiative();
+        currentIndex = 0;
+        currentUnit = allUnits[currentIndex];
+    }
+
+    public void SortByInitiative()
+    {
+        allUnits = allUnits
+        .OrderByDescending(u => u.Initiative)       // highest initiative first
+        .ThenBy(u => u.IsPlayerControllable == true ? 0 : 1) // Player units first on tie
+        .ToList();
+    }
+
+    public void RemoveDeadUnit(Unit unit)
+    {
+        int index = allUnits.IndexOf(unit);
+
+        if (index == -1) return;
+
+        // If the removed unit is BEFORE the current index,
+        // we must shift the index back
+        if (index < currentIndex)
+        {
+            currentIndex--;
+        }
+
+        allUnits.RemoveAt(index);
+
+        if (unit.IsPlayerControllable)
+            allPlayers.Remove(unit);
+        else
+            allEnemies.Remove(unit);
+
+    }
+
+    public bool checkWin()
+    {
+        if (allEnemies.Count == 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool checkLoss()
+    {
+        if (allPlayers.Count == 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private void HandleBattleDeath(Entity deadEntity)
+    {
+        if (deadEntity is Unit)
+        {
+            RemoveDeadUnit((Unit)deadEntity);
+        }
+    }
+
     public void HandlePlayerTurnEnd(Entity player)
     {
         Debug.Log(player + " has ended turn");
-        SwitchState(new EnemyTurnState(this));
+        //SwitchState(new EnemyTurnState(this));
     }
 
     public void HandleEnemyTurnEnd(Entity enemy)
     {
         Debug.Log(enemy + " has ended turn");
-        SwitchState(new PlayerTurnState(this));
+        //SwitchState(new PlayerTurnState(this));
+    }
+
+    public void HandleUnitTurnEnd(Unit unit)
+    {
+        if (checkWin())
+        {
+            SwitchState(new WinState(this));
+            return;
+        }
+        if (checkLoss())
+        {
+            SwitchState(new LoseState(this));
+            return;
+        }
+
+        Debug.Log(unit + " has ended turn");
+        currentIndex++;
+        if (currentIndex >= allUnits.Count)
+        {
+            SwitchState(new StartState(this));
+        }
+        else
+        {
+            currentUnit = allUnits[currentIndex];
+            SwitchState(new UnitTurnState(this));
+        }
+    }
+
+    public void HandleUnitSpawned(Unit unit)
+    {
+        Debug.Log("Added " +  unit);
+        allUnits.Add(unit);
+        if (unit.IsPlayerControllable)
+        {
+            allPlayers.Add(unit);
+            Debug.Log(allPlayers);
+        }
+        else
+        {
+            allEnemies.Add(unit);
+            Debug.Log(allEnemies);
+        }
     }
 }
