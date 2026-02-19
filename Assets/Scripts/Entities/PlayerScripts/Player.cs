@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, Unit
 {
+    Rigidbody rb;
     public ClickAndFling clickAndFlingComponent;
     public HealthComponent healthComp;
 
@@ -23,10 +24,17 @@ public class Player : MonoBehaviour, Unit
 
     private void Awake()
     {
+        rb = GetComponent<Rigidbody>();
         healthComp = GetComponent<HealthComponent>();
         colliders = GetComponentsInChildren<Collider>();
         renderers = GetComponentsInChildren<Renderer>();
         activeItem = new ActiveItemInstance(startingItem);
+
+        if (healthComp == null)
+            Debug.LogError("Missing HealthComponent!");
+
+        if (clickAndFlingComponent == null)
+            Debug.LogError("Missing ClickAndFling!");
     }
 
     private void OnEnable()
@@ -49,12 +57,15 @@ public class Player : MonoBehaviour, Unit
     {
         runData = data;
 
-        // Set starting HP
+        // Set starting stats
         Debug.Log("Spawning Player Unit with HP: " + runData.currentHealth);
         healthComp.SetMaxHealth(runData.maxHealth);
         healthComp.SetCurrentHealth(runData.currentHealth);
+        clickAndFlingComponent.SetForces(runData.moveStrength, runData.shotStrength);
+        rb.mass = runData.mass;
+        initiative = runData.initiative;
         SpawnEvent.OnUnitSpawned?.Invoke(this);
-        Debug.Log("Player Spawned");
+        //Debug.Log("Player Spawned");
     }
 
     void DisablePhysics()
@@ -134,6 +145,7 @@ public class Player : MonoBehaviour, Unit
 
     private void HandleDeath()
     {
+        Kill();
         DeathEvent.OnEntityDeath?.Invoke(this);
     }
 

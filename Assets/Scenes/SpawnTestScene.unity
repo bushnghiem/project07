@@ -938,14 +938,26 @@ MonoBehaviour:
     runSeed: 0
     team:
     - uniqueID: 1
-      currentHealth: 100
+      currentHealth: 20
       maxHealth: 100
+      shotStrength: 50
+      moveStrength: 1
+      mass: 100
+      initiative: 0
     - uniqueID: 2
-      currentHealth: 200
+      currentHealth: 20
       maxHealth: 200
+      shotStrength: 20
+      moveStrength: 20
+      mass: 1
+      initiative: 50
     - uniqueID: 3
-      currentHealth: 300
+      currentHealth: 20
       maxHealth: 300
+      shotStrength: 50
+      moveStrength: 50
+      mass: 1
+      initiative: 200
 --- !u!4 &1633580917
 Transform:
   m_ObjectHideFlags: 0
@@ -1033,6 +1045,10 @@ MonoBehaviour:
     uniqueID: 4
     currentHealth: 20
     maxHealth: 20
+    shotStrength: 100
+    moveStrength: 100
+    mass: 1
+    initiative: 200
 --- !u!4 &1738765428
 Transform:
   m_ObjectHideFlags: 0

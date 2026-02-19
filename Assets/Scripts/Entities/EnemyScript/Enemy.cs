@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, Unit
 {
+    Rigidbody rb;
     public HealthComponent healthComp;
 
     public int initiative = 10;
@@ -18,6 +19,7 @@ public class Enemy : MonoBehaviour, Unit
 
     private void Awake()
     {
+        rb = GetComponent<Rigidbody>();
         healthComp = GetComponent<HealthComponent>();
         colliders = GetComponentsInChildren<Collider>();
         renderers = GetComponentsInChildren<Renderer>();
@@ -45,8 +47,11 @@ public class Enemy : MonoBehaviour, Unit
         Debug.Log("Spawning Enemy Unit with HP: " + runData.currentHealth);
         healthComp.SetMaxHealth(runData.maxHealth);
         healthComp.SetCurrentHealth(runData.currentHealth);
+        //clickAndFlingComponent.SetForces(runData.moveStrength, runData.shotStrength);
+        rb.mass = runData.mass;
+        initiative = runData.initiative;
         SpawnEvent.OnUnitSpawned?.Invoke(this);
-        Debug.Log("Enemy Spawned");
+        //Debug.Log("Enemy Spawned");
     }
 
     void DisablePhysics()
@@ -117,6 +122,7 @@ public class Enemy : MonoBehaviour, Unit
 
     private void HandleDeath()
     {
+        Kill();
         DeathEvent.OnEntityDeath?.Invoke(this);
     }
 

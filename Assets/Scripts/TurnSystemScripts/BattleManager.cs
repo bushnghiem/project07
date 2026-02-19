@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -106,6 +107,77 @@ public class BattleManager : MonoBehaviour
         return false;
     }
 
+    private IEnumerator WaitForBattlefieldToSettle(Unit actingUnit)
+    {
+        //Debug.Log("Waiting for battlefield to settle...");
+
+        float stillTimer = 0f;
+        const float requiredStillTime = 0.5f;
+
+        while (stillTimer < requiredStillTime)
+        {
+            if (IsAnythingMoving())
+            {
+                //Debug.Log("Something moving...");
+                stillTimer = 0f;
+            }
+            else
+            {
+                stillTimer += Time.fixedDeltaTime;
+            }
+
+            yield return new WaitForFixedUpdate();
+        }
+
+        //Debug.Log("Battlefield settled. Ending turn.");
+        EndOfTurn(actingUnit);
+    }
+
+    private bool IsAnythingMoving()
+    {
+        Rigidbody[] bodies = FindObjectsByType<Rigidbody>(FindObjectsSortMode.None);
+
+        const float velocityThreshold = 0.05f;
+        const float angularThreshold = 0.05f;
+
+        foreach (var rb in bodies)
+        {
+            if (rb.isKinematic) continue;
+
+            if (rb.linearVelocity.sqrMagnitude > velocityThreshold * velocityThreshold)
+                return true;
+
+            if (rb.angularVelocity.sqrMagnitude > angularThreshold * angularThreshold)
+                return true;
+        }
+
+        return false;
+    }
+
+    private void EndOfTurn(Unit unit)
+    {
+        if (checkWin())
+        {
+            SwitchState(new WinState(this));
+            return;
+        }
+        if (checkLoss())
+        {
+            SwitchState(new LoseState(this));
+            return;
+        }
+        currentIndex++;
+        if (currentIndex >= allUnits.Count)
+        {
+            SwitchState(new StartState(this));
+        }
+        else
+        {
+            currentUnit = allUnits[currentIndex];
+            SwitchState(new UnitTurnState(this));
+        }
+    }
+
     private void HandleBattleDeath(Entity deadEntity)
     {
         if (deadEntity is Unit)
@@ -128,28 +200,7 @@ public class BattleManager : MonoBehaviour
 
     public void HandleUnitTurnEnd(Unit unit)
     {
-        if (checkWin())
-        {
-            SwitchState(new WinState(this));
-            return;
-        }
-        if (checkLoss())
-        {
-            SwitchState(new LoseState(this));
-            return;
-        }
-
-        Debug.Log(unit + " has ended turn");
-        currentIndex++;
-        if (currentIndex >= allUnits.Count)
-        {
-            SwitchState(new StartState(this));
-        }
-        else
-        {
-            currentUnit = allUnits[currentIndex];
-            SwitchState(new UnitTurnState(this));
-        }
+        StartCoroutine(WaitForBattlefieldToSettle(unit));
     }
 
     public void HandleUnitSpawned(Unit unit)

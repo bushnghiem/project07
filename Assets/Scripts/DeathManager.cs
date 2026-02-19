@@ -27,6 +27,6 @@ public class DeathManager : MonoBehaviour
     public void HandleDeath(Entity entity)
     {
         Debug.Log(entity + "death occured at: " + entity.Position);
-        entity.Kill();
+        //entity.Kill();
     }
 }

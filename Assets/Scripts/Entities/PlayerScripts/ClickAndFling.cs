@@ -33,6 +33,12 @@ public class ClickAndFling : MonoBehaviour
         startRotation = transform.rotation;
     }
 
+    public void SetForces(float movement, float shooting)
+    {
+        maxMovementForce = movement;
+        maxShootingForce = shooting;
+    }
+
     public void SetFlingable(bool value)
     {
         flingable = value;

@@ -6,9 +6,11 @@ public class ShipTemplate : ScriptableObject
     public string templateID;
     public string displayName;
 
-    public int baseHealth;
-    public int baseShotStrength;
-    public int baseMoveStrength;
+    public float baseHealth;
+    public float baseShotStrength;
+    public float baseMoveStrength;
+    public float baseMass;
+    public float baseInititive;
 }
 
 

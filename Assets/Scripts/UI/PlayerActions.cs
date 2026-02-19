@@ -46,6 +46,7 @@ public class PlayerActions : MonoBehaviour
         attackButton.onClick.AddListener(() => Execute(shootAction));
         itemButton.onClick.AddListener(() => Execute(itemAction));
         endTurnButton.onClick.AddListener(() => currentUnit.EndTurn());
+        Hide();
     }
 
     // Update is called once per frame
@@ -68,7 +69,7 @@ public class PlayerActions : MonoBehaviour
     {
         if (unit.IsPlayerControllable)
         {
-            Debug.Log("Is Player");
+            //Debug.Log("Is Player");
             ShowActions(unit);
         }
     }
@@ -77,14 +78,14 @@ public class PlayerActions : MonoBehaviour
     {
         if (unit.IsPlayerControllable)
         {
-            Debug.Log("Is Player");
+            //Debug.Log("Is Player");
             Hide();
         }
     }
 
     public void ShowActions(Unit unit)
     {
-        Debug.Log("Show UI");
+        //Debug.Log("Show UI");
         currentUnit = unit;
         playerActionPanel.SetActive(true);
         barPanel.SetActive(true);
@@ -92,14 +93,14 @@ public class PlayerActions : MonoBehaviour
 
     public void Hide()
     {
-        Debug.Log("Hide UI");
+        //Debug.Log("Hide UI");
         playerActionPanel.SetActive(false);
         barPanel.SetActive(false);
     }
 
     private void Execute(TurnAction action)
     {
-        Debug.Log(action);
+        //Debug.Log(action);
         action.Execute(currentUnit);
     }
 }
