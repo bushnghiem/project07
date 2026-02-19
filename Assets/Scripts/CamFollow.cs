@@ -12,12 +12,14 @@ public class CamFollow : MonoBehaviour
     {
         TurnEvent.OnUnitTurnStart += HandleUnitTurnStart;
         DeathEvent.OnEntityDeath += HandleDeath;
+        ProjectileSpawnEvent.AddCamFollow += HandleCamFollow;
     }
 
     private void OnDisable()
     {
         TurnEvent.OnUnitTurnStart -= HandleUnitTurnStart;
         DeathEvent.OnEntityDeath -= HandleDeath;
+        ProjectileSpawnEvent.AddCamFollow -= HandleCamFollow;
     }
 
     public void HandleUnitTurnStart(Unit unit)
@@ -33,8 +35,17 @@ public class CamFollow : MonoBehaviour
     {
         if (entity == target)
         {
-            Debug.Log(entity + " died");
+            //Debug.Log(entity + " died");
             target = null;
+        }
+    }
+
+    public void HandleCamFollow(Entity entity)
+    {
+        if (entity != null)
+        {
+            Debug.Log("Swapped to " + entity);
+            target = entity;
         }
     }
 

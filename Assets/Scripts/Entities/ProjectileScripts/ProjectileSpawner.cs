@@ -31,5 +31,7 @@ public class ProjectileSpawner : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(direction);
         GameObject projectile = Instantiate(projectilePrefab, position, rotation);
         projectile.GetComponent<Projectile>().Fling(direction, forceStrength);
+        Entity newInstance = projectile.GetComponent<Entity>();
+        ProjectileSpawnEvent.AddCamFollow?.Invoke(newInstance);
     }
 }
