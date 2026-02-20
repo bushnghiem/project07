@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2875450249567645148}
   - component: {fileID: 8818979304575841573}
   - component: {fileID: 4614211871170628527}
+  - component: {fileID: 2481838852082444043}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -165,8 +166,6 @@ MonoBehaviour:
   minShootingForce: 2
   maxShootingForce: 10
   maxDragDistance: 300
-  linearDamping: 2
-  angularDamping: 2
 --- !u!114 &2875450249567645148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,8 +193,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86ba1bf98af4e764caf08510ec0adcd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+  linearDamping: 2
+  angularDamping: 2
   clickAndFlingComponent: {fileID: 7007496768919672062}
   healthComp: {fileID: 2875450249567645148}
+  exploderComp: {fileID: 0}
+  initiative: 10
+  startingItem: {fileID: 0}
 --- !u!114 &4614211871170628527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +214,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnCollision
   contactDamage: 20
   knockbackStrength: 12
+--- !u!114 &2481838852082444043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7295725305768939094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42fe1ac07e5ca1949a6c0b82c532596f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExploderComponent
+  stats:
+    radius: 3
+    damage: 100
+    force: 300
+    damageLayers:
+      serializedVersion: 2
+      m_Bits: 4294967295
 --- !u!1001 &7491458859326076987
 PrefabInstance:
   m_ObjectHideFlags: 0

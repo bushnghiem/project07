@@ -156,14 +156,14 @@ public class BattleManager : MonoBehaviour
 
     private void EndOfTurn(Unit unit)
     {
-        if (checkWin())
-        {
-            SwitchState(new WinState(this));
-            return;
-        }
         if (checkLoss())
         {
             SwitchState(new LoseState(this));
+            return;
+        }
+        if (checkWin())
+        {
+            SwitchState(new WinState(this));
             return;
         }
         currentIndex++;

@@ -7,7 +7,13 @@ public class Projectile : MonoBehaviour, Entity
     public float angularDamping = 2.0f;
     public float lifeTime = 5.0f;
 
+    public float velocityThreshold = 0.1f;   // How slow is "stopped"
+    public float stopTimeRequired = 0.5f;    // Must stay slow this long
+    float stopTimer;
+
+
     public HealthComponent healthComp;
+    public ExploderComponent exploderComp;
 
     public Vector3 Position => transform.position;
     public bool isDead => healthComp.isDead;
@@ -20,6 +26,7 @@ public class Projectile : MonoBehaviour, Entity
     {
         rb = GetComponent<Rigidbody>();
         healthComp = GetComponent<HealthComponent>();
+        exploderComp = GetComponent<ExploderComponent>();
         colliders = GetComponentsInChildren<Collider>();
         renderers = GetComponentsInChildren<Renderer>();
     }
@@ -79,7 +86,12 @@ public class Projectile : MonoBehaviour, Entity
 
     private void HandleDeath()
     {
+        healthComp.isDead = true;
         Kill();
+        if (exploderComp != null)
+        {
+            exploderComp.StartExplosion(transform.position);
+        }
         DeathEvent.OnEntityDeath?.Invoke(this);
     }
 
@@ -95,6 +107,25 @@ public class Projectile : MonoBehaviour, Entity
     void Update()
     {
         
+    }
+
+    void FixedUpdate()
+    {
+        if (isDead) return;
+
+        if (rb.linearVelocity.sqrMagnitude < velocityThreshold * velocityThreshold)
+        {
+            stopTimer += Time.fixedDeltaTime;
+
+            if (stopTimer >= stopTimeRequired)
+            {
+                HandleDeath();
+            }
+        }
+        else
+        {
+            stopTimer = 0f;
+        }
     }
 
 

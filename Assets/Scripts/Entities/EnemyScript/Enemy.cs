@@ -3,7 +3,11 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, Unit
 {
     Rigidbody rb;
+    public float linearDamping = 2.0f;
+    public float angularDamping = 2.0f;
+
     public HealthComponent healthComp;
+    public ExploderComponent exploderComp;
 
     public int initiative = 10;
 
@@ -25,8 +29,11 @@ public class Enemy : MonoBehaviour, Unit
     {
         rb = GetComponent<Rigidbody>();
         healthComp = GetComponent<HealthComponent>();
+        exploderComp = GetComponent<ExploderComponent>();
         colliders = GetComponentsInChildren<Collider>();
         renderers = GetComponentsInChildren<Renderer>();
+        rb.linearDamping = linearDamping;
+        rb.angularDamping = angularDamping;
     }
 
     private void OnEnable()
@@ -138,6 +145,10 @@ public class Enemy : MonoBehaviour, Unit
     private void HandleDeath()
     {
         Kill();
+        if (exploderComp != null)
+        {
+            exploderComp.StartExplosion(transform.position);
+        }
         DeathEvent.OnEntityDeath?.Invoke(this);
     }
 

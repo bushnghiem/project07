@@ -19,8 +19,6 @@ public class ClickAndFling : MonoBehaviour
     public float minShootingForce = 2f;
     public float maxShootingForce = 20f;
     public float maxDragDistance = 200f;
-    public float linearDamping = 2.0f;
-    public float angularDamping = 2.0f;
 
     public event Action<Vector3, float> OnFling; // direction, force
 
@@ -28,8 +26,6 @@ public class ClickAndFling : MonoBehaviour
     { 
         cam = Camera.main;
         rb = GetComponent<Rigidbody>();
-        rb.linearDamping = linearDamping;
-        rb.angularDamping = angularDamping;
         startRotation = transform.rotation;
     }
 

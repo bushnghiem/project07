@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 323944487683256840}
   - component: {fileID: 9039554059832288937}
   - component: {fileID: 8815638795568486749}
+  - component: {fileID: 58453196750346021}
   m_Layer: 8
   m_Name: BasicProjectile
   m_TagString: Untagged
@@ -131,7 +132,10 @@ MonoBehaviour:
   linearDamping: 2
   angularDamping: 2
   lifeTime: 5
+  velocityThreshold: 0.1
+  stopTimeRequired: 0.5
   healthComp: {fileID: 0}
+  exploderComp: {fileID: 0}
 --- !u!54 &323944487683256840
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -188,3 +192,22 @@ MonoBehaviour:
   currentHealth: 10
   maxHealth: 10
   isDead: 0
+--- !u!114 &58453196750346021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5911925321295324075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42fe1ac07e5ca1949a6c0b82c532596f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExploderComponent
+  stats:
+    radius: 3
+    damage: 50
+    force: 100
+    damageLayers:
+      serializedVersion: 2
+      m_Bits: 4294967295

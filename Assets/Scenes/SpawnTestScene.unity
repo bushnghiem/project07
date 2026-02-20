@@ -753,6 +753,51 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &1489767234
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1489767236}
+  - component: {fileID: 1489767235}
+  m_Layer: 0
+  m_Name: ExplosionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1489767235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489767234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2866c12e238e8c64d899e89aba16de49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExplosionManager
+  explosionPrefab: {fileID: 3049093654162749222, guid: 0ba8bca1385b6734aa51150bfbf26709, type: 3}
+--- !u!4 &1489767236
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489767234}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 244.45245, y: 0.00001, z: 322.24408}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1521778650
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,7 +986,7 @@ MonoBehaviour:
       currentHealth: 20
       maxHealth: 100
       shotStrength: 50
-      moveStrength: 1
+      moveStrength: 100
       mass: 100
       initiative: 0
       currentItem: {fileID: 11400000, guid: 6f09db5fc03733746b28b882d1bd11d1, type: 2}
@@ -949,18 +994,18 @@ MonoBehaviour:
       currentHealth: 20
       maxHealth: 200
       shotStrength: 20
-      moveStrength: 20
-      mass: 1
+      moveStrength: 100
+      mass: 10
       initiative: 50
       currentItem: {fileID: 11400000, guid: 6f09db5fc03733746b28b882d1bd11d1, type: 2}
     - uniqueID: 3
       currentHealth: 20
       maxHealth: 300
       shotStrength: 50
-      moveStrength: 50
-      mass: 1
+      moveStrength: 100
+      mass: 10
       initiative: 200
-      currentItem: {fileID: 11400000, guid: 6f09db5fc03733746b28b882d1bd11d1, type: 2}
+      currentItem: {fileID: 11400000, guid: 61311689851c1c9438a4eceb8971db4d, type: 2}
 --- !u!4 &1633580917
 Transform:
   m_ObjectHideFlags: 0
@@ -1046,11 +1091,11 @@ MonoBehaviour:
   - {fileID: 679476946}
   enemyData:
     uniqueID: 4
-    currentHealth: 20
-    maxHealth: 20
+    currentHealth: 100
+    maxHealth: 100
     shotStrength: 100
     moveStrength: 100
-    mass: 1
+    mass: 10
     initiative: 200
     currentItem: {fileID: 11400000, guid: 6f09db5fc03733746b28b882d1bd11d1, type: 2}
 --- !u!4 &1738765428
@@ -1171,3 +1216,4 @@ SceneRoots:
   - {fileID: 1423209348}
   - {fileID: 1198265964}
   - {fileID: 497482947}
+  - {fileID: 1489767236}
