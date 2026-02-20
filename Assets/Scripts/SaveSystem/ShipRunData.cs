@@ -10,5 +10,6 @@ public class ShipRunData
     public float moveStrength;
     public float mass;
     public int initiative;
+    public ActiveItem currentItem;
 }
 

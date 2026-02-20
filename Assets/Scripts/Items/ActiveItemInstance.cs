@@ -16,13 +16,17 @@ public class ActiveItemInstance
         return remainingCooldown <= 0;
     }
 
-    public void Use(Unit user, Unit target)
+    public bool Use(Unit user, Unit target)
     {
-        if (!CanUse()) return;
+        if (!CanUse())
+        {
+            return false;
+        }
 
         itemData.Activate(user, target);
 
         remainingCooldown = itemData.cooldownTurns;
+        return true;
     }
 
     public void OnTurnStart()

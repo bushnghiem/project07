@@ -64,6 +64,8 @@ public class Player : MonoBehaviour, Unit
         clickAndFlingComponent.SetForces(runData.moveStrength, runData.shotStrength);
         rb.mass = runData.mass;
         initiative = runData.initiative;
+        startingItem = runData.currentItem;
+        activeItem = new ActiveItemInstance(startingItem);
         SpawnEvent.OnUnitSpawned?.Invoke(this);
         //Debug.Log("Player Spawned");
     }
@@ -94,8 +96,14 @@ public class Player : MonoBehaviour, Unit
 
     public void Item()
     {
-        activeItem.Use(this, this);
-        EndTurn();
+        if (activeItem.Use(this, this))
+        {
+            EndTurn();
+        }
+        else
+        {
+            Debug.Log("Item still on cooldown for " + activeItem.GetRemainingCooldown() + " turns");
+        }
     }
 
     public void Kill()
@@ -107,6 +115,7 @@ public class Player : MonoBehaviour, Unit
 
     public void StartTurn()
     {
+        activeItem.OnTurnStart();
         TurnEvent.OnUnitTurnStart?.Invoke(this);
     }
 

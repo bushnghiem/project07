@@ -944,6 +944,7 @@ MonoBehaviour:
       moveStrength: 1
       mass: 100
       initiative: 0
+      currentItem: {fileID: 11400000, guid: 6f09db5fc03733746b28b882d1bd11d1, type: 2}
     - uniqueID: 2
       currentHealth: 20
       maxHealth: 200
@@ -951,6 +952,7 @@ MonoBehaviour:
       moveStrength: 20
       mass: 1
       initiative: 50
+      currentItem: {fileID: 11400000, guid: 6f09db5fc03733746b28b882d1bd11d1, type: 2}
     - uniqueID: 3
       currentHealth: 20
       maxHealth: 300
@@ -958,6 +960,7 @@ MonoBehaviour:
       moveStrength: 50
       mass: 1
       initiative: 200
+      currentItem: {fileID: 11400000, guid: 6f09db5fc03733746b28b882d1bd11d1, type: 2}
 --- !u!4 &1633580917
 Transform:
   m_ObjectHideFlags: 0
@@ -1049,6 +1052,7 @@ MonoBehaviour:
     moveStrength: 100
     mass: 1
     initiative: 200
+    currentItem: {fileID: 11400000, guid: 6f09db5fc03733746b28b882d1bd11d1, type: 2}
 --- !u!4 &1738765428
 Transform:
   m_ObjectHideFlags: 0
