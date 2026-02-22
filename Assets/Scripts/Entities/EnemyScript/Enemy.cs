@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour, Unit
     private Renderer[] renderers;
 
     private ShipRunData runData;
+    private ShipTemplate template;
 
     public ActiveItem startingItem;
 
@@ -54,15 +55,24 @@ public class Enemy : MonoBehaviour, Unit
     {
         runData = data;
 
-        // Set starting HP
-        Debug.Log("Spawning Enemy Unit with HP: " + runData.currentHealth);
-        healthComp.SetMaxHealth(runData.maxHealth);
+        template = TemplateDatabase.Instance.GetTemplate(runData.templateID);
+
+        healthComp.SetMaxHealth(runData.GetMaxHealth(template));
         healthComp.SetCurrentHealth(runData.currentHealth);
-        //clickAndFlingComponent.SetForces(runData.moveStrength, runData.shotStrength);
-        rb.mass = runData.mass;
-        initiative = runData.initiative;
+
+        /*
+        clickAndFlingComponent.SetForces(
+            runData.GetMoveStrength(template),
+            runData.GetShotStrength(template)
+        );
+        */
+
+        rb.mass = runData.GetMass(template);
+        initiative = runData.GetInitiative(template);
+
         startingItem = runData.currentItem;
         activeItem = new ActiveItemInstance(startingItem);
+
         SpawnEvent.OnUnitSpawned?.Invoke(this);
         //Debug.Log("Enemy Spawned");
     }

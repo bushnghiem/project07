@@ -163,6 +163,7 @@ public class BattleManager : MonoBehaviour
         }
         if (checkWin())
         {
+            CleanupDeadUnits();
             SwitchState(new WinState(this));
             return;
         }
@@ -176,6 +177,13 @@ public class BattleManager : MonoBehaviour
             currentUnit = allUnits[currentIndex];
             SwitchState(new UnitTurnState(this));
         }
+    }
+
+    private void CleanupDeadUnits()
+    {
+        RunData run = RunManager.Instance.CurrentRun;
+
+        run.team.RemoveAll(ship => ship.isDead);
     }
 
     private void HandleBattleDeath(Entity deadEntity)

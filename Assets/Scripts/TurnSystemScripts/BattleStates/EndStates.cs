@@ -6,6 +6,7 @@ public class WinState : BattleState
 
     public override void Enter()
     {
+        TurnEvent.OnFightWon?.Invoke();
         Debug.Log("You Win!");
     }
 }
@@ -16,6 +17,7 @@ public class LoseState : BattleState
 
     public override void Enter()
     {
+        TurnEvent.OnFightLost?.Invoke();
         Debug.Log("You Lose!");
     }
 }

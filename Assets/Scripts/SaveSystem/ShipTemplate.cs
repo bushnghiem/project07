@@ -10,7 +10,7 @@ public class ShipTemplate : ScriptableObject
     public float baseShotStrength;
     public float baseMoveStrength;
     public float baseMass;
-    public float baseInititive;
+    public int baseInitiative;
 }
 
 

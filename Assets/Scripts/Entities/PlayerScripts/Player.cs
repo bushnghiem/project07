@@ -21,6 +21,7 @@ public class Player : MonoBehaviour, Unit
     private Renderer[] renderers;
 
     private ShipRunData runData;
+    private ShipTemplate template;
 
     public ActiveItem startingItem;
 
@@ -64,17 +65,23 @@ public class Player : MonoBehaviour, Unit
     {
         runData = data;
 
-        // Set starting stats
-        Debug.Log("Spawning Player Unit with HP: " + runData.currentHealth);
-        healthComp.SetMaxHealth(runData.maxHealth);
+        template = TemplateDatabase.Instance.GetTemplate(runData.templateID);
+
+        healthComp.SetMaxHealth(runData.GetMaxHealth(template));
         healthComp.SetCurrentHealth(runData.currentHealth);
-        clickAndFlingComponent.SetForces(runData.moveStrength, runData.shotStrength);
-        rb.mass = runData.mass;
-        initiative = runData.initiative;
+
+        clickAndFlingComponent.SetForces(
+            runData.GetMoveStrength(template),
+            runData.GetShotStrength(template)
+        );
+
+        rb.mass = runData.GetMass(template);
+        initiative = runData.GetInitiative(template);
+
         startingItem = runData.currentItem;
         activeItem = new ActiveItemInstance(startingItem);
+
         SpawnEvent.OnUnitSpawned?.Invoke(this);
-        //Debug.Log("Player Spawned");
     }
 
     void DisablePhysics()
@@ -142,11 +149,13 @@ public class Player : MonoBehaviour, Unit
     public void Hurt(float amount)
     {
         healthComp.Hurt(amount);
+        runData.currentHealth = healthComp.GetCurrentHealth();
     }
 
     public void Heal(float amount)
     {
         healthComp.Heal(amount);
+        runData.currentHealth = healthComp.GetCurrentHealth();
     }
 
     private void HandleDamaged(float damage)
@@ -162,6 +171,7 @@ public class Player : MonoBehaviour, Unit
     private void HandleDeath()
     {
         Kill();
+        runData.isDead = true;
         if (exploderComp != null)
         {
             exploderComp.StartExplosion(transform.position);
