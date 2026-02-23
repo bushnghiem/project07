@@ -4,7 +4,7 @@ using UnityEngine;
 public class ShipRunData
 {
     public string uniqueID;
-    public string templateID;   // <-- Add this
+    public string templateID;
 
     public float currentHealth;
     public bool isDead;
@@ -15,7 +15,20 @@ public class ShipRunData
     public float bonusMass;
     public int bonusInitiative;
 
-    public ActiveItem currentItem;
+    public ActiveItemSaveData currentItem;
+
+    public void SetDefaults()
+    {
+        uniqueID = "0";
+        templateID = "0";
+        currentHealth = 100;
+        isDead = false;
+        bonusMaxHealth = 0;
+        bonusShotStrength = 0;
+        bonusMoveStrength = 0;
+        bonusMass = 0;
+        bonusInitiative = 0;
+    }
 
     public float GetMaxHealth(ShipTemplate template)
     {

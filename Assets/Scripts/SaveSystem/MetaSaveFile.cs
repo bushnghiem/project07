@@ -2,12 +2,12 @@ using UnityEngine;
 using System.Collections.Generic;
 
 [System.Serializable]
-public class SaveFile
+public class MetaSaveFile
 {
     public int version = 1;
 
-    public RunData currentRun;
-    public List<ShipMetaData> metaShips;
-
+    public List<ShipMetaData> ships = new();
     public int playerCurrency;
+    public int totalWins;
+    public int totalRuns;
 }

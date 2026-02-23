@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ActiveItem", menuName = "Scriptable Objects/ActiveItem")]
 public abstract class ActiveItem : ScriptableObject
 {
+    public string itemID;
     public string itemName;
     public Sprite icon;
 

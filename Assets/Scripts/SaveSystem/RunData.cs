@@ -5,5 +5,5 @@ using System.Collections.Generic;
 public class RunData
 {
     public int runSeed;
-    public List<ShipRunData> team;
+    public List<ShipRunData> team = new List<ShipRunData>();
 }

@@ -15,6 +15,7 @@ public class RunManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("RunManager exists, delete");
             Destroy(gameObject);
         }
     }

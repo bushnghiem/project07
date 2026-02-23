@@ -65,7 +65,7 @@ public class Player : MonoBehaviour, Unit
     {
         runData = data;
 
-        template = TemplateDatabase.Instance.GetTemplate(runData.templateID);
+        template = ShipTemplateDatabase.Instance.GetTemplate(runData.templateID);
 
         healthComp.SetMaxHealth(runData.GetMaxHealth(template));
         healthComp.SetCurrentHealth(runData.currentHealth);
@@ -78,7 +78,7 @@ public class Player : MonoBehaviour, Unit
         rb.mass = runData.GetMass(template);
         initiative = runData.GetInitiative(template);
 
-        startingItem = runData.currentItem;
+        startingItem = ActiveItemDatabase.Instance.Get(runData.currentItem.itemID);
         activeItem = new ActiveItemInstance(startingItem);
 
         SpawnEvent.OnUnitSpawned?.Invoke(this);

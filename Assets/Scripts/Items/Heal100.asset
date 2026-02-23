@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df989fa184e2a241a2d98ce006f6ee8, type: 3}
   m_Name: Heal100
   m_EditorClassIdentifier: Assembly-CSharp::HealItem
-  itemName: 
+  itemID: 0
+  itemName: Heal 100
   icon: {fileID: 0}
   cooldownTurns: 2
   healAmount: 100

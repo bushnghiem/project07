@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 616c1c4b2368c8d48b0dee6176a0a270, type: 3}
   m_Name: SelfDestruct1000
   m_EditorClassIdentifier: Assembly-CSharp::SelfDestructionItem
-  itemName: 
+  itemID: 1
+  itemName: Self Destruct
   icon: {fileID: 0}
   cooldownTurns: 2
   stats:

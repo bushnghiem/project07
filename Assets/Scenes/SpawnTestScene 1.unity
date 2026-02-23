@@ -150,53 +150,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1924685192}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &191712039
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 191712040}
-  - component: {fileID: 191712041}
-  m_Layer: 0
-  m_Name: ActiveItemDB
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &191712040
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 191712039}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1697342085}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &191712041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 191712039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 641054917f05cd9458f6123f99bf7cb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ActiveItemDatabase
-  items:
-  - {fileID: 11400000, guid: 6f09db5fc03733746b28b882d1bd11d1, type: 2}
-  - {fileID: 11400000, guid: 61311689851c1c9438a4eceb8971db4d, type: 2}
 --- !u!1 &476124622
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,9 +671,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1198265963}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a158cb67eee8044dbbd10df69d74b15, type: 3}
+  m_Script: {fileID: 11500000, guid: 673d8357ca7c0d94897e3dc3d81441e7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TestRun
+  m_EditorClassIdentifier: Assembly-CSharp::TestRun1
   spawner: {fileID: 1738765427}
 --- !u!1 &1423209346
 GameObject:
@@ -1046,6 +999,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &1629356427
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1629356428}
+  - component: {fileID: 1629356429}
+  m_Layer: 0
+  m_Name: ActiveItemDB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1629356428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629356427}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1697342085}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1629356429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629356427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 641054917f05cd9458f6123f99bf7cb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActiveItemDatabase
+  items:
+  - {fileID: 11400000, guid: 6f09db5fc03733746b28b882d1bd11d1, type: 2}
+  - {fileID: 11400000, guid: 61311689851c1c9438a4eceb8971db4d, type: 2}
 --- !u!1 &1649102354
 GameObject:
   m_ObjectHideFlags: 0
@@ -1109,7 +1109,7 @@ Transform:
   - {fileID: 1489767236}
   - {fileID: 2101429211}
   - {fileID: 759587047}
-  - {fileID: 191712040}
+  - {fileID: 1629356428}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1738765426
@@ -1160,7 +1160,7 @@ MonoBehaviour:
     bonusMass: 0
     bonusInitiative: 0
     currentItem:
-      itemID: 0
+      itemID: 
       remainingCooldown: 0
 --- !u!4 &1738765428
 Transform:

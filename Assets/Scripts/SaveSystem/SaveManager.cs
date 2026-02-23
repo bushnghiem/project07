@@ -5,7 +5,8 @@ public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance;
 
-    private string savePath;
+    private string metaPath;
+    private string runPath;
 
     private void Awake()
     {
@@ -13,59 +14,99 @@ public class SaveManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            savePath = Path.Combine(Application.persistentDataPath, "save.json");
+
+            metaPath = Path.Combine(Application.persistentDataPath, "meta_save.json");
+            runPath = Path.Combine(Application.persistentDataPath, "run_save.json");
         }
         else
         {
+            Debug.Log("SaveManager exists, delete");
             Destroy(gameObject);
         }
     }
 
     private void OnEnable()
     {
-        TurnEvent.OnFightWon += SaveGame;
+        TurnEvent.OnFightWon += HandleFightWin;
     }
 
     private void OnDisable()
     {
-        TurnEvent.OnFightWon -= SaveGame;
+        TurnEvent.OnFightWon -= HandleFightWin;
     }
 
-    public void SaveGame()
+    public void SaveMeta()
     {
-        SaveFile save = new SaveFile();
-
-        save.currentRun = RunManager.Instance.CurrentRun;
-        save.playerCurrency = 100; // example
-
-        string json = JsonUtility.ToJson(save, true);
-        File.WriteAllText(savePath, json);
-
-        Debug.Log("Game Saved");
-    }
-
-    public void LoadGame()
-    {
-        if (!File.Exists(savePath))
+        MetaSaveFile meta = new MetaSaveFile
         {
-            Debug.Log("No Save Found");
+            ships = MetaManager.Instance.metaShips,
+            playerCurrency = MetaManager.Instance.playerCurrency,
+            totalWins = MetaManager.Instance.totalWins,
+            totalRuns = MetaManager.Instance.totalRuns
+        };
+
+        string json = JsonUtility.ToJson(meta, true);
+        File.WriteAllText(metaPath, json);
+
+        Debug.Log("Meta Saved");
+    }
+
+    public void LoadMeta()
+    {
+        if (!File.Exists(metaPath))
+        {
+            Debug.Log("No Meta Save Found - Creating New");
+            MetaManager.Instance.InitializeFreshMeta();
+            SaveMeta();
             return;
         }
 
-        string json = File.ReadAllText(savePath);
-        SaveFile save = JsonUtility.FromJson<SaveFile>(json);
+        string json = File.ReadAllText(metaPath);
+        MetaSaveFile meta = JsonUtility.FromJson<MetaSaveFile>(json);
 
-        RunManager.Instance.CurrentRun = save.currentRun;
+        MetaManager.Instance.metaShips = meta.ships ?? new();
+        MetaManager.Instance.playerCurrency = meta.playerCurrency;
+        MetaManager.Instance.totalWins = meta.totalWins;
+        MetaManager.Instance.totalRuns = meta.totalRuns;
 
-        Debug.Log("Game Loaded");
+        Debug.Log("Meta Loaded");
     }
 
-    public void DeleteRunSave()
+    public void SaveRun()
     {
-        if (File.Exists(savePath))
+        RunSaveFile run = new RunSaveFile
         {
-            File.Delete(savePath);
-            Debug.Log("Run save deleted.");
+            currentRun = RunManager.Instance.CurrentRun
+        };
+
+        string json = JsonUtility.ToJson(run, true);
+        File.WriteAllText(runPath, json);
+
+        Debug.Log("Run Saved");
+    }
+
+    public void LoadRun()
+    {
+        if (!File.Exists(runPath))
+        {
+            Debug.Log("No Run Save Found");
+            return;
+        }
+
+        string json = File.ReadAllText(runPath);
+        RunSaveFile run = JsonUtility.FromJson<RunSaveFile>(json);
+
+        RunManager.Instance.CurrentRun = run.currentRun;
+
+        Debug.Log("Run Loaded");
+    }
+
+    public void DeleteRun()
+    {
+        if (File.Exists(runPath))
+        {
+            File.Delete(runPath);
+            Debug.Log("Run Save Deleted");
         }
 
         RunManager.Instance.CurrentRun = null;
@@ -73,17 +114,12 @@ public class SaveManager : MonoBehaviour
 
     private void HandleFightWin()
     {
-        SaveGame();
+        SaveRun();
     }
 
     private void HandleFightLost()
     {
-        DeleteRunSave();
-        LoadGameOverScreen();
-    }
-
-    private void LoadGameOverScreen()
-    {
-        Debug.Log("Game Over");
+        DeleteRun();
+        SaveMeta();
     }
 }
