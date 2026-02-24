@@ -21,4 +21,10 @@ public class DamageOnCollision : MonoBehaviour
             rb.AddForce(direction.normalized * knockbackStrength, ForceMode.Impulse);
         }
     }
+
+    public void SetCollisionStats(float damage, float knockback)
+    {
+        contactDamage = damage;
+        knockbackStrength = knockback;
+    }
 }

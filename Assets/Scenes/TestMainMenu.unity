@@ -741,6 +741,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23ea2b729e55cd64385d2d3c0bdecb7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestMainMenu
+  startingRunData:
+    runSeed: 20
+    team:
+    - uniqueID: StartShip
+      templateID: 0
+      currentHealth: 10
+      isDead: 0
+      bonusMaxHealth: 0
+      bonusShotStrength: 0
+      bonusMoveStrength: 0
+      bonusMass: 0
+      bonusInitiative: 0
+      currentItem:
+        itemID: 0
+        remainingCooldown: 0
 --- !u!1 &2011352280
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class TestMainMenu : MonoBehaviour
 {
+    [SerializeField] public RunData startingRunData;
+
     public void StartNewRun()
     {
         RunData newRun = new RunData();
@@ -14,13 +16,13 @@ public class TestMainMenu : MonoBehaviour
         ship0.SetDefaults();
         ship0.currentItem = itemData;
         newRun.team.Add(ship0);
-        RunManager.Instance.CurrentRun = newRun;
+        RunManager.Instance.CurrentRun = startingRunData;
         SceneManager.LoadScene("SpawnTestScene");
     }
 
     public void QuitGame()
     {
         Application.Quit();
-        Debug.Log("Quit Game"); // Only works in build
+        Debug.Log("Quit Game");
     }
 }

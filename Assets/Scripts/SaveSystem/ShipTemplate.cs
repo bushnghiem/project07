@@ -11,6 +11,9 @@ public class ShipTemplate : ScriptableObject
     public float baseMoveStrength;
     public float baseMass;
     public int baseInitiative;
+
+    public float baseCollisionDamage;
+    public float baseCollisionKnockback;
 }
 
 

@@ -17,12 +17,10 @@ public class Explosion : MonoBehaviour
 
         foreach (Collider hit in hits)
         {
-            // Damage every entity
             Entity entity = hit.GetComponent<Entity>();
             if (entity != null)
                 entity.Hurt(damage);
 
-            // Apply force to rigidbodies
             Rigidbody rb = hit.attachedRigidbody;
             if (rb != null)
             {
@@ -40,6 +38,6 @@ public class Explosion : MonoBehaviour
     public void ScaleVisual()
     {
         float multiplier = radius / baseVisualRadius;
-        transform.localScale = Vector3.one * multiplier;
+        transform.localScale = Vector3.one * multiplier; // Make explosion visual scale with explosion radius
     }
 }

@@ -3,22 +3,19 @@
 [System.Serializable]
 public class ActiveItemInstance
 {
-    public ActiveItem itemData;        // Runtime reference
-    private int remainingCooldown = 0; // Tracks cooldown in runtime
+    public ActiveItem itemData;
+    private int remainingCooldown = 0;
 
-    // Constructor for runtime usage
     public ActiveItemInstance(ActiveItem data)
     {
         itemData = data;
     }
 
-    // Check if item can be used
     public bool CanUse()
     {
         return remainingCooldown <= 0;
     }
 
-    // Use the item
     public bool Use(Unit user, Unit target)
     {
         if (!CanUse())
@@ -29,7 +26,6 @@ public class ActiveItemInstance
         return true;
     }
 
-    // Called at start of turn
     public void OnTurnStart()
     {
         if (remainingCooldown > 0)

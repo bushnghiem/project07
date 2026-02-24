@@ -19,16 +19,12 @@ public class PlayerActions : MonoBehaviour
 
     private void OnEnable()
     {
-        TurnEvent.OnPlayerTurnStart += HandlePlayerTurnStart;
-        TurnEvent.OnPlayerTurnEnd += HandlePlayerTurnEnd;
         TurnEvent.OnUnitTurnStart += HandleUnitTurnStart;
         TurnEvent.OnUnitTurnEnd += HandleUnitTurnEnd;
     }
 
     private void OnDisable()
     {
-        TurnEvent.OnPlayerTurnStart -= HandlePlayerTurnStart;
-        TurnEvent.OnPlayerTurnEnd -= HandlePlayerTurnEnd;
         TurnEvent.OnUnitTurnStart -= HandleUnitTurnStart;
         TurnEvent.OnUnitTurnEnd -= HandleUnitTurnEnd;
     }
@@ -41,7 +37,7 @@ public class PlayerActions : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Debug.Log("Added button clicks");
+        //Debug.Log("Added button clicks");
         moveButton.onClick.AddListener(() => Execute(moveAction));
         attackButton.onClick.AddListener(() => Execute(shootAction));
         itemButton.onClick.AddListener(() => Execute(itemAction));
@@ -53,16 +49,6 @@ public class PlayerActions : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void HandlePlayerTurnStart(Unit unit)
-    {
-        ShowActions(unit);
-    }
-
-    public void HandlePlayerTurnEnd(Unit unit)
-    {
-        Hide();
     }
 
     public void HandleUnitTurnStart(Unit unit)

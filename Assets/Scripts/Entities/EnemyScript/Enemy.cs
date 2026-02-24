@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour, Unit
 
     public HealthComponent healthComp;
     public ExploderComponent exploderComp;
+    public DamageOnCollision collisionDamageComp;
 
     public int initiative = 10;
 
@@ -31,6 +32,7 @@ public class Enemy : MonoBehaviour, Unit
         rb = GetComponent<Rigidbody>();
         healthComp = GetComponent<HealthComponent>();
         exploderComp = GetComponent<ExploderComponent>();
+        collisionDamageComp = GetComponent<DamageOnCollision>();
         colliders = GetComponentsInChildren<Collider>();
         renderers = GetComponentsInChildren<Renderer>();
         rb.linearDamping = linearDamping;
@@ -70,7 +72,9 @@ public class Enemy : MonoBehaviour, Unit
         rb.mass = runData.GetMass(template);
         initiative = runData.GetInitiative(template);
 
-        startingItem = ActiveItemDatabase.Instance.Get(runData.currentItem.itemID);
+        collisionDamageComp.SetCollisionStats(runData.GetCollisionDamage(template), runData.GetCollisionKnockback(template));
+
+        startingItem = ActiveItemDatabase.Instance.GetItem(runData.currentItem.itemID);
         activeItem = new ActiveItemInstance(startingItem);
 
         SpawnEvent.OnUnitSpawned?.Invoke(this);

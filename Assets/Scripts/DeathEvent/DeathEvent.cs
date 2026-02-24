@@ -9,5 +9,5 @@ public static class DeathEvent
 
 public static class SpawnEvent
 {
-    public static Action<Unit> OnUnitSpawned;
+    public static Action<Unit> OnUnitSpawned; // Unit
 }

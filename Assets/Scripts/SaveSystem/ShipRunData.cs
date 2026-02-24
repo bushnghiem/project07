@@ -15,6 +15,9 @@ public class ShipRunData
     public float bonusMass;
     public int bonusInitiative;
 
+    public float bonusCollisionDamage;
+    public float bonusCollisionKnockback;
+
     public ActiveItemSaveData currentItem;
 
     public void SetDefaults()
@@ -28,6 +31,8 @@ public class ShipRunData
         bonusMoveStrength = 0;
         bonusMass = 0;
         bonusInitiative = 0;
+        bonusCollisionDamage = 0;
+        bonusCollisionKnockback = 0;
     }
 
     public float GetMaxHealth(ShipTemplate template)
@@ -53,6 +58,16 @@ public class ShipRunData
     public int GetInitiative(ShipTemplate template)
     {
         return template.baseInitiative + bonusInitiative;
+    }
+
+    public float GetCollisionDamage(ShipTemplate template)
+    {
+        return template.baseCollisionDamage + bonusCollisionDamage;
+    }
+
+    public float GetCollisionKnockback(ShipTemplate template)
+    {
+        return template.baseCollisionKnockback + bonusCollisionKnockback;
     }
 }
 

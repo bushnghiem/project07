@@ -12,18 +12,17 @@ public class ShipTemplateDatabase : MonoBehaviour
 
     private void Awake()
     {
-        // Singleton
         if (Instance == null)
             Instance = this;
         else
         {
+            Debug.Log("ShipTemplateDatabase exists, delete");
             Destroy(gameObject);
             return;
         }
 
         DontDestroyOnLoad(gameObject);
 
-        // Build lookup
         lookup = templates.ToDictionary(t => t.templateID);
 
         Debug.Log($"ShipTemplateDatabase initialized with {lookup.Count} templates.");

@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviour, Entity
     public float lifeTime = 5.0f;
 
     public float velocityThreshold = 0.1f;   // How slow is "stopped"
-    public float stopTimeRequired = 0.5f;    // Must stay slow this long
+    public float stopTimeRequired = 0.5f;    // Must stay slow below velocityThreshold this long
     float stopTimer;
 
 
@@ -100,7 +100,7 @@ public class Projectile : MonoBehaviour, Entity
     {
         rb.linearDamping = linearDamping;
         rb.angularDamping = angularDamping;
-        Invoke("HandleDeath", lifeTime);
+        Invoke("HandleDeath", lifeTime); // Die if left alive too long
     }
 
     // Update is called once per frame

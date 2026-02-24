@@ -9,6 +9,7 @@ public class Player : MonoBehaviour, Unit
     public ClickAndFling clickAndFlingComponent;
     public HealthComponent healthComp;
     public ExploderComponent exploderComp;
+    public DamageOnCollision collisionDamageComp;
 
     public int initiative = 10;
 
@@ -32,6 +33,7 @@ public class Player : MonoBehaviour, Unit
         rb = GetComponent<Rigidbody>();
         healthComp = GetComponent<HealthComponent>();
         exploderComp = GetComponent<ExploderComponent>();
+        collisionDamageComp = GetComponent<DamageOnCollision>();
         colliders = GetComponentsInChildren<Collider>();
         renderers = GetComponentsInChildren<Renderer>();
         activeItem = new ActiveItemInstance(startingItem);
@@ -43,6 +45,12 @@ public class Player : MonoBehaviour, Unit
 
         if (clickAndFlingComponent == null)
             Debug.LogError("Missing ClickAndFling!");
+
+        if (exploderComp == null)
+            Debug.LogError("Missing exploder!");
+
+        if (collisionDamageComp == null)
+            Debug.LogError("Missing collisionDamage!");
     }
 
     private void OnEnable()
@@ -78,7 +86,9 @@ public class Player : MonoBehaviour, Unit
         rb.mass = runData.GetMass(template);
         initiative = runData.GetInitiative(template);
 
-        startingItem = ActiveItemDatabase.Instance.Get(runData.currentItem.itemID);
+        collisionDamageComp.SetCollisionStats(runData.GetCollisionDamage(template), runData.GetCollisionKnockback(template));
+
+        startingItem = ActiveItemDatabase.Instance.GetItem(runData.currentItem.itemID);
         activeItem = new ActiveItemInstance(startingItem);
 
         SpawnEvent.OnUnitSpawned?.Invoke(this);

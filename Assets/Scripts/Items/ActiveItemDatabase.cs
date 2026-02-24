@@ -12,11 +12,22 @@ public class ActiveItemDatabase : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+            Instance = this;
+        else
+        {
+            Debug.Log("ActiveItemDatabase exists, delete");
+            Destroy(gameObject);
+            return;
+        }
+
+        DontDestroyOnLoad(gameObject);
+
         lookup = items.ToDictionary(i => i.itemID);
+        Debug.Log($"ActiveItemDatabase initialized with {lookup.Count} items.");
     }
 
-    public ActiveItem Get(string id)
+    public ActiveItem GetItem(string id)
     {
         if (lookup.TryGetValue(id, out var item))
             return item;

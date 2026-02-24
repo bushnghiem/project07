@@ -6,6 +6,7 @@ public class HealthComponent : MonoBehaviour
     [Header("Health")]
     [SerializeField] private float currentHealth;
     [SerializeField] private float maxHealth;
+    [SerializeField] private int shield;
     public bool isDead = false;
 
     public event Action<float> OnDamaged;
@@ -63,12 +64,29 @@ public class HealthComponent : MonoBehaviour
         return maxHealth;
     }
 
+    public void SetShield(int newShield)
+    {
+        shield = newShield;
+    }
+
+    public int GetShield()
+    {
+        return shield;
+    }
+
     public void Hurt(float damage)
     {
         if (isDead) return;
 
-        SetCurrentHealth(currentHealth - damage);
-        OnDamaged?.Invoke(damage);
+        if (shield > 0)
+        {
+            shield--;
+        }
+        else
+        {
+            SetCurrentHealth(currentHealth - damage);
+            OnDamaged?.Invoke(damage);
+        }
     }
 
     public void Heal(float gain)
@@ -77,5 +95,12 @@ public class HealthComponent : MonoBehaviour
 
         SetCurrentHealth(currentHealth + gain);
         OnHealed?.Invoke(gain);
+    }
+
+    public void addShield(int shieldGain)
+    {
+        if (isDead) return;
+
+        SetShield(shield + shieldGain);
     }
 }

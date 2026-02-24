@@ -19,3 +19,5 @@ MonoBehaviour:
   baseMoveStrength: 100
   baseMass: 10
   baseInitiative: 50
+  baseCollisionDamage: 10
+  baseCollisionKnockback: 10

@@ -18,8 +18,6 @@ public class BattleManager : MonoBehaviour
     private void OnEnable()
     {
         DeathEvent.OnEntityDeath += HandleBattleDeath;
-        TurnEvent.OnPlayerTurnEnd += HandlePlayerTurnEnd;
-        TurnEvent.OnEnemyTurnEnd += HandleEnemyTurnEnd;
         TurnEvent.OnUnitTurnEnd += HandleUnitTurnEnd;
         SpawnEvent.OnUnitSpawned += HandleUnitSpawned;
     }
@@ -27,8 +25,6 @@ public class BattleManager : MonoBehaviour
     private void OnDisable()
     {
         DeathEvent.OnEntityDeath -= HandleBattleDeath;
-        TurnEvent.OnPlayerTurnEnd -= HandlePlayerTurnEnd;
-        TurnEvent.OnEnemyTurnEnd -= HandleEnemyTurnEnd;
         TurnEvent.OnUnitTurnEnd -= HandleUnitTurnEnd;
         SpawnEvent.OnUnitSpawned -= HandleUnitSpawned;
     }
@@ -73,8 +69,7 @@ public class BattleManager : MonoBehaviour
 
         if (index == -1) return;
 
-        // If the removed unit is BEFORE the current index,
-        // we must shift the index back
+        // If the removed unit is before the current index, shift the index back
         if (index < currentIndex)
         {
             currentIndex--;
@@ -109,7 +104,7 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator WaitForBattlefieldToSettle(Unit actingUnit)
     {
-        //Debug.Log("Waiting for battlefield to settle...");
+        //Debug.Log("Waiting for battlefield to settle");
 
         float stillTimer = 0f;
         const float requiredStillTime = 0.5f;
@@ -118,7 +113,7 @@ public class BattleManager : MonoBehaviour
         {
             if (IsAnythingMoving())
             {
-                //Debug.Log("Something moving...");
+                //Debug.Log("Something moving");
                 stillTimer = 0f;
             }
             else
@@ -192,18 +187,6 @@ public class BattleManager : MonoBehaviour
         {
             RemoveDeadUnit((Unit)deadEntity);
         }
-    }
-
-    public void HandlePlayerTurnEnd(Entity player)
-    {
-        Debug.Log(player + " has ended turn");
-        //SwitchState(new EnemyTurnState(this));
-    }
-
-    public void HandleEnemyTurnEnd(Entity enemy)
-    {
-        Debug.Log(enemy + " has ended turn");
-        //SwitchState(new PlayerTurnState(this));
     }
 
     public void HandleUnitTurnEnd(Unit unit)
