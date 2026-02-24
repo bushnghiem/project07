@@ -11,6 +11,7 @@ public class ClickAndFling : MonoBehaviour
     [SerializeField] bool flingable = false;
     [SerializeField] bool projectileMode = false;
     [SerializeField] float projectileSpawnRadius = 2.0f;
+    public Projectile projectile;
     bool isDragging = false;
 
     [Header("Force Settings")]
@@ -43,6 +44,11 @@ public class ClickAndFling : MonoBehaviour
     public void SetProjectileMode(bool value)
     {
         projectileMode = value;
+    }
+
+    public void SetProjectile(Projectile newProjectile)
+    {
+        projectile = newProjectile;
     }
 
     void Update()
@@ -109,7 +115,7 @@ public class ClickAndFling : MonoBehaviour
         if (projectileMode)
         {
             float forceStrength = Mathf.Lerp(minShootingForce, maxShootingForce, t);
-            ProjectileSpawnEvent.OnProjectileSpawn?.Invoke(projectileSpawnPosition, direction, forceStrength);
+            ProjectileSpawnEvent.OnProjectileSpawn?.Invoke(projectileSpawnPosition, direction, forceStrength, projectile);
             OnFling?.Invoke(direction, forceStrength);
         }
         else

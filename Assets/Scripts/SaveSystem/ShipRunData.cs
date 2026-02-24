@@ -18,7 +18,9 @@ public class ShipRunData
     public float bonusCollisionDamage;
     public float bonusCollisionKnockback;
 
-    public ActiveItemSaveData currentItem;
+    public ActiveItemSaveData currentActiveItem;
+
+    public ProjectileSaveData currentProjectile;
 
     public void SetDefaults()
     {

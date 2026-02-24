@@ -74,8 +74,10 @@ public class Enemy : MonoBehaviour, Unit
 
         collisionDamageComp.SetCollisionStats(runData.GetCollisionDamage(template), runData.GetCollisionKnockback(template));
 
-        startingItem = ActiveItemDatabase.Instance.GetItem(runData.currentItem.itemID);
+        startingItem = ActiveItemDatabase.Instance.GetActiveItem(runData.currentActiveItem.activeItemID);
         activeItem = new ActiveItemInstance(startingItem);
+
+        // clickAndFlingComponent.SetProjectile(ProjectileDatabase.Instance.GetProjectile(runData.currentProjectile.projectileID));
 
         SpawnEvent.OnUnitSpawned?.Invoke(this);
         //Debug.Log("Enemy Spawned");

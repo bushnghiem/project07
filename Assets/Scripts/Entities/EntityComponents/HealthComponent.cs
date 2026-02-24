@@ -81,6 +81,7 @@ public class HealthComponent : MonoBehaviour
         if (shield > 0)
         {
             shield--;
+            Debug.Log("shield point lost");
         }
         else
         {

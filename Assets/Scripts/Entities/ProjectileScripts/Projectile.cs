@@ -1,136 +1,34 @@
 using UnityEngine;
 
-public class Projectile : MonoBehaviour, Entity
+[CreateAssetMenu(fileName = "Projectile", menuName = "Scriptable Objects/Projectile")]
+public class Projectile : ScriptableObject
 {
-    Rigidbody rb;
-    public float linearDamping = 2.0f;
-    public float angularDamping = 2.0f;
-    public float lifeTime = 5.0f;
+    [Header("Save ID (must be unique)")]
+    public string projectileID;
 
-    public float velocityThreshold = 0.1f;   // How slow is "stopped"
-    public float stopTimeRequired = 0.5f;    // Must stay slow below velocityThreshold this long
-    float stopTimer;
+    [Header("Identity")]
+    public string projectileName;
 
+    [Header("Combat")]
+    public float maxHealth = 1f;
+    public float collisionDamage = 10f;
 
-    public HealthComponent healthComp;
-    public ExploderComponent exploderComp;
+    [Header("Physics")]
+    public float mass = 1f;
+    public float collisionKnockback = 20f;
+    public float linearDamping = 2f;
+    public float angularDamping = 2f;
 
-    public Vector3 Position => transform.position;
-    public bool isDead => healthComp.isDead;
+    [Header("Lifetime")]
+    public bool useLifetime = true;
+    public float lifeTime = 5f;
 
-    private Collider[] colliders;
-    private Renderer[] renderers;
+    [Header("Stop Detection")]
+    public bool dieWhenStopped = true;
+    public float velocityThreshold = 0.1f;
+    public float stopTimeRequired = 0.5f;
 
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-        healthComp = GetComponent<HealthComponent>();
-        exploderComp = GetComponent<ExploderComponent>();
-        colliders = GetComponentsInChildren<Collider>();
-        renderers = GetComponentsInChildren<Renderer>();
-    }
-
-    void DisablePhysics()
-    {
-        foreach (var col in colliders)
-            col.enabled = false;
-    }
-
-    void DisableVisuals()
-    {
-        foreach (var r in renderers)
-            r.enabled = false;
-    }
-
-    public void Kill()
-    {
-        DisablePhysics();
-        DisableVisuals();
-        Destroy(gameObject, 1.0f);
-    }
-
-    public void Hurt(float amount)
-    {
-        healthComp.Hurt(amount);
-    }
-
-    public void Heal(float amount)
-    {
-        healthComp.Heal(amount);
-    }
-
-    private void OnEnable()
-    {
-        healthComp.OnDamaged += HandleDamaged;
-        healthComp.OnHealed += HandleHealed;
-        healthComp.OnDeath += HandleDeath;
-    }
-
-    private void OnDisable()
-    {
-        healthComp.OnDamaged -= HandleDamaged;
-        healthComp.OnHealed -= HandleHealed;
-        healthComp.OnDeath -= HandleDeath;
-    }
-
-    private void HandleDamaged(float damage)
-    {
-        Debug.Log($"Projectile took {damage} damage");
-    }
-
-    private void HandleHealed(float amount)
-    {
-        Debug.Log($"Projectile healed {amount}");
-    }
-
-    private void HandleDeath()
-    {
-        healthComp.isDead = true;
-        Kill();
-        if (exploderComp != null)
-        {
-            exploderComp.StartExplosion(transform.position);
-        }
-        DeathEvent.OnEntityDeath?.Invoke(this);
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        rb.linearDamping = linearDamping;
-        rb.angularDamping = angularDamping;
-        Invoke("HandleDeath", lifeTime); // Die if left alive too long
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void FixedUpdate()
-    {
-        if (isDead) return;
-
-        if (rb.linearVelocity.sqrMagnitude < velocityThreshold * velocityThreshold)
-        {
-            stopTimer += Time.fixedDeltaTime;
-
-            if (stopTimer >= stopTimeRequired)
-            {
-                HandleDeath();
-            }
-        }
-        else
-        {
-            stopTimer = 0f;
-        }
-    }
-
-
-    public void Fling(Vector3 direction, float forceStrength)
-    {
-        rb.AddForce(direction * forceStrength, ForceMode.Impulse);
-    }
+    [Header("Explosion")]
+    public bool doesExplode = true;
+    public ExplosionStats explosionStats;
 }

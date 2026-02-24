@@ -12,9 +12,9 @@ public class TestMainMenu : MonoBehaviour
         newRun.runSeed = Random.Range(int.MinValue, int.MaxValue);
         ShipRunData ship0 = new ShipRunData();
         ActiveItemSaveData itemData = new ActiveItemSaveData();
-        itemData.itemID = "1";
+        itemData.activeItemID = "1";
         ship0.SetDefaults();
-        ship0.currentItem = itemData;
+        ship0.currentActiveItem = itemData;
         newRun.team.Add(ship0);
         RunManager.Instance.CurrentRun = startingRunData;
         SceneManager.LoadScene("SpawnTestScene");

@@ -1188,9 +1188,13 @@ MonoBehaviour:
     bonusMoveStrength: 0
     bonusMass: 0
     bonusInitiative: 0
-    currentItem:
-      itemID: 1
+    bonusCollisionDamage: 0
+    bonusCollisionKnockback: 0
+    currentActiveItem:
+      activeItemID: 0
       remainingCooldown: 0
+    currentProjectile:
+      projectileID: 0
 --- !u!4 &1738765428
 Transform:
   m_ObjectHideFlags: 0

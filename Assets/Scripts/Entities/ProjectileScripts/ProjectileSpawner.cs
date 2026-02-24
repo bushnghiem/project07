@@ -26,12 +26,14 @@ public class ProjectileSpawner : MonoBehaviour
         ProjectileSpawnEvent.OnProjectileSpawn -= SpawnProjectile;
     }
 
-    public void SpawnProjectile(Vector3 position, Vector3 direction, float forceStrength)
+    public void SpawnProjectile(Vector3 position, Vector3 direction, float forceStrength, Projectile stats)
     {
         Quaternion rotation = Quaternion.LookRotation(direction);
-        GameObject projectile = Instantiate(projectilePrefab, position, rotation);
-        projectile.GetComponent<Projectile>().Fling(direction, forceStrength);
-        Entity newInstance = projectile.GetComponent<Entity>();
+        GameObject projectileGameObject = Instantiate(projectilePrefab, position, rotation);
+        ProjectileInstance projectileInstance = projectileGameObject.GetComponent<ProjectileInstance>();
+        projectileInstance.Initialize(stats);
+        projectileInstance.Fling(direction, forceStrength);
+        Entity newInstance = projectileGameObject.GetComponent<Entity>();
         ProjectileSpawnEvent.AddCamFollow?.Invoke(newInstance);
     }
 }

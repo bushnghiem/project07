@@ -1,10 +1,9 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ActiveItem", menuName = "Scriptable Objects/ActiveItem")]
 public abstract class ActiveItem : ScriptableObject
 {
-    public string itemID;
-    public string itemName;
+    public string activeItemID;
+    public string activeItemName;
     public Sprite icon;
 
     public int cooldownTurns = 2;

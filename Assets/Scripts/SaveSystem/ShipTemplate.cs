@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Ship Template")]
+[CreateAssetMenu(fileName = "Ship Template", menuName = "Scriptable Objects/Ship Template")]
 public class ShipTemplate : ScriptableObject
 {
     public string templateID;

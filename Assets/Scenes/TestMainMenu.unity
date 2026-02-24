@@ -753,9 +753,13 @@ MonoBehaviour:
       bonusMoveStrength: 0
       bonusMass: 0
       bonusInitiative: 0
-      currentItem:
-        itemID: 0
+      bonusCollisionDamage: 0
+      bonusCollisionKnockback: 0
+      currentActiveItem:
+        activeItemID: 2
         remainingCooldown: 0
+      currentProjectile:
+        projectileID: 1
 --- !u!1 &2011352280
 GameObject:
   m_ObjectHideFlags: 0

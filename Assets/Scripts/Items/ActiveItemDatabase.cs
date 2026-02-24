@@ -6,7 +6,7 @@ public class ActiveItemDatabase : MonoBehaviour
 {
     public static ActiveItemDatabase Instance;
 
-    [SerializeField] private List<ActiveItem> items;
+    [SerializeField] private List<ActiveItem> activeItems;
 
     private Dictionary<string, ActiveItem> lookup;
 
@@ -23,16 +23,16 @@ public class ActiveItemDatabase : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        lookup = items.ToDictionary(i => i.itemID);
+        lookup = activeItems.ToDictionary(i => i.activeItemID);
         Debug.Log($"ActiveItemDatabase initialized with {lookup.Count} items.");
     }
 
-    public ActiveItem GetItem(string id)
+    public ActiveItem GetActiveItem(string id)
     {
-        if (lookup.TryGetValue(id, out var item))
-            return item;
+        if (lookup.TryGetValue(id, out var activeItem))
+            return activeItem;
 
-        Debug.LogError("Item not found: " + id);
+        Debug.LogError("Active Item not found: " + id);
         return null;
     }
 }

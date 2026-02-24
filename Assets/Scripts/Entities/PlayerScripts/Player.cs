@@ -25,7 +25,6 @@ public class Player : MonoBehaviour, Unit
     private ShipTemplate template;
 
     public ActiveItem startingItem;
-
     private ActiveItemInstance activeItem;
 
     private void Awake()
@@ -88,8 +87,10 @@ public class Player : MonoBehaviour, Unit
 
         collisionDamageComp.SetCollisionStats(runData.GetCollisionDamage(template), runData.GetCollisionKnockback(template));
 
-        startingItem = ActiveItemDatabase.Instance.GetItem(runData.currentItem.itemID);
+        startingItem = ActiveItemDatabase.Instance.GetActiveItem(runData.currentActiveItem.activeItemID);
         activeItem = new ActiveItemInstance(startingItem);
+
+        clickAndFlingComponent.SetProjectile(ProjectileDatabase.Instance.GetProjectile(runData.currentProjectile.projectileID));
 
         SpawnEvent.OnUnitSpawned?.Invoke(this);
     }

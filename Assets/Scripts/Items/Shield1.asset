@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9df989fa184e2a241a2d98ce006f6ee8, type: 3}
-  m_Name: Heal100
-  m_EditorClassIdentifier: Assembly-CSharp::HealItem
-  activeItemID: 0
-  activeItemName: Heal 100
+  m_Script: {fileID: 11500000, guid: 775f8dba6c92c544c95f2b7d9a0fad7b, type: 3}
+  m_Name: Shield1
+  m_EditorClassIdentifier: Assembly-CSharp::ShieldItem
+  activeItemID: 2
+  activeItemName: Shield
   icon: {fileID: 0}
-  cooldownTurns: 2
-  healAmount: 100
+  cooldownTurns: 1
+  shieldAmount: 1
