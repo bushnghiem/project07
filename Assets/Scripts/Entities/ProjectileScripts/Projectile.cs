@@ -12,6 +12,7 @@ public class Projectile : ScriptableObject
     [Header("Combat")]
     public float maxHealth = 1f;
     public float collisionDamage = 10f;
+    public int startingShield = 0;
 
     [Header("Physics")]
     public float mass = 1f;
@@ -31,4 +32,20 @@ public class Projectile : ScriptableObject
     [Header("Explosion")]
     public bool doesExplode = true;
     public ExplosionStats explosionStats;
+
+    public void Initialize(ProjectileSaveData saveData)
+    {
+        maxHealth += saveData.bonusMaxHealth;
+        collisionDamage += saveData.bonusCollisionDamage;
+        startingShield += saveData.bonusStartingShield;
+        mass += saveData.bonusMass;
+        collisionKnockback += saveData.bonusCollisionKnockback;
+        useLifetime = saveData.useLifetimeOverride;
+        dieWhenStopped = saveData.dieWhenStoppedOverride;
+        doesExplode = saveData.doesExplodeOverride;
+        explosionStats.radius += saveData.bonusExplosionStats.radius;
+        explosionStats.damage += saveData.bonusExplosionStats.damage;
+        explosionStats.force += saveData.bonusExplosionStats.force;
+        explosionStats.damageLayers = saveData.bonusExplosionStats.damageLayers;
+    }
 }

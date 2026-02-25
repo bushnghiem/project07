@@ -16,6 +16,7 @@ MonoBehaviour:
   projectileName: Iron Ball
   maxHealth: 100
   collisionDamage: 50
+  startingShield: 0
   mass: 2
   collisionKnockback: 100
   linearDamping: 2
@@ -32,4 +33,4 @@ MonoBehaviour:
     force: 0
     damageLayers:
       serializedVersion: 2
-      m_Bits: 0
+      m_Bits: 4294967295

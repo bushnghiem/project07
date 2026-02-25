@@ -8,8 +8,9 @@ public class ShipRunData
 
     public float currentHealth;
     public bool isDead;
-
+    
     public float bonusMaxHealth;
+    public int bonusStartingShield;
     public float bonusShotStrength;
     public float bonusMoveStrength;
     public float bonusMass;
@@ -29,6 +30,7 @@ public class ShipRunData
         currentHealth = 100;
         isDead = false;
         bonusMaxHealth = 0;
+        bonusStartingShield = 0;
         bonusShotStrength = 0;
         bonusMoveStrength = 0;
         bonusMass = 0;
@@ -40,6 +42,11 @@ public class ShipRunData
     public float GetMaxHealth(ShipTemplate template)
     {
         return template.baseHealth + bonusMaxHealth;
+    }
+
+    public int GetStartingShield(ShipTemplate template)
+    {
+        return template.baseStartingShield + bonusStartingShield;
     }
 
     public float GetShotStrength(ShipTemplate template)

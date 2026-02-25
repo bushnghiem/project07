@@ -743,12 +743,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TestMainMenu
   startingRunData:
     runSeed: 20
+    currentGridPosition: {x: 1, y: 1}
     team:
     - uniqueID: StartShip
       templateID: 0
       currentHealth: 10
       isDead: 0
       bonusMaxHealth: 0
+      bonusStartingShield: 1
       bonusShotStrength: 0
       bonusMoveStrength: 0
       bonusMass: 0
@@ -756,10 +758,25 @@ MonoBehaviour:
       bonusCollisionDamage: 0
       bonusCollisionKnockback: 0
       currentActiveItem:
-        activeItemID: 2
+        activeItemID: 0
         remainingCooldown: 0
       currentProjectile:
         projectileID: 1
+        bonusMaxHealth: 0
+        bonusCollisionDamage: 0
+        bonusStartingShield: 0
+        bonusMass: 0
+        bonusCollisionKnockback: 0
+        useLifetimeOverride: 0
+        dieWhenStoppedOverride: 0
+        doesExplodeOverride: 0
+        bonusExplosionStats:
+          radius: 0
+          damage: 0
+          force: 0
+          damageLayers:
+            serializedVersion: 2
+            m_Bits: 4294967295
 --- !u!1 &2011352280
 GameObject:
   m_ObjectHideFlags: 0

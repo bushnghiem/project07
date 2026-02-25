@@ -17,7 +17,7 @@ public class TestMainMenu : MonoBehaviour
         ship0.currentActiveItem = itemData;
         newRun.team.Add(ship0);
         RunManager.Instance.CurrentRun = startingRunData;
-        SceneManager.LoadScene("SpawnTestScene");
+        SceneManager.LoadScene("TestGrid");
     }
 
     public void QuitGame()

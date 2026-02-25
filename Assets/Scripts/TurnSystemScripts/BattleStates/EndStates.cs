@@ -8,9 +8,8 @@ public class WinState : BattleState
     public override void Enter()
     {
         TurnEvent.OnFightWon?.Invoke();
-        SceneManager.LoadScene("SpawnTestScene 1");
+        SceneManager.LoadScene("TestGrid");
         Debug.Log("You Win!");
-        
     }
 }
 

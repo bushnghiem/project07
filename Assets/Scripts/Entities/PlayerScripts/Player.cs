@@ -71,10 +71,11 @@ public class Player : MonoBehaviour, Unit
     public void Initialize(ShipRunData data)
     {
         runData = data;
-
+        // Set all basic stats for ship
         template = ShipTemplateDatabase.Instance.GetTemplate(runData.templateID);
 
         healthComp.SetMaxHealth(runData.GetMaxHealth(template));
+        healthComp.SetShield(runData.GetStartingShield(template));
         healthComp.SetCurrentHealth(runData.currentHealth);
 
         clickAndFlingComponent.SetForces(
@@ -87,10 +88,16 @@ public class Player : MonoBehaviour, Unit
 
         collisionDamageComp.SetCollisionStats(runData.GetCollisionDamage(template), runData.GetCollisionKnockback(template));
 
+        // Set the active item for ship
         startingItem = ActiveItemDatabase.Instance.GetActiveItem(runData.currentActiveItem.activeItemID);
         activeItem = new ActiveItemInstance(startingItem);
 
-        clickAndFlingComponent.SetProjectile(ProjectileDatabase.Instance.GetProjectile(runData.currentProjectile.projectileID));
+        // Set the projectile for ship
+        Projectile newProjectile = ProjectileDatabase.Instance.GetProjectile(runData.currentProjectile.projectileID);
+        // Initialize projectile with bonus stats
+        newProjectile.Initialize(runData.currentProjectile);
+        // Give projectile to Click and Fling Component
+        clickAndFlingComponent.SetProjectile(newProjectile);
 
         SpawnEvent.OnUnitSpawned?.Invoke(this);
     }

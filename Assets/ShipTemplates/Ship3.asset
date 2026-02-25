@@ -15,6 +15,7 @@ MonoBehaviour:
   templateID: 3
   displayName: Ship03
   baseHealth: 20
+  baseStartingShield: 1
   baseShotStrength: 100
   baseMoveStrength: 100
   baseMass: 10

@@ -60,6 +60,7 @@ public class Enemy : MonoBehaviour, Unit
         template = ShipTemplateDatabase.Instance.GetTemplate(runData.templateID);
 
         healthComp.SetMaxHealth(runData.GetMaxHealth(template));
+        healthComp.SetShield(runData.GetStartingShield(template));
         healthComp.SetCurrentHealth(runData.currentHealth);
 
         /*

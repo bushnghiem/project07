@@ -84,6 +84,7 @@ public class ProjectileInstance : MonoBehaviour, Entity
 
         healthComp.SetMaxHealth(stats.maxHealth);
         healthComp.SetCurrentHealth(stats.maxHealth);
+        healthComp.SetShield(stats.startingShield);
 
         if (stats.useLifetime)
             Invoke(nameof(Expire), stats.lifeTime);
