@@ -5,7 +5,8 @@ public enum TileType
     Empty,
     Wall,
     Combat,
-    Event
+    Event,
+    Portal
 }
 
 [System.Serializable]

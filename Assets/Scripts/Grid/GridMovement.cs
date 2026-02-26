@@ -44,16 +44,44 @@ public class GridMovement : MonoBehaviour
         switch (tile.tileType)
         {
             case TileType.Event:
-                Debug.Log("Random Event Triggered!");
+                HandleRandomEventTile();
                 break;
             case TileType.Empty:
-                Debug.Log("Nothing");
+                HandleEmptyTile();
                 break;
             case TileType.Combat:
-                RunManager.Instance.CurrentRun.currentGridPosition = gridPosition;
-                Debug.Log("Fight");
-                SceneManager.LoadScene("SpawnTestScene");
+                HandleCombatTile();
+                break;
+            case TileType.Portal:
+                HandlePortalTile();
                 break;
         }
+    }
+
+    public void HandleRandomEventTile()
+    {
+        Debug.Log("Random Event Triggered!");
+    }
+
+    public void HandleEmptyTile()
+    {
+        Debug.Log("Nothing");
+    }
+
+    public void HandleCombatTile()
+    {
+        RunManager.Instance.CurrentRun.currentGridPosition = gridPosition;
+        Debug.Log("Fight");
+        SceneManager.LoadScene("SpawnTestScene");
+    }
+
+    public void HandlePortalTile()
+    {
+        Debug.Log("End of run");
+        MetaManager.Instance.totalWins++;
+        MetaManager.Instance.playerCurrency += 100;
+        SaveManager.Instance.SaveMeta();
+        SaveManager.Instance.DeleteRun();
+        SceneManager.LoadScene("TestMainMenu");
     }
 }

@@ -85,12 +85,12 @@ public class SaveManager : MonoBehaviour
         Debug.Log("Run Saved");
     }
 
-    public void LoadRun()
+    public bool LoadRun()
     {
         if (!File.Exists(runPath))
         {
             Debug.Log("No Run Save Found");
-            return;
+            return false;
         }
 
         string json = File.ReadAllText(runPath);
@@ -99,6 +99,7 @@ public class SaveManager : MonoBehaviour
         RunManager.Instance.CurrentRun = run.currentRun;
 
         Debug.Log("Run Loaded");
+        return true;
     }
 
     public void DeleteRun()

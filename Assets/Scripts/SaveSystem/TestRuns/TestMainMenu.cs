@@ -8,16 +8,17 @@ public class TestMainMenu : MonoBehaviour
 
     public void StartNewRun()
     {
-        RunData newRun = new RunData();
-        newRun.runSeed = Random.Range(int.MinValue, int.MaxValue);
-        ShipRunData ship0 = new ShipRunData();
-        ActiveItemSaveData itemData = new ActiveItemSaveData();
-        itemData.activeItemID = "1";
-        ship0.SetDefaults();
-        ship0.currentActiveItem = itemData;
-        newRun.team.Add(ship0);
-        RunManager.Instance.CurrentRun = startingRunData;
-        SceneManager.LoadScene("TestGrid");
+        if (SaveManager.Instance.LoadRun())
+        {
+            SceneManager.LoadScene("TestGrid");
+        }
+        else
+        {
+            RunManager.Instance.CurrentRun = startingRunData;
+            MetaManager.Instance.totalRuns++;
+            SaveManager.Instance.SaveMeta();
+            SceneManager.LoadScene("TestGrid");
+        }
     }
 
     public void QuitGame()
