@@ -7,6 +7,7 @@ public class WinState : BattleState
 
     public override void Enter()
     {
+        RunManager.Instance.CurrentRun.clearedCombatTiles.Add(RunManager.Instance.CurrentRun.currentGridPosition);
         TurnEvent.OnFightWon?.Invoke();
         SceneManager.LoadScene("TestGrid");
         Debug.Log("You Win!");

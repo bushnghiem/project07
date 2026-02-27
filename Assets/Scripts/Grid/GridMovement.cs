@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GridMovement : MonoBehaviour
 {
@@ -7,10 +8,19 @@ public class GridMovement : MonoBehaviour
     public Vector2Int gridPosition;
     public GridManager gridManager;
 
-    void Start()
+    IEnumerator Start()
     {
         gridPosition = RunManager.Instance.CurrentRun.currentGridPosition;
         transform.position = gridManager.GetWorldPosition(gridPosition.x, gridPosition.y);
+
+        // Wait until grid exists
+        yield return new WaitUntil(() => gridManager.IsGridReady);
+
+        transform.position = gridManager.GetWorldPosition(gridPosition.x, gridPosition.y);
+
+        // Trigger tile on spawn
+        TileData tile = gridManager.grid[gridPosition.x, gridPosition.y];
+        HandleTileEvent(tile);
     }
 
     void Update()
@@ -34,7 +44,8 @@ public class GridMovement : MonoBehaviour
         {
             gridPosition = targetPos;
             transform.position = gridManager.GetWorldPosition(gridPosition.x, gridPosition.y);
-            
+            RunManager.Instance.CurrentRun.currentGridPosition = gridPosition;
+            SaveManager.Instance.SaveRun();
             HandleTileEvent(tile);
         }
     }

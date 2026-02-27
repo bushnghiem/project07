@@ -20,6 +20,8 @@ public class GridManager : MonoBehaviour
     [Range(0, 100)] public int combatChance = 20;
     [Range(0, 100)] public int eventChance = 30;
 
+    public bool IsGridReady { get; private set; }
+
     void Start()
     {
         GenerateGrid(RunManager.Instance.CurrentRun.runSeed);
@@ -43,13 +45,15 @@ public class GridManager : MonoBehaviour
                     continue;
                 }
 
-                // Randomize interior
+                // Randomize tiles
                 grid[x, y].tileType = RandomTileType();
             }
         }
 
         PlacePortal();
+        ApplyRunModifications();
         GenerateVisuals();
+        IsGridReady = true;
     }
 
     private void PlacePortal()
@@ -66,6 +70,19 @@ public class GridManager : MonoBehaviour
         grid[x, y].tileType = TileType.Portal;
     }
 
+    void ApplyRunModifications()
+    {
+        var run = RunManager.Instance.CurrentRun;
+
+        foreach (var pos in run.clearedCombatTiles)
+        {
+            if (IsInsideGrid(pos.x, pos.y))
+            {
+                grid[pos.x, pos.y].tileType = TileType.Empty;
+            }
+        }
+    }
+
     private TileType RandomTileType()
     {
         int roll = rng.Next(0, 100);
@@ -77,13 +94,17 @@ public class GridManager : MonoBehaviour
 
     public void GenerateVisuals()
     {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
                 Vector3 worldPos = GetWorldPosition(x, y);
 
-                // Spawn base floor (except walls if you want)
+                // Spawn base floor
                 //Instantiate(floorPrefab, worldPos, Quaternion.identity, transform);
 
                 // Spawn feature on top

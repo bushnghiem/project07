@@ -7,4 +7,6 @@ public class RunData
     public int runSeed;
     public Vector2Int currentGridPosition;
     public List<ShipRunData> team = new List<ShipRunData>();
+
+    public List<Vector2Int> clearedCombatTiles = new List<Vector2Int>();
 }
