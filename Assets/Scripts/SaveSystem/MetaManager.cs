@@ -6,7 +6,7 @@ public class MetaManager : MonoBehaviour
     public static MetaManager Instance;
 
     public List<ShipMetaData> metaShips = new();
-    public int playerCurrency;
+    public int metaCurrency;
     public int totalWins;
     public int totalRuns;
 
@@ -27,7 +27,7 @@ public class MetaManager : MonoBehaviour
     public void InitializeFreshMeta()
     {
         metaShips = new List<ShipMetaData>();
-        playerCurrency = 0;
+        metaCurrency = 0;
         totalWins = 0;
         totalRuns = 0;
     }

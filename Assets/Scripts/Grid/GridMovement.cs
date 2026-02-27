@@ -7,6 +7,7 @@ public class GridMovement : MonoBehaviour
     public float moveSpeed = 5f;
     public Vector2Int gridPosition;
     public GridManager gridManager;
+    public EncounterData testEncounter;
 
     IEnumerator Start()
     {
@@ -82,6 +83,7 @@ public class GridMovement : MonoBehaviour
     public void HandleCombatTile()
     {
         RunManager.Instance.CurrentRun.currentGridPosition = gridPosition;
+        RunManager.Instance.CurrentRun.currentEncounter = testEncounter;
         Debug.Log("Fight");
         SceneManager.LoadScene("SpawnTestScene");
     }
@@ -90,7 +92,7 @@ public class GridMovement : MonoBehaviour
     {
         Debug.Log("End of run");
         MetaManager.Instance.totalWins++;
-        MetaManager.Instance.playerCurrency += 100;
+        RewardManager.Instance.AddMetaCurrency(100);
         SaveManager.Instance.SaveMeta();
         SaveManager.Instance.DeleteRun();
         SceneManager.LoadScene("TestMainMenu");

@@ -153,6 +153,7 @@ MonoBehaviour:
   moveSpeed: 5
   gridPosition: {x: 1, y: 1}
   gridManager: {fileID: 32902891}
+  testEncounter: {fileID: 11400000, guid: 6e62e74d79f7e434bb228f6a8328d27d, type: 2}
 --- !u!4 &24435316
 Transform:
   m_ObjectHideFlags: 0

@@ -3,14 +3,17 @@ using UnityEngine;
 public class TestRun : MonoBehaviour
 {
     public UnitSpawner spawner;
+    public FormationData playerFormation;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        RunData runData = RunManager.Instance.CurrentRun;
-        spawner.SpawnTeam(runData);
-        spawner.SpawnUnit(spawner.enemyData, 3);
+        var runData = RunManager.Instance.CurrentRun;
+        var encounterData = runData.currentEncounter;
+
+        spawner.SpawnPlayerTeam(runData.team, playerFormation);
+        spawner.SpawnEnemyTeam(encounterData.enemies, encounterData.enemyFormation);
     }
 
     // Update is called once per frame

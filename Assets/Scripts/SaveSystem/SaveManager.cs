@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.IO;
+using System.Collections.Generic;
 
 public class SaveManager : MonoBehaviour
 {
@@ -39,8 +40,9 @@ public class SaveManager : MonoBehaviour
     {
         MetaSaveFile meta = new MetaSaveFile
         {
+            version = 1,
             ships = MetaManager.Instance.metaShips,
-            playerCurrency = MetaManager.Instance.playerCurrency,
+            metaCurrency = MetaManager.Instance.metaCurrency,
             totalWins = MetaManager.Instance.totalWins,
             totalRuns = MetaManager.Instance.totalRuns
         };
@@ -48,7 +50,7 @@ public class SaveManager : MonoBehaviour
         string json = JsonUtility.ToJson(meta, true);
         File.WriteAllText(metaPath, json);
 
-        Debug.Log("Meta Saved");
+        Debug.Log("Meta Saved (v" + meta.version + ")");
     }
 
     public void LoadMeta()
@@ -64,12 +66,25 @@ public class SaveManager : MonoBehaviour
         string json = File.ReadAllText(metaPath);
         MetaSaveFile meta = JsonUtility.FromJson<MetaSaveFile>(json);
 
-        MetaManager.Instance.metaShips = meta.ships ?? new();
-        MetaManager.Instance.playerCurrency = meta.playerCurrency;
+        if (meta == null)
+        {
+            Debug.LogWarning("Meta file corrupted - resetting");
+            MetaManager.Instance.InitializeFreshMeta();
+            SaveMeta();
+            return;
+        }
+
+        if (meta.version < 1)
+        {
+            Debug.LogWarning("Old meta version detected."); // If needed, will add migration logic
+        }
+
+        MetaManager.Instance.metaShips = meta.ships ?? new List<ShipMetaData>();
+        MetaManager.Instance.metaCurrency = meta.metaCurrency;
         MetaManager.Instance.totalWins = meta.totalWins;
         MetaManager.Instance.totalRuns = meta.totalRuns;
 
-        Debug.Log("Meta Loaded");
+        Debug.Log("Meta Loaded (v" + meta.version + ")");
     }
 
     public void SaveRun()

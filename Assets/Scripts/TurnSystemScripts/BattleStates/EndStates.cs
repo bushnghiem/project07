@@ -8,7 +8,12 @@ public class WinState : BattleState
     public override void Enter()
     {
         RunManager.Instance.CurrentRun.clearedCombatTiles.Add(RunManager.Instance.CurrentRun.currentGridPosition);
-        TurnEvent.OnFightWon?.Invoke();
+        EncounterData fightData = RunManager.Instance.CurrentRun.currentEncounter;
+        RewardManager.Instance.AddRunCurrency(fightData.runCurrencyReward);
+        RewardManager.Instance.AddMetaCurrency(fightData.metaCurrencyReward);
+        SaveManager.Instance.SaveRun();
+        SaveManager.Instance.SaveMeta();
+        //TurnEvent.OnFightWon?.Invoke();
         SceneManager.LoadScene("TestGrid");
         Debug.Log("You Win!");
     }
@@ -20,7 +25,9 @@ public class LoseState : BattleState
 
     public override void Enter()
     {
-        TurnEvent.OnFightLost?.Invoke();
+        //TurnEvent.OnFightLost?.Invoke();
+        SaveManager.Instance.DeleteRun();
+        SaveManager.Instance.SaveMeta();
         SceneManager.LoadScene("TestMainMenu");
         Debug.Log("You Lose!");
     }

@@ -119,6 +119,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &172886599
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 172886601}
+  - component: {fileID: 172886600}
+  m_Layer: 0
+  m_Name: RewardManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &172886600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172886599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b9bc62d2991389448db6ae6df7833fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RewardManager
+--- !u!4 &172886601
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172886599}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.05661, y: -0, z: -5.63548}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &206262374
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,12 +194,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RunManager
   CurrentRun:
     runSeed: 10
+    currentGridPosition: {x: 0, y: 0}
+    currentEncounter: {fileID: 0}
     team:
     - uniqueID: 1
       templateID: 0
       currentHealth: 20
       isDead: 0
       bonusMaxHealth: 0
+      bonusStartingShield: 0
       bonusShotStrength: 0
       bonusMoveStrength: 0
       bonusMass: 0
@@ -167,6 +214,23 @@ MonoBehaviour:
         remainingCooldown: 0
       currentProjectile:
         projectileID: 
+        bonusMaxHealth: 0
+        bonusCollisionDamage: 0
+        bonusStartingShield: 0
+        bonusMass: 0
+        bonusCollisionKnockback: 0
+        useLifetimeOverride: 0
+        dieWhenStoppedOverride: 0
+        doesExplodeOverride: 0
+        bonusExplosionStats:
+          radius: 0
+          damage: 0
+          force: 0
+          damageLayers:
+            serializedVersion: 2
+            m_Bits: 0
+    runCurrency: 0
+    clearedCombatTiles: []
 --- !u!4 &206262376
 Transform:
   m_ObjectHideFlags: 0
@@ -473,3 +537,4 @@ SceneRoots:
   - {fileID: 1545480140}
   - {fileID: 1992306713}
   - {fileID: 1056329175}
+  - {fileID: 172886601}

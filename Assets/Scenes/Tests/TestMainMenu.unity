@@ -744,6 +744,7 @@ MonoBehaviour:
   startingRunData:
     runSeed: 20
     currentGridPosition: {x: 1, y: 1}
+    currentEncounter: {fileID: 0}
     team:
     - uniqueID: StartShip
       templateID: 0
@@ -777,6 +778,40 @@ MonoBehaviour:
           damageLayers:
             serializedVersion: 2
             m_Bits: 4294967295
+    - uniqueID: StartShip
+      templateID: 0
+      currentHealth: 10
+      isDead: 0
+      bonusMaxHealth: 0
+      bonusStartingShield: 1
+      bonusShotStrength: 0
+      bonusMoveStrength: 0
+      bonusMass: 0
+      bonusInitiative: 0
+      bonusCollisionDamage: 0
+      bonusCollisionKnockback: 0
+      currentActiveItem:
+        activeItemID: 0
+        remainingCooldown: 0
+      currentProjectile:
+        projectileID: 0
+        bonusMaxHealth: 0
+        bonusCollisionDamage: 0
+        bonusStartingShield: 0
+        bonusMass: 0
+        bonusCollisionKnockback: 0
+        useLifetimeOverride: 1
+        dieWhenStoppedOverride: 1
+        doesExplodeOverride: 1
+        bonusExplosionStats:
+          radius: 0
+          damage: 0
+          force: 0
+          damageLayers:
+            serializedVersion: 2
+            m_Bits: 4294967295
+    runCurrency: 0
+    clearedCombatTiles: []
 --- !u!1 &2011352280
 GameObject:
   m_ObjectHideFlags: 0

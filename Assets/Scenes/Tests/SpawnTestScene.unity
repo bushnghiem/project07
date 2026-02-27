@@ -119,37 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &56122809
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 56122810}
-  m_Layer: 0
-  m_Name: t3
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &56122810
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 56122809}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1924685192}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &476124622
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 476124623}
   m_Layer: 0
-  m_Name: t1
+  m_Name: Player Anchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 476124622}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -265,37 +234,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1136048757838468645, guid: a231d69cf311a4e47be4ad939928a81b, type: 3}
   m_PrefabInstance: {fileID: 764518096}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &679476945
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 679476946}
-  m_Layer: 0
-  m_Name: t4
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &679476946
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 679476945}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1924685192}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &764518096
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -626,6 +564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestRun
   spawner: {fileID: 1738765427}
+  playerFormation: {fileID: 11400000, guid: 264d3c4f4bd4ebf4db485492610b96d4, type: 2}
 --- !u!1 &1423209346
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,7 +899,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1649102355}
   m_Layer: 0
-  m_Name: t2
+  m_Name: Enemy Anchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -975,7 +914,7 @@ Transform:
   m_GameObject: {fileID: 1649102354}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -10, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1043,20 +982,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8444933f00afb842914e55ca5cd5ee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnitSpawner
-  unitPrefab:
-  - {fileID: 7295725305768939094, guid: 4446399962f7f4445ad433ea34dd50d2, type: 3}
-  - {fileID: 8253756129412509392, guid: 1ff7513c1271612409931f4defb8a356, type: 3}
-  spawnPoints:
-  - {fileID: 476124623}
-  - {fileID: 1649102355}
-  - {fileID: 56122810}
-  - {fileID: 679476946}
+  playerUnitPrefab: {fileID: 7295725305768939094, guid: 4446399962f7f4445ad433ea34dd50d2, type: 3}
+  enemyUnitPrefab: {fileID: 8253756129412509392, guid: 1ff7513c1271612409931f4defb8a356, type: 3}
+  playerAnchor: {fileID: 476124623}
+  enemyAnchor: {fileID: 1649102355}
   enemyData:
     uniqueID: 4
     templateID: 3
     currentHealth: 20
     isDead: 0
     bonusMaxHealth: 0
+    bonusStartingShield: 0
     bonusShotStrength: 0
     bonusMoveStrength: 0
     bonusMass: 0
@@ -1134,8 +1070,6 @@ Transform:
   m_Children:
   - {fileID: 476124623}
   - {fileID: 1649102355}
-  - {fileID: 56122810}
-  - {fileID: 679476946}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2101429209
