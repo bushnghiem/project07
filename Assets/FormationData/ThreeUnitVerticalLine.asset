@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46698408352f4a54e831dc3a3debed2f, type: 3}
-  m_Name: FourUnit
+  m_Name: ThreeUnitVerticalLine
   m_EditorClassIdentifier: Assembly-CSharp::FormationData
   positions:
-  - {x: 0, y: 0, z: 3}
-  - {x: 0, y: 0, z: -3}
-  - {x: 0, y: 0, z: 6}
-  - {x: 0, y: 0, z: -6}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: -4}
+  - {x: 0, y: 0, z: 4}

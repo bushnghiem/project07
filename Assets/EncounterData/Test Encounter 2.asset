@@ -142,8 +142,11 @@ MonoBehaviour:
         damageLayers:
           serializedVersion: 2
           m_Bits: 4294967295
-  enemyFormation: {fileID: 11400000, guid: ea09909161c27d04d923a2d9c407861b, type: 2}
-  isElite: 0
-  isBoss: 0
+  enemyFormation: {fileID: 11400000, guid: d10a47c3a8bb80142a12974ff20d60bb, type: 2}
+  playerFormation: {fileID: 0}
+  environmentLayout: {fileID: 11400000, guid: 03214a1cff6f178469c745c1aa539ba6, type: 2}
+  playerAnchorPosition: {x: 0, y: 0, z: 0}
+  enemyAnchorPosition: {x: 0, y: 0, z: 10}
+  encounterType: 0
   runCurrencyReward: 20
   metaCurrencyReward: 20

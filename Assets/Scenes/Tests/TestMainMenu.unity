@@ -745,6 +745,7 @@ MonoBehaviour:
     runSeed: 20
     currentGridPosition: {x: 1, y: 1}
     currentEncounter: {fileID: 0}
+    playerFormation: {fileID: 11400000, guid: ea09909161c27d04d923a2d9c407861b, type: 2}
     team:
     - uniqueID: StartShip
       templateID: 0

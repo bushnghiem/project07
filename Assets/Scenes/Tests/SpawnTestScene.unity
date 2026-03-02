@@ -563,8 +563,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a158cb67eee8044dbbd10df69d74b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestRun
-  spawner: {fileID: 1738765427}
-  playerFormation: {fileID: 11400000, guid: 264d3c4f4bd4ebf4db485492610b96d4, type: 2}
+  unitSpawner: {fileID: 1738765427}
+  environmentSpawner: {fileID: 1758376458}
 --- !u!1 &1423209346
 GameObject:
   m_ObjectHideFlags: 0
@@ -964,7 +964,7 @@ GameObject:
   - component: {fileID: 1738765428}
   - component: {fileID: 1738765427}
   m_Layer: 0
-  m_Name: SpawnSystem
+  m_Name: UnitSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -986,39 +986,6 @@ MonoBehaviour:
   enemyUnitPrefab: {fileID: 8253756129412509392, guid: 1ff7513c1271612409931f4defb8a356, type: 3}
   playerAnchor: {fileID: 476124623}
   enemyAnchor: {fileID: 1649102355}
-  enemyData:
-    uniqueID: 4
-    templateID: 3
-    currentHealth: 20
-    isDead: 0
-    bonusMaxHealth: 0
-    bonusStartingShield: 0
-    bonusShotStrength: 0
-    bonusMoveStrength: 0
-    bonusMass: 0
-    bonusInitiative: 0
-    bonusCollisionDamage: 0
-    bonusCollisionKnockback: 0
-    currentActiveItem:
-      activeItemID: 0
-      remainingCooldown: 0
-    currentProjectile:
-      projectileID: 0
-      bonusMaxHealth: 0
-      bonusCollisionDamage: 0
-      bonusStartingShield: 0
-      bonusMass: 0
-      bonusCollisionKnockback: 0
-      useLifetimeOverride: 1
-      dieWhenStoppedOverride: 1
-      doesExplodeOverride: 1
-      bonusExplosionStats:
-        radius: 0
-        damage: 0
-        force: 0
-        damageLayers:
-          serializedVersion: 2
-          m_Bits: 4294967295
 --- !u!4 &1738765428
 Transform:
   m_ObjectHideFlags: 0
@@ -1029,6 +996,50 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1758376457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1758376459}
+  - component: {fileID: 1758376458}
+  m_Layer: 0
+  m_Name: EnvironmentSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1758376458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758376457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 604fd5d6e4ddfa24dac1123aa092734c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnvironmentSpawner
+--- !u!4 &1758376459
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758376457}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.48315, y: 0, z: -6.67887}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1129,6 +1140,7 @@ SceneRoots:
   - {fileID: 1011153970}
   - {fileID: 1521778655}
   - {fileID: 1738765428}
+  - {fileID: 1758376459}
   - {fileID: 1924685192}
   - {fileID: 1423209348}
   - {fileID: 1198265964}

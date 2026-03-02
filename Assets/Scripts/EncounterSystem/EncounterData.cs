@@ -7,9 +7,13 @@ public class EncounterData : ScriptableObject
     public string encounterName;
     public List<ShipRunData> enemies;
     public FormationData enemyFormation;
+    public FormationData playerFormation;
+    public EnvironmentLayout environmentLayout;
 
-    public bool isElite;
-    public bool isBoss;
+    public Vector3 playerAnchorPosition;
+    public Vector3 enemyAnchorPosition;
+
+    public EncounterType encounterType;
 
     public int runCurrencyReward;
     public int metaCurrencyReward;

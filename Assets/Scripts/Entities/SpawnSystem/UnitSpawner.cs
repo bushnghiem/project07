@@ -7,55 +7,35 @@ public class UnitSpawner : MonoBehaviour
     public GameObject enemyUnitPrefab;
     public Transform playerAnchor;
     public Transform enemyAnchor;
-    public ShipRunData enemyData;
 
-    /*
-    public void SpawnUnit(ShipRunData ShipRunData, int spawnIndex)
+    public void SetAnchorPositions(Vector3 playerAnchorPos, Vector3 enemyAnchorPos)
     {
-        GameObject obj = Instantiate(enemyUnitPrefab, spawnPoints[spawnIndex].position, Quaternion.identity);
-        obj.GetComponent<Unit>().Initialize(ShipRunData);
-
+        playerAnchor.position = playerAnchorPos;
+        enemyAnchor.position = enemyAnchorPos;
     }
 
-    public void SpawnTeam(RunData runData)
+    private void SpawnTeam(List<ShipRunData> units, FormationData formation, GameObject prefab, Transform anchor)
     {
-        for (int i = 0; i < runData.team.Count; i++)
+        for (int i = 0; i < units.Count; i++)
         {
-            GameObject obj = Instantiate(playerUnitPrefab, spawnPoints[i].position, Quaternion.identity);
+            Vector3 spawnPos = anchor.position;
 
-            obj.GetComponent<Unit>().Initialize(runData.team[i]);
+            if (i < formation.positions.Count)
+                spawnPos = anchor.TransformPoint(formation.positions[i]);
+
+            GameObject obj = Instantiate(prefab, spawnPos, Quaternion.identity);
+            obj.GetComponent<Unit>().Initialize(units[i]);
         }
     }
-    */
 
     public void SpawnEnemyTeam(List<ShipRunData> enemies, FormationData formation)
     {
-        for (int i = 0; i < enemies.Count; i++)
-        {
-            Vector3 spawnPos = enemyAnchor.position;
-
-            if (i < formation.positions.Count)
-                spawnPos += (Vector3)formation.positions[i];
-
-            GameObject obj = Instantiate(enemyUnitPrefab, spawnPos, Quaternion.identity);
-            obj.GetComponent<Unit>().Initialize(enemies[i]);
-            Debug.Log("Spawned Enemy");
-        }
+        SpawnTeam(enemies, formation, enemyUnitPrefab, enemyAnchor);
     }
 
     public void SpawnPlayerTeam(List<ShipRunData> players, FormationData formation)
     {
-        for (int i = 0; i < players.Count; i++)
-        {
-            Vector3 spawnPos = playerAnchor.position;
-
-            if (i < formation.positions.Count)
-                spawnPos += (Vector3)formation.positions[i];
-
-            GameObject obj = Instantiate(playerUnitPrefab, spawnPos, Quaternion.identity);
-            obj.GetComponent<Unit>().Initialize(players[i]);
-            Debug.Log("Spawned Player");
-        }
+        SpawnTeam(players, formation, playerUnitPrefab, playerAnchor);
     }
 
 }

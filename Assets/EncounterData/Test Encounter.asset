@@ -47,7 +47,10 @@ MonoBehaviour:
           serializedVersion: 2
           m_Bits: 4294967295
   enemyFormation: {fileID: 11400000, guid: 029c8aef893468d4bb86de9bda98d8d0, type: 2}
-  isElite: 0
-  isBoss: 0
+  playerFormation: {fileID: 0}
+  environmentLayout: {fileID: 11400000, guid: 03214a1cff6f178469c745c1aa539ba6, type: 2}
+  playerAnchorPosition: {x: 0, y: 0, z: 0}
+  enemyAnchorPosition: {x: 0, y: 0, z: 0}
+  encounterType: 0
   runCurrencyReward: 10
   metaCurrencyReward: 10
