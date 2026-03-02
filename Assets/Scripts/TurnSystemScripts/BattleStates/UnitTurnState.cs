@@ -6,7 +6,7 @@ public class UnitTurnState : BattleState
 
     public override void Enter()
     {
-        Debug.Log(manager.currentUnit +  "'s Turn");
+        //Debug.Log(manager.currentUnit +  "'s Turn");
         manager.currentUnit.StartTurn();
         //TurnEvent.OnUnitTurnStart?.Invoke(manager.currentUnit);
     }

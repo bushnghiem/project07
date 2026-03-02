@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8db64e4c879a3b741a7db007435ce107, type: 3}
-  m_Name: Test Encounter 2
+  m_Name: Test Encounter 3
   m_EditorClassIdentifier: Assembly-CSharp::EncounterData
-  encounterName: Test FIght 2
+  encounterName: Test Fight 3
   enemies:
-  - uniqueID: 4
+  - uniqueID: 0
     templateID: 3
     currentHealth: 20
     isDead: 0
@@ -46,41 +46,9 @@ MonoBehaviour:
         damageLayers:
           serializedVersion: 2
           m_Bits: 4294967295
-  - uniqueID: 4
+  - uniqueID: 1
     templateID: 3
-    currentHealth: 30
-    isDead: 0
-    bonusMaxHealth: 10
-    bonusStartingShield: 0
-    bonusShotStrength: 0
-    bonusMoveStrength: 0
-    bonusMass: 0
-    bonusInitiative: 0
-    bonusCollisionDamage: 0
-    bonusCollisionKnockback: 0
-    currentActiveItem:
-      activeItemID: 0
-      remainingCooldown: 0
-    currentProjectile:
-      projectileID: 0
-      bonusMaxHealth: 0
-      bonusCollisionDamage: 0
-      bonusStartingShield: 0
-      bonusMass: 0
-      bonusCollisionKnockback: 0
-      useLifetimeOverride: 1
-      dieWhenStoppedOverride: 1
-      doesExplodeOverride: 1
-      bonusExplosionStats:
-        radius: 0
-        damage: 0
-        force: 0
-        damageLayers:
-          serializedVersion: 2
-          m_Bits: 4294967295
-  - uniqueID: 4
-    templateID: 3
-    currentHealth: 10
+    currentHealth: 20
     isDead: 0
     bonusMaxHealth: 0
     bonusStartingShield: 0
@@ -110,11 +78,11 @@ MonoBehaviour:
         damageLayers:
           serializedVersion: 2
           m_Bits: 4294967295
-  - uniqueID: 4
+  - uniqueID: 2
     templateID: 3
-    currentHealth: 40
+    currentHealth: 20
     isDead: 0
-    bonusMaxHealth: 20
+    bonusMaxHealth: 0
     bonusStartingShield: 0
     bonusShotStrength: 0
     bonusMoveStrength: 0
@@ -142,11 +110,11 @@ MonoBehaviour:
         damageLayers:
           serializedVersion: 2
           m_Bits: 4294967295
-  enemyFormation: {fileID: 11400000, guid: d10a47c3a8bb80142a12974ff20d60bb, type: 2}
+  enemyFormation: {fileID: 11400000, guid: a70e0f784a1ac0c4a90a4e1dc476848b, type: 2}
   playerFormation: {fileID: 0}
-  environmentLayout: {fileID: 11400000, guid: 03214a1cff6f178469c745c1aa539ba6, type: 2}
+  environmentLayout: {fileID: 0}
   playerAnchorPosition: {x: 0, y: 0, z: 0}
-  enemyAnchorPosition: {x: 0, y: 0, z: 10}
+  enemyAnchorPosition: {x: 10, y: 0, z: 0}
   encounterType: 0
-  runCurrencyReward: 20
-  metaCurrencyReward: 20
+  runCurrencyReward: 15
+  metaCurrencyReward: 15

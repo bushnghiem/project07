@@ -62,7 +62,7 @@ public class GridMovement : MonoBehaviour
                 HandleEmptyTile();
                 break;
             case TileType.Combat:
-                HandleCombatTile();
+                HandleCombatTile(tile);
                 break;
             case TileType.Portal:
                 HandlePortalTile();
@@ -80,11 +80,11 @@ public class GridMovement : MonoBehaviour
         Debug.Log("Nothing");
     }
 
-    public void HandleCombatTile()
+    public void HandleCombatTile(TileData tile)
     {
         RunManager.Instance.CurrentRun.currentGridPosition = gridPosition;
-        RunManager.Instance.CurrentRun.currentEncounter = testEncounter;
-        Debug.Log("Fight");
+        RunManager.Instance.CurrentRun.currentEncounter = tile.assignedEncounter;
+        Debug.Log("Fight: " + tile.assignedEncounter?.encounterName);
         SceneManager.LoadScene("SpawnTestScene");
     }
 

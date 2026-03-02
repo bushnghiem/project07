@@ -196,17 +196,17 @@ public class BattleManager : MonoBehaviour
 
     public void HandleUnitSpawned(Unit unit)
     {
-        Debug.Log("Added " +  unit);
+        //Debug.Log("Added " +  unit);
         allUnits.Add(unit);
         if (unit.IsPlayerControllable)
         {
             allPlayers.Add(unit);
-            Debug.Log(allPlayers);
+            //Debug.Log(allPlayers);
         }
         else
         {
             allEnemies.Add(unit);
-            Debug.Log(allEnemies);
+            //Debug.Log(allEnemies);
         }
     }
 }

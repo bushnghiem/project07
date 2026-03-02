@@ -262,6 +262,7 @@ MonoBehaviour:
   width: 20
   height: 20
   tileSize: 1
+  combatEncounterPool: {fileID: 11400000, guid: 4243f17fef1fc234abc05843fc0174bc, type: 2}
   emptyChance: 50
   combatChance: 20
   eventChance: 30

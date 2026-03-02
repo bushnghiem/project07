@@ -12,6 +12,7 @@ public class GridManager : MonoBehaviour
     public float tileSize = 1f;
 
     public TileData[,] grid;
+    public EncounterPool combatEncounterPool;
 
     private System.Random rng;
 
@@ -45,8 +46,13 @@ public class GridManager : MonoBehaviour
                     continue;
                 }
 
-                // Randomize tiles
+                // Randomize tiles and add encounter to combat tiles
                 grid[x, y].tileType = RandomTileType();
+
+                if (grid[x, y].tileType == TileType.Combat)
+                {
+                    grid[x, y].assignedEncounter = GetDeterministicEncounter(x, y);
+                }
             }
         }
 
@@ -90,6 +96,26 @@ public class GridManager : MonoBehaviour
         if (roll < emptyChance) return TileType.Empty;
         if (roll < emptyChance + combatChance) return TileType.Combat;
         return TileType.Event; // the rest is Event
+    }
+
+    private EncounterData GetDeterministicEncounter(int x, int y)
+    {
+        var run = RunManager.Instance.CurrentRun;
+
+        // Make seed for each tile using spatial hashing to generate same encounter at same tile for same seed
+        int tileSeed = run.runSeed
+                       ^ (x * 73856093)
+                       ^ (y * 19349663);
+
+        System.Random tileRng = new System.Random(tileSeed);
+
+        var pool = combatEncounterPool.encounters;
+
+        if (pool == null || pool.Count == 0)
+            return null;
+
+        int index = tileRng.Next(0, pool.Count);
+        return pool[index];
     }
 
     public void GenerateVisuals()

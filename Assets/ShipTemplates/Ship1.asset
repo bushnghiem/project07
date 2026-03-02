@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Ship1
   m_EditorClassIdentifier: Assembly-CSharp::ShipTemplate
   templateID: 1
-  displayName: Ship1
+  displayName: Ship01
   baseHealth: 200
+  baseStartingShield: 0
   baseShotStrength: 100
   baseMoveStrength: 100
   baseMass: 10

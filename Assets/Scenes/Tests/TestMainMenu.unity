@@ -747,7 +747,7 @@ MonoBehaviour:
     currentEncounter: {fileID: 0}
     playerFormation: {fileID: 11400000, guid: ea09909161c27d04d923a2d9c407861b, type: 2}
     team:
-    - uniqueID: StartShip
+    - uniqueID: StartShip1
       templateID: 0
       currentHealth: 10
       isDead: 0
@@ -779,7 +779,7 @@ MonoBehaviour:
           damageLayers:
             serializedVersion: 2
             m_Bits: 4294967295
-    - uniqueID: StartShip
+    - uniqueID: StartShip1
       templateID: 0
       currentHealth: 10
       isDead: 0
@@ -795,15 +795,15 @@ MonoBehaviour:
         activeItemID: 0
         remainingCooldown: 0
       currentProjectile:
-        projectileID: 0
+        projectileID: 1
         bonusMaxHealth: 0
         bonusCollisionDamage: 0
         bonusStartingShield: 0
         bonusMass: 0
         bonusCollisionKnockback: 0
-        useLifetimeOverride: 1
-        dieWhenStoppedOverride: 1
-        doesExplodeOverride: 1
+        useLifetimeOverride: 0
+        dieWhenStoppedOverride: 0
+        doesExplodeOverride: 0
         bonusExplosionStats:
           radius: 0
           damage: 0

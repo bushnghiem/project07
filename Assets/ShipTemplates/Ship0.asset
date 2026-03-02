@@ -15,8 +15,9 @@ MonoBehaviour:
   templateID: 0
   displayName: Ship00
   baseHealth: 100
+  baseStartingShield: 0
   baseShotStrength: 100
-  baseMoveStrength: 100
+  baseMoveStrength: 500
   baseMass: 10
   baseInitiative: 100
   baseCollisionDamage: 10

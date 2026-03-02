@@ -196,6 +196,7 @@ MonoBehaviour:
     runSeed: 10
     currentGridPosition: {x: 0, y: 0}
     currentEncounter: {fileID: 0}
+    playerFormation: {fileID: 0}
     team:
     - uniqueID: 1
       templateID: 0
@@ -367,7 +368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MetaManager
   metaShips: []
-  playerCurrency: 0
+  metaCurrency: 0
   totalWins: 0
   totalRuns: 0
 --- !u!4 &1349965096

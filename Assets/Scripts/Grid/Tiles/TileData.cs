@@ -6,6 +6,7 @@ public enum TileType
     Wall,
     Combat,
     Event,
+    Shop,
     Portal
 }
 
@@ -14,4 +15,6 @@ public class TileData
 {
     public TileType tileType;
     public bool IsWalkable => tileType != TileType.Wall;
+
+    public EncounterData assignedEncounter;
 }
