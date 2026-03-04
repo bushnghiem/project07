@@ -1,22 +1,50 @@
-using UnityEngine;
+﻿using UnityEngine;
+using System;
+using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "Projectile", menuName = "Scriptable Objects/Projectile")]
+public enum ProjectileStatType
+{
+    MaxHealth,
+    StartingShield,
+    CollisionDamage,
+    CollisionKnockback,
+    Mass
+}
+
+[Serializable]
+public class ProjectileBaseStatEntry
+{
+    public ProjectileStatType statType;
+    public float value;
+}
+
+[Serializable]
+public class ProjectileStatModifier
+{
+    public ProjectileStatType statType;
+    public float flatBonus;
+    public float percentBonus;
+
+    public float Apply(float baseValue)
+    {
+        float value = baseValue + flatBonus;
+        value += value * percentBonus;
+        return value;
+    }
+}
+
+[CreateAssetMenu(fileName = "Projectile", menuName = "Projectiles/Projectile")]
 public class Projectile : ScriptableObject
 {
-    [Header("Save ID (must be unique)")]
-    public string projectileID;
+    [SerializeField] private string projectileID;
+    public string ProjectileID => projectileID;
 
-    [Header("Identity")]
     public string projectileName;
 
-    [Header("Combat")]
-    public float maxHealth = 1f;
-    public float collisionDamage = 10f;
-    public int startingShield = 0;
+    [Header("Base Stats")]
+    public List<ProjectileBaseStatEntry> baseStats;
 
     [Header("Physics")]
-    public float mass = 1f;
-    public float collisionKnockback = 20f;
     public float linearDamping = 2f;
     public float angularDamping = 2f;
 
@@ -33,16 +61,36 @@ public class Projectile : ScriptableObject
     public bool doesExplode = true;
     public ExplosionStats explosionStats;
 
+    // Return base stat value
+    public float GetBaseStat(ProjectileStatType statType)
+    {
+        foreach (var entry in baseStats)
+        {
+            if (entry.statType == statType)
+                return entry.value;
+        }
+        return 0f;
+    }
+
+    // Apply saved modifiers from run data
     public void Initialize(ProjectileSaveData saveData)
     {
-        maxHealth += saveData.bonusMaxHealth;
-        collisionDamage += saveData.bonusCollisionDamage;
-        startingShield += saveData.bonusStartingShield;
-        mass += saveData.bonusMass;
-        collisionKnockback += saveData.bonusCollisionKnockback;
+        foreach (var modifier in saveData.statModifiers)
+        {
+            for (int i = 0; i < baseStats.Count; i++)
+            {
+                if (baseStats[i].statType == modifier.statType)
+                {
+                    baseStats[i].value = modifier.Apply(baseStats[i].value);
+                    break;
+                }
+            }
+        }
+
         useLifetime = saveData.useLifetimeOverride;
         dieWhenStopped = saveData.dieWhenStoppedOverride;
         doesExplode = saveData.doesExplodeOverride;
+
         explosionStats.radius += saveData.bonusExplosionStats.radius;
         explosionStats.damage += saveData.bonusExplosionStats.damage;
         explosionStats.force += saveData.bonusExplosionStats.force;

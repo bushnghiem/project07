@@ -4,36 +4,16 @@ public class ProjectileSpawner : MonoBehaviour
 {
     public GameObject projectilePrefab;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    private void OnEnable() => ProjectileSpawnEvent.OnProjectileSpawn += SpawnProjectile;
+    private void OnDisable() => ProjectileSpawnEvent.OnProjectileSpawn -= SpawnProjectile;
 
-    // Update is called once per frame
-    void Update()
+    public void SpawnProjectile(Vector3 position, Vector3 direction, float force, Projectile stats)
     {
-        
-    }
-
-    private void OnEnable()
-    {
-        ProjectileSpawnEvent.OnProjectileSpawn += SpawnProjectile;
-    }
-
-    private void OnDisable()
-    {
-        ProjectileSpawnEvent.OnProjectileSpawn -= SpawnProjectile;
-    }
-
-    public void SpawnProjectile(Vector3 position, Vector3 direction, float forceStrength, Projectile stats)
-    {
-        Quaternion rotation = Quaternion.LookRotation(direction);
-        GameObject projectileGameObject = Instantiate(projectilePrefab, position, rotation);
-        ProjectileInstance projectileInstance = projectileGameObject.GetComponent<ProjectileInstance>();
-        projectileInstance.Initialize(stats);
-        projectileInstance.Fling(direction, forceStrength);
-        Entity newInstance = projectileGameObject.GetComponent<Entity>();
-        ProjectileSpawnEvent.AddCamFollow?.Invoke(newInstance);
+        Quaternion rot = Quaternion.LookRotation(direction);
+        GameObject obj = Instantiate(projectilePrefab, position, rot);
+        var instance = obj.GetComponent<ProjectileInstance>();
+        instance.Initialize(stats);
+        instance.Fling(direction, force);
+        ProjectileSpawnEvent.AddCamFollow?.Invoke(instance);
     }
 }

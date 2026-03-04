@@ -16,26 +16,15 @@ MonoBehaviour:
   enemies:
   - uniqueID: 4
     templateID: 3
-    currentHealth: 20
+    currentHealth: 10
     isDead: 0
-    bonusMaxHealth: 0
-    bonusStartingShield: 0
-    bonusShotStrength: 0
-    bonusMoveStrength: 0
-    bonusMass: 0
-    bonusInitiative: 0
-    bonusCollisionDamage: 0
-    bonusCollisionKnockback: 0
+    statModifiers: []
     currentActiveItem:
       activeItemID: 0
       remainingCooldown: 0
     currentProjectile:
       projectileID: 0
-      bonusMaxHealth: 0
-      bonusCollisionDamage: 0
-      bonusStartingShield: 0
-      bonusMass: 0
-      bonusCollisionKnockback: 0
+      statModifiers: []
       useLifetimeOverride: 1
       dieWhenStoppedOverride: 1
       doesExplodeOverride: 1

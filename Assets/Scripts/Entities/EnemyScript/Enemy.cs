@@ -1,40 +1,25 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, Unit
+public class Enemy : UnitBase
 {
-    Rigidbody rb;
-    public float linearDamping = 2.0f;
-    public float angularDamping = 2.0f;
+    public float linearDamping = 2f;
+    public float angularDamping = 2f;
 
-    public HealthComponent healthComp;
     public ExploderComponent exploderComp;
-    public DamageOnCollision collisionDamageComp;
-
-    public int initiative = 10;
-
-    public Vector3 Position => transform.position;
-    public bool IsPlayerControllable => false;
-    public int Initiative => initiative;
-    public bool isDead => healthComp.isDead;
 
     private Collider[] colliders;
     private Renderer[] renderers;
 
-    private ShipRunData runData;
-    private ShipTemplate template;
+    public override bool IsPlayerControllable => false;
 
-    public ActiveItem startingItem;
-
-    private ActiveItemInstance activeItem;
-
-    private void Awake()
+    protected override void Awake()
     {
-        rb = GetComponent<Rigidbody>();
-        healthComp = GetComponent<HealthComponent>();
+        base.Awake();
+
         exploderComp = GetComponent<ExploderComponent>();
-        collisionDamageComp = GetComponent<DamageOnCollision>();
         colliders = GetComponentsInChildren<Collider>();
         renderers = GetComponentsInChildren<Renderer>();
+
         rb.linearDamping = linearDamping;
         rb.angularDamping = angularDamping;
     }
@@ -53,100 +38,61 @@ public class Enemy : MonoBehaviour, Unit
         healthComp.OnDeath -= HandleDeath;
     }
 
-    public void Initialize(ShipRunData data)
+    public override void Initialize(ShipRunData data)
     {
-        runData = data;
-
-        template = ShipTemplateDatabase.Instance.GetTemplate(runData.templateID);
-
-        healthComp.SetMaxHealth(runData.GetMaxHealth(template));
-        healthComp.SetShield(runData.GetStartingShield(template));
-        healthComp.SetCurrentHealth(runData.currentHealth);
-
-        /*
-        clickAndFlingComponent.SetForces(
-            runData.GetMoveStrength(template),
-            runData.GetShotStrength(template)
-        );
-        */
-
-        rb.mass = runData.GetMass(template);
-        initiative = runData.GetInitiative(template);
-
-        collisionDamageComp.SetCollisionStats(runData.GetCollisionDamage(template), runData.GetCollisionKnockback(template));
-
-        startingItem = ActiveItemDatabase.Instance.GetActiveItem(runData.currentActiveItem.activeItemID);
-        activeItem = new ActiveItemInstance(startingItem);
-
-        // clickAndFlingComponent.SetProjectile(ProjectileDatabase.Instance.GetProjectile(runData.currentProjectile.projectileID));
-
+        base.Initialize(data);
         SpawnEvent.OnUnitSpawned?.Invoke(this);
-        //Debug.Log("Enemy Spawned");
     }
 
-    void DisablePhysics()
+    public override void Move()
+    {
+        Debug.Log("Enemy Moved");
+    }
+
+    public override void Shoot()
+    {
+        Debug.Log("Enemy Shot");
+    }
+
+    public override void Item()
+    {
+        Debug.Log("Enemy Used Item");
+        EndTurn();
+    }
+
+    public override void StartTurn()
+    {
+        TurnEvent.OnUnitTurnStart?.Invoke(this);
+        Attack();
+    }
+
+    public override void EndTurn()
+    {
+        TurnEvent.OnUnitTurnEnd?.Invoke(this);
+    }
+
+    public override void Kill()
+    {
+        DisablePhysics();
+        DisableVisuals();
+
+        if (exploderComp != null)
+            exploderComp.StartExplosion(transform.position);
+
+        base.Kill();
+        DeathEvent.OnEntityDeath?.Invoke(this);
+    }
+
+    private void DisablePhysics()
     {
         foreach (var col in colliders)
             col.enabled = false;
     }
 
-    void DisableVisuals()
+    private void DisableVisuals()
     {
         foreach (var r in renderers)
             r.enabled = false;
-    }
-
-    public void Move()
-    {
-        Debug.Log("Enemy Moved");
-    }
-
-    public void Shoot()
-    {
-        Debug.Log("Enemy Shot");
-    }
-
-    public void Item()
-    {
-        Debug.Log("Enemy Used Item");
-        if (activeItem.Use(this, this))
-        {
-            EndTurn();
-        }
-        else
-        {
-            Debug.Log("Item still on cooldown for " + activeItem.GetRemainingCooldown() + " turns");
-        }
-    }
-
-    public void Kill()
-    {
-        DisablePhysics();
-        DisableVisuals();
-        Destroy(gameObject, 1.0f);
-    }
-
-    public void StartTurn()
-    {
-        activeItem.OnTurnStart();
-        Debug.Log("Enemy Thinking...");
-        TurnEvent.OnUnitTurnStart?.Invoke(this);
-        Attack();
-    }
-
-    public void EndTurn()
-    {
-        TurnEvent.OnUnitTurnEnd?.Invoke(this);
-    }
-
-    public void Hurt(float amount)
-    {
-        healthComp.Hurt(amount);
-    }
-
-    public void Heal(float amount)
-    {
-        healthComp.Heal(amount);
     }
 
     private void HandleDamaged(float damage)
@@ -162,31 +108,11 @@ public class Enemy : MonoBehaviour, Unit
     private void HandleDeath()
     {
         Kill();
-        if (exploderComp != null)
-        {
-            exploderComp.StartExplosion(transform.position);
-        }
-        DeathEvent.OnEntityDeath?.Invoke(this);
     }
 
-    public void Attack()
+    private void Attack()
     {
         Debug.Log("Enemy attacks!");
-        //TurnEvent.OnEnemyTurnEnd?.Invoke(this);
         EndTurn();
-    }
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        //SpawnEvent.OnUnitSpawned?.Invoke(this);
-        //Debug.Log("Enemy Spawned");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -161,6 +161,7 @@ MonoBehaviour:
   flingable: 0
   projectileMode: 0
   projectileSpawnRadius: 2
+  projectile: {fileID: 0}
   minMovementForce: 2
   maxMovementForce: 300
   minShootingForce: 2
@@ -180,6 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthComponent
   currentHealth: 5000
   maxHealth: 5000
+  shield: 0
   isDead: 0
 --- !u!114 &8818979304575841573
 MonoBehaviour:
@@ -193,13 +195,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86ba1bf98af4e764caf08510ec0adcd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+  shipDatabase: {fileID: 11400000, guid: 79df833b406fcc14a951468c245534ff, type: 2}
   linearDamping: 2
   angularDamping: 2
   clickAndFlingComponent: {fileID: 7007496768919672062}
-  healthComp: {fileID: 2875450249567645148}
   exploderComp: {fileID: 0}
-  initiative: 10
   startingItem: {fileID: 0}
+  projectileDatabase: {fileID: 11400000, guid: 629b14458ca5a9f44841fc000b5eb679, type: 2}
 --- !u!114 &4614211871170628527
 MonoBehaviour:
   m_ObjectHideFlags: 0

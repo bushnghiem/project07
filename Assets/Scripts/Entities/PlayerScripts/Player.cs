@@ -1,55 +1,32 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour, Unit
+public class Player : UnitBase
 {
-    Rigidbody rb;
-    public float linearDamping = 2.0f;
-    public float angularDamping = 2.0f;
+    public float linearDamping = 2f;
+    public float angularDamping = 2f;
 
     public ClickAndFling clickAndFlingComponent;
-    public HealthComponent healthComp;
     public ExploderComponent exploderComp;
-    public DamageOnCollision collisionDamageComp;
-
-    public int initiative = 10;
-
-    public Vector3 Position => transform.position;
-    public bool IsPlayerControllable => true;
-    public int Initiative => initiative;
-    public bool isDead => healthComp.isDead;
 
     private Collider[] colliders;
     private Renderer[] renderers;
 
-    private ShipRunData runData;
-    private ShipTemplate template;
-
     public ActiveItem startingItem;
     private ActiveItemInstance activeItem;
 
-    private void Awake()
+    public override bool IsPlayerControllable => true;
+    public ProjectileDatabase projectileDatabase; // Make sure it is assigned
+
+    protected override void Awake()
     {
-        rb = GetComponent<Rigidbody>();
-        healthComp = GetComponent<HealthComponent>();
+        base.Awake();
+
         exploderComp = GetComponent<ExploderComponent>();
-        collisionDamageComp = GetComponent<DamageOnCollision>();
         colliders = GetComponentsInChildren<Collider>();
         renderers = GetComponentsInChildren<Renderer>();
-        activeItem = new ActiveItemInstance(startingItem);
+
         rb.linearDamping = linearDamping;
         rb.angularDamping = angularDamping;
-
-        if (healthComp == null)
-            Debug.LogError("Missing HealthComponent!");
-
-        if (clickAndFlingComponent == null)
-            Debug.LogError("Missing ClickAndFling!");
-
-        if (exploderComp == null)
-            Debug.LogError("Missing exploder!");
-
-        if (collisionDamageComp == null)
-            Debug.LogError("Missing collisionDamage!");
     }
 
     private void OnEnable()
@@ -68,112 +45,95 @@ public class Player : MonoBehaviour, Unit
         clickAndFlingComponent.OnFling -= HandleFling;
     }
 
-    public void Initialize(ShipRunData data)
+    public override void Initialize(ShipRunData data)
     {
-        runData = data;
-        // Set all basic stats for ship
-        template = ShipTemplateDatabase.Instance.GetTemplate(runData.templateID);
+        base.Initialize(data);
 
-        healthComp.SetMaxHealth(runData.GetMaxHealth(template));
-        healthComp.SetShield(runData.GetStartingShield(template));
-        healthComp.SetCurrentHealth(runData.currentHealth);
+        float moveStrength = GetStat(ShipStatType.MoveStrength);
+        float shotStrength = GetStat(ShipStatType.ShotStrength);
 
-        clickAndFlingComponent.SetForces(
-            runData.GetMoveStrength(template),
-            runData.GetShotStrength(template)
-        );
+        clickAndFlingComponent.SetForces(moveStrength, shotStrength);
 
-        rb.mass = runData.GetMass(template);
-        initiative = runData.GetInitiative(template);
-
-        collisionDamageComp.SetCollisionStats(runData.GetCollisionDamage(template), runData.GetCollisionKnockback(template));
-
-        // Set the active item for ship
-        startingItem = ActiveItemDatabase.Instance.GetActiveItem(runData.currentActiveItem.activeItemID);
-        activeItem = new ActiveItemInstance(startingItem);
-
-        // Set the projectile for ship
-        Projectile newProjectile = ProjectileDatabase.Instance.GetProjectile(runData.currentProjectile.projectileID);
-        // Initialize projectile with bonus stats
-        newProjectile.Initialize(runData.currentProjectile);
-        // Give projectile to Click and Fling Component
-        clickAndFlingComponent.SetProjectile(newProjectile);
+        InitializeItems();
+        InitializeProjectile();
 
         SpawnEvent.OnUnitSpawned?.Invoke(this);
     }
 
-    void DisablePhysics()
+    private void InitializeItems()
     {
-        foreach (var col in colliders)
-            col.enabled = false;
+        if (runData.currentActiveItem == null)
+            return;
+
+        startingItem = ActiveItemDatabase.Instance
+            .GetActiveItem(runData.currentActiveItem.activeItemID);
+
+        activeItem = new ActiveItemInstance(startingItem);
     }
 
-    void DisableVisuals()
+    private void InitializeProjectile()
     {
-        foreach (var r in renderers)
-            r.enabled = false;
+        if (runData.currentProjectile == null)
+            return;
+
+        Projectile newProjectile = projectileDatabase.GetProjectile(runData.currentProjectile.projectileID);
+        newProjectile.Initialize(runData.currentProjectile);
+        clickAndFlingComponent.SetProjectile(newProjectile);
     }
 
-    public void Move()
+    public override void Move()
     {
         clickAndFlingComponent.SetFlingable(true);
         clickAndFlingComponent.SetProjectileMode(false);
     }
 
-    public void Shoot()
+    public override void Shoot()
     {
         clickAndFlingComponent.SetFlingable(true);
         clickAndFlingComponent.SetProjectileMode(true);
     }
 
-    public void Item()
+    public override void Item()
     {
-        if (activeItem.Use(this, this))
-        {
+        if (activeItem != null && activeItem.Use(this, this))
             EndTurn();
-        }
-        else
-        {
-            Debug.Log("Item still on cooldown for " + activeItem.GetRemainingCooldown() + " turns");
-        }
     }
 
-    public void Kill()
+    public override void StartTurn()
     {
-        DisablePhysics();
-        DisableVisuals();
-        Destroy(gameObject, 1.0f);
-    }
-
-    public void StartTurn()
-    {
-        activeItem.OnTurnStart();
+        activeItem?.OnTurnStart();
         TurnEvent.OnUnitTurnStart?.Invoke(this);
     }
 
-    public void EndTurn()
+    public override void EndTurn()
     {
         clickAndFlingComponent.SetFlingable(false);
         clickAndFlingComponent.SetProjectileMode(false);
-        //TurnEvent.OnPlayerTurnEnd?.Invoke(this);
         TurnEvent.OnUnitTurnEnd?.Invoke(this);
     }
 
-    public void EndOfTurn()
+    public override void Kill()
     {
+        DisablePhysics();
+        DisableVisuals();
 
+        if (exploderComp != null)
+            exploderComp.StartExplosion(transform.position);
+
+        base.Kill();
+        DeathEvent.OnEntityDeath?.Invoke(this);
     }
 
-    public void Hurt(float amount)
+    private void DisablePhysics()
     {
-        healthComp.Hurt(amount);
-        runData.currentHealth = healthComp.GetCurrentHealth();
+        foreach (var col in colliders)
+            col.enabled = false;
     }
 
-    public void Heal(float amount)
+    private void DisableVisuals()
     {
-        healthComp.Heal(amount);
-        runData.currentHealth = healthComp.GetCurrentHealth();
+        foreach (var r in renderers)
+            r.enabled = false;
     }
 
     private void HandleDamaged(float damage)
@@ -189,35 +149,10 @@ public class Player : MonoBehaviour, Unit
     private void HandleDeath()
     {
         Kill();
-        runData.isDead = true;
-        if (exploderComp != null)
-        {
-            exploderComp.StartExplosion(transform.position);
-        }
-        DeathEvent.OnEntityDeath?.Invoke(this);
     }
 
     private void HandleFling(Vector3 direction, float forceStrength)
     {
-        Debug.Log("Fling in " +  direction + " at this this strength " + forceStrength);
         EndTurn();
-    }
-
-    public bool GetIsDead()
-    {
-        return healthComp.isDead;
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        //SpawnEvent.OnUnitSpawned?.Invoke(this);
-        //Debug.Log("Player Spawned");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

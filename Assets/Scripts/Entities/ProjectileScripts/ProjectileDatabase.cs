@@ -2,32 +2,23 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-public class ProjectileDatabase : MonoBehaviour
+[CreateAssetMenu(menuName = "Projectiles/Projectile Database")]
+public class ProjectileDatabase : ScriptableObject
 {
-    public static ProjectileDatabase Instance;
     [SerializeField] private List<Projectile> projectiles;
 
     private Dictionary<string, Projectile> lookup;
 
-    private void Awake()
+    public void Initialize()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-        {
-            Debug.Log("ProjectileDatabase exists, delete");
-            Destroy(gameObject);
-            return;
-        }
-
-        DontDestroyOnLoad(gameObject);
-
-        lookup = projectiles.ToDictionary(p => p.projectileID);
-        Debug.Log($"ProjectileDatabase initialized with {lookup.Count} projectiles.");
+        lookup = projectiles.ToDictionary(p => p.ProjectileID);
     }
 
     public Projectile GetProjectile(string id)
     {
+        if (lookup == null)
+            Initialize();
+
         if (lookup.TryGetValue(id, out var projectile))
             return projectile;
 

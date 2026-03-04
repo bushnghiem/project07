@@ -14,11 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   projectileID: 0
   projectileName: Basic
-  maxHealth: 1
-  collisionDamage: 1
-  startingShield: 0
-  mass: 1
-  collisionKnockback: 2
+  baseStats:
+  - statType: 0
+    value: 10
+  - statType: 1
+    value: 0
+  - statType: 2
+    value: 1
+  - statType: 3
+    value: 1
+  - statType: 4
+    value: 1
   linearDamping: 2
   angularDamping: 2
   useLifetime: 1

@@ -156,12 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91aaf9c0583cc084f9515446e9b3d332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  linearDamping: 2
-  angularDamping: 2
-  healthComp: {fileID: 3374685751876068217}
+  shipDatabase: {fileID: 11400000, guid: 79df833b406fcc14a951468c245534ff, type: 2}
   exploderComp: {fileID: 0}
-  initiative: 10
-  startingItem: {fileID: 0}
 --- !u!114 &3374685751876068217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthComponent
   currentHealth: 20
   maxHealth: 20
+  shield: 0
   isDead: 0
 --- !u!114 &422427263791694644
 MonoBehaviour:

@@ -14,11 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   projectileID: 1
   projectileName: Iron Ball
-  maxHealth: 100
-  collisionDamage: 50
-  startingShield: 0
-  mass: 2
-  collisionKnockback: 100
+  baseStats:
+  - statType: 0
+    value: 100
+  - statType: 1
+    value: 0
+  - statType: 2
+    value: 50
+  - statType: 3
+    value: 100
+  - statType: 4
+    value: 10
   linearDamping: 2
   angularDamping: 2
   useLifetime: 0

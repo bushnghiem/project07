@@ -1,18 +1,13 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class ProjectileSaveData
 {
     public string projectileID;
 
-    [Header("Combat")]
-    public float bonusMaxHealth = 0f;
-    public float bonusCollisionDamage = 0f;
-    public int bonusStartingShield = 0;
-
-    [Header("Physics")]
-    public float bonusMass = 0f;
-    public float bonusCollisionKnockback = 0f;
+    [Header("Stat Modifiers")]
+    public List<ProjectileStatModifier> statModifiers = new List<ProjectileStatModifier>();
 
     [Header("Lifetime")]
     public bool useLifetimeOverride;

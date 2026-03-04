@@ -202,24 +202,13 @@ MonoBehaviour:
       templateID: 0
       currentHealth: 20
       isDead: 0
-      bonusMaxHealth: 0
-      bonusStartingShield: 0
-      bonusShotStrength: 0
-      bonusMoveStrength: 0
-      bonusMass: 0
-      bonusInitiative: 0
-      bonusCollisionDamage: 0
-      bonusCollisionKnockback: 0
+      statModifiers: []
       currentActiveItem:
         activeItemID: 
         remainingCooldown: 0
       currentProjectile:
         projectileID: 
-        bonusMaxHealth: 0
-        bonusCollisionDamage: 0
-        bonusStartingShield: 0
-        bonusMass: 0
-        bonusCollisionKnockback: 0
+        statModifiers: []
         useLifetimeOverride: 0
         dieWhenStoppedOverride: 0
         doesExplodeOverride: 0
@@ -242,53 +231,6 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -10.227493, y: 0, z: 4.392914}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1056329173
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1056329175}
-  - component: {fileID: 1056329174}
-  m_Layer: 0
-  m_Name: ProjectileDB
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1056329174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1056329173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6be189bbec266284a98b005795aca1bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ProjectileDatabase
-  projectiles:
-  - {fileID: 11400000, guid: dfcfebb38526d6d49bf5283443fae21c, type: 2}
-  - {fileID: 11400000, guid: aae9720e5127c984c836194e5914e874, type: 2}
---- !u!4 &1056329175
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1056329173}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: -0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -381,55 +323,6 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 241.76994, y: -0.00001, z: 326.42914}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1545480138
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1545480140}
-  - component: {fileID: 1545480139}
-  m_Layer: 0
-  m_Name: ShipTemplateDB
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1545480139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1545480138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fc13e4cdffd2c94b96f834c5ab9360e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TemplateDatabase
-  templates:
-  - {fileID: 11400000, guid: e4e0cb2f9326fe546b832d05b7497d9e, type: 2}
-  - {fileID: 11400000, guid: d6c4c97a82ffdce489535dc77c6418c9, type: 2}
-  - {fileID: 11400000, guid: 3d774d361d1c047488b2220d1d39d79a, type: 2}
-  - {fileID: 11400000, guid: 6fef27f32e7457746a1dbff839c89c87, type: 2}
---- !u!4 &1545480140
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1545480138}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 244.45227, y: 0, z: 322.2442}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -535,7 +428,5 @@ SceneRoots:
   - {fileID: 206262376}
   - {fileID: 1349965096}
   - {fileID: 1324156056}
-  - {fileID: 1545480140}
   - {fileID: 1992306713}
-  - {fileID: 1056329175}
   - {fileID: 172886601}

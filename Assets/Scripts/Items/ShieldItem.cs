@@ -9,17 +9,11 @@ public class ShieldItem : ActiveItem
     {
         if (target == null) return;
 
-        if (target.IsPlayerControllable)
+        // Use the public method on UnitBase
+        if (target is UnitBase unit)
         {
-            Player player = (Player)target;
-            player.healthComp.addShield(shieldAmount);
-            Debug.Log(target + " gained shield");
-        }
-        else
-        {
-            Enemy enemy = (Enemy)target;
-            enemy.healthComp.addShield(shieldAmount);
-            Debug.Log(target + " gained shield");
+            unit.AddShield(shieldAmount);
+            Debug.Log($"{unit.gameObject.name} gained {shieldAmount} shield");
         }
     }
 }

@@ -14,10 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShipTemplate
   templateID: 2
   displayName: Ship02
-  baseHealth: 300
-  baseShotStrength: 10
-  baseMoveStrength: 400
-  baseMass: 10
-  baseInitiative: 300
-  baseCollisionDamage: 10
-  baseCollisionKnockback: 10
+  baseStats:
+  - statType: 0
+    value: 100
+  - statType: 1
+    value: 0
+  - statType: 2
+    value: 100
+  - statType: 3
+    value: 100
+  - statType: 4
+    value: 10
+  - statType: 5
+    value: 10
+  - statType: 6
+    value: 10
+  - statType: 7
+    value: 100

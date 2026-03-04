@@ -24,7 +24,7 @@ public class UnitSpawner : MonoBehaviour
                 spawnPos = anchor.TransformPoint(formation.positions[i]);
 
             GameObject obj = Instantiate(prefab, spawnPos, Quaternion.identity);
-            obj.GetComponent<Unit>().Initialize(units[i]);
+            obj.GetComponent<UnitBase>().Initialize(units[i]);
         }
     }
 
