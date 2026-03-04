@@ -130,7 +130,7 @@ public class GridManager : MonoBehaviour
             {
                 Vector3 worldPos = GetWorldPosition(x, y);
 
-                // Spawn base floor
+                // Spawn floor
                 //Instantiate(floorPrefab, worldPos, Quaternion.identity, transform);
 
                 // Spawn feature on top

@@ -14,28 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EncounterData
   encounterName: Test Fight 3
   enemies:
-  - uniqueID: 0
+  - uniqueID: enemy 1
     templateID: 3
     currentHealth: 20
     isDead: 0
-    bonusMaxHealth: 0
-    bonusStartingShield: 0
-    bonusShotStrength: 0
-    bonusMoveStrength: 0
-    bonusMass: 0
-    bonusInitiative: 0
-    bonusCollisionDamage: 0
-    bonusCollisionKnockback: 0
+    statModifiers: []
     currentActiveItem:
       activeItemID: 0
       remainingCooldown: 0
     currentProjectile:
       projectileID: 0
-      bonusMaxHealth: 0
-      bonusCollisionDamage: 0
-      bonusStartingShield: 0
-      bonusMass: 0
-      bonusCollisionKnockback: 0
+      statModifiers: []
       useLifetimeOverride: 1
       dieWhenStoppedOverride: 1
       doesExplodeOverride: 1
@@ -46,28 +35,17 @@ MonoBehaviour:
         damageLayers:
           serializedVersion: 2
           m_Bits: 4294967295
-  - uniqueID: 1
+  - uniqueID: enemy 2
     templateID: 3
     currentHealth: 20
     isDead: 0
-    bonusMaxHealth: 0
-    bonusStartingShield: 0
-    bonusShotStrength: 0
-    bonusMoveStrength: 0
-    bonusMass: 0
-    bonusInitiative: 0
-    bonusCollisionDamage: 0
-    bonusCollisionKnockback: 0
+    statModifiers: []
     currentActiveItem:
       activeItemID: 0
       remainingCooldown: 0
     currentProjectile:
       projectileID: 0
-      bonusMaxHealth: 0
-      bonusCollisionDamage: 0
-      bonusStartingShield: 0
-      bonusMass: 0
-      bonusCollisionKnockback: 0
+      statModifiers: []
       useLifetimeOverride: 1
       dieWhenStoppedOverride: 1
       doesExplodeOverride: 1
@@ -78,28 +56,17 @@ MonoBehaviour:
         damageLayers:
           serializedVersion: 2
           m_Bits: 4294967295
-  - uniqueID: 2
+  - uniqueID: enemy 3
     templateID: 3
     currentHealth: 20
     isDead: 0
-    bonusMaxHealth: 0
-    bonusStartingShield: 0
-    bonusShotStrength: 0
-    bonusMoveStrength: 0
-    bonusMass: 0
-    bonusInitiative: 0
-    bonusCollisionDamage: 0
-    bonusCollisionKnockback: 0
+    statModifiers: []
     currentActiveItem:
       activeItemID: 0
       remainingCooldown: 0
     currentProjectile:
       projectileID: 0
-      bonusMaxHealth: 0
-      bonusCollisionDamage: 0
-      bonusStartingShield: 0
-      bonusMass: 0
-      bonusCollisionKnockback: 0
+      statModifiers: []
       useLifetimeOverride: 1
       dieWhenStoppedOverride: 1
       doesExplodeOverride: 1

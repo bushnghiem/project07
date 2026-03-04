@@ -201,7 +201,10 @@ MonoBehaviour:
   clickAndFlingComponent: {fileID: 7007496768919672062}
   exploderComp: {fileID: 0}
   startingItem: {fileID: 0}
+  passiveItems: []
   projectileDatabase: {fileID: 11400000, guid: 629b14458ca5a9f44841fc000b5eb679, type: 2}
+  activeItemDatabase: {fileID: 11400000, guid: ac7101cb4e176b44db3493135d3d42fd, type: 2}
+  passiveItemDatabase: {fileID: 11400000, guid: 302d3d03aa8c58344bbce52cc0f69ad5, type: 2}
 --- !u!114 &4614211871170628527
 MonoBehaviour:
   m_ObjectHideFlags: 0

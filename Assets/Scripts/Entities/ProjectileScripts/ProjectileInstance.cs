@@ -36,7 +36,7 @@ public class ProjectileInstance : MonoBehaviour, Entity
     {
         template = stats;
 
-        // Clone the base stats so we don't modify the ScriptableObject
+        // Clone the base stats so the scriptable object isn't changed
         instanceStats = template.baseStats
             .Select(e => new ProjectileBaseStatEntry { statType = e.statType, value = e.value })
             .ToList();

@@ -4,5 +4,4 @@ using UnityEngine;
 public class ActiveItemSaveData
 {
     public string activeItemID;
-    public int remainingCooldown;
 }

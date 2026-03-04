@@ -18,11 +18,11 @@ MonoBehaviour:
   - statType: 0
     value: 100
   - statType: 1
-    value: 0
+    value: 1
   - statType: 2
     value: 100
   - statType: 3
-    value: 100
+    value: 500
   - statType: 4
     value: 10
   - statType: 5
@@ -30,4 +30,7 @@ MonoBehaviour:
   - statType: 6
     value: 10
   - statType: 7
-    value: 10
+    value: 0
+  startingActiveItemID: 1
+  startingPassiveItemIDs:
+  - 0

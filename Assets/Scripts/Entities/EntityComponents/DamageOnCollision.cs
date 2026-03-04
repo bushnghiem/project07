@@ -7,7 +7,6 @@ public class DamageOnCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log("Hit");
         Entity entity = collision.collider.GetComponentInParent<Entity>();
         if (entity == null) return;
 
@@ -16,9 +15,13 @@ public class DamageOnCollision : MonoBehaviour
         Rigidbody rb = collision.rigidbody;
         if (rb != null)
         {
-            Vector3 direction = (collision.transform.position - transform.position).normalized;
+            Vector3 physicsImpulse = collision.impulse;
 
-            rb.AddForce(direction.normalized * knockbackStrength, ForceMode.Impulse);
+            // Additional knockback in hit direction
+            Vector3 bonusDirection = (collision.transform.position - transform.position).normalized;
+            Vector3 bonusImpulse = bonusDirection * knockbackStrength;
+
+            rb.AddForce(physicsImpulse + bonusImpulse, ForceMode.Impulse);
         }
     }
 

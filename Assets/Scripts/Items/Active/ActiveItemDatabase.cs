@@ -2,29 +2,16 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-public class ActiveItemDatabase : MonoBehaviour
+[CreateAssetMenu(menuName = "Items/Active/Active Item Database")]
+public class ActiveItemDatabase : ScriptableObject
 {
-    public static ActiveItemDatabase Instance;
-
     [SerializeField] private List<ActiveItem> activeItems;
 
     private Dictionary<string, ActiveItem> lookup;
 
-    private void Awake()
+    private void OnEnable()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-        {
-            Debug.Log("ActiveItemDatabase exists, delete");
-            Destroy(gameObject);
-            return;
-        }
-
-        DontDestroyOnLoad(gameObject);
-
         lookup = activeItems.ToDictionary(i => i.activeItemID);
-        Debug.Log($"ActiveItemDatabase initialized with {lookup.Count} items.");
     }
 
     public ActiveItem GetActiveItem(string id)

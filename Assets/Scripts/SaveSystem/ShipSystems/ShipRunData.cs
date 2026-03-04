@@ -15,5 +15,7 @@ public class ShipRunData
 
     public ActiveItemSaveData currentActiveItem;
     public ProjectileSaveData currentProjectile;
+
+    public List<PassiveItemSaveData> passiveItems;
 }
 

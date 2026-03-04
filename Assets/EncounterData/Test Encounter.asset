@@ -14,14 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EncounterData
   encounterName: Test Fight 1
   enemies:
-  - uniqueID: 4
+  - uniqueID: Solo Pirate
     templateID: 3
     currentHealth: 10
     isDead: 0
     statModifiers: []
     currentActiveItem:
-      activeItemID: 0
-      remainingCooldown: 0
+      activeItemID: 1
     currentProjectile:
       projectileID: 0
       statModifiers: []
