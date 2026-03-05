@@ -1,12 +1,29 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public abstract class UnitBase : MonoBehaviour, Unit
 {
+    public event Action<UnitBase> OnStartOfTurn;
+    public event Action<UnitBase> OnEndOfTurn;
+    public event Action<UnitBase> OnItemUse;
+    public event Action<UnitBase> OnMove;
+    public event Action<UnitBase> OnShoot;
+    public event Action<UnitBase> OnHeal;
+    public event Action<UnitBase> OnHurt;
+    public event Action<UnitBase> OnShield;
+    public event Action<UnitBase> OnDeath;
+
     [SerializeField] private ShipTemplateDatabase shipDatabase;
     public void SetShipDatabase(ShipTemplateDatabase db) => shipDatabase = db;
 
+    [SerializeField] private List<DebugStatEntry> debugStats = new();
+
     protected ShipRunData runData;
     protected ShipTemplate template;
+
+    protected Dictionary<ShipStatType, float> cachedStats = new();
+    protected bool statsDirty = true;
 
     protected Rigidbody rb;
     protected HealthComponent healthComp;
@@ -58,33 +75,102 @@ public abstract class UnitBase : MonoBehaviour, Unit
 
     protected float GetStat(ShipStatType statType)
     {
-        float baseValue = template.GetBaseStat(statType);
+        if (statsDirty)
+            RecalculateStats();
 
-        foreach (var mod in runData.statModifiers)
+        return cachedStats[statType];
+    }
+
+    void RecalculateStats()
+    {
+        cachedStats.Clear();
+        debugStats.Clear();
+
+        foreach (ShipStatType statType in System.Enum.GetValues(typeof(ShipStatType)))
         {
-            if (mod.statType == statType)
-                baseValue = mod.Apply(baseValue);
+            float baseValue = template.GetBaseStat(statType);
+
+            float totalFlat = 0f;
+            float totalPercent = 0f;
+
+            foreach (var mod in runData.statModifiers)
+            {
+                if (mod.statType != statType)
+                    continue;
+
+                totalFlat += mod.flatBonus;
+                totalPercent += mod.percentBonus;
+            }
+
+            float finalValue = (baseValue + totalFlat) * (1f + totalPercent);
+
+            cachedStats[statType] = finalValue;
+
+            debugStats.Add(new DebugStatEntry
+            {
+                statType = statType,
+                value = finalValue
+            });
         }
 
-        return baseValue;
+        statsDirty = false;
+    }
+
+    public void AddStatModifier(StatModifier modifier)
+    {
+        runData.statModifiers.Add(modifier);
+        statsDirty = true;
+        ApplyStats();
+    }
+
+    public void RemoveStatModifier(StatModifier modifier)
+    {
+        runData.statModifiers.Remove(modifier);
+        statsDirty = true;
+        ApplyStats();
+    }
+
+    public void RemoveModifiersFromSource(object source)
+    {
+        runData.statModifiers.RemoveAll(m => m.source == source);
+        statsDirty = true;
+        ApplyStats();
     }
 
     public void Hurt(float amount)
     {
+        OnHurt?.Invoke(this);
         healthComp.Hurt(amount);
         runData.currentHealth = healthComp.GetCurrentHealth();
     }
 
     public void Heal(float amount)
     {
+        OnHeal?.Invoke(this);
         healthComp.Heal(amount);
         runData.currentHealth = healthComp.GetCurrentHealth();
     }
 
     public void AddShield(int amount)
     {
+        OnShield?.Invoke(this);
         healthComp.addShield(amount);
         Debug.Log($"{gameObject.name} gained {amount} shield");
+    }
+
+    public void Moved()
+    {
+        OnMove?.Invoke(this);
+    }
+
+    public void Shot()
+    {
+        OnShoot?.Invoke(this);
+    }
+
+    public void Death()
+    {
+        OnDeath?.Invoke(this);
     }
 
     public virtual void Kill()
@@ -94,8 +180,21 @@ public abstract class UnitBase : MonoBehaviour, Unit
     }
 
     public abstract void Move();
+
     public abstract void Shoot();
-    public abstract void Item();
-    public abstract void StartTurn();
-    public abstract void EndTurn();
+
+    public virtual void Item()
+    {
+        OnItemUse?.Invoke(this);
+    }
+
+    public virtual void StartTurn()
+    {
+        OnStartOfTurn?.Invoke(this);
+    }
+
+    public virtual void EndTurn()
+    {
+        OnEndOfTurn?.Invoke(this);
+    }
 }

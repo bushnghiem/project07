@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce353e559b966f645905af90b86b4e1b, type: 3}
-  m_Name: HealEveryFight
-  m_EditorClassIdentifier: Assembly-CSharp::HealOnCombatStartPassive
-  passiveItemID: 0
-  itemName: StartFightHeal
+  m_Script: {fileID: 11500000, guid: 70d5202ccf906174bb8df5ec47366261, type: 3}
+  m_Name: HealEveryTurn
+  m_EditorClassIdentifier: Assembly-CSharp::HealEveryTurn
+  passiveItemID: 1
+  itemName: HET
   icon: {fileID: 0}
   passiveType: 1
-  description: Heals HP at start of Fight
-  healAmount: 100
+  description: Heal at start of turn
+  healAmount: 5

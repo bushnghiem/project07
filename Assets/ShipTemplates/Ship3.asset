@@ -31,6 +31,6 @@ MonoBehaviour:
     value: 10
   - statType: 7
     value: 0
-  startingActiveItemID: 1
+  startingActiveItemID: 
   startingPassiveItemIDs:
-  - 0
+  - 2

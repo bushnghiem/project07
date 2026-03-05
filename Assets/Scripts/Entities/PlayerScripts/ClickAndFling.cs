@@ -46,6 +46,11 @@ public class ClickAndFling : MonoBehaviour
         projectileMode = value;
     }
 
+    public bool GetProjectileMode()
+    {
+        return projectileMode;
+    }
+
     public void SetProjectile(Projectile newProjectile)
     {
         projectile = newProjectile;

@@ -159,28 +159,33 @@ public class Enemy : UnitBase
 
     public override void Move()
     {
+        Moved(); // Signal move event for effects
         Debug.Log("Enemy Moved");
     }
 
     public override void Shoot()
     {
+        Shot(); // Signal shoot event for effects
         Debug.Log("Enemy Shot");
     }
 
     public override void Item()
     {
+        base.Item();
         Debug.Log("Enemy Used Item");
         EndTurn();
     }
 
     public override void StartTurn()
     {
+        base.StartTurn();
         TurnEvent.OnUnitTurnStart?.Invoke(this);
         Attack();
     }
 
     public override void EndTurn()
     {
+        base.EndTurn();
         TurnEvent.OnUnitTurnEnd?.Invoke(this);
     }
 
@@ -220,6 +225,7 @@ public class Enemy : UnitBase
 
     private void HandleDeath()
     {
+        Death();  // Signal death event for effects
         Kill();
     }
 

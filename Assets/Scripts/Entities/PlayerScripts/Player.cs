@@ -1,8 +1,20 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 
 public class Player : UnitBase
 {
+    /*
+    public event Action<UnitBase> OnStartOfTurn;
+    public event Action<UnitBase> OnEndOfTurn;
+    public event Action<UnitBase> OnItemUse;
+    public event Action<UnitBase> OnMove;
+    public event Action<UnitBase> OnShoot;
+    public event Action<UnitBase> OnHeal;
+    public event Action<UnitBase> OnHurt;
+    public event Action<UnitBase> OnDeath;
+    */
+
     public float linearDamping = 2f;
     public float angularDamping = 2f;
 
@@ -177,18 +189,23 @@ public class Player : UnitBase
 
     public override void Item()
     {
+        base.Item();
         if (activeItem != null && activeItem.Use(this, this))
+        {
             EndTurn();
+        }
     }
 
     public override void StartTurn()
     {
+        base.StartTurn();
         activeItem?.OnTurnStart();
         TurnEvent.OnUnitTurnStart?.Invoke(this);
     }
 
     public override void EndTurn()
     {
+        base.EndTurn();
         clickAndFlingComponent.SetFlingable(false);
         clickAndFlingComponent.SetProjectileMode(false);
         TurnEvent.OnUnitTurnEnd?.Invoke(this);
@@ -230,11 +247,23 @@ public class Player : UnitBase
 
     private void HandleDeath()
     {
+        Death(); // Signal death event for effects
         Kill();
     }
 
     private void HandleFling(Vector3 direction, float forceStrength)
     {
+        if (clickAndFlingComponent.GetProjectileMode())
+        {
+            Debug.Log("Shoot");
+            Shot(); // Signal shoot event for effects
+        }
+        else
+        {
+            Debug.Log("Move");
+            Moved();  // Signal move event for effects
+        }
+
         EndTurn();
     }
 }

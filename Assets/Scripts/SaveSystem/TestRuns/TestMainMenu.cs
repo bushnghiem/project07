@@ -10,6 +10,10 @@ public class TestMainMenu : MonoBehaviour
     {
         if (SaveManager.Instance.LoadRun())
         {
+            //SceneManager.LoadScene("TestGrid");
+            RunManager.Instance.CurrentRun = startingRunData;
+            MetaManager.Instance.totalRuns++;
+            SaveManager.Instance.SaveMeta();
             SceneManager.LoadScene("TestGrid");
         }
         else
