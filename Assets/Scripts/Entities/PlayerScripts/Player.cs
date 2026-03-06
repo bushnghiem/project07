@@ -66,14 +66,14 @@ public class Player : UnitBase
     {
         base.Initialize(data);
 
+        InitializeActive();
+        InitializePassives();
+        InitializeProjectile();
+
         float moveStrength = GetStat(ShipStatType.MoveStrength);
         float shotStrength = GetStat(ShipStatType.ShotStrength);
 
         clickAndFlingComponent.SetForces(moveStrength, shotStrength);
-
-        InitializeActive();
-        InitializeProjectile();
-        InitializePassives();
 
         SpawnEvent.OnUnitSpawned?.Invoke(this);
     }
@@ -172,6 +172,15 @@ public class Player : UnitBase
         {
             instance.Remove(this);
             passiveItems.Remove(instance);
+        }
+    }
+
+    public void RemoveAllPassiveEffects()
+    {
+        Debug.Log("Removing all effects from items");
+        foreach (var item in passiveItems)
+        {
+            item.Remove(this);
         }
     }
 

@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90c7a910e9ca23c409252f491ac5931a, type: 3}
-  m_Name: MaxHealthUp
-  m_EditorClassIdentifier: Assembly-CSharp::StatUpPassive
-  passiveItemID: 3
-  itemName: Health Up
+  m_Script: {fileID: 11500000, guid: 585da496dfcaf764aae7be8cb9812b3e, type: 3}
+  m_Name: Swap Shot And Move
+  m_EditorClassIdentifier: Assembly-CSharp::SwapShotAndMove
+  passiveItemID: 2
+  itemName: Power Swap
   icon: {fileID: 0}
-  description: Increases Max Health
-  statType: 0
-  statChangeAmount: 100
+  description: Swaps shot and move strength

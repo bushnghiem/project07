@@ -73,7 +73,7 @@ public abstract class UnitBase : MonoBehaviour, Unit
             collisionDamageComp.SetCollisionStats(collisionDamage, collisionKnockback);
     }
 
-    protected float GetStat(ShipStatType statType)
+    public float GetStat(ShipStatType statType)
     {
         if (statsDirty)
             RecalculateStats();

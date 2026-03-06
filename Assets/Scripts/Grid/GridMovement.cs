@@ -7,12 +7,19 @@ public class GridMovement : MonoBehaviour
     public float moveSpeed = 5f;
     public Vector2Int gridPosition;
     public GridManager gridManager;
-    public EncounterData testEncounter;
+    public UnitSpawner unitSpawner;
+    public Vector3 fakeEnemyAnchorPos; // Here just to be here
+    public Vector3 playerAnchorPos; // Set far away from grid
+    public FormationData playerFormation; // Set to formation created for grid
+    public ShipHolder shipHolder; // See all player ship instances
 
     IEnumerator Start()
     {
         gridPosition = RunManager.Instance.CurrentRun.currentGridPosition;
         transform.position = gridManager.GetWorldPosition(gridPosition.x, gridPosition.y);
+
+        unitSpawner.SetAnchorPositions(playerAnchorPos, fakeEnemyAnchorPos);
+        unitSpawner.SpawnPlayerTeam(RunManager.Instance.CurrentRun.team, playerFormation);
 
         // Wait until grid exists
         yield return new WaitUntil(() => gridManager.IsGridReady);
@@ -85,6 +92,7 @@ public class GridMovement : MonoBehaviour
         RunManager.Instance.CurrentRun.currentGridPosition = gridPosition;
         RunManager.Instance.CurrentRun.currentEncounter = tile.assignedEncounter;
         Debug.Log("Fight: " + tile.assignedEncounter?.encounterName);
+        shipHolder.RemovePlayersPassiveEffects();
         SceneManager.LoadScene("SpawnTestScene");
     }
 

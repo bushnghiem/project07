@@ -53,8 +53,8 @@ public class Enemy : UnitBase
         SpawnEvent.OnUnitSpawned?.Invoke(this);
 
         InitializeActive();
-        InitializeProjectile();
         InitializePassives();
+        InitializeProjectile();
     }
 
     private void InitializeActive()

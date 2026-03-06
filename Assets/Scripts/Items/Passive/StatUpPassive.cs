@@ -18,7 +18,8 @@ public class StatUpPassive : PassiveItem
             {
                 statType = statType,
                 flatBonus = statChangeAmount,
-                percentBonus = 0f
+                percentBonus = 0f,
+                source = this
             };
             unitBase.AddStatModifier(createdModifier);
         }
@@ -28,7 +29,7 @@ public class StatUpPassive : PassiveItem
     {
         if (unit is UnitBase unitBase && createdModifier != null)
         {
-            unitBase.RemoveStatModifier(createdModifier);
+            unitBase.RemoveModifiersFromSource(this);
         }
     }
 }

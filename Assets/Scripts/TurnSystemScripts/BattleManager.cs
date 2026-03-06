@@ -151,13 +151,16 @@ public class BattleManager : MonoBehaviour
 
     private void EndOfTurn(Unit unit)
     {
+        TurnEvent.OnNextTurn?.Invoke(unit);
         if (checkLoss())
         {
+            RemovePlayersPassiveEffects();
             SwitchState(new LoseState(this));
             return;
         }
         if (checkWin())
         {
+            RemovePlayersPassiveEffects();
             CleanupDeadUnits();
             SwitchState(new WinState(this));
             return;
@@ -179,6 +182,18 @@ public class BattleManager : MonoBehaviour
         RunData run = RunManager.Instance.CurrentRun;
 
         run.team.RemoveAll(ship => ship.isDead);
+    }
+
+    private void RemovePlayersPassiveEffects()
+    {
+        foreach (var unit in allPlayers)
+        {
+            if (unit is Player player)
+            {
+                player.RemoveAllPassiveEffects();
+            }
+        }
+        
     }
 
     private void HandleBattleDeath(Entity deadEntity)
