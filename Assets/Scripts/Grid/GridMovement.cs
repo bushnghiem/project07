@@ -74,6 +74,9 @@ public class GridMovement : MonoBehaviour
             case TileType.Portal:
                 HandlePortalTile();
                 break;
+            case TileType.Shop:
+                HandleShopTile();
+                break;
         }
     }
 
@@ -104,5 +107,10 @@ public class GridMovement : MonoBehaviour
         SaveManager.Instance.SaveMeta();
         SaveManager.Instance.DeleteRun();
         SceneManager.LoadScene("TestMainMenu");
+    }
+
+    public void HandleShopTile()
+    {
+        Debug.Log("Entered shop!");
     }
 }

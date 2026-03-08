@@ -263,13 +263,15 @@ MonoBehaviour:
   combatPrefab: {fileID: 406353813179546443, guid: 7b7ef0ba6ba27b54a88ec093cc9feb10, type: 3}
   eventPrefab: {fileID: 2572868541310583009, guid: 5338e0031e84dab4b9e79e7a4a26e719, type: 3}
   portalPrefab: {fileID: 8106249736468772962, guid: 2dd149235cb5f904b9fd4c5807a74f0b, type: 3}
-  width: 20
-  height: 20
+  shopPrefab: {fileID: 5812559898611997949, guid: 30d71053bfe427d4997eb03b4533a7c1, type: 3}
+  width: 10
+  height: 10
   tileSize: 1
   combatEncounterPool: {fileID: 11400000, guid: 4243f17fef1fc234abc05843fc0174bc, type: 2}
   emptyChance: 50
   combatChance: 20
   eventChance: 30
+  maxShops: 1
 --- !u!4 &32902892
 Transform:
   m_ObjectHideFlags: 0

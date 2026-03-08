@@ -6,6 +6,7 @@ public class GridManager : MonoBehaviour
     public GameObject combatPrefab;
     public GameObject eventPrefab;
     public GameObject portalPrefab;
+    public GameObject shopPrefab;
 
     public int width = 20;
     public int height = 20;
@@ -20,6 +21,9 @@ public class GridManager : MonoBehaviour
     [Range(0, 100)] public int emptyChance = 50;
     [Range(0, 100)] public int combatChance = 20;
     [Range(0, 100)] public int eventChance = 30;
+
+    [Range(0, 10)]
+    public int maxShops = 3;
 
     public bool IsGridReady { get; private set; }
 
@@ -57,6 +61,7 @@ public class GridManager : MonoBehaviour
         }
 
         PlacePortal();
+        PlaceShops();
         ApplyRunModifications();
         GenerateVisuals();
         IsGridReady = true;
@@ -74,6 +79,53 @@ public class GridManager : MonoBehaviour
         while (grid[x, y].tileType == TileType.Wall);
 
         grid[x, y].tileType = TileType.Portal;
+    }
+
+    void PlaceShops()
+    {
+        int placed = 0;
+        int safety = 0;
+
+        while (placed < maxShops && safety < 1000)
+        {
+            int x = rng.Next(1, width - 1);
+            int y = rng.Next(1, height - 1);
+
+            if (grid[x, y].tileType == TileType.Empty
+                && !IsAdjacentToTileType(x, y, TileType.Shop)
+                && !IsAdjacentToTileType(x, y, TileType.Portal))
+            {
+                grid[x, y].tileType = TileType.Shop;
+                placed++;
+            }
+
+            safety++;
+        }
+    }
+
+    bool IsAdjacentToTileType(int x, int y, TileType type)
+    {
+        Vector2Int[] directions =
+        {
+        Vector2Int.up,
+        Vector2Int.down,
+        Vector2Int.left,
+        Vector2Int.right
+    };
+
+        foreach (var dir in directions)
+        {
+            int nx = x + dir.x;
+            int ny = y + dir.y;
+
+            if (IsInsideGrid(nx, ny))
+            {
+                if (grid[nx, ny].tileType == type)
+                    return true;
+            }
+        }
+
+        return false;
     }
 
     void ApplyRunModifications()
@@ -148,6 +200,7 @@ public class GridManager : MonoBehaviour
             case TileType.Combat: prefab = combatPrefab; break;
             case TileType.Event: prefab = eventPrefab; break;
             case TileType.Portal: prefab = portalPrefab; break;
+            case TileType.Shop: prefab = shopPrefab; break;
         }
 
         if (prefab != null)
