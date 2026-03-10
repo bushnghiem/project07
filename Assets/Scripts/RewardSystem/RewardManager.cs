@@ -23,6 +23,24 @@ public class RewardManager : MonoBehaviour
         RunManager.Instance.CurrentRun.runCurrency += additionAmount;
     }
 
+    public bool SpendRunCurrency(int amount)
+    {
+        if (CanAfford(amount))
+        {
+            RunManager.Instance.CurrentRun.runCurrency -= amount;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool CanAfford(int amount)
+    {
+        return RunManager.Instance.CurrentRun.runCurrency >= amount;
+    }
+
     public void AddMetaCurrency(int additionAmount)
     {
         MetaManager.Instance.metaCurrency += additionAmount;

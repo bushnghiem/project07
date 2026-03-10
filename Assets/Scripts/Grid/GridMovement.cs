@@ -8,6 +8,8 @@ public class GridMovement : MonoBehaviour
     public Vector2Int gridPosition;
     public GridManager gridManager;
     public UnitSpawner unitSpawner;
+    public ShopManager shopManager;
+    public ShopUI shopUI;
     public Vector3 fakeEnemyAnchorPos; // Here just to be here
     public Vector3 playerAnchorPos; // Set far away from grid
     public FormationData playerFormation; // Set to formation created for grid
@@ -111,6 +113,16 @@ public class GridMovement : MonoBehaviour
 
     public void HandleShopTile()
     {
-        Debug.Log("Entered shop!");
+        Vector2Int shopPos = gridPosition;
+
+        // Just pick first player for now
+        Player player = shipHolder.allPlayers[0];
+
+        shopUI.SetSelectedPlayer(player);
+
+        shopManager.GenerateShop(shopPos);
+
+        shopUI.PopulateShop();
+        shopUI.gameObject.SetActive(true);
     }
 }

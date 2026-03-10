@@ -22,4 +22,9 @@ public class ItemDatabase : ScriptableObject
         Debug.LogError("Item not found: " + id);
         return null;
     }
+
+    public List<Item> GetAllItems()
+    {
+        return new List<Item>(items); // Return copy of the list
+    }
 }

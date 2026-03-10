@@ -12,4 +12,5 @@ public class RunData
     public int runCurrency = 0;
 
     public List<Vector2Int> clearedCombatTiles = new List<Vector2Int>();
+    public List<ShopData> shops = new List<ShopData>();
 }
