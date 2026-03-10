@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public abstract class ActiveItem : ScriptableObject
+public abstract class ActiveItem : Item
 {
-    public string activeItemID;
-    public string activeItemName;
-    public Sprite icon;
-
     public int cooldownTurns = 2;
 
-    public abstract void Activate(Unit user, Unit target);
+    public override void OnAcquire(UnitBase unit)
+    {
+        unit.EquipActive(this);
+    }
+
+    public virtual void Activate(Unit user, Unit target)
+    {
+    }
 }

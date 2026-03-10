@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c7a910e9ca23c409252f491ac5931a, type: 3}
   m_Name: MaxHealthUp
   m_EditorClassIdentifier: Assembly-CSharp::StatUpPassive
-  passiveItemID: 3
+  itemID: passive_maxhp_up
   itemName: Health Up
   icon: {fileID: 0}
   description: Increases Max Health
+  price: 100
   statType: 0
   statChangeAmount: 100

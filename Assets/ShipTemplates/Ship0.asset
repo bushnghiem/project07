@@ -31,6 +31,7 @@ MonoBehaviour:
     value: 10
   - statType: 7
     value: 0
-  startingActiveItemID: 
+  startingActiveItemID: active_heal_100
   startingPassiveItemIDs:
-  - 4
+  - passive_maxhp_up
+  startingProjectileID: projectile_basic

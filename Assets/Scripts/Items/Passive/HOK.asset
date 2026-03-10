@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2f0913c8a2a47c4c98a083f77b34ddf, type: 3}
   m_Name: HOK
   m_EditorClassIdentifier: Assembly-CSharp::HealOnKill
-  passiveItemID: 4
+  itemID: passive_heal_kill
   itemName: HOK
   icon: {fileID: 0}
   description: Heal during every death on your turn
+  price: 100
   healAmount: 50
   target: {fileID: 0}

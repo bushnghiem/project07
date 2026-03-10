@@ -8,7 +8,7 @@ public class PassiveItemDatabase : ScriptableObject
     [SerializeField] private List<PassiveItem> passiveItems;
 
     private Dictionary<string, PassiveItem> lookup;
-
+    /*
     private void OnEnable()
     {
         lookup = passiveItems.ToDictionary(p => p.passiveItemID);
@@ -22,4 +22,5 @@ public class PassiveItemDatabase : ScriptableObject
         Debug.LogError($"Passive Item not found: {id}");
         return null;
     }
+    */
 }

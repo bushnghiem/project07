@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce353e559b966f645905af90b86b4e1b, type: 3}
   m_Name: HealEveryFight
   m_EditorClassIdentifier: Assembly-CSharp::HealOnCombatStartPassive
-  passiveItemID: 0
+  itemID: passive_heal_start
   itemName: StartFightHeal
   icon: {fileID: 0}
-  passiveType: 1
   description: Heals HP at start of Fight
+  price: 100
   healAmount: 100

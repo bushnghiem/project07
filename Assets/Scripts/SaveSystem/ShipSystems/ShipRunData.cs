@@ -13,9 +13,6 @@ public class ShipRunData
 
     public List<StatModifier> statModifiers = new();
 
-    public ActiveItemSaveData currentActiveItem;
-    public ProjectileSaveData currentProjectile;
-
-    public List<PassiveItemSaveData> passiveItems;
+    public List<ItemSaveData> items = new();
 }
 

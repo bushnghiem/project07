@@ -17,7 +17,9 @@ public abstract class UnitBase : MonoBehaviour, Unit
     [SerializeField] private ShipTemplateDatabase shipDatabase;
     public void SetShipDatabase(ShipTemplateDatabase db) => shipDatabase = db;
 
+    [Header("Debug Items")]
     [SerializeField] private List<DebugStatEntry> debugStats = new();
+    [SerializeField] private List<DebugItemEntry> debugItems = new();
 
     protected ShipRunData runData;
     protected ShipTemplate template;
@@ -28,6 +30,10 @@ public abstract class UnitBase : MonoBehaviour, Unit
     protected Rigidbody rb;
     protected HealthComponent healthComp;
     protected DamageOnCollision collisionDamageComp;
+
+    protected ActiveItemInstance activeItem;
+    protected Projectile projectile;
+    protected List<PassiveItemInstance> passiveItems = new List<PassiveItemInstance>();
 
     public abstract bool IsPlayerControllable { get; }
 
@@ -136,6 +142,88 @@ public abstract class UnitBase : MonoBehaviour, Unit
         statsDirty = true;
         ApplyStats();
     }
+
+    public virtual void EquipPassive(PassiveItem passive)
+    {
+        var instance = new PassiveItemInstance(passive);
+        instance.Apply(this);
+        passiveItems.Add(instance);
+    }
+
+    public virtual void RemovePassive(PassiveItem passive)
+    {
+        var instance = passiveItems.Find(p => p.itemData == passive);
+        if (instance != null)
+        {
+            instance.Remove(this);
+            passiveItems.Remove(instance);
+        }
+    }
+
+    public virtual void EquipActive(ActiveItem item)
+    {
+        activeItem = new ActiveItemInstance(item);
+    }
+
+    public virtual void EquipProjectile(Projectile proj)
+    {
+        projectile = proj;
+    }
+
+    public void AddItemToRunData(Item item)
+    {
+        if (runData.items == null)
+            runData.items = new List<ItemSaveData>();
+
+        runData.items.Add(new ItemSaveData
+        {
+            itemID = item.itemID
+        });
+    }
+
+    public void RefreshItemDebug()
+    {
+        debugItems.Clear();
+
+        // Active Item
+        if (activeItem != null)
+        {
+            debugItems.Add(new DebugItemEntry
+            {
+                itemType = "Active",
+                itemID = activeItem.itemData.itemID,
+                itemName = activeItem.itemData.itemName,
+                description = activeItem.itemData.description
+            });
+        }
+
+        // Projectile
+        if (projectile != null)
+        {
+            debugItems.Add(new DebugItemEntry
+            {
+                itemType = "Projectile",
+                itemID = projectile.ProjectileID,
+                itemName = projectile.projectileName,
+                description = "Projectile stats and effects"
+            });
+        }
+
+        // Passive Items
+        foreach (var p in passiveItems)
+        {
+            debugItems.Add(new DebugItemEntry
+            {
+                itemType = "Passive",
+                itemID = p.itemData.itemID,
+                itemName = p.itemData.itemName,
+                description = p.itemData.description
+            });
+        }
+    }
+
+    public ActiveItemInstance GetActiveItem() => activeItem;
+    public Projectile GetProjectile() => projectile;
 
     public void Hurt(float amount)
     {

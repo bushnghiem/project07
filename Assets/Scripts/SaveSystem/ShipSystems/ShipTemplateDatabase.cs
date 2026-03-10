@@ -25,4 +25,6 @@ public class ShipTemplateDatabase : ScriptableObject
         Debug.LogError($"ShipTemplate not found: {id}");
         return null;
     }
+
+    public List<ShipTemplate> GetAllTemplates() => templates;
 }

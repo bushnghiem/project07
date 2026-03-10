@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 775f8dba6c92c544c95f2b7d9a0fad7b, type: 3}
-  m_Name: Shield1
-  m_EditorClassIdentifier: Assembly-CSharp::ShieldItem
-  itemID: active_shield
-  itemName: Sheild 1
+  m_Script: {fileID: 11500000, guid: c2c664bab9c5444438311191def0d038, type: 3}
+  m_Name: BasicProjectileItem
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileItem
+  itemID: projectile_basic
+  itemName: Basic Projectile
   icon: {fileID: 0}
   description: 
   price: 100
-  cooldownTurns: 1
-  shieldAmount: 1
+  projectile: {fileID: 11400000, guid: dfcfebb38526d6d49bf5283443fae21c, type: 2}

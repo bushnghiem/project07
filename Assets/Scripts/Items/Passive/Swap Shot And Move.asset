@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 585da496dfcaf764aae7be8cb9812b3e, type: 3}
   m_Name: Swap Shot And Move
   m_EditorClassIdentifier: Assembly-CSharp::SwapShotAndMove
-  passiveItemID: 2
+  itemID: passive_swap_powers
   itemName: Power Swap
   icon: {fileID: 0}
   description: Swaps shot and move strength
+  price: 100

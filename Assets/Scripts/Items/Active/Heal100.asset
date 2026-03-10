@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df989fa184e2a241a2d98ce006f6ee8, type: 3}
   m_Name: Heal100
   m_EditorClassIdentifier: Assembly-CSharp::HealItem
-  activeItemID: 0
-  activeItemName: Heal 100
+  itemID: active_heal_100
+  itemName: 100 HP Health Pot
   icon: {fileID: 0}
+  description: 
+  price: 100
   cooldownTurns: 2
   healAmount: 100

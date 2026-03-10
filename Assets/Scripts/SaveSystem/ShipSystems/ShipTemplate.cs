@@ -13,9 +13,16 @@ public class ShipTemplate : ScriptableObject
     public List<BaseStatEntry> baseStats;
 
     [Header("Starting Loadout")]
+    [Tooltip("ID of the starting active item (from ActiveItemDatabase)")]
     [SerializeField] private string startingActiveItemID;
     public string StartingActiveItemID => startingActiveItemID;
-    public List<string> startingPassiveItemIDs;
+
+    [Tooltip("IDs of the starting passive items (from PassiveItemDatabase)")]
+    public List<string> startingPassiveItemIDs = new List<string>();
+
+    [Tooltip("ID of the starting projectile (from ProjectileDatabase)")]
+    [SerializeField] private string startingProjectileID;
+    public string StartingProjectileID => startingProjectileID;
 
     public float GetBaseStat(ShipStatType statType)
     {
@@ -28,5 +35,3 @@ public class ShipTemplate : ScriptableObject
         return 0f;
     }
 }
-
-

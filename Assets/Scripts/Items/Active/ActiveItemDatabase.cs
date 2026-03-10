@@ -8,7 +8,7 @@ public class ActiveItemDatabase : ScriptableObject
     [SerializeField] private List<ActiveItem> activeItems;
 
     private Dictionary<string, ActiveItem> lookup;
-
+    /*
     private void OnEnable()
     {
         lookup = activeItems.ToDictionary(i => i.activeItemID);
@@ -22,4 +22,5 @@ public class ActiveItemDatabase : ScriptableObject
         Debug.LogError("Active Item not found: " + id);
         return null;
     }
+    */
 }
