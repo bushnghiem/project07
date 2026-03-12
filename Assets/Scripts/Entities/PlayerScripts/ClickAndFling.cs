@@ -109,27 +109,51 @@ public class ClickAndFling : MonoBehaviour
     void HandleRelease()
     {
         if (!flingable) return;
+
         Vector3 mouseEnd = Input.mousePosition;
         Vector3 drag = mouseEnd - mouseStart;
+
         float dragLength = drag.magnitude;
         if (dragLength < 10f) return;
+
         float t = Mathf.Clamp01(dragLength / maxDragDistance);
+
         Vector3 direction = new Vector3(-drag.x, 0, -drag.y);
         direction.Normalize();
-        Vector3 projectileSpawnPosition = transform.position + direction.normalized * projectileSpawnRadius;
+
+        ExecuteFling(direction, t);
+    }
+
+    public void ExecuteFling(Vector3 direction, float t)
+    {
+        if (!flingable) return;
+
+        direction.Normalize();
+
+        Vector3 projectileSpawnPosition = transform.position + direction * projectileSpawnRadius;
+
         if (projectileMode)
         {
             float forceStrength = Mathf.Lerp(minShootingForce, maxShootingForce, t);
-            ProjectileSpawnEvent.OnProjectileSpawn?.Invoke(projectileSpawnPosition, direction, forceStrength, projectile);
+
+            ProjectileSpawnEvent.OnProjectileSpawn?.Invoke(
+                projectileSpawnPosition,
+                direction,
+                forceStrength,
+                projectile
+            );
+
             OnFling?.Invoke(direction, forceStrength);
         }
         else
         {
             float forceStrength = Mathf.Lerp(minMovementForce, maxMovementForce, t);
+
             rb.AddForce(direction * forceStrength, ForceMode.Impulse);
+
             OnFling?.Invoke(direction, forceStrength);
         }
-        Debug.Log("Set power to 0");
+
         FlingEvent.OnPowerChanged?.Invoke(0f);
     }
 }

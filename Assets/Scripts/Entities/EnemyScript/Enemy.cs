@@ -7,6 +7,8 @@ public class Enemy : UnitBase
     public float angularDamping = 2f;
 
     public ExploderComponent exploderComp;
+    public ClickAndFling clickAndFlingComp;
+    public EnemyAIBase aiComp;
 
     private Collider[] colliders;
     private Renderer[] renderers;
@@ -21,11 +23,17 @@ public class Enemy : UnitBase
         base.Awake();
 
         exploderComp = GetComponent<ExploderComponent>();
+        clickAndFlingComp = GetComponent<ClickAndFling>();
         colliders = GetComponentsInChildren<Collider>();
         renderers = GetComponentsInChildren<Renderer>();
 
         rb.linearDamping = linearDamping;
         rb.angularDamping = angularDamping;
+
+        if (aiComp != null && aiComp is DefaultAI defaultAI)
+        {
+            defaultAI.battleManager = FindFirstObjectByType<BattleManager>();
+        }
     }
 
     private void OnEnable()
@@ -48,6 +56,10 @@ public class Enemy : UnitBase
 
         SpawnEvent.OnUnitSpawned?.Invoke(this);
 
+        float moveStrength = GetStat(ShipStatType.MoveStrength);
+        float shotStrength = GetStat(ShipStatType.ShotStrength);
+
+        clickAndFlingComp.SetForces(moveStrength, shotStrength);
         InitializeItems();
         RefreshItemDebug();
     }
@@ -63,6 +75,12 @@ public class Enemy : UnitBase
             if (item != null)
                 item.OnAcquire(this);
         }
+    }
+
+    public override void EquipProjectile(Projectile proj)
+    {
+        base.EquipProjectile(proj);
+        clickAndFlingComp.SetProjectile(proj);
     }
 
     public override void Move()
@@ -90,7 +108,7 @@ public class Enemy : UnitBase
     {
         base.StartTurn();
         TurnEvent.OnUnitTurnStart?.Invoke(this);
-        Attack();
+        aiComp?.TakeTurn(this);
     }
 
     public override void EndTurn()

@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 3374685751876068217}
   - component: {fileID: 422427263791694644}
   - component: {fileID: 8374612290320036123}
+  - component: {fileID: 2590574119722925282}
+  - component: {fileID: -7074283443480327474}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -158,9 +160,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   shipDatabase: {fileID: 11400000, guid: 79df833b406fcc14a951468c245534ff, type: 2}
   debugStats: []
+  debugItems: []
   linearDamping: 2
   angularDamping: 2
   exploderComp: {fileID: 0}
+  clickAndFlingComp: {fileID: 0}
+  aiComp: {fileID: 2590574119722925282}
   projectileDatabase: {fileID: 11400000, guid: 629b14458ca5a9f44841fc000b5eb679, type: 2}
   itemDatabase: {fileID: 11400000, guid: bfaea5ec0055b8a4ea4be52c7bee643b, type: 2}
 --- !u!114 &3374685751876068217
@@ -206,9 +211,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExploderComponent
   stats:
-    radius: 10
+    radius: 5
     damage: 100
     force: 300
     damageLayers:
       serializedVersion: 2
       m_Bits: 4294967295
+--- !u!114 &2590574119722925282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8253756129412509392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db55c36398b9ccc4cbf150ebb51f1e98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DefaultAI
+  battleManager: {fileID: 0}
+  shootPower: 0.8
+  movePower: 0.6
+--- !u!114 &-7074283443480327474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8253756129412509392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c048369f240d982478b3350dcf885f20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClickAndFling
+  flingable: 0
+  projectileMode: 0
+  projectileSpawnRadius: 2
+  projectile: {fileID: 0}
+  minMovementForce: 2
+  maxMovementForce: 20
+  minShootingForce: 2
+  maxShootingForce: 20
+  maxDragDistance: 200
