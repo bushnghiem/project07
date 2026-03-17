@@ -5,6 +5,7 @@ public class Enemy : UnitBase
 {
     public float linearDamping = 2f;
     public float angularDamping = 2f;
+    public int orbitSide = 1;
 
     public ExploderComponent exploderComp;
     public ClickAndFling clickAndFlingComp;
@@ -29,6 +30,7 @@ public class Enemy : UnitBase
 
         rb.linearDamping = linearDamping;
         rb.angularDamping = angularDamping;
+        orbitSide = Random.value > 0.5f ? 1 : -1;
 
         if (aiComp != null && aiComp is DefaultAI defaultAI)
         {

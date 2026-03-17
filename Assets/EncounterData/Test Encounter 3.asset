@@ -19,19 +19,22 @@ MonoBehaviour:
     currentHealth: 20
     isDead: 0
     statModifiers: []
-    items: []
+    items:
+    - itemID: projectile_basic
   - uniqueID: enemy 2
     templateID: 3
     currentHealth: 20
     isDead: 0
     statModifiers: []
-    items: []
+    items:
+    - itemID: projectile_iron_ball
   - uniqueID: enemy 3
     templateID: 3
     currentHealth: 20
     isDead: 0
     statModifiers: []
-    items: []
+    items:
+    - itemID: projectile_basic
   enemyFormation: {fileID: 11400000, guid: a70e0f784a1ac0c4a90a4e1dc476848b, type: 2}
   playerFormation: {fileID: 0}
   environmentLayout: {fileID: 0}
