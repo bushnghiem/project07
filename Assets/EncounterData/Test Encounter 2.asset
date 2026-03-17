@@ -16,32 +16,32 @@ MonoBehaviour:
   enemies:
   - uniqueID: enemy 1
     templateID: 3
-    currentHealth: 20
-    isDead: 0
+    currentHealth: 0
+    isDead: 1
     statModifiers: []
     items:
-    - itemID: projectile_iron_ball
+    - itemID: projectile_basic
   - uniqueID: enemy 2
     templateID: 3
-    currentHealth: 30
-    isDead: 0
+    currentHealth: 0
+    isDead: 1
     statModifiers: []
     items:
-    - itemID: projectile_iron_ball
+    - itemID: projectile_basic
   - uniqueID: enemy 3
     templateID: 3
-    currentHealth: 10
-    isDead: 0
+    currentHealth: 0
+    isDead: 1
     statModifiers: []
     items:
-    - itemID: projectile_iron_ball
+    - itemID: projectile_basic
   - uniqueID: 4
     templateID: 3
-    currentHealth: 40
-    isDead: 0
+    currentHealth: 0
+    isDead: 1
     statModifiers: []
     items:
-    - itemID: projectile_iron_ball
+    - itemID: projectile_basic
   enemyFormation: {fileID: 11400000, guid: d10a47c3a8bb80142a12974ff20d60bb, type: 2}
   playerFormation: {fileID: 0}
   environmentLayout: {fileID: 11400000, guid: 03214a1cff6f178469c745c1aa539ba6, type: 2}

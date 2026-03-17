@@ -3,7 +3,6 @@ using System.Linq;
 
 public static class EnemyAIUtility
 {
-    // Get closest player
     public static Player GetClosestPlayer(Enemy enemy, BattleManager battleManager)
     {
         if (battleManager == null || battleManager.allPlayers.Count == 0)
@@ -15,7 +14,6 @@ public static class EnemyAIUtility
             .FirstOrDefault();
     }
 
-    // Line of sight check
     public static bool HasLineOfSight(Enemy enemy, Player target)
     {
         if (target == null)
@@ -33,14 +31,12 @@ public static class EnemyAIUtility
         return false;
     }
 
-    // Apply aim error
     public static Vector3 ApplyAimError(Vector3 direction, float maxAngle)
     {
         float angle = Random.Range(-maxAngle, maxAngle);
         return Quaternion.Euler(0, angle, 0) * direction;
     }
 
-    // Estimate shot range
     public static float EstimateShotRange(Enemy enemy)
     {
         if (enemy.clickAndFlingComp.projectile == null)
@@ -62,7 +58,6 @@ public static class EnemyAIUtility
         return estimatedRange;
     }
 
-    // Estimate movement range
     public static float EstimateMoveRange(Enemy enemy)
     {
         float moveStrength = enemy.GetStat(ShipStatType.MoveStrength);
@@ -77,7 +72,6 @@ public static class EnemyAIUtility
         return (velocity / drag);
     }
 
-    // Obstacle avoidance steering
     public static Vector3 GetSteeredDirection(Enemy enemy, Vector3 desiredDirection, float checkDistance = 5f)
     {
         Vector3 origin = enemy.transform.position + Vector3.up * 0.5f;
@@ -104,7 +98,6 @@ public static class EnemyAIUtility
         return desiredDirection;
     }
 
-    // Orbit movement logic
     public static Vector3 GetOrbitDirection(
         Enemy enemy,
         Player target,
@@ -118,7 +111,6 @@ public static class EnemyAIUtility
 
         Vector3 radialDir = toPlayer.normalized;
 
-        // perpendicular direction
         Vector3 orbitDir = Vector3.Cross(Vector3.up, radialDir);
 
         orbitDir *= enemy.orbitSide;
@@ -133,5 +125,50 @@ public static class EnemyAIUtility
         Vector3 finalDir = (radialDir + orbitDir * orbitStrength).normalized;
 
         return finalDir;
+    }
+
+    public static Vector3 GetPlanetAvoidance(Enemy enemy, float avoidRadius = 10f, float strength = 2f)
+    {
+        Vector3 avoidance = Vector3.zero;
+        var planets = GameObject.FindGameObjectsWithTag("Planet");
+
+        foreach (var planet in planets)
+        {
+            Vector3 toPlanet = planet.transform.position - enemy.Position;
+            float distance = toPlanet.magnitude;
+
+            if (distance < avoidRadius)
+            {
+                float weight = 1f - (distance / avoidRadius);
+                avoidance -= toPlanet.normalized * weight * strength;
+            }
+        }
+
+        return avoidance;
+    }
+
+    public static Vector3 GetUnitAvoidance(Enemy enemy, float avoidRadius = 5f, float strength = 2f)
+    {
+        Vector3 avoidance = Vector3.zero;
+        Collider[] hits = Physics.OverlapSphere(enemy.Position, avoidRadius);
+
+        foreach (var hit in hits)
+        {
+            if (hit.gameObject == enemy.gameObject) continue;
+
+            Unit other = hit.GetComponent<Unit>();
+            if (other == null) continue;
+
+            Vector3 toOther = enemy.Position - other.Position; // push away
+            float distance = toOther.magnitude;
+
+            if (distance > 0.01f)
+            {
+                float weight = Mathf.Clamp01((avoidRadius - distance) / avoidRadius);
+                avoidance += toOther.normalized * weight * strength;
+            }
+        }
+
+        return avoidance;
     }
 }

@@ -31,11 +31,6 @@ public class Enemy : UnitBase
         rb.linearDamping = linearDamping;
         rb.angularDamping = angularDamping;
         orbitSide = Random.value > 0.5f ? 1 : -1;
-
-        if (aiComp != null && aiComp is DefaultAI defaultAI)
-        {
-            defaultAI.battleManager = FindFirstObjectByType<BattleManager>();
-        }
     }
 
     private void OnEnable()

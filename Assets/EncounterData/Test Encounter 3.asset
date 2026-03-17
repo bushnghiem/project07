@@ -25,7 +25,10 @@ MonoBehaviour:
     templateID: 3
     currentHealth: 20
     isDead: 0
-    statModifiers: []
+    statModifiers:
+    - statType: 2
+      flatBonus: 600
+      percentBonus: 0
     items:
     - itemID: projectile_iron_ball
   - uniqueID: enemy 3
