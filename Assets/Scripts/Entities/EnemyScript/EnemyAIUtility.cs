@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Linq;
 
 public static class EnemyAIUtility
@@ -25,7 +25,7 @@ public static class EnemyAIUtility
 
         if (Physics.Raycast(origin, dir, out RaycastHit hit, dist))
         {
-            return hit.collider.GetComponent<Player>() != null;
+            return hit.collider.transform.root.GetComponent<Player>() != null;
         }
 
         return false;
@@ -127,7 +127,7 @@ public static class EnemyAIUtility
         return finalDir;
     }
 
-    public static Vector3 GetPlanetAvoidance(Enemy enemy, float avoidRadius = 10f, float strength = 2f)
+    public static Vector3 GetPlanetAvoidance(Enemy enemy, float avoidRadius = 15f, float strength = 6f)
     {
         Vector3 avoidance = Vector3.zero;
         var planets = GameObject.FindGameObjectsWithTag("Planet");
@@ -159,7 +159,7 @@ public static class EnemyAIUtility
             Unit other = hit.GetComponent<Unit>();
             if (other == null) continue;
 
-            Vector3 toOther = enemy.Position - other.Position; // push away
+            Vector3 toOther = enemy.Position - other.Position;
             float distance = toOther.magnitude;
 
             if (distance > 0.01f)
@@ -170,5 +170,97 @@ public static class EnemyAIUtility
         }
 
         return avoidance;
+    }
+
+    public static bool IsShotBlockedByAlly(Enemy enemy, Vector3 direction, float maxDistance)
+    {
+        Vector3 origin = enemy.transform.position + Vector3.up * 0.5f;
+
+        RaycastHit[] hits = Physics.SphereCastAll(
+            origin,
+            0.5f,
+            direction,
+            maxDistance
+        );
+
+        foreach (var hit in hits)
+        {
+            if (hit.collider.transform.root == enemy.transform)
+                continue;
+
+            if (hit.collider.GetComponentInParent<Enemy>() != null)
+                return true;
+        }
+
+        return false;
+    }
+
+    public static Vector3 PredictGravityCompensatedDirection(Enemy enemy, Vector3 targetPos, int steps = 100, float dt = 0.05f)
+    {
+        Vector3 origin = enemy.Position;
+        float shotStrength = enemy.GetStat(ShipStatType.ShotStrength); ;
+
+        var gravityFields = GameObject.FindGameObjectsWithTag("Gravity")
+            .Select(g => g.GetComponent<GravityPullComponent>())
+            .Where(g => g != null)
+            .ToArray();
+
+        var planets = GameObject.FindGameObjectsWithTag("Planet")
+            .Select(p => p.transform.position)
+            .ToArray();
+
+        Vector3 targetDir = (targetPos - origin).normalized;
+        Vector3 bestDir = targetDir;
+        float bestScore = float.MinValue;
+
+        for (int angleStep = -5; angleStep <= 5; angleStep++)
+        {
+            float angleOffset = angleStep * 2f;
+            Vector3 candidateDir = Quaternion.Euler(0, angleOffset, 0) * targetDir;
+
+            Vector3 pos = origin;
+            Vector3 vel = candidateDir * shotStrength;
+            bool blocked = false;
+
+            for (int i = 0; i < steps; i++)
+            {
+                foreach (var g in gravityFields)
+                {
+                    Vector3 dir = g.transform.parent.position - pos;
+                    float dist = dir.magnitude;
+                    if (dist > 0.01f)
+                        vel += dir.normalized * g.gravityStrength / dist * dt;
+                }
+
+                Vector3 nextPos = pos + vel * dt;
+
+                foreach (var planet in planets)
+                {
+                    if ((nextPos - planet).magnitude < 1f)
+                    {
+                        blocked = true;
+                        break;
+                    }
+                }
+
+                if (blocked) break;
+
+                pos = nextPos;
+
+                if ((pos - targetPos).magnitude < 0.5f) break;
+            }
+
+            if (!blocked)
+            {
+                float score = 1f / Vector3.Distance(pos, targetPos);
+                if (score > bestScore)
+                {
+                    bestScore = score;
+                    bestDir = candidateDir;
+                }
+            }
+        }
+
+        return bestDir;
     }
 }
