@@ -17,4 +17,5 @@ public class TileData
     public bool IsWalkable => tileType != TileType.Wall;
 
     public EncounterData assignedEncounter;
+    public EventData assignedEvent;
 }

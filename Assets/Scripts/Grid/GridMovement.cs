@@ -10,6 +10,7 @@ public class GridMovement : MonoBehaviour
     public UnitSpawner unitSpawner;
     public ShopManager shopManager;
     public ShopUI shopUI;
+    public EventUI eventUI;
     public Vector3 fakeEnemyAnchorPos; // Here just to be here
     public Vector3 playerAnchorPos; // Set far away from grid
     public FormationData playerFormation; // Set to formation created for grid
@@ -43,6 +44,7 @@ public class GridMovement : MonoBehaviour
 
     void TryMove(Vector2Int direction)
     {
+
         Vector2Int targetPos = gridPosition + direction;
 
         if (!gridManager.IsInsideGrid(targetPos.x, targetPos.y))
@@ -65,7 +67,7 @@ public class GridMovement : MonoBehaviour
         switch (tile.tileType)
         {
             case TileType.Event:
-                HandleRandomEventTile();
+                HandleRandomEventTile(tile);
                 break;
             case TileType.Empty:
                 HandleEmptyTile();
@@ -82,9 +84,15 @@ public class GridMovement : MonoBehaviour
         }
     }
 
-    public void HandleRandomEventTile()
+    public void HandleRandomEventTile(TileData tile)
     {
-        Debug.Log("Random Event Triggered!");
+        if (tile.assignedEvent == null)
+        {
+            Debug.Log("No event assigned.");
+            return;
+        }
+        Debug.Log(tile.assignedEvent);
+        eventUI.ShowEvent(tile.assignedEvent);
     }
 
     public void HandleEmptyTile()

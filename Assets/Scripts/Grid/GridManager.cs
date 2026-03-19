@@ -14,6 +14,7 @@ public class GridManager : MonoBehaviour
 
     public TileData[,] grid;
     public EncounterPool combatEncounterPool;
+    public EventPool eventPool;
 
     private System.Random rng;
 
@@ -56,6 +57,11 @@ public class GridManager : MonoBehaviour
                 if (grid[x, y].tileType == TileType.Combat)
                 {
                     grid[x, y].assignedEncounter = GetDeterministicEncounter(x, y);
+                }
+
+                if (grid[x, y].tileType == TileType.Event)
+                {
+                    grid[x, y].assignedEvent = GetDeterministicEvent(x, y);
                 }
             }
         }
@@ -162,6 +168,25 @@ public class GridManager : MonoBehaviour
         System.Random tileRng = new System.Random(tileSeed);
 
         var pool = combatEncounterPool.encounters;
+
+        if (pool == null || pool.Count == 0)
+            return null;
+
+        int index = tileRng.Next(0, pool.Count);
+        return pool[index];
+    }
+
+    private EventData GetDeterministicEvent(int x, int y)
+    {
+        var run = RunManager.Instance.CurrentRun;
+
+        int seed = run.runSeed
+                   ^ (x * 92837111)
+                   ^ (y * 689287499);
+
+        System.Random tileRng = new System.Random(seed);
+
+        var pool = eventPool.events;
 
         if (pool == null || pool.Count == 0)
             return null;

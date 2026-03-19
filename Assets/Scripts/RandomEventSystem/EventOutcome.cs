@@ -1,0 +1,24 @@
+using UnityEngine;
+
+public enum OutcomeType
+{
+    GainCurrency,
+    LoseCurrency,
+    StartCombat,
+    HealPlayer,
+    DamagePlayer,
+    GiveItem,
+    Nothing
+}
+
+[System.Serializable]
+public class EventOutcome
+{
+    public OutcomeType type;
+
+    public int value;
+
+    // Optional references depending on type
+    public EncounterData encounter;
+    public ScriptableObject item;
+}
