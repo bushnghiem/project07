@@ -10,27 +10,45 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2aa73ef29bb4b54c883ee618ceb14f0, type: 3}
-  m_Name: Scavenge
+  m_Name: Abandoned Station
   m_EditorClassIdentifier: Assembly-CSharp::EventData
-  eventName: Scavenge
-  description: 'Scavenge Area for 100 gold, hurt player 5 in turn
+  eventName: Abandoned Station
+  description: 'You can salvage whole station for 100 gold (clear event)
 
-'
+    Rest
+    to heal 10 HP (Reusable)
+
+    Find Gold (One Time Use)
+
+    Leave '
   options:
-  - optionText: Scavenge
+  - optionText: Salvage
+    conditions: []
+    outcomes:
+    - type: 0
+      tileModification: 1
+      value: 100
+      encounter: {fileID: 0}
+      item: {fileID: 0}
+    removeAfterUse: 0
+  - optionText: Rest
+    conditions: []
+    outcomes:
+    - type: 3
+      tileModification: 0
+      value: 10
+      encounter: {fileID: 0}
+      item: {fileID: 0}
+    removeAfterUse: 0
+  - optionText: Find Gold
     conditions: []
     outcomes:
     - type: 0
       tileModification: 0
-      value: 100
+      value: 10
       encounter: {fileID: 0}
       item: {fileID: 0}
-    - type: 4
-      tileModification: 1
-      value: 5
-      encounter: {fileID: 0}
-      item: {fileID: 0}
-    removeAfterUse: 0
+    removeAfterUse: 1
   - optionText: Leave
     conditions: []
     outcomes:

@@ -1,5 +1,6 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 
 public class EventUI : MonoBehaviour
 {
@@ -11,28 +12,11 @@ public class EventUI : MonoBehaviour
 
     private EventData currentEvent;
 
-    private void Awake()
-    {
-        //gameObject.SetActive(false);
-    }
-
     public void ShowEvent(EventData eventData)
     {
         if (eventData == null)
         {
             Debug.LogError("EventData is NULL");
-            return;
-        }
-
-        if (eventNameText == null || descriptionText == null)
-        {
-            Debug.LogError("UI references not set!");
-            return;
-        }
-
-        if (optionsContainer == null || optionButtonPrefab == null)
-        {
-            Debug.LogError("Options UI not set!");
             return;
         }
 
@@ -43,15 +27,17 @@ public class EventUI : MonoBehaviour
 
         ClearOptions();
 
-        if (eventData.options == null || eventData.options.Count == 0)
-        {
-            Debug.LogWarning($"Event '{eventData.eventName}' has no options!");
-            return;
-        }
+        var run = RunManager.Instance.CurrentRun;
+        var pos = run.currentGridPosition;
 
-        foreach (var option in eventData.options)
+        for (int i = 0; i < eventData.options.Count; i++)
         {
+            var option = eventData.options[i];
             if (option == null) continue;
+
+            if (!AreConditionsMet(option)) continue;
+
+            bool isUsed = IsOptionUsed(i, option);
 
             var buttonObj = Instantiate(optionButtonPrefab, optionsContainer);
             var button = buttonObj.GetComponent<EventOptionButton>();
@@ -62,7 +48,7 @@ public class EventUI : MonoBehaviour
                 continue;
             }
 
-            button.Setup(option, this);
+            button.Setup(option, i, this, isUsed);
         }
 
         gameObject.SetActive(true);
@@ -76,11 +62,40 @@ public class EventUI : MonoBehaviour
         }
     }
 
-    public void SelectOption(EventOption option)
+    public void SelectOption(EventOption option, int index)
     {
+        var run = RunManager.Instance.CurrentRun;
+        var pos = run.currentGridPosition;
+
+        if (option.removeAfterUse)
+        {
+            if (!run.usedEventOptions.ContainsKey(pos))
+            {
+                run.usedEventOptions[pos] = new List<int>();
+            }
+
+            if (!run.usedEventOptions[pos].Contains(index))
+            {
+                run.usedEventOptions[pos].Add(index);
+            }
+        }
+
         EventManager.Instance.ExecuteOption(option);
 
         gameObject.SetActive(false);
+    }
+
+    bool IsOptionUsed(int index, EventOption option)
+    {
+        if (!option.removeAfterUse) return false;
+
+        var run = RunManager.Instance.CurrentRun;
+        var pos = run.currentGridPosition;
+
+        if (!run.usedEventOptions.ContainsKey(pos))
+            return false;
+
+        return run.usedEventOptions[pos].Contains(index);
     }
 
     bool AreConditionsMet(EventOption option)
@@ -100,7 +115,7 @@ public class EventUI : MonoBehaviour
                     break;
 
                 case ConditionType.LowHealth:
-                    // Example placeholder
+                    // Implement if needed
                     break;
             }
         }

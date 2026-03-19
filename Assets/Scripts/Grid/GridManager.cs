@@ -145,6 +145,15 @@ public class GridManager : MonoBehaviour
                 grid[pos.x, pos.y].tileType = TileType.Empty;
             }
         }
+
+        foreach (var pos in run.clearedEventTiles)
+        {
+            if (IsInsideGrid(pos.x, pos.y))
+            {
+                grid[pos.x, pos.y].tileType = TileType.Empty;
+                grid[pos.x, pos.y].assignedEvent = null;
+            }
+        }
     }
 
     private TileType RandomTileType()
@@ -242,5 +251,28 @@ public class GridManager : MonoBehaviour
     public bool IsInsideGrid(int x, int y)
     {
         return x >= 0 && y >= 0 && x < width && y < height;
+    }
+
+    public void clearEventTile(int x, int y)
+    {
+        if (IsInsideGrid(x, y))
+        {
+            grid[x, y].tileType = TileType.Empty;
+            grid[x, y].assignedEvent = null;
+        }
+    }
+
+    public void ClearEventVisualAt(int x, int y)
+    {
+        Vector3 worldPos = GetWorldPosition(x, y);
+
+        foreach (Transform child in transform)
+        {
+            if (Vector3.Distance(child.position, worldPos + Vector3.up * 0.5f) < 0.1f)
+            {
+                Destroy(child.gameObject);
+                break;
+            }
+        }
     }
 }

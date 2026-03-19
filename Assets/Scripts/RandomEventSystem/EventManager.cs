@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class EventManager : MonoBehaviour
 {
     public static EventManager Instance;
+    public GridManager gridManager;
     public ShipHolder shipHolder;
 
     private void Awake()
@@ -13,38 +15,45 @@ public class EventManager : MonoBehaviour
 
     public void ExecuteOption(EventOption option)
     {
+        var run = RunManager.Instance.CurrentRun;
+        Vector2Int pos = run.currentGridPosition;
+
         foreach (var outcome in option.outcomes)
         {
             ApplyOutcome(outcome);
         }
+
+        SaveManager.Instance.SaveRun();
     }
 
     void ApplyOutcome(EventOutcome outcome)
     {
         var run = RunManager.Instance.CurrentRun;
+        Vector2Int pos = RunManager.Instance.CurrentRun.currentGridPosition;
+
+        if (outcome.tileModification == TileModification.Clear && !run.clearedEventTiles.Contains(pos))
+        {
+            run.clearedEventTiles.Add(pos);
+            gridManager.clearEventTile(pos.x, pos.y);
+            gridManager.ClearEventVisualAt(pos.x, pos.y);
+        }
 
         switch (outcome.type)
         {
             case OutcomeType.GainCurrency:
-                //run.currency += outcome.value;
+                RewardManager.Instance.AddRunCurrency(outcome.value);
                 break;
 
             case OutcomeType.LoseCurrency:
-                //run.currency -= outcome.value;
+                RewardManager.Instance.SpendRunCurrency(outcome.value);
                 break;
 
             case OutcomeType.HealPlayer:
-                foreach (var player in shipHolder.allPlayers)
-                {
-                    //player.Heal(outcome.value);
-                }
+                RewardManager.Instance.HealAllPlayers(outcome.value);
                 break;
 
             case OutcomeType.DamagePlayer:
-                foreach (var player in shipHolder.allPlayers)
-                {
-                    //player.TakeDamage(outcome.value);
-                }
+                RewardManager.Instance.DamageAllPlayers(outcome.value);
                 break;
 
             case OutcomeType.StartCombat:
@@ -53,8 +62,7 @@ public class EventManager : MonoBehaviour
                 break;
 
             case OutcomeType.GiveItem:
-                // your inventory system here
-                Debug.Log("Item given: " + outcome.item);
+                RewardManager.Instance.AddItemToAllPlayers(outcome.item);
                 break;
 
             case OutcomeType.Nothing:

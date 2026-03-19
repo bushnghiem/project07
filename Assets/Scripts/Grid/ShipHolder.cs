@@ -20,7 +20,7 @@ public class ShipHolder : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        RewardManager.Instance.shipHolder = this;
     }
 
     // Update is called once per frame
