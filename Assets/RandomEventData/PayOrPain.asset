@@ -10,33 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2aa73ef29bb4b54c883ee618ceb14f0, type: 3}
-  m_Name: Scavenge
+  m_Name: PayOrPain
   m_EditorClassIdentifier: Assembly-CSharp::EventData
-  eventName: Scavenge
-  description: 'Scavenge Area for 100 gold, hurt player 5 in turn
-
-'
+  eventName: Pay or Pain
+  description: Pay the toll or else
   options:
-  - optionText: Scavenge
-    conditions: []
-    outcomes:
+  - optionText: Pay Up
+    conditions:
     - type: 0
-      tileModification: 0
-      value: 100
-      encounter: {fileID: 0}
-      item: {fileID: 0}
-    - type: 4
+      value: 50
+    outcomes:
+    - type: 1
       tileModification: 1
-      value: 20
+      value: 50
       encounter: {fileID: 0}
       item: {fileID: 0}
     removeAfterUse: 0
-  - optionText: Leave
+  - optionText: Take It
     conditions: []
     outcomes:
-    - type: 6
-      tileModification: 0
-      value: 0
+    - type: 4
+      tileModification: 1
+      value: 10
       encounter: {fileID: 0}
       item: {fileID: 0}
     removeAfterUse: 0

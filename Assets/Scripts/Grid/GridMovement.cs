@@ -27,6 +27,8 @@ public class GridMovement : MonoBehaviour
         // Wait until grid exists
         yield return new WaitUntil(() => gridManager.IsGridReady);
 
+        CorruptionManager.Instance.Init(gridManager);
+
         transform.position = gridManager.GetWorldPosition(gridPosition.x, gridPosition.y);
 
         // Trigger tile on spawn
@@ -44,7 +46,6 @@ public class GridMovement : MonoBehaviour
 
     void TryMove(Vector2Int direction)
     {
-
         Vector2Int targetPos = gridPosition + direction;
 
         if (!gridManager.IsInsideGrid(targetPos.x, targetPos.y))
@@ -54,6 +55,8 @@ public class GridMovement : MonoBehaviour
 
         if (tile != null && tile.IsWalkable)
         {
+            RunManager.Instance.CurrentRun.stepsTaken++;
+            CorruptionManager.Instance.OnStepTaken();
             gridPosition = targetPos;
             transform.position = gridManager.GetWorldPosition(gridPosition.x, gridPosition.y);
             RunManager.Instance.CurrentRun.currentGridPosition = gridPosition;

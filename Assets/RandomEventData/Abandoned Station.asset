@@ -12,13 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2aa73ef29bb4b54c883ee618ceb14f0, type: 3}
   m_Name: Abandoned Station
   m_EditorClassIdentifier: Assembly-CSharp::EventData
-  eventName: Abandoned Station
+  eventName: Abandoned Repair Station
   description: 'You can salvage whole station for 100 gold (clear event)
 
-    Rest
-    to heal 10 HP (Reusable)
-
-    Find Gold (One Time Use)
+    Use
+    Equipment to heal 10 HP (Reusable)
 
     Leave '
   options:
@@ -40,21 +38,12 @@ MonoBehaviour:
       encounter: {fileID: 0}
       item: {fileID: 0}
     removeAfterUse: 0
-  - optionText: Find Gold
-    conditions: []
-    outcomes:
-    - type: 0
-      tileModification: 0
-      value: 10
-      encounter: {fileID: 0}
-      item: {fileID: 0}
-    removeAfterUse: 1
   - optionText: Leave
     conditions: []
     outcomes:
     - type: 6
       tileModification: 0
-      value: 0
+      value: 10
       encounter: {fileID: 0}
       item: {fileID: 0}
     removeAfterUse: 0

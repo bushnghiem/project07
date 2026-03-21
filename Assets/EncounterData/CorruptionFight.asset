@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8db64e4c879a3b741a7db007435ce107, type: 3}
+  m_Name: CorruptionFight
+  m_EditorClassIdentifier: Assembly-CSharp::EncounterData
+  encounterName: 
+  enemies:
+  - uniqueID: Corupt
+    templateID: 3
+    currentHealth: 90
+    isDead: 0
+    statModifiers: []
+    items:
+    - itemID: projectile_basic
+  - uniqueID: Corupt
+    templateID: 3
+    currentHealth: 90
+    isDead: 0
+    statModifiers: []
+    items:
+    - itemID: projectile_basic
+  - uniqueID: Corupt
+    templateID: 3
+    currentHealth: 100
+    isDead: 1
+    statModifiers: []
+    items:
+    - itemID: projectile_basic
+  - uniqueID: Corupt
+    templateID: 3
+    currentHealth: 100
+    isDead: 1
+    statModifiers: []
+    items:
+    - itemID: projectile_basic
+  enemyFormation: {fileID: 11400000, guid: ea09909161c27d04d923a2d9c407861b, type: 2}
+  playerFormation: {fileID: 0}
+  environmentLayout: {fileID: 11400000, guid: 03214a1cff6f178469c745c1aa539ba6, type: 2}
+  playerAnchorPosition: {x: 0, y: 0, z: 0}
+  enemyAnchorPosition: {x: -20, y: 0, z: 0}
+  encounterType: 1
+  runCurrencyReward: 5
+  metaCurrencyReward: 5
