@@ -9,5 +9,7 @@ public abstract class Item : ScriptableObject
 
     public int price = 100;
 
+    public ItemSlotType slotType;
+
     public abstract void OnAcquire(UnitBase unit);
 }

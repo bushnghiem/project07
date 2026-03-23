@@ -1,12 +1,12 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
     public ItemDatabase itemDatabase;
+    public ShipHolder shipHolder;
 
     public int shopItemCount = 3;
-
     public int rerollCost = 50;
 
     public List<ShopItem> shopItems = new();
@@ -21,12 +21,10 @@ public class ShopManager : MonoBehaviour
 
         if (shopData != null && !forceReroll)
         {
-            // Load existing shop
             shopItems = shopData.shopItems;
             return;
         }
 
-        // If no shop data exists, create it
         if (shopData == null)
         {
             shopData = new ShopData { gridPosition = shopPosition };
@@ -34,10 +32,9 @@ public class ShopManager : MonoBehaviour
         }
         else if (forceReroll)
         {
-            shopData.rerollCount++; // increment reroll for RNG
+            shopData.rerollCount++;
         }
 
-        // Use rerollCount in RNG so each reroll produces different items
         int seed = run.runSeed
                    ^ (shopPosition.x * 73856093)
                    ^ (shopPosition.y * 19349663)
@@ -63,7 +60,6 @@ public class ShopManager : MonoBehaviour
             shopItems.Add(shopItem);
         }
 
-        // Save generated shop items
         shopData.shopItems = shopItems;
     }
 

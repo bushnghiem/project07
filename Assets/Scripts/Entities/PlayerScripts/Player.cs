@@ -47,6 +47,7 @@ public class Player : UnitBase
 
     public override void Initialize(ShipRunData data)
     {
+        itemDatabaseRef = itemDatabase;
         base.Initialize(data);
 
         InitializeItems();
@@ -64,11 +65,15 @@ public class Player : UnitBase
     {
         if (runData.items == null) return;
 
+        CleanInventory();
+
         foreach (var itemSave in runData.items)
         {
             Item item = itemDatabase.GetItem(itemSave.itemID);
             if (item != null)
+            {
                 item.OnAcquire(this);
+            }
         }
     }
 

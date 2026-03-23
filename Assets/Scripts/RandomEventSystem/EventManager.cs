@@ -31,6 +31,10 @@ public class EventManager : MonoBehaviour
         var run = RunManager.Instance.CurrentRun;
         Vector2Int pos = RunManager.Instance.CurrentRun.currentGridPosition;
 
+        Debug.Log("Instance: " + PlayerSelectionUI.Instance);
+        Debug.Log("ShipHolder: " + shipHolder);
+        Debug.Log("Players list: " + (shipHolder != null ? shipHolder.allPlayers : null));
+
         if (outcome.tileModification == TileModification.Clear && !run.clearedEventTiles.Contains(pos))
         {
             run.clearedEventTiles.Add(pos);
@@ -48,21 +52,36 @@ public class EventManager : MonoBehaviour
                 RewardManager.Instance.SpendRunCurrency(outcome.value);
                 break;
 
-            case OutcomeType.HealPlayer:
-                RewardManager.Instance.HealAllPlayers(outcome.value);
-                break;
-
-            case OutcomeType.DamagePlayer:
-                RewardManager.Instance.DamageAllPlayers(outcome.value);
-                break;
-
             case OutcomeType.StartCombat:
                 run.currentEncounter = outcome.encounter;
                 SceneManager.LoadScene("SpawnTestScene");
                 break;
 
+            case OutcomeType.HealPlayer:
+                PlayerSelectionUI.Instance.Open(
+                    shipHolder.allPlayers,
+                    (player) =>
+                    {
+                        RewardManager.Instance.HealPlayer(player, outcome.value);
+                    });
+                break;
+
+            case OutcomeType.DamagePlayer:
+                PlayerSelectionUI.Instance.Open(
+                    shipHolder.allPlayers,
+                    (player) =>
+                    {
+                        RewardManager.Instance.HurtPlayer(player, outcome.value);
+                    });
+                break;
+
             case OutcomeType.GiveItem:
-                RewardManager.Instance.AddItemToAllPlayers(outcome.item);
+                PlayerSelectionUI.Instance.Open(
+                    shipHolder.allPlayers,
+                    (player) =>
+                    {
+                        RewardManager.Instance.AddItemToPlayer(player, outcome.item);
+                    });
                 break;
 
             case OutcomeType.Nothing:

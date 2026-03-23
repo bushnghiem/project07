@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
@@ -11,13 +11,11 @@ public class ShopItemSlot : MonoBehaviour
 
     private ShopItem shopItem;
     private ShopManager shopManager;
-    private Player player;
 
-    public void Setup(ShopItem item, ShopManager manager, Player p)
+    public void Setup(ShopItem item, ShopManager manager)
     {
         shopItem = item;
         shopManager = manager;
-        player = p;
 
         icon.sprite = item.item.icon;
         nameText.text = item.item.itemName;
@@ -29,11 +27,33 @@ public class ShopItemSlot : MonoBehaviour
 
     public void OnBuyPressed()
     {
-        bool success = shopManager.TryPurchase(player, shopItem);
+        if (shopItem.purchased)
+        {
+            Debug.Log("Already bought");
+            return;
+        }
 
-        if (success)
-            Debug.Log($"Bought {shopItem.item.itemName}!");
-        else
-            Debug.Log($"Could not buy {shopItem.item.itemName}");
+        if (!RewardManager.Instance.CanAfford(shopItem.price))
+        {
+            Debug.Log("Too broke to buy this item!");
+            return;
+        }
+
+        PlayerSelectionUI.Instance.Open(
+            shopManager.shipHolder.allPlayers,
+            (selectedPlayer) =>
+            {
+                bool success = shopManager.TryPurchase(selectedPlayer, shopItem);
+
+                if (success)
+                {
+                    Debug.Log($"Bought {shopItem.item.itemName} for {selectedPlayer.name}");
+                    buyButton.interactable = false;
+                }
+                else
+                {
+                    Debug.Log($"Could not buy {shopItem.item.itemName}");
+                }
+            });
     }
 }

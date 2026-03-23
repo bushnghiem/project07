@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ShopUI : MonoBehaviour
@@ -9,21 +9,13 @@ public class ShopUI : MonoBehaviour
     public Transform slotParent;
     public ShopItemSlot slotPrefab;
 
-
     public Button rerollButton;
     public Button closeButton;
-
-    private Player selectedPlayer;
 
     private void Awake()
     {
         rerollButton.onClick.AddListener(OnRerollPressed);
         closeButton.onClick.AddListener(OnClosePressed);
-    }
-
-    public void SetSelectedPlayer(Player player)
-    {
-        selectedPlayer = player;
     }
 
     public void PopulateShop()
@@ -34,7 +26,7 @@ public class ShopUI : MonoBehaviour
         foreach (var item in shopManager.shopItems)
         {
             ShopItemSlot slot = Instantiate(slotPrefab, slotParent);
-            slot.Setup(item, shopManager, selectedPlayer);
+            slot.Setup(item, shopManager);
         }
     }
 
@@ -46,7 +38,6 @@ public class ShopUI : MonoBehaviour
             return;
         }
 
-        Debug.Log("Reroll");
         shopManager.Reroll();
         PopulateShop();
     }

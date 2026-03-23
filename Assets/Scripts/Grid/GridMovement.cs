@@ -126,11 +126,6 @@ public class GridMovement : MonoBehaviour
     {
         Vector2Int shopPos = gridPosition;
 
-        // Just pick first player for now
-        Player player = shipHolder.allPlayers[0];
-
-        shopUI.SetSelectedPlayer(player);
-
         shopManager.GenerateShop(shopPos);
 
         shopUI.PopulateShop();

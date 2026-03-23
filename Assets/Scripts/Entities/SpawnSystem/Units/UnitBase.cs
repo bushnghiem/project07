@@ -35,6 +35,8 @@ public abstract class UnitBase : MonoBehaviour, Unit
     protected Projectile projectile;
     protected List<PassiveItemInstance> passiveItems = new List<PassiveItemInstance>();
 
+    protected ItemDatabase itemDatabaseRef;
+
     public abstract bool IsPlayerControllable { get; }
 
     public virtual int Initiative =>
@@ -175,10 +177,30 @@ public abstract class UnitBase : MonoBehaviour, Unit
         if (runData.items == null)
             runData.items = new List<ItemSaveData>();
 
+        if (item.slotType != ItemSlotType.Passive)
+        {
+            runData.items.RemoveAll(i =>
+            {
+                Item existing = GetItemFromID(i.itemID);
+                return existing != null && existing.slotType == item.slotType;
+            });
+        }
+
         runData.items.Add(new ItemSaveData
         {
             itemID = item.itemID
         });
+    }
+
+    private Item GetItemFromID(string id)
+    {
+        if (itemDatabaseRef == null)
+        {
+            Debug.LogError("ItemDatabase reference is null!");
+            return null;
+        }
+
+        return itemDatabaseRef.GetItem(id);
     }
 
     public void RefreshItemDebug()
@@ -222,10 +244,33 @@ public abstract class UnitBase : MonoBehaviour, Unit
         }
     }
 
+    public void CleanInventory()
+    {
+        if (runData.items == null) return;
+
+        HashSet<ItemSlotType> occupiedSlots = new HashSet<ItemSlotType>();
+
+        runData.items.RemoveAll(i =>
+        {
+            Item item = GetItemFromID(i.itemID);
+            if (item == null) return true;
+
+            if (item.slotType == ItemSlotType.Passive)
+                return false;
+
+            if (occupiedSlots.Contains(item.slotType))
+                return true;
+
+            occupiedSlots.Add(item.slotType);
+            return false;
+        });
+    }
+
     public ActiveItemInstance GetActiveItem() => activeItem;
     public Projectile GetProjectile() => projectile;
+    public float GetCurrentHealth() => healthComp.GetCurrentHealth();
 
-    public void Hurt(float amount)
+public void Hurt(float amount)
     {
         OnHurt?.Invoke(this);
         healthComp.Hurt(amount);
