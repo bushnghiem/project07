@@ -24,7 +24,7 @@ MonoBehaviour:
   - statType: 3
     value: 100
   - statType: 4
-    value: 10
+    value: 2
   linearDamping: 2
   angularDamping: 2
   useLifetime: 0

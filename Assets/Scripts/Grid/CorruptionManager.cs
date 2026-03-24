@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 
 public class CorruptionManager : MonoBehaviour
@@ -20,17 +20,39 @@ public class CorruptionManager : MonoBehaviour
     {
         grid = gridManager;
 
-        currentRadius = Mathf.Max(grid.width, grid.height) / 2;
+        var run = RunManager.Instance.CurrentRun;
+
+        int maxRadius = Mathf.Max(grid.width, grid.height) / 2;
+
+        if (run.corruptionRadius >= 0)
+        {
+            currentRadius = run.corruptionRadius;
+
+            ApplyCorruption();
+        }
+        else
+        {
+            currentRadius = maxRadius;
+            run.corruptionRadius = currentRadius;
+
+            SaveManager.Instance.SaveRun();
+        }
     }
 
     public void OnStepTaken()
     {
-        int steps = RunManager.Instance.CurrentRun.stepsTaken;
+        var run = RunManager.Instance.CurrentRun;
+        int steps = run.stepsTaken;
 
         if (steps % stepsPerShrink == 0)
         {
             currentRadius--;
+
+            run.corruptionRadius = currentRadius;
+
             ApplyCorruption();
+
+            SaveManager.Instance.SaveRun();
         }
     }
 
@@ -52,6 +74,8 @@ public class CorruptionManager : MonoBehaviour
                 }
             }
         }
+
+        grid.GenerateVisuals();
     }
 
     void CorruptTile(Vector2Int pos)
@@ -64,12 +88,11 @@ public class CorruptionManager : MonoBehaviour
         if (tile.tileType == TileType.Wall)
             return;
 
+        if (tile.tileType == TileType.Combat && tile.assignedEncounter != null)
+            return;
+
         tile.tileType = TileType.Combat;
-
         tile.assignedEncounter = GetCorruptionEncounter(pos);
-
-        grid.ClearEventVisualAt(pos.x, pos.y);
-        grid.GenerateVisuals(); // maybe optimize later
     }
 
     EncounterData GetCorruptionEncounter(Vector2Int pos)

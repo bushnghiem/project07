@@ -78,7 +78,23 @@ public class ShopManager : MonoBehaviour
             Debug.Log("Too broke");
             return false;
         }
+        /*
+        var run = RunManager.Instance.CurrentRun;
+        var shopData = run.shops.Find(s => s.gridPosition == currentShopPosition);
 
+        if (shopData == null)
+        {
+            Debug.LogError("ShopData not found!");
+            return false;
+        }
+
+        var savedItem = shopData.shopItems.Find(i => i.item == shopItem.item);
+
+        if (savedItem != null)
+        {
+            savedItem.purchased = true;
+        }
+        */
         shopItem.purchased = true;
 
         shopItem.item.OnAcquire(player);

@@ -23,6 +23,12 @@ public class ShopItemSlot : MonoBehaviour
 
         buyButton.onClick.RemoveAllListeners();
         buyButton.onClick.AddListener(OnBuyPressed);
+
+
+        if (shopItem.purchased)
+        {
+            buyButton.interactable = false;
+        }
     }
 
     public void OnBuyPressed()

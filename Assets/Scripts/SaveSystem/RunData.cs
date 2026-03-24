@@ -16,4 +16,5 @@ public class RunData
     public List<Vector2Int> clearedEventTiles = new List<Vector2Int>();
     public Dictionary<Vector2Int, List<int>> usedEventOptions = new Dictionary<Vector2Int, List<int>>();
     public List<ShopData> shops = new List<ShopData>();
+    public int corruptionRadius = -1;
 }
