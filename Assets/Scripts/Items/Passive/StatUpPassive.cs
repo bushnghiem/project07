@@ -9,7 +9,6 @@ public class StatUpPassive : PassiveItem
 
     private StatModifier createdModifier;
 
-    // ApplyEffect is called when the passive is equipped
     public override void ApplyEffect(Unit unit)
     {
         if (unit is UnitBase unitBase)
@@ -19,17 +18,18 @@ public class StatUpPassive : PassiveItem
                 statType = statType,
                 flatBonus = statChangeAmount,
                 percentBonus = 0f,
-                source = this
+                sourceID = itemID
             };
+
             unitBase.AddStatModifier(createdModifier);
         }
     }
 
     public override void RemoveEffect(Unit unit)
     {
-        if (unit is UnitBase unitBase && createdModifier != null)
+        if (unit is UnitBase unitBase)
         {
-            unitBase.RemoveModifiersFromSource(this);
+            unitBase.RemoveModifiersFromSource(itemID);
         }
     }
 }

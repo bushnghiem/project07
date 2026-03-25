@@ -50,6 +50,9 @@ public class Player : UnitBase
         itemDatabaseRef = itemDatabase;
         base.Initialize(data);
 
+        ClearAllStatModifiers();
+        passiveItems.Clear();
+
         InitializeItems();
 
         float moveStrength = GetStat(ShipStatType.MoveStrength);

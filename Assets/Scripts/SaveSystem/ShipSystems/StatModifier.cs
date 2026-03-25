@@ -9,5 +9,5 @@ public class StatModifier
     public float flatBonus;
     public float percentBonus;
 
-    public object source;
+    public string sourceID;
 }

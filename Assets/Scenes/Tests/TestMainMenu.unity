@@ -751,13 +751,7 @@ MonoBehaviour:
       templateID: 0
       currentHealth: 10
       isDead: 0
-      statModifiers:
-      - statType: 0
-        flatBonus: 20
-        percentBonus: 0
-      - statType: 0
-        flatBonus: 20
-        percentBonus: 0
+      statModifiers: []
       items:
       - itemID: projectile_basic
       - itemID: passive_maxhp_up
@@ -766,16 +760,17 @@ MonoBehaviour:
       templateID: 0
       currentHealth: 10
       isDead: 0
-      statModifiers:
-      - statType: 0
-        flatBonus: 0
-        percentBonus: 0.2
+      statModifiers: []
       items:
       - itemID: projectile_iron_ball
       - itemID: passive_heal_kill
       - itemID: active_shield
     runCurrency: 0
+    stepsTaken: 0
     clearedCombatTiles: []
+    clearedEventTiles: []
+    shops: []
+    corruptionRadius: -1
 --- !u!1 &2011352280
 GameObject:
   m_ObjectHideFlags: 0

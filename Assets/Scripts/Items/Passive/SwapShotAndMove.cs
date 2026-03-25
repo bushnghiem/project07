@@ -8,8 +8,6 @@ public class SwapShotAndMove : PassiveItem
     StatModifier subtractedShotStrength;
     StatModifier subtractedMoveStrength;
 
-
-    // ApplyEffect is called when the passive is equipped
     public override void ApplyEffect(Unit unit)
     {
         if (unit is UnitBase unitBase)
@@ -22,7 +20,7 @@ public class SwapShotAndMove : PassiveItem
                 statType = ShipStatType.ShotStrength,
                 flatBonus = moveStrength,
                 percentBonus = 0.0f,
-                source = this
+                sourceID = itemID
             };
 
             addedMoveStrength = new StatModifier
@@ -30,7 +28,7 @@ public class SwapShotAndMove : PassiveItem
                 statType = ShipStatType.MoveStrength,
                 flatBonus = shotStrength,
                 percentBonus = 0.0f,
-                source = this
+                sourceID = itemID
             };
 
             subtractedShotStrength = new StatModifier
@@ -38,7 +36,7 @@ public class SwapShotAndMove : PassiveItem
                 statType = ShipStatType.ShotStrength,
                 flatBonus = -shotStrength,
                 percentBonus = 0.0f,
-                source = this
+                sourceID = itemID
             };
 
             subtractedMoveStrength = new StatModifier
@@ -46,7 +44,7 @@ public class SwapShotAndMove : PassiveItem
                 statType = ShipStatType.MoveStrength,
                 flatBonus = -moveStrength,
                 percentBonus = 0.0f,
-                source = this
+                sourceID = itemID
             };
 
             unitBase.AddStatModifier(addedMoveStrength);
@@ -56,13 +54,11 @@ public class SwapShotAndMove : PassiveItem
         }
     }
 
-
-
     public override void RemoveEffect(Unit unit)
     {
         if (unit is UnitBase unitBase)
         {
-            unitBase.RemoveModifiersFromSource(this);
+            unitBase.RemoveModifiersFromSource(itemID);
         }
     }
 }

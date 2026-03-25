@@ -138,9 +138,9 @@ public abstract class UnitBase : MonoBehaviour, Unit
         ApplyStats();
     }
 
-    public void RemoveModifiersFromSource(object source)
+    public void RemoveModifiersFromSource(string sourceID)
     {
-        runData.statModifiers.RemoveAll(m => m.source == source);
+        runData.statModifiers.RemoveAll(m => m.sourceID == sourceID);
         statsDirty = true;
         ApplyStats();
     }
@@ -264,6 +264,15 @@ public abstract class UnitBase : MonoBehaviour, Unit
             occupiedSlots.Add(item.slotType);
             return false;
         });
+    }
+
+    public void ClearAllStatModifiers()
+    {
+        if (runData.statModifiers == null)
+            runData.statModifiers = new List<StatModifier>();
+
+        runData.statModifiers.Clear();
+        statsDirty = true;
     }
 
     public ActiveItemInstance GetActiveItem() => activeItem;
