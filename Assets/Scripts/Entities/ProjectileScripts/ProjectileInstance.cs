@@ -8,7 +8,7 @@ public class ProjectileInstance : MonoBehaviour, Entity
     float stopTimer;
 
     public HealthComponent healthComp;
-    public ExploderComponent exploderComp;
+    public EffectController effectController;
     public DamageOnCollision collisionDamageComp;
 
     private Projectile template;
@@ -26,7 +26,7 @@ public class ProjectileInstance : MonoBehaviour, Entity
     {
         rb = GetComponent<Rigidbody>();
         healthComp = GetComponent<HealthComponent>();
-        exploderComp = GetComponent<ExploderComponent>();
+        effectController = GetComponent<EffectController>();
         collisionDamageComp = GetComponent<DamageOnCollision>();
         colliders = GetComponentsInChildren<Collider>();
         renderers = GetComponentsInChildren<Renderer>();
@@ -68,7 +68,7 @@ public class ProjectileInstance : MonoBehaviour, Entity
             GetStat(ProjectileStatType.CollisionDamage),
             GetStat(ProjectileStatType.CollisionKnockback)
         );
-
+        /*
         exploderComp = exploderComp ?? GetComponent<ExploderComponent>();
         if (exploderComp != null)
         {
@@ -85,6 +85,7 @@ public class ProjectileInstance : MonoBehaviour, Entity
             }
             exploderComp.SetExplosionStats(explosion);
         }
+        */
 
         colliders = colliders ?? GetComponentsInChildren<Collider>();
         renderers = renderers ?? GetComponentsInChildren<Renderer>();
@@ -146,10 +147,11 @@ public class ProjectileInstance : MonoBehaviour, Entity
     private void HandleDeath()
     {
         CancelInvoke();
-        Kill();
-        if ((template.doesExplode) && (exploderComp != null))
-            exploderComp.StartExplosion(transform.position);
 
+        if ((template.doesExplode) && (effectController != null))
+            effectController.TriggerEffects(transform.position);
+
+        Kill();
         DeathEvent.OnEntityDeath?.Invoke(this);
     }
 

@@ -9,8 +9,8 @@ public class ExploderComponent : MonoBehaviour
         stats = newStats;
     }
 
-    public void StartExplosion(Vector3 explosionPosition)
+    public void StartExplosion(Vector3 position)
     {
-        ExplodeEvent.OnExplode(stats, explosionPosition);
+        ExplodeEvent.Trigger(stats, position);
     }
 }

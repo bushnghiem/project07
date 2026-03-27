@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 9039554059832288937}
   - component: {fileID: 8815638795568486749}
   - component: {fileID: 58453196750346021}
+  - component: {fileID: -4293611221693304373}
   m_Layer: 8
   m_Name: BasicProjectile
   m_TagString: Untagged
@@ -129,13 +130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2c75540e5fa30041937b60c967c5348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
-  linearDamping: 2
-  angularDamping: 2
-  lifeTime: 5
-  velocityThreshold: 0.1
-  stopTimeRequired: 0.5
   healthComp: {fileID: 0}
-  exploderComp: {fileID: 0}
+  effectController: {fileID: 0}
+  collisionDamageComp: {fileID: 0}
 --- !u!54 &323944487683256840
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -191,6 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthComponent
   currentHealth: 10
   maxHealth: 10
+  shield: 0
   isDead: 0
 --- !u!114 &58453196750346021
 MonoBehaviour:
@@ -208,6 +206,21 @@ MonoBehaviour:
     radius: 3
     damage: 50
     force: 100
+    upwardModifier: 2
     damageLayers:
       serializedVersion: 2
       m_Bits: 4294967295
+--- !u!114 &-4293611221693304373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5911925321295324075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1edba893152b6b47a4db01b832b5203, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EffectController
+  effects:
+  - {fileID: 11400000, guid: b0481528f2774814b8c7a6ee7a4dd213, type: 2}

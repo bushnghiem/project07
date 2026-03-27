@@ -8,7 +8,7 @@ public class Player : UnitBase
     public float angularDamping = 2f;
 
     public ClickAndFling clickAndFlingComponent;
-    public ExploderComponent exploderComp;
+    public EffectController effectController;
 
     private Collider[] colliders;
     private Renderer[] renderers;
@@ -21,7 +21,7 @@ public class Player : UnitBase
     {
         base.Awake();
 
-        exploderComp = GetComponent<ExploderComponent>();
+        effectController = GetComponent<EffectController>();
         colliders = GetComponentsInChildren<Collider>();
         renderers = GetComponentsInChildren<Renderer>();
 
@@ -136,8 +136,8 @@ public class Player : UnitBase
         DisablePhysics();
         DisableVisuals();
 
-        if (exploderComp != null)
-            exploderComp.StartExplosion(transform.position);
+        if (effectController != null)
+            effectController.TriggerEffects(transform.position);
 
         base.Kill();
         DeathEvent.OnEntityDeath?.Invoke(this);

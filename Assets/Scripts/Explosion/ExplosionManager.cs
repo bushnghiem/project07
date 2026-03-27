@@ -14,19 +14,9 @@ public class ExplosionManager : MonoBehaviour
         ExplodeEvent.OnExplode -= HandleExplode;
     }
 
-    public void HandleExplode(ExplosionStats stats, Vector3 pos)
+    private void HandleExplode(ExplosionStats stats, Vector3 pos)
     {
-        Explosion explosion = Instantiate(
-            explosionPrefab,
-            pos,
-            Quaternion.identity
-        );
-
-        explosion.radius = stats.radius;
-        explosion.damage = stats.damage;
-        explosion.force = stats.force;
-        explosion.damageLayers = stats.damageLayers;
-
-        explosion.Explode(pos);
+        Explosion explosion = Instantiate(explosionPrefab, pos, Quaternion.identity);
+        explosion.Initialize(stats);
     }
 }

@@ -7,7 +7,7 @@ public class Enemy : UnitBase
     public float angularDamping = 2f;
     public int orbitSide = 1;
 
-    public ExploderComponent exploderComp;
+    public EffectController effectController;
     public ClickAndFling clickAndFlingComp;
     public EnemyAIBase aiComp;
 
@@ -23,7 +23,7 @@ public class Enemy : UnitBase
     {
         base.Awake();
 
-        exploderComp = GetComponent<ExploderComponent>();
+        effectController = GetComponent<EffectController>();
         clickAndFlingComp = GetComponent<ClickAndFling>();
         colliders = GetComponentsInChildren<Collider>();
         renderers = GetComponentsInChildren<Renderer>();
@@ -119,8 +119,8 @@ public class Enemy : UnitBase
         DisablePhysics();
         DisableVisuals();
 
-        if (exploderComp != null)
-            exploderComp.StartExplosion(transform.position);
+        if (effectController != null)
+            effectController.TriggerEffects(transform.position);
 
         base.Kill();
         DeathEvent.OnEntityDeath?.Invoke(this);
