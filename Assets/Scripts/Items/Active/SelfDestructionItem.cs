@@ -3,12 +3,18 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Items/Active/SelfDestruct")]
 public class SelfDestructionItem : ActiveItem
 {
-    public ExplosionStats stats;
+    public Effect explosion;
 
     public override void Activate(Unit user, Unit target)
     {
         if (target == null) return;
 
-        ExplodeEvent.OnExplode(stats, user.Position);
+        EffectContext context = new EffectContext(
+            user.Position,
+            user.GameObject,
+            user
+        );
+
+        explosion.Execute(context);
     }
 }

@@ -27,6 +27,8 @@ public abstract class UnitBase : MonoBehaviour, Unit
 
     protected ItemDatabase itemDatabaseRef;
 
+    public GameObject GameObject => gameObject;
+
     public abstract bool IsPlayerControllable { get; }
 
     public virtual int Initiative =>

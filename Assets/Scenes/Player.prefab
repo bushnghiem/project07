@@ -252,7 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EffectController
   effects:
-  - {fileID: 11400000, guid: b0481528f2774814b8c7a6ee7a4dd213, type: 2}
+  - {fileID: 11400000, guid: de3dc3fcb0820574da50be9b7d50b50a, type: 2}
 --- !u!1001 &7491458859326076987
 PrefabInstance:
   m_ObjectHideFlags: 0

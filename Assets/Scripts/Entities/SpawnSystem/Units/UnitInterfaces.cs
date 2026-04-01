@@ -12,6 +12,8 @@ public interface Shootable
 
 public interface Unit : Movable, Shootable, Entity
 {
+    GameObject GameObject { get; }
+
     bool IsPlayerControllable { get;}
 
     int Initiative {  get;}
