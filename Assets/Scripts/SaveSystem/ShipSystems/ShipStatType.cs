@@ -9,5 +9,15 @@ public enum ShipStatType
     Mass,
     Initiative,
     CollisionDamage,
-    CollisionKnockback
+    CollisionKnockback,
+
+    ProjectileDamage,
+    ProjectileDamagePercent,
+
+    ProjectileKnockback,
+    ProjectileKnockbackPercent,
+
+    ProjectileMass,
+    ProjectileHealth,
+    ProjectileShield
 }

@@ -31,3 +31,20 @@ MonoBehaviour:
     value: 10
   - statType: 7
     value: 0
+  - statType: 8
+    value: 0
+  - statType: 9
+    value: 0
+  - statType: 8
+    value: 0
+  - statType: 11
+    value: 0
+  - statType: 12
+    value: 0
+  - statType: 13
+    value: 0
+  - statType: 8
+    value: 0
+  startingActiveItemID: 
+  startingPassiveItemIDs: []
+  startingProjectileID: 

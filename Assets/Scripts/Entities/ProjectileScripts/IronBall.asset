@@ -37,6 +37,7 @@ MonoBehaviour:
     radius: 0
     damage: 0
     force: 0
+    upwardModifier: 0
     damageLayers:
       serializedVersion: 2
       m_Bits: 4294967295

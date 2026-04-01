@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 8322959216572350573}
   - component: {fileID: 964107640355038583}
   - component: {fileID: 1142365938212081402}
-  - component: {fileID: 3049093654162749222}
   - component: {fileID: 6033923367434640646}
+  - component: {fileID: 6659095671034114395}
   m_Layer: 0
-  m_Name: Explosion
+  m_Name: ExplosionVisualAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4896,19 +4896,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
---- !u!114 &3049093654162749222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7576036889374145669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02706362c4279ec4f892bfffcca6fb21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Explosion
-  baseVisualRadius: 3
 --- !u!82 &6033923367434640646
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5006,3 +4993,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6659095671034114395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7576036889374145669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 348a793dbadd5924bb977392fa306219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExplosionAudioVisual

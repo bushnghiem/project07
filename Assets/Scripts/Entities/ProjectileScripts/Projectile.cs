@@ -61,7 +61,6 @@ public class Projectile : ScriptableObject
     public bool doesExplode = true;
     public ExplosionStats explosionStats;
 
-    // Return base stat value
     public float GetBaseStat(ProjectileStatType statType)
     {
         foreach (var entry in baseStats)
@@ -70,30 +69,5 @@ public class Projectile : ScriptableObject
                 return entry.value;
         }
         return 0f;
-    }
-
-    // Apply saved modifiers from run data
-    public void Initialize(ProjectileSaveData saveData)
-    {
-        foreach (var modifier in saveData.statModifiers)
-        {
-            for (int i = 0; i < baseStats.Count; i++)
-            {
-                if (baseStats[i].statType == modifier.statType)
-                {
-                    baseStats[i].value = modifier.Apply(baseStats[i].value);
-                    break;
-                }
-            }
-        }
-
-        useLifetime = saveData.useLifetimeOverride;
-        dieWhenStopped = saveData.dieWhenStoppedOverride;
-        doesExplode = saveData.doesExplodeOverride;
-
-        explosionStats.radius += saveData.bonusExplosionStats.radius;
-        explosionStats.damage += saveData.bonusExplosionStats.damage;
-        explosionStats.force += saveData.bonusExplosionStats.force;
-        explosionStats.damageLayers = saveData.bonusExplosionStats.damageLayers;
     }
 }

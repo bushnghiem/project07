@@ -19,4 +19,4 @@ MonoBehaviour:
   damageLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  visualPrefab: {fileID: 0}
+  visualPrefab: {fileID: 7576036889374145669, guid: 0ba8bca1385b6734aa51150bfbf26709, type: 3}

@@ -12,6 +12,7 @@ public class ProjectileInstance : MonoBehaviour, Entity
     public DamageOnCollision collisionDamageComp;
 
     private Projectile template;
+    private UnitBase owner;
 
     // Copy of stats for this instance
     private List<ProjectileBaseStatEntry> instanceStats;
@@ -32,69 +33,54 @@ public class ProjectileInstance : MonoBehaviour, Entity
         renderers = GetComponentsInChildren<Renderer>();
     }
 
-    public void Initialize(Projectile stats, ProjectileSaveData saveData = null)
+    public void Initialize(Projectile stats, UnitBase owner)
     {
-        template = stats;
-
-        // Clone the base stats so the scriptable object isn't changed
-        instanceStats = template.baseStats
-            .Select(e => new ProjectileBaseStatEntry { statType = e.statType, value = e.value })
-            .ToList();
-
-        // Apply save data modifiers if provided
-        if (saveData != null)
-        {
-            foreach (var modifier in saveData.statModifiers)
-            {
-                var stat = instanceStats.Find(s => s.statType == modifier.statType);
-                if (stat != null)
-                    stat.value = modifier.Apply(stat.value);
-            }
-        }
+        this.template = stats;
+        this.owner = owner;
 
         rb = rb ?? GetComponent<Rigidbody>();
-        rb.mass = GetStat(ProjectileStatType.Mass);
+        healthComp = healthComp ?? GetComponent<HealthComponent>();
+        collisionDamageComp = collisionDamageComp ?? GetComponent<DamageOnCollision>();
+
+        ApplyStats();
+    }
+
+    private void ApplyStats()
+    {
+        float mass =
+            template.GetBaseStat(ProjectileStatType.Mass)
+            + owner.GetStat(ShipStatType.ProjectileMass);
+
+        rb.mass = mass;
         rb.linearDamping = template.linearDamping;
         rb.angularDamping = template.angularDamping;
 
-        healthComp = healthComp ?? GetComponent<HealthComponent>();
-        float maxHealth = GetStat(ProjectileStatType.MaxHealth);
+        float maxHealth =
+            template.GetBaseStat(ProjectileStatType.MaxHealth)
+            + owner.GetStat(ShipStatType.ProjectileHealth);
+
         healthComp.SetMaxHealth(maxHealth);
         healthComp.SetCurrentHealth(maxHealth);
-        healthComp.SetShield(Mathf.RoundToInt(GetStat(ProjectileStatType.StartingShield)));
 
-        collisionDamageComp = collisionDamageComp ?? GetComponent<DamageOnCollision>();
-        collisionDamageComp.SetCollisionStats(
-            GetStat(ProjectileStatType.CollisionDamage),
-            GetStat(ProjectileStatType.CollisionKnockback)
+        healthComp.SetShield(
+            Mathf.RoundToInt(template.GetBaseStat(ProjectileStatType.StartingShield))
         );
-        /*
-        exploderComp = exploderComp ?? GetComponent<ExploderComponent>();
-        if (exploderComp != null)
-        {
-            var explosion = template.explosionStats;
-            if (saveData != null)
-            {
-                explosion = new ExplosionStats
-                {
-                    radius = explosion.radius + saveData.bonusExplosionStats.radius,
-                    damage = explosion.damage + saveData.bonusExplosionStats.damage,
-                    force = explosion.force + saveData.bonusExplosionStats.force,
-                    damageLayers = saveData.bonusExplosionStats.damageLayers
-                };
-            }
-            exploderComp.SetExplosionStats(explosion);
-        }
-        */
 
-        colliders = colliders ?? GetComponentsInChildren<Collider>();
-        renderers = renderers ?? GetComponentsInChildren<Renderer>();
+        float damage =
+            (template.GetBaseStat(ProjectileStatType.CollisionDamage)
+            + owner.GetStat(ShipStatType.ProjectileDamage))
+            * (1f + owner.GetStat(ShipStatType.ProjectileDamagePercent));
 
-        bool useLifetime = saveData != null ? saveData.useLifetimeOverride : template.useLifetime;
-        if (useLifetime)
+        float knockback =
+            (template.GetBaseStat(ProjectileStatType.CollisionKnockback)
+            + owner.GetStat(ShipStatType.ProjectileKnockback))
+            * (1f + owner.GetStat(ShipStatType.ProjectileKnockbackPercent));
+
+        collisionDamageComp.SetCollisionStats(damage, knockback);
+
+        if (template.useLifetime)
         {
-            float lifetime = template.lifeTime;
-            Invoke(nameof(Expire), lifetime);
+            Invoke(nameof(Expire), template.lifeTime);
         }
     }
 

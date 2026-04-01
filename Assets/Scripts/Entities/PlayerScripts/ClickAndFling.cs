@@ -6,6 +6,7 @@ public class ClickAndFling : MonoBehaviour
     Camera cam;
     Rigidbody rb;
     Quaternion startRotation;
+    private UnitBase owner;
 
     Vector3 mouseStart; float zDistance;
     [SerializeField] bool flingable = false;
@@ -24,10 +25,11 @@ public class ClickAndFling : MonoBehaviour
     public event Action<Vector3, float> OnFling; // direction, force
 
     void Start()
-    { 
+    {
         cam = Camera.main;
         rb = GetComponent<Rigidbody>();
         startRotation = transform.rotation;
+        owner = GetComponent<UnitBase>();
     }
 
     public void SetForces(float movement, float shooting)
@@ -140,7 +142,8 @@ public class ClickAndFling : MonoBehaviour
                 projectileSpawnPosition,
                 direction,
                 forceStrength,
-                projectile
+                projectile,
+                owner
             );
 
             OnFling?.Invoke(direction, forceStrength);
