@@ -6,27 +6,34 @@ public class HealEveryTurn : PassiveItem
     [Header("Healing Settings")]
     public float healAmount = 5f;
 
-    // ApplyEffect is called when the passive is equipped
+    private UnitBase target;
+
     public override void ApplyEffect(Unit unit)
     {
         if (unit is UnitBase unitBase)
         {
-            unitBase.OnStartOfTurn += Healing;
+            target = unitBase;
+
+            EventBus.OnEvent += OnUnitEvent;
         }
     }
 
-    public void Healing(UnitBase unitBase)
+    private void OnUnitEvent(UnitEvent evt)
     {
-        // Heal unit at start of their turn
-        unitBase.Heal(healAmount);
-        Debug.Log($"{unitBase.name} healed at start of turn for {healAmount} due to {itemName}");
+        // Only act on TurnStart for this specific unit
+        if (evt.source == target && evt.type == UnitEventType.TurnStart)
+        {
+            target.Heal(healAmount);
+            Debug.Log($"{target.name} healed at start of turn for {healAmount} due to {itemName}");
+        }
     }
 
     public override void RemoveEffect(Unit unit)
     {
-        if (unit is UnitBase unitBase)
+        if (unit is UnitBase unitBase && target == unitBase)
         {
-            unitBase.OnStartOfTurn -= Healing;
+            EventBus.OnEvent -= OnUnitEvent;
+            target = null;
         }
     }
 }

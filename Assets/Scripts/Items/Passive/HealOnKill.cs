@@ -1,56 +1,53 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Items/Passive/Heal On Kill")]
 public class HealOnKill : PassiveItem
 {
-    [Header("Healing Settings")]
     public float healAmount = 50f;
-    public UnitBase target;
 
-    // ApplyEffect is called when the passive is equipped
+    private UnitBase owner;
+    private bool active = false;
+
     public override void ApplyEffect(Unit unit)
     {
-        if (unit is UnitBase unitBase)
-        {
-            unitBase.OnStartOfTurn += ActivateHealingOnKill; // At start of user turn, activate heal on kill
-            TurnEvent.OnNextTurn += DeactivateHealingOnKill; // At end of turn (called by battle manager, not unit), stop healing
-            // Not units end of turn event because unit calls end of turn as soon as shot occurs which means any kills after will not be seen
-        }
-    }
+        owner = unit as UnitBase;
+        if (owner == null) return;
 
-    public void ActivateHealingOnKill(UnitBase unitBase)
-    {
-        target = unitBase; // set healing target to user
-        DeathEvent.OnEntityDeath += Healing; // Connect entity death to healing
-    }
-
-    public void DeactivateHealingOnKill(Unit unit)
-    {
-        if (unit is UnitBase unitBase)
-        {
-            if (unitBase == target)
-            {
-                target = null;
-                DeathEvent.OnEntityDeath -= Healing; // If unit turn that ended is the user, disconnect healing on entity death
-            }
-        }
-    }
-
-    public void Healing(Entity entity)
-    {
-        if (entity is UnitBase unitBase)
-        {
-            target.Heal(healAmount); // If entity was a unit, heal user
-        }
+        EventBus.OnEvent += HandleEvent;
     }
 
     public override void RemoveEffect(Unit unit)
     {
-        if (unit is UnitBase unitBase)
+        EventBus.OnEvent -= HandleEvent;
+        owner = null;
+        active = false;
+    }
+
+    private void HandleEvent(UnitEvent e)
+    {
+        if (owner == null) return;
+
+        switch (e.type)
         {
-            target = null;
-            unitBase.OnStartOfTurn -= ActivateHealingOnKill;
-            TurnEvent.OnUnitTurnEnd -= DeactivateHealingOnKill;
+            case UnitEventType.TurnStart:
+                if (e.source == owner)
+                    active = true;
+                break;
+
+            case UnitEventType.TurnResolved:
+                if (e.source == owner)
+                    active = false;
+                break;
+
+            case UnitEventType.Death:
+                if (!active) return;
+
+                if (e.source != owner)
+                {
+                    owner.Heal(healAmount);
+                    Debug.Log($"{owner.name} healed for {healAmount} due to {itemName}");
+                }
+                break;
         }
     }
 }

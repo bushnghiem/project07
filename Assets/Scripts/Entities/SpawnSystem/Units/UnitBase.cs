@@ -4,16 +4,6 @@ using UnityEngine;
 
 public abstract class UnitBase : MonoBehaviour, Unit
 {
-    public event Action<UnitBase> OnStartOfTurn;
-    public event Action<UnitBase> OnEndOfTurn;
-    public event Action<UnitBase> OnItemUse;
-    public event Action<UnitBase> OnMove;
-    public event Action<UnitBase> OnShoot;
-    public event Action<UnitBase> OnHeal;
-    public event Action<UnitBase> OnHurt;
-    public event Action<UnitBase> OnShield;
-    public event Action<UnitBase> OnDeath;
-
     [SerializeField] private ShipTemplateDatabase shipDatabase;
     public void SetShipDatabase(ShipTemplateDatabase db) => shipDatabase = db;
 
@@ -279,40 +269,72 @@ public abstract class UnitBase : MonoBehaviour, Unit
     public Projectile GetProjectile() => projectile;
     public float GetCurrentHealth() => healthComp.GetCurrentHealth();
 
-public void Hurt(float amount)
+    public void Hurt(float amount)
     {
-        OnHurt?.Invoke(this);
         healthComp.Hurt(amount);
         runData.currentHealth = healthComp.GetCurrentHealth();
+
+        EventBus.Raise(new UnitEvent
+        {
+            source = this,
+            target = this,
+            type = UnitEventType.Hurt,
+            value = amount
+        });
     }
 
     public void Heal(float amount)
     {
-        OnHeal?.Invoke(this);
         healthComp.Heal(amount);
         runData.currentHealth = healthComp.GetCurrentHealth();
+
+        EventBus.Raise(new UnitEvent
+        {
+            source = this,
+            target = this,
+            type = UnitEventType.Heal,
+            value = amount
+        });
     }
 
     public void AddShield(int amount)
     {
-        OnShield?.Invoke(this);
         healthComp.addShield(amount);
+        EventBus.Raise(new UnitEvent
+        {
+            source = this,
+            type = UnitEventType.Shield,
+            value = amount
+        });
         Debug.Log($"{gameObject.name} gained {amount} shield");
     }
 
     public void Moved()
     {
-        OnMove?.Invoke(this);
+        EventBus.Raise(new UnitEvent
+        {
+            source = this,
+            type = UnitEventType.Move
+        });
     }
 
     public void Shot()
     {
-        OnShoot?.Invoke(this);
+        EventBus.Raise(new UnitEvent
+        {
+            source = this,
+            type = UnitEventType.Shoot
+        });
     }
 
     public void Death()
     {
-        OnDeath?.Invoke(this);
+        EventBus.Raise(new UnitEvent
+        {
+            source = this,
+            target = this,
+            type = UnitEventType.Death
+        });
     }
 
     public virtual void Kill()
@@ -327,16 +349,28 @@ public void Hurt(float amount)
 
     public virtual void Item()
     {
-        OnItemUse?.Invoke(this);
+        EventBus.Raise(new UnitEvent
+        {
+            source = this,
+            type = UnitEventType.ItemUse
+        });
     }
 
     public virtual void StartTurn()
     {
-        OnStartOfTurn?.Invoke(this);
+        EventBus.Raise(new UnitEvent
+        {
+            source = this,
+            type = UnitEventType.TurnStart
+        });
     }
 
     public virtual void EndTurn()
     {
-        OnEndOfTurn?.Invoke(this);
+        EventBus.Raise(new UnitEvent
+        {
+            source = this,
+            type = UnitEventType.TurnIntentEnd
+        });
     }
 }

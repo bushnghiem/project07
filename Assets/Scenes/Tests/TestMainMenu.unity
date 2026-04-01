@@ -756,6 +756,7 @@ MonoBehaviour:
       - itemID: projectile_basic
       - itemID: passive_maxhp_up
       - itemID: active_heal_100
+      - itemID: passive_heal_turn
     - uniqueID: StartShip1
       templateID: 0
       currentHealth: 10

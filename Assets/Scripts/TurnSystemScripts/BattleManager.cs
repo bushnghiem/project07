@@ -152,6 +152,11 @@ public class BattleManager : MonoBehaviour
     private void EndOfTurn(Unit unit)
     {
         TurnEvent.OnNextTurn?.Invoke(unit);
+        EventBus.Raise(new UnitEvent
+        {
+            source = (UnitBase)unit,
+            type = UnitEventType.TurnResolved
+        });
         if (checkLoss())
         {
             RemovePlayersPassiveEffects();
