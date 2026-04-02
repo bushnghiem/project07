@@ -25,9 +25,9 @@ public class ProjectileStatModifier
     public float flatBonus;
     public float percentBonus;
 
-    public float Apply(float baseValue)
+    public float Apply(float currentValue)
     {
-        float value = baseValue + flatBonus;
+        float value = currentValue + flatBonus;
         value += value * percentBonus;
         return value;
     }
@@ -42,7 +42,63 @@ public class Projectile : ScriptableObject
     public string projectileName;
 
     [Header("Base Stats")]
-    public List<ProjectileBaseStatEntry> baseStats;
+    [SerializeField] private List<ProjectileBaseStatEntry> baseStats;
+
+    private Dictionary<ProjectileStatType, float> baseStatMap;
+    public IReadOnlyDictionary<ProjectileStatType, float> BaseStatMap => baseStatMap;
+
+    private void OnEnable()
+    {
+        BuildStatDictionary();
+    }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        BuildStatDictionary();
+    }
+#endif
+
+    private void BuildStatDictionary()
+    {
+        if (baseStatMap == null)
+            baseStatMap = new Dictionary<ProjectileStatType, float>();
+        else
+            baseStatMap.Clear();
+
+        if (baseStats == null)
+            return;
+
+        foreach (var entry in baseStats)
+        {
+            if (baseStatMap.ContainsKey(entry.statType))
+            {
+                Debug.LogWarning(
+                    $"Duplicate stat '{entry.statType}' on Projectile '{name}'. Last value will be used.",
+                    this
+                );
+            }
+
+            baseStatMap[entry.statType] = entry.value;
+        }
+    }
+
+    public float GetBaseStat(ProjectileStatType statType)
+    {
+        EnsureInitialized();
+
+        return baseStatMap.TryGetValue(statType, out var value)
+            ? value
+            : 0f;
+    }
+
+    private void EnsureInitialized()
+    {
+        if (baseStatMap == null || baseStatMap.Count == 0)
+        {
+            BuildStatDictionary();
+        }
+    }
 
     [Header("Physics")]
     public float linearDamping = 2f;
@@ -60,14 +116,4 @@ public class Projectile : ScriptableObject
     [Header("Explosion")]
     public bool doesExplode = true;
     public ExplosionStats explosionStats;
-
-    public float GetBaseStat(ProjectileStatType statType)
-    {
-        foreach (var entry in baseStats)
-        {
-            if (entry.statType == statType)
-                return entry.value;
-        }
-        return 0f;
-    }
 }

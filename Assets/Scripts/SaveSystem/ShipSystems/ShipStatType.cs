@@ -12,10 +12,8 @@ public enum ShipStatType
     CollisionKnockback,
 
     ProjectileDamage,
-    ProjectileDamagePercent,
 
     ProjectileKnockback,
-    ProjectileKnockbackPercent,
 
     ProjectileMass,
     ProjectileHealth,

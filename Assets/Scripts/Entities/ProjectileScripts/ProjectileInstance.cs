@@ -68,13 +68,11 @@ public class ProjectileInstance : MonoBehaviour, Entity
 
         float damage =
             (template.GetBaseStat(ProjectileStatType.CollisionDamage)
-            + owner.GetStat(ShipStatType.ProjectileDamage))
-            * (1f + owner.GetStat(ShipStatType.ProjectileDamagePercent));
+            + owner.GetStat(ShipStatType.ProjectileDamage));
 
         float knockback =
             (template.GetBaseStat(ProjectileStatType.CollisionKnockback)
-            + owner.GetStat(ShipStatType.ProjectileKnockback))
-            * (1f + owner.GetStat(ShipStatType.ProjectileKnockbackPercent));
+            + owner.GetStat(ShipStatType.ProjectileKnockback));
 
         collisionDamageComp.SetCollisionStats(damage, knockback);
 

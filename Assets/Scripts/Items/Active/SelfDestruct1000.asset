@@ -17,11 +17,6 @@ MonoBehaviour:
   icon: {fileID: 0}
   description: 
   price: 100
+  slotType: 0
   cooldownTurns: 2
-  stats:
-    radius: 10
-    damage: 1000
-    force: 500
-    damageLayers:
-      serializedVersion: 2
-      m_Bits: 4294967295
+  explosion: {fileID: 11400000, guid: b0481528f2774814b8c7a6ee7a4dd213, type: 2}
