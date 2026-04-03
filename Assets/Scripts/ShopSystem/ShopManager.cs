@@ -17,7 +17,7 @@ public class ShopManager : MonoBehaviour
         currentShopPosition = shopPosition;
 
         var run = RunManager.Instance.CurrentRun;
-        ShopData shopData = run.shops.Find(s => s.gridPosition == shopPosition);
+        ShopData shopData = run.currentFloorData.shops.Find(s => s.gridPosition == shopPosition);
 
         if (shopData != null && !forceReroll)
         {
@@ -28,7 +28,7 @@ public class ShopManager : MonoBehaviour
         if (shopData == null)
         {
             shopData = new ShopData { gridPosition = shopPosition };
-            run.shops.Add(shopData);
+            run.currentFloorData.shops.Add(shopData);
         }
         else if (forceReroll)
         {

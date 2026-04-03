@@ -16,7 +16,7 @@ public class EventManager : MonoBehaviour
     public void ExecuteOption(EventOption option)
     {
         var run = RunManager.Instance.CurrentRun;
-        Vector2Int pos = run.currentGridPosition;
+        Vector2Int pos = run.currentFloorData.currentGridPosition;
 
         foreach (var outcome in option.outcomes)
         {
@@ -29,15 +29,15 @@ public class EventManager : MonoBehaviour
     void ApplyOutcome(EventOutcome outcome)
     {
         var run = RunManager.Instance.CurrentRun;
-        Vector2Int pos = RunManager.Instance.CurrentRun.currentGridPosition;
+        Vector2Int pos = RunManager.Instance.CurrentRun.currentFloorData.currentGridPosition;
 
         Debug.Log("Instance: " + PlayerSelectionUI.Instance);
         Debug.Log("ShipHolder: " + shipHolder);
         Debug.Log("Players list: " + (shipHolder != null ? shipHolder.allPlayers : null));
 
-        if (outcome.tileModification == TileModification.Clear && !run.clearedEventTiles.Contains(pos))
+        if (outcome.tileModification == TileModification.Clear && !run.currentFloorData.clearedEventTiles.Contains(pos))
         {
-            run.clearedEventTiles.Add(pos);
+            run.currentFloorData.clearedEventTiles.Add(pos);
             gridManager.clearEventTile(pos.x, pos.y);
             gridManager.ClearEventVisualAt(pos.x, pos.y);
         }
@@ -53,7 +53,7 @@ public class EventManager : MonoBehaviour
                 break;
 
             case OutcomeType.StartCombat:
-                run.currentEncounter = outcome.encounter;
+                run.currentFloorData.currentEncounter = outcome.encounter;
                 SceneManager.LoadScene("SpawnTestScene");
                 break;
 

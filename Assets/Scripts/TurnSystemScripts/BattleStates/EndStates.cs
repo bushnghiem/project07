@@ -7,8 +7,8 @@ public class WinState : BattleState
 
     public override void Enter()
     {
-        RunManager.Instance.CurrentRun.clearedCombatTiles.Add(RunManager.Instance.CurrentRun.currentGridPosition);
-        EncounterData fightData = RunManager.Instance.CurrentRun.currentEncounter;
+        RunManager.Instance.CurrentRun.currentFloorData.clearedCombatTiles.Add(RunManager.Instance.CurrentRun.currentFloorData.currentGridPosition);
+        EncounterData fightData = RunManager.Instance.CurrentRun.currentFloorData.currentEncounter;
         RewardManager.Instance.AddRunCurrency(fightData.runCurrencyReward);
         RewardManager.Instance.AddMetaCurrency(fightData.metaCurrencyReward);
         SaveManager.Instance.SaveRun();

@@ -28,7 +28,7 @@ public class EventUI : MonoBehaviour
         ClearOptions();
 
         var run = RunManager.Instance.CurrentRun;
-        var pos = run.currentGridPosition;
+        var pos = run.currentFloorData.currentGridPosition;
 
         for (int i = 0; i < eventData.options.Count; i++)
         {
@@ -65,18 +65,18 @@ public class EventUI : MonoBehaviour
     public void SelectOption(EventOption option, int index)
     {
         var run = RunManager.Instance.CurrentRun;
-        var pos = run.currentGridPosition;
+        var pos = run.currentFloorData.currentGridPosition;
 
         if (option.removeAfterUse)
         {
-            if (!run.usedEventOptions.ContainsKey(pos))
+            if (!run.currentFloorData.usedEventOptions.ContainsKey(pos))
             {
-                run.usedEventOptions[pos] = new List<int>();
+                run.currentFloorData.usedEventOptions[pos] = new List<int>();
             }
 
-            if (!run.usedEventOptions[pos].Contains(index))
+            if (!run.currentFloorData.usedEventOptions[pos].Contains(index))
             {
-                run.usedEventOptions[pos].Add(index);
+                run.currentFloorData.usedEventOptions[pos].Add(index);
             }
         }
 
@@ -90,12 +90,12 @@ public class EventUI : MonoBehaviour
         if (!option.removeAfterUse) return false;
 
         var run = RunManager.Instance.CurrentRun;
-        var pos = run.currentGridPosition;
+        var pos = run.currentFloorData.currentGridPosition;
 
-        if (!run.usedEventOptions.ContainsKey(pos))
+        if (!run.currentFloorData.usedEventOptions.ContainsKey(pos))
             return false;
 
-        return run.usedEventOptions[pos].Contains(index);
+        return run.currentFloorData.usedEventOptions[pos].Contains(index);
     }
 
     bool AreConditionsMet(EventOption option)

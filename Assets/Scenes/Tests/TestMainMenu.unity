@@ -742,9 +742,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestMainMenu
   startingRunData:
-    runSeed: 20
-    currentGridPosition: {x: 1, y: 1}
-    currentEncounter: {fileID: 0}
+    runSeed: 10
+    currentFloor: 0
+    currentFloorData:
+      floorIndex: 0
+      floorSeed: 0
+      currentGridPosition: {x: 0, y: 0}
+      currentEncounter: {fileID: 0}
+      timeElapsed: 0
+      nextCorruptionTimeThreshold: 5
+      clearedCombatTiles: []
+      clearedEventTiles: []
+      shops: []
+      corruptionRadius: -1
+    completedFloors: []
     playerFormation: {fileID: 11400000, guid: ea09909161c27d04d923a2d9c407861b, type: 2}
     team:
     - uniqueID: StartShip1
@@ -767,11 +778,6 @@ MonoBehaviour:
       - itemID: passive_heal_kill
       - itemID: active_shield
     runCurrency: 0
-    stepsTaken: 0
-    clearedCombatTiles: []
-    clearedEventTiles: []
-    shops: []
-    corruptionRadius: -1
 --- !u!1 &2011352280
 GameObject:
   m_ObjectHideFlags: 0

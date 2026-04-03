@@ -20,35 +20,35 @@ public class CorruptionManager : MonoBehaviour
     {
         grid = gridManager;
 
-        var run = RunManager.Instance.CurrentRun;
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
 
         int maxRadius = Mathf.Max(grid.width, grid.height) / 2;
 
-        if (run.corruptionRadius >= 0)
+        if (floor.corruptionRadius >= 0)
         {
-            currentRadius = run.corruptionRadius;
-
+            currentRadius = floor.corruptionRadius;
             ApplyCorruption();
         }
         else
         {
             currentRadius = maxRadius;
-            run.corruptionRadius = currentRadius;
+            floor.corruptionRadius = currentRadius;
 
             SaveManager.Instance.SaveRun();
         }
     }
 
-    public void OnStepTaken()
+    public void OnTimePassed()
     {
-        var run = RunManager.Instance.CurrentRun;
-        int steps = run.stepsTaken;
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
 
-        if (steps % stepsPerShrink == 0)
+        if (floor.timeElapsed >= floor.nextCorruptionTimeThreshold)
         {
             currentRadius--;
 
-            run.corruptionRadius = currentRadius;
+            floor.corruptionRadius = currentRadius;
+
+            floor.nextCorruptionTimeThreshold += stepsPerShrink;
 
             ApplyCorruption();
 

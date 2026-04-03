@@ -9,7 +9,7 @@ public class TestRun : MonoBehaviour
     void Start()
     {
         var runData = RunManager.Instance.CurrentRun;
-        var encounterData = runData.currentEncounter;
+        var encounterData = runData.currentFloorData.currentEncounter;
 
         unitSpawner.SetAnchorPositions(encounterData.playerAnchorPosition, encounterData.enemyAnchorPosition);
 

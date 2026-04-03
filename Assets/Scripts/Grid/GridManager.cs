@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
@@ -18,7 +18,7 @@ public class GridManager : MonoBehaviour
 
     private System.Random rng;
 
-    // Probabilities for random tile types
+    [Header("Tile Chances")]
     [Range(0, 100)] public int emptyChance = 50;
     [Range(0, 100)] public int combatChance = 20;
     [Range(0, 100)] public int eventChance = 30;
@@ -26,11 +26,15 @@ public class GridManager : MonoBehaviour
     [Range(0, 10)]
     public int maxShops = 3;
 
+    [Header("Safe Zone")]
+    public int safeZoneRadius = 1;
+
     public bool IsGridReady { get; private set; }
 
     void Start()
     {
-        GenerateGrid(RunManager.Instance.CurrentRun.runSeed);
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
+        GenerateGrid(floor.floorSeed);
     }
 
     public void GenerateGrid(int seed)
@@ -44,36 +48,109 @@ public class GridManager : MonoBehaviour
             {
                 grid[x, y] = new TileData();
 
-                // Make borders walls
                 if (x == 0 || y == 0 || x == width - 1 || y == height - 1)
                 {
                     grid[x, y].tileType = TileType.Wall;
                     continue;
                 }
 
-                // Randomize tiles and add encounter to combat tiles
                 grid[x, y].tileType = RandomTileType();
 
                 if (grid[x, y].tileType == TileType.Combat)
-                {
                     grid[x, y].assignedEncounter = GetDeterministicEncounter(x, y);
-                }
 
                 if (grid[x, y].tileType == TileType.Event)
-                {
                     grid[x, y].assignedEvent = GetDeterministicEvent(x, y);
-                }
             }
         }
 
         PlacePortal();
         PlaceShops();
         ApplyRunModifications();
+
+        Vector2Int spawnPos = GetSafeSpawnPosition();
+        RunManager.Instance.CurrentRun.currentFloorData.currentGridPosition = spawnPos;
+
         GenerateVisuals();
         IsGridReady = true;
     }
 
-    private void PlacePortal()
+    public Vector2Int GetSafeSpawnPosition()
+    {
+        Vector2Int center = new Vector2Int(width / 2, height / 2);
+
+        if (IsAreaSafe(center))
+        {
+            ClearArea(center);
+            return center;
+        }
+
+        for (int radius = 1; radius < Mathf.Max(width, height); radius++)
+        {
+            for (int x = -radius; x <= radius; x++)
+            {
+                for (int y = -radius; y <= radius; y++)
+                {
+                    Vector2Int pos = center + new Vector2Int(x, y);
+
+                    if (!IsInsideGrid(pos.x, pos.y))
+                        continue;
+
+                    if (IsAreaSafe(pos))
+                    {
+                        ClearArea(pos);
+                        return pos;
+                    }
+                }
+            }
+        }
+
+        Debug.Log("No safe spawn found, defaulting to (1,1)");
+        return new Vector2Int(1, 1);
+    }
+
+    bool IsAreaSafe(Vector2Int center)
+    {
+        for (int x = -safeZoneRadius; x <= safeZoneRadius; x++)
+        {
+            for (int y = -safeZoneRadius; y <= safeZoneRadius; y++)
+            {
+                int nx = center.x + x;
+                int ny = center.y + y;
+
+                if (!IsInsideGrid(nx, ny))
+                    return false;
+
+                var tile = grid[nx, ny];
+
+                if (tile.tileType == TileType.Wall || tile.tileType == TileType.Portal)
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
+    void ClearArea(Vector2Int center)
+    {
+        for (int x = -safeZoneRadius; x <= safeZoneRadius; x++)
+        {
+            for (int y = -safeZoneRadius; y <= safeZoneRadius; y++)
+            {
+                int nx = center.x + x;
+                int ny = center.y + y;
+
+                if (!IsInsideGrid(nx, ny))
+                    continue;
+
+                grid[nx, ny].tileType = TileType.Empty;
+                grid[nx, ny].assignedEncounter = null;
+                grid[nx, ny].assignedEvent = null;
+            }
+        }
+    }
+
+    void PlacePortal()
     {
         int x, y;
 
@@ -113,11 +190,11 @@ public class GridManager : MonoBehaviour
     {
         Vector2Int[] directions =
         {
-        Vector2Int.up,
-        Vector2Int.down,
-        Vector2Int.left,
-        Vector2Int.right
-    };
+            Vector2Int.up,
+            Vector2Int.down,
+            Vector2Int.left,
+            Vector2Int.right
+        };
 
         foreach (var dir in directions)
         {
@@ -136,22 +213,43 @@ public class GridManager : MonoBehaviour
 
     void ApplyRunModifications()
     {
-        var run = RunManager.Instance.CurrentRun;
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
 
-        foreach (var pos in run.clearedCombatTiles)
+        foreach (var pos in floor.clearedCombatTiles)
         {
             if (IsInsideGrid(pos.x, pos.y))
-            {
                 grid[pos.x, pos.y].tileType = TileType.Empty;
-            }
         }
 
-        foreach (var pos in run.clearedEventTiles)
+        foreach (var pos in floor.clearedEventTiles)
         {
             if (IsInsideGrid(pos.x, pos.y))
             {
                 grid[pos.x, pos.y].tileType = TileType.Empty;
                 grid[pos.x, pos.y].assignedEvent = null;
+            }
+        }
+    }
+
+    public void clearEventTile(int x, int y)
+    {
+        if (IsInsideGrid(x, y))
+        {
+            grid[x, y].tileType = TileType.Empty;
+            grid[x, y].assignedEvent = null;
+        }
+    }
+
+    public void ClearEventVisualAt(int x, int y)
+    {
+        Vector3 worldPos = GetWorldPosition(x, y);
+
+        foreach (Transform child in transform)
+        {
+            if (Vector3.Distance(child.position, worldPos + Vector3.up * 0.5f) < 0.1f)
+            {
+                Destroy(child.gameObject);
+                break;
             }
         }
     }
@@ -162,14 +260,13 @@ public class GridManager : MonoBehaviour
 
         if (roll < emptyChance) return TileType.Empty;
         if (roll < emptyChance + combatChance) return TileType.Combat;
-        return TileType.Event; // the rest is Event
+        return TileType.Event;
     }
 
     private EncounterData GetDeterministicEncounter(int x, int y)
     {
         var run = RunManager.Instance.CurrentRun;
 
-        // Make seed for each tile using spatial hashing to generate same encounter at same tile for same seed
         int tileSeed = run.runSeed
                        ^ (x * 73856093)
                        ^ (y * 19349663);
@@ -181,8 +278,7 @@ public class GridManager : MonoBehaviour
         if (pool == null || pool.Count == 0)
             return null;
 
-        int index = tileRng.Next(0, pool.Count);
-        return pool[index];
+        return pool[tileRng.Next(0, pool.Count)];
     }
 
     private EventData GetDeterministicEvent(int x, int y)
@@ -200,26 +296,19 @@ public class GridManager : MonoBehaviour
         if (pool == null || pool.Count == 0)
             return null;
 
-        int index = tileRng.Next(0, pool.Count);
-        return pool[index];
+        return pool[tileRng.Next(0, pool.Count)];
     }
 
     public void GenerateVisuals()
     {
         foreach (Transform child in transform)
-        {
             Destroy(child.gameObject);
-        }
+
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
                 Vector3 worldPos = GetWorldPosition(x, y);
-
-                // Spawn floor
-                //Instantiate(floorPrefab, worldPos, Quaternion.identity, transform);
-
-                // Spawn feature on top
                 SpawnFeature(grid[x, y].tileType, worldPos);
             }
         }
@@ -251,28 +340,5 @@ public class GridManager : MonoBehaviour
     public bool IsInsideGrid(int x, int y)
     {
         return x >= 0 && y >= 0 && x < width && y < height;
-    }
-
-    public void clearEventTile(int x, int y)
-    {
-        if (IsInsideGrid(x, y))
-        {
-            grid[x, y].tileType = TileType.Empty;
-            grid[x, y].assignedEvent = null;
-        }
-    }
-
-    public void ClearEventVisualAt(int x, int y)
-    {
-        Vector3 worldPos = GetWorldPosition(x, y);
-
-        foreach (Transform child in transform)
-        {
-            if (Vector3.Distance(child.position, worldPos + Vector3.up * 0.5f) < 0.1f)
-            {
-                Destroy(child.gameObject);
-                break;
-            }
-        }
     }
 }

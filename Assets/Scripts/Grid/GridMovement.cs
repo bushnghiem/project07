@@ -18,20 +18,26 @@ public class GridMovement : MonoBehaviour
 
     IEnumerator Start()
     {
-        gridPosition = RunManager.Instance.CurrentRun.currentGridPosition;
+        var run = RunManager.Instance.CurrentRun;
+
+        if (run.currentFloorData == null)
+        {
+            GenerateNextFloor(run);
+        }
+
+        var floor = run.currentFloorData;
+
+        // Wait until grid is ready
+        yield return new WaitUntil(() => gridManager.IsGridReady);
+
+        gridPosition = floor.currentGridPosition;
         transform.position = gridManager.GetWorldPosition(gridPosition.x, gridPosition.y);
 
         unitSpawner.SetAnchorPositions(playerAnchorPos, fakeEnemyAnchorPos);
-        unitSpawner.SpawnPlayerTeam(RunManager.Instance.CurrentRun.team, playerFormation);
-
-        // Wait until grid exists
-        yield return new WaitUntil(() => gridManager.IsGridReady);
+        unitSpawner.SpawnPlayerTeam(run.team, playerFormation);
 
         CorruptionManager.Instance.Init(gridManager);
 
-        transform.position = gridManager.GetWorldPosition(gridPosition.x, gridPosition.y);
-
-        // Trigger tile on spawn
         TileData tile = gridManager.grid[gridPosition.x, gridPosition.y];
         HandleTileEvent(tile);
     }
@@ -55,14 +61,30 @@ public class GridMovement : MonoBehaviour
 
         if (tile != null && tile.IsWalkable)
         {
-            RunManager.Instance.CurrentRun.stepsTaken++;
-            CorruptionManager.Instance.OnStepTaken();
+            var floor = RunManager.Instance.CurrentRun.currentFloorData;
+
+            AddTime(1);
+
             gridPosition = targetPos;
             transform.position = gridManager.GetWorldPosition(gridPosition.x, gridPosition.y);
-            RunManager.Instance.CurrentRun.currentGridPosition = gridPosition;
+
+            floor.currentGridPosition = gridPosition;
+
             SaveManager.Instance.SaveRun();
+
             HandleTileEvent(tile);
         }
+    }
+
+    void AddTime(int amount)
+    {
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
+
+        floor.timeElapsed += amount;
+
+        CorruptionManager.Instance.OnTimePassed();
+
+        SaveManager.Instance.SaveRun();
     }
 
     void HandleTileEvent(TileData tile)
@@ -105,8 +127,10 @@ public class GridMovement : MonoBehaviour
 
     public void HandleCombatTile(TileData tile)
     {
-        RunManager.Instance.CurrentRun.currentGridPosition = gridPosition;
-        RunManager.Instance.CurrentRun.currentEncounter = tile.assignedEncounter;
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
+
+        floor.currentGridPosition = gridPosition;
+        floor.currentEncounter = tile.assignedEncounter;
         Debug.Log("Fight: " + tile.assignedEncounter?.encounterName);
         shipHolder.RemovePlayersPassiveEffects();
         SceneManager.LoadScene("SpawnTestScene");
@@ -114,12 +138,7 @@ public class GridMovement : MonoBehaviour
 
     public void HandlePortalTile()
     {
-        Debug.Log("End of run");
-        MetaManager.Instance.totalWins++;
-        RewardManager.Instance.AddMetaCurrency(100);
-        SaveManager.Instance.SaveMeta();
-        SaveManager.Instance.DeleteRun();
-        SceneManager.LoadScene("TestMainMenu");
+        StartCoroutine(HandleFloorTransition());
     }
 
     public void HandleShopTile()
@@ -130,5 +149,41 @@ public class GridMovement : MonoBehaviour
 
         shopUI.PopulateShop();
         shopUI.gameObject.SetActive(true);
+    }
+
+    IEnumerator HandleFloorTransition()
+    {
+        var run = RunManager.Instance.CurrentRun;
+
+        // Insert boss fight here later
+
+        // Save completed floor
+        run.completedFloors.Add(run.currentFloorData);
+
+        run.currentFloor++;
+
+        GenerateNextFloor(run);
+
+        SaveManager.Instance.SaveRun();
+
+        SceneManager.LoadScene("TestGrid");
+        yield break;
+    }
+
+    void GenerateNextFloor(RunData run)
+    {
+        int newSeed = run.runSeed + run.currentFloor * 1000;
+
+        run.currentFloorData = new FloorData
+        {
+            floorIndex = run.currentFloor,
+            floorSeed = newSeed,
+
+            currentGridPosition = Vector2Int.zero,
+
+            timeElapsed = 0,
+            nextCorruptionTimeThreshold = 5,
+            corruptionRadius = -1
+        };
     }
 }
