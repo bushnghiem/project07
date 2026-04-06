@@ -9,7 +9,7 @@ public class CorruptionManager : MonoBehaviour
     public int currentRadius;
 
     private GridManager grid;
-    public EncounterPool corruptionEncounterPool;
+    public EncounterPool combatEncounterPool;
 
     void Awake()
     {
@@ -98,6 +98,7 @@ public class CorruptionManager : MonoBehaviour
     EncounterData GetCorruptionEncounter(Vector2Int pos)
     {
         var run = RunManager.Instance.CurrentRun;
+        var floor = run.currentFloorData;
 
         int seed = run.runSeed
                    ^ (pos.x * 1234567)
@@ -106,7 +107,7 @@ public class CorruptionManager : MonoBehaviour
 
         System.Random rng = new System.Random(seed);
 
-        var pool = corruptionEncounterPool.encounters;
+        var pool = floor.contentProfile.corruptionEncounters;
 
         int index = rng.Next(pool.Count / 2, pool.Count);
 

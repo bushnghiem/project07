@@ -20,11 +20,6 @@ public class GridMovement : MonoBehaviour
     {
         var run = RunManager.Instance.CurrentRun;
 
-        if (run.currentFloorData == null)
-        {
-            GenerateNextFloor(run);
-        }
-
         var floor = run.currentFloorData;
 
         // Wait until grid is ready
@@ -174,13 +169,15 @@ public class GridMovement : MonoBehaviour
     {
         int newSeed = run.runSeed + run.currentFloor * 1000;
 
+        var profile = RunManager.Instance.GetProfileForFloor(run.currentFloor);
+
         run.currentFloorData = new FloorData
         {
             floorIndex = run.currentFloor,
             floorSeed = newSeed,
+            contentProfile = profile,
 
             currentGridPosition = Vector2Int.zero,
-
             timeElapsed = 0,
             nextCorruptionTimeThreshold = 5,
             corruptionRadius = -1

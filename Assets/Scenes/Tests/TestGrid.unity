@@ -276,6 +276,7 @@ MonoBehaviour:
   combatChance: 20
   eventChance: 30
   maxShops: 1
+  safeZoneRadius: 1
 --- !u!4 &32902892
 Transform:
   m_ObjectHideFlags: 0
@@ -322,7 +323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CorruptionManager
   stepsPerShrink: 20
   currentRadius: 0
-  corruptionEncounterPool: {fileID: 11400000, guid: 7550163d38abbf141985f830c9f85441, type: 2}
+  combatEncounterPool: {fileID: 11400000, guid: 4243f17fef1fc234abc05843fc0174bc, type: 2}
 --- !u!4 &144256078
 Transform:
   m_ObjectHideFlags: 0

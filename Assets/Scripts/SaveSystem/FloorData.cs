@@ -7,6 +7,8 @@ public class FloorData
     public int floorIndex;
     public int floorSeed;
 
+    public FloorContentProfile contentProfile;
+
     public Vector2Int currentGridPosition;
 
     public EncounterData currentEncounter;
@@ -21,4 +23,6 @@ public class FloorData
     public List<ShopData> shops = new List<ShopData>();
 
     public int corruptionRadius = -1;
+
+    public bool hasInitializedSpawn = false;
 }

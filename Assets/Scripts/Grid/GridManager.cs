@@ -34,6 +34,13 @@ public class GridManager : MonoBehaviour
     void Start()
     {
         var floor = RunManager.Instance.CurrentRun.currentFloorData;
+        var profile = RunManager.Instance.GetProfileForFloor(RunManager.Instance.CurrentRun.currentFloor);
+
+        if (floor.contentProfile == null)
+        {
+            floor.contentProfile = profile;
+        }
+        
         GenerateGrid(floor.floorSeed);
     }
 
@@ -68,8 +75,14 @@ public class GridManager : MonoBehaviour
         PlaceShops();
         ApplyRunModifications();
 
-        Vector2Int spawnPos = GetSafeSpawnPosition();
-        RunManager.Instance.CurrentRun.currentFloorData.currentGridPosition = spawnPos;
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
+
+        if (!floor.hasInitializedSpawn)
+        {
+            Vector2Int spawnPos = GetSafeSpawnPosition();
+            floor.currentGridPosition = spawnPos;
+            floor.hasInitializedSpawn = true;
+        }
 
         GenerateVisuals();
         IsGridReady = true;
@@ -266,6 +279,7 @@ public class GridManager : MonoBehaviour
     private EncounterData GetDeterministicEncounter(int x, int y)
     {
         var run = RunManager.Instance.CurrentRun;
+        var floor = run.currentFloorData;
 
         int tileSeed = run.runSeed
                        ^ (x * 73856093)
@@ -273,7 +287,7 @@ public class GridManager : MonoBehaviour
 
         System.Random tileRng = new System.Random(tileSeed);
 
-        var pool = combatEncounterPool.encounters;
+        var pool = floor.contentProfile.combatEncounters;
 
         if (pool == null || pool.Count == 0)
             return null;
@@ -284,17 +298,27 @@ public class GridManager : MonoBehaviour
     private EventData GetDeterministicEvent(int x, int y)
     {
         var run = RunManager.Instance.CurrentRun;
+        var floor = run.currentFloorData;
+
+        if (floor.contentProfile == null)
+        {
+            Debug.LogError("ContentProfile is NULL");
+            return null;
+        }
+
+        var pool = floor.contentProfile.events;
+
+        if (pool == null || pool.Count == 0)
+        {
+            Debug.LogError("Event pool is empty!");
+            return null;
+        }
 
         int seed = run.runSeed
                    ^ (x * 92837111)
                    ^ (y * 689287499);
 
         System.Random tileRng = new System.Random(seed);
-
-        var pool = eventPool.events;
-
-        if (pool == null || pool.Count == 0)
-            return null;
 
         return pool[tileRng.Next(0, pool.Count)];
     }

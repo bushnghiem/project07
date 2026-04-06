@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 370e984400c9c6d4fa432ee713f0e85a, type: 3}
-  m_Name: Test Pool
-  m_EditorClassIdentifier: Assembly-CSharp::EncounterPool
-  encounters:
-  - {fileID: 11400000, guid: 62d4f349102a88b44817a5cc2cd4be58, type: 2}
-  - {fileID: 11400000, guid: 6e62e74d79f7e434bb228f6a8328d27d, type: 2}
+  m_Script: {fileID: 11500000, guid: b64092d2e0b7a334fad3718995e23164, type: 3}
+  m_Name: TestMidFloor
+  m_EditorClassIdentifier: Assembly-CSharp::FloorContentProfile
+  shopItems:
+  - {fileID: 11400000, guid: 6920cfe2da04cd54594de7b0aab400c8, type: 2}
+  combatEncounters:
   - {fileID: 11400000, guid: ded6aaee9e3f01943956e641973acaa3, type: 2}
-  - {fileID: 11400000, guid: 3046e5cdc36113c40a9fe9a66551e485, type: 2}
+  corruptionEncounters:
   - {fileID: 11400000, guid: edfa626bb21edc846af9ffd61ea7488d, type: 2}
+  events:
+  - {fileID: 11400000, guid: 7e89f20dde6630142b0c9c4a48bf387a, type: 2}

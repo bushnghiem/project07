@@ -17,7 +17,9 @@ public class ShopManager : MonoBehaviour
         currentShopPosition = shopPosition;
 
         var run = RunManager.Instance.CurrentRun;
-        ShopData shopData = run.currentFloorData.shops.Find(s => s.gridPosition == shopPosition);
+        var floor = run.currentFloorData;
+
+        ShopData shopData = floor.shops.Find(s => s.gridPosition == shopPosition);
 
         if (shopData != null && !forceReroll)
         {
@@ -28,7 +30,7 @@ public class ShopManager : MonoBehaviour
         if (shopData == null)
         {
             shopData = new ShopData { gridPosition = shopPosition };
-            run.currentFloorData.shops.Add(shopData);
+            floor.shops.Add(shopData);
         }
         else if (forceReroll)
         {
@@ -43,21 +45,20 @@ public class ShopManager : MonoBehaviour
         System.Random rng = new System.Random(seed);
 
         shopItems = new List<ShopItem>();
-        var allItems = itemDatabase.GetAllItems();
+
+        var allItems = floor.contentProfile.shopItems;
 
         for (int i = 0; i < shopItemCount; i++)
         {
             int index = rng.Next(0, allItems.Count);
             Item item = allItems[index];
 
-            ShopItem shopItem = new ShopItem
+            shopItems.Add(new ShopItem
             {
                 item = item,
                 price = item.price,
                 purchased = false
-            };
-
-            shopItems.Add(shopItem);
+            });
         }
 
         shopData.shopItems = shopItems;

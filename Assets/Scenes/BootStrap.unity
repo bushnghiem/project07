@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b9bc62d2991389448db6ae6df7833fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardManager
+  shipHolder: {fileID: 0}
 --- !u!4 &172886601
 Transform:
   m_ObjectHideFlags: 0
@@ -194,8 +195,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RunManager
   CurrentRun:
     runSeed: 10
-    currentGridPosition: {x: 0, y: 0}
-    currentEncounter: {fileID: 0}
+    currentFloor: 0
+    currentFloorData:
+      floorIndex: 0
+      floorSeed: 0
+      contentProfile: {fileID: 0}
+      currentGridPosition: {x: 0, y: 0}
+      currentEncounter: {fileID: 0}
+      timeElapsed: 0
+      nextCorruptionTimeThreshold: 5
+      clearedCombatTiles: []
+      clearedEventTiles: []
+      shops: []
+      corruptionRadius: -1
+    completedFloors: []
     playerFormation: {fileID: 0}
     team:
     - uniqueID: 1
@@ -203,23 +216,11 @@ MonoBehaviour:
       currentHealth: 20
       isDead: 0
       statModifiers: []
-      currentActiveItem:
-        activeItemID: 
-      currentProjectile:
-        projectileID: 
-        statModifiers: []
-        useLifetimeOverride: 0
-        dieWhenStoppedOverride: 0
-        doesExplodeOverride: 0
-        bonusExplosionStats:
-          radius: 0
-          damage: 0
-          force: 0
-          damageLayers:
-            serializedVersion: 2
-            m_Bits: 0
+      items: []
     runCurrency: 0
-    clearedCombatTiles: []
+  earlyGameProfile: {fileID: 11400000, guid: 51f2f88847a798a49bc8ba7122fb0a31, type: 2}
+  midGameProfile: {fileID: 11400000, guid: f209fadd0250500459bbe91f918f9b2d, type: 2}
+  lateGameProfile: {fileID: 11400000, guid: 889a7bfa873d0f64abee6f2718779c27, type: 2}
 --- !u!4 &206262376
 Transform:
   m_ObjectHideFlags: 0
