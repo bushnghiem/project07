@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64092d2e0b7a334fad3718995e23164, type: 3}
   m_Name: TestEndFloor
   m_EditorClassIdentifier: Assembly-CSharp::FloorContentProfile
+  floorName: End 1
+  weight: 10
   shopItems:
   - {fileID: 11400000, guid: 8bf9194d88906d54fb8f9a29babaa7bc, type: 2}
   combatEncounters:

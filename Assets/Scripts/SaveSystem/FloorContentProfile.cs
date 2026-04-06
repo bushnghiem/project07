@@ -4,6 +4,14 @@ using System.Collections.Generic;
 [CreateAssetMenu(menuName = "Scriptable Objects/Floor Content")]
 public class FloorContentProfile : ScriptableObject
 {
+    [Header("Identification")]
+    public string floorName;
+
+    [Header("Weighted Random Selection")]
+    [Range(1, 100)]
+    public int weight = 10;
+
+
     [Header("Shop")]
     public List<Item> shopItems;
 

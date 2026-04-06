@@ -33,14 +33,16 @@ public class GridManager : MonoBehaviour
 
     void Start()
     {
-        var floor = RunManager.Instance.CurrentRun.currentFloorData;
-        var profile = RunManager.Instance.GetProfileForFloor(RunManager.Instance.CurrentRun.currentFloor);
+        var run = RunManager.Instance.CurrentRun;
+        var floor = run.currentFloorData;
+
+        var profile = RunManager.Instance.GetProfileForFloor(run.currentFloor, run.runSeed);
 
         if (floor.contentProfile == null)
         {
             floor.contentProfile = profile;
         }
-        
+
         GenerateGrid(floor.floorSeed);
     }
 

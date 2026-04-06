@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class RunManager : MonoBehaviour
 {
@@ -6,10 +7,13 @@ public class RunManager : MonoBehaviour
 
     public RunData CurrentRun;
 
-    [Header("Floor Content Profiles")]
-    public FloorContentProfile earlyGameProfile;
-    public FloorContentProfile midGameProfile;
-    public FloorContentProfile lateGameProfile;
+    [Header("Tiered Floor Content Pools")]
+    public List<FloorContentProfile> easyFloors;
+    public List<FloorContentProfile> midFloors;
+    public List<FloorContentProfile> hardFloors;
+
+    [Header("Specific Named Floors")]
+    public List<FloorContentProfile> specialFloors;
 
     private void Awake()
     {
@@ -24,14 +28,42 @@ public class RunManager : MonoBehaviour
         }
     }
 
-    public FloorContentProfile GetProfileForFloor(int floor)
+    public FloorContentProfile GetProfileForFloor(int floor, int runSeed)
     {
-        Debug.Log("Assign floor profile");
-        if (floor < 3 && earlyGameProfile != null) return earlyGameProfile;
-        if (floor < 6 && midGameProfile != null) return midGameProfile;
-        if (lateGameProfile != null) return lateGameProfile;
+        FloorContentProfile special = specialFloors.Find(f => f.floorName == $"Floor {floor}");
+        if (special != null)
+            return special;
 
-        Debug.LogError("No FloorContentProfile assigned!");
-        return null;
+        List<FloorContentProfile> pool;
+        if (floor < 3) pool = easyFloors;
+        else if (floor < 6) pool = midFloors;
+        else pool = hardFloors;
+
+        return GetWeightedRandomFloor(pool, runSeed, floor);
+    }
+
+
+    private FloorContentProfile GetWeightedRandomFloor(List<FloorContentProfile> pool, int runSeed, int floorIndex)
+    {
+        if (pool == null || pool.Count == 0) return null;
+
+        int seed = runSeed + floorIndex * 1000;
+        System.Random rng = new System.Random(seed);
+
+        int totalWeight = 0;
+        foreach (var f in pool)
+            totalWeight += f.weight;
+
+        int roll = rng.Next(0, totalWeight);
+        int runningSum = 0;
+
+        foreach (var f in pool)
+        {
+            runningSum += f.weight;
+            if (roll < runningSum)
+                return f;
+        }
+
+        return pool[0];
     }
 }

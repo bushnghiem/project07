@@ -208,6 +208,7 @@ MonoBehaviour:
       clearedEventTiles: []
       shops: []
       corruptionRadius: -1
+      hasInitializedSpawn: 0
     completedFloors: []
     playerFormation: {fileID: 0}
     team:
@@ -218,9 +219,19 @@ MonoBehaviour:
       statModifiers: []
       items: []
     runCurrency: 0
-  earlyGameProfile: {fileID: 11400000, guid: 51f2f88847a798a49bc8ba7122fb0a31, type: 2}
-  midGameProfile: {fileID: 11400000, guid: f209fadd0250500459bbe91f918f9b2d, type: 2}
-  lateGameProfile: {fileID: 11400000, guid: 889a7bfa873d0f64abee6f2718779c27, type: 2}
+  easyFloors:
+  - {fileID: 11400000, guid: 51f2f88847a798a49bc8ba7122fb0a31, type: 2}
+  - {fileID: 11400000, guid: 3f9924547f71cb74ca1a33446bca5fdf, type: 2}
+  - {fileID: 11400000, guid: 351b133a69bbaf8418f69252fa639086, type: 2}
+  midFloors:
+  - {fileID: 11400000, guid: f209fadd0250500459bbe91f918f9b2d, type: 2}
+  - {fileID: 11400000, guid: f7f9df2d941e55848ae019d29f8be8bc, type: 2}
+  - {fileID: 11400000, guid: 57eb716021495b54c8477fc432eff24b, type: 2}
+  hardFloors:
+  - {fileID: 11400000, guid: 889a7bfa873d0f64abee6f2718779c27, type: 2}
+  - {fileID: 11400000, guid: ffb55585e4432f547bfbe38fe9335736, type: 2}
+  - {fileID: 11400000, guid: b3af0327d89ccc34db34578acecceee6, type: 2}
+  specialFloors: []
 --- !u!4 &206262376
 Transform:
   m_ObjectHideFlags: 0

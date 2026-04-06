@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b64092d2e0b7a334fad3718995e23164, type: 3}
-  m_Name: TestMidFloor
+  m_Name: TestMidFloor 1
   m_EditorClassIdentifier: Assembly-CSharp::FloorContentProfile
-  floorName: Mid 1
+  floorName: Mid 2
   weight: 10
   shopItems:
-  - {fileID: 11400000, guid: 6920cfe2da04cd54594de7b0aab400c8, type: 2}
+  - {fileID: 11400000, guid: b520111aabc017c479e0d1ff25bc211e, type: 2}
   combatEncounters:
   - {fileID: 11400000, guid: ded6aaee9e3f01943956e641973acaa3, type: 2}
   corruptionEncounters:

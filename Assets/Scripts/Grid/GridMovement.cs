@@ -19,7 +19,6 @@ public class GridMovement : MonoBehaviour
     IEnumerator Start()
     {
         var run = RunManager.Instance.CurrentRun;
-
         var floor = run.currentFloorData;
 
         // Wait until grid is ready
@@ -35,6 +34,11 @@ public class GridMovement : MonoBehaviour
 
         TileData tile = gridManager.grid[gridPosition.x, gridPosition.y];
         HandleTileEvent(tile);
+
+        if (!string.IsNullOrEmpty(floor.contentProfile.floorName))
+            Debug.Log($"Entering: {floor.contentProfile.floorName}");
+        else
+            Debug.Log($"Entering Floor {floor.floorIndex + 1}");
     }
 
     void Update()
@@ -169,7 +173,7 @@ public class GridMovement : MonoBehaviour
     {
         int newSeed = run.runSeed + run.currentFloor * 1000;
 
-        var profile = RunManager.Instance.GetProfileForFloor(run.currentFloor);
+        var profile = RunManager.Instance.GetProfileForFloor(run.currentFloor, run.runSeed);
 
         run.currentFloorData = new FloorData
         {
