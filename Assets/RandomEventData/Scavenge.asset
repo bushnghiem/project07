@@ -26,15 +26,20 @@ MonoBehaviour:
       encounter: {fileID: 0}
       item: {fileID: 0}
     - type: 4
-      tileModification: 1
+      tileModification: 0
       value: 20
+      encounter: {fileID: 0}
+      item: {fileID: 0}
+    - type: 6
+      tileModification: 1
+      value: 5
       encounter: {fileID: 0}
       item: {fileID: 0}
     removeAfterUse: 0
   - optionText: Leave
     conditions: []
     outcomes:
-    - type: 6
+    - type: 7
       tileModification: 0
       value: 0
       encounter: {fileID: 0}

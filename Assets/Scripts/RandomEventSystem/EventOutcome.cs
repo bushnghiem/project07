@@ -8,6 +8,7 @@ public enum OutcomeType
     HealPlayer,
     DamagePlayer,
     GiveItem,
+    TakeTime,
     Nothing
 }
 

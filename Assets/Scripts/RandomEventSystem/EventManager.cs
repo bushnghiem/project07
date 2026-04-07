@@ -83,9 +83,23 @@ public class EventManager : MonoBehaviour
                         RewardManager.Instance.AddItemToPlayer(player, outcome.item);
                     });
                 break;
+            case OutcomeType.TakeTime:
+                AddTime(outcome.value);
+                break;
 
             case OutcomeType.Nothing:
                 break;
         }
+    }
+
+    void AddTime(int amount)
+    {
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
+
+        floor.timeElapsed += amount;
+
+        CorruptionManager.Instance.OnTimePassed();
+
+        SaveManager.Instance.SaveRun();
     }
 }
