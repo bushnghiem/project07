@@ -12,7 +12,8 @@ public class SelfDestructionItem : ActiveItem
         EffectContext context = new EffectContext(
             user.Position,
             user.GameObject,
-            user
+            user,
+            (UnitBase)user
         );
 
         explosion.Execute(context);

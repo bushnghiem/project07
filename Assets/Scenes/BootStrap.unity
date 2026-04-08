@@ -220,9 +220,7 @@ MonoBehaviour:
       items: []
     runCurrency: 0
   easyFloors:
-  - {fileID: 11400000, guid: 51f2f88847a798a49bc8ba7122fb0a31, type: 2}
-  - {fileID: 11400000, guid: 3f9924547f71cb74ca1a33446bca5fdf, type: 2}
-  - {fileID: 11400000, guid: 351b133a69bbaf8418f69252fa639086, type: 2}
+  - {fileID: 11400000, guid: 7f0207d97b2bdc24fbf4ad288052125d, type: 2}
   midFloors:
   - {fileID: 11400000, guid: f209fadd0250500459bbe91f918f9b2d, type: 2}
   - {fileID: 11400000, guid: f7f9df2d941e55848ae019d29f8be8bc, type: 2}

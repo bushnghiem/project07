@@ -43,6 +43,7 @@ public class ProjectileInstance : MonoBehaviour, Entity
         collisionDamageComp = collisionDamageComp ?? GetComponent<DamageOnCollision>();
 
         ApplyStats();
+        ApplyEffects();
     }
 
     private void ApplyStats()
@@ -80,6 +81,19 @@ public class ProjectileInstance : MonoBehaviour, Entity
         {
             Invoke(nameof(Expire), template.lifeTime);
         }
+        ApplyScale();
+    }
+
+    void ApplyEffects()
+    {
+        if (effectController == null) return;
+
+        effectController.effects.AddRange(template.effects);
+    }
+
+    void ApplyScale()
+    {
+        transform.localScale = Vector3.one * template.scale;
     }
 
     // Get stat value from instance copy
@@ -133,7 +147,7 @@ public class ProjectileInstance : MonoBehaviour, Entity
         CancelInvoke();
 
         if ((template.doesExplode) && (effectController != null))
-            effectController.TriggerEffects(transform.position);
+            effectController.TriggerEffects(transform.position, owner);
 
         Kill();
         DeathEvent.OnEntityDeath?.Invoke(this);

@@ -222,5 +222,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1edba893152b6b47a4db01b832b5203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EffectController
-  effects:
-  - {fileID: 11400000, guid: b0481528f2774814b8c7a6ee7a4dd213, type: 2}
+  effects: []

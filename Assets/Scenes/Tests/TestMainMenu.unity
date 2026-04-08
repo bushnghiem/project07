@@ -747,6 +747,7 @@ MonoBehaviour:
     currentFloorData:
       floorIndex: 0
       floorSeed: 0
+      contentProfile: {fileID: 0}
       currentGridPosition: {x: 0, y: 0}
       currentEncounter: {fileID: 0}
       timeElapsed: 0
@@ -755,6 +756,7 @@ MonoBehaviour:
       clearedEventTiles: []
       shops: []
       corruptionRadius: -1
+      hasInitializedSpawn: 0
     completedFloors: []
     playerFormation: {fileID: 11400000, guid: ea09909161c27d04d923a2d9c407861b, type: 2}
     team:
@@ -764,7 +766,7 @@ MonoBehaviour:
       isDead: 0
       statModifiers: []
       items:
-      - itemID: projectile_basic
+      - itemID: projectile_scrap_ball
       - itemID: passive_maxhp_up
       - itemID: active_heal_100
       - itemID: passive_heal_turn

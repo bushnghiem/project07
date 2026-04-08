@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffbe0e1731faea041bb9d0ec8295cc4b, type: 3}
   m_Name: IronBall
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
-  projectileID: 1
+  projectileID: projectile_iron_ball
   projectileName: Iron Ball
+  effects: []
   baseStats:
   - statType: 0
     value: 100
@@ -25,6 +26,7 @@ MonoBehaviour:
     value: 100
   - statType: 4
     value: 2
+  scale: 1
   linearDamping: 2
   angularDamping: 2
   useLifetime: 0

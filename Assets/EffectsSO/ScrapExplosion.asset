@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31c1239d1549ab449b3ab28e5b5c68e1, type: 3}
+  m_Name: ScrapExplosion
+  m_EditorClassIdentifier: Assembly-CSharp::ScrapProjectileSpawnEffect
+  projectile: {fileID: 11400000, guid: 28395094fc309b54083c32c841f40486, type: 2}
+  count: 8
+  minRadius: 1
+  maxRadius: 2
+  minSeparation: 0.5
+  minForce: 3
+  maxForce: 12
+  randomAngle: 120
+  useDirectionalBias: 1
+  maxUpward: 0.3
+  deadPieceChance: 0.2
+  fastShardChance: 0.1
+  deadForceMultiplier: 0.2
+  fastForceMultiplier: 2.5

@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ffbe0e1731faea041bb9d0ec8295cc4b, type: 3}
-  m_Name: BasicProjectile
+  m_Name: ScrapBall
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
-  projectileID: projectile_basic
-  projectileName: Basic
+  projectileID: projectile_scrap_ball
+  projectileName: Scrap Ball
   effects:
-  - {fileID: 11400000, guid: b0481528f2774814b8c7a6ee7a4dd213, type: 2}
+  - {fileID: 11400000, guid: 8cae3eb835f5dcd46a3c4b1404dd5128, type: 2}
   baseStats:
   - statType: 0
     value: 10
   - statType: 1
     value: 0
   - statType: 2
-    value: 1
+    value: 25
   - statType: 3
-    value: 0
+    value: 50
   - statType: 4
     value: 1
   scale: 1
@@ -37,10 +37,10 @@ MonoBehaviour:
   stopTimeRequired: 0.5
   doesExplode: 1
   explosionStats:
-    radius: 3
-    damage: 50
-    force: 100
+    radius: 0
+    damage: 0
+    force: 0
     upwardModifier: 0
     damageLayers:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 0

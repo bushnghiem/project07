@@ -41,8 +41,14 @@ public class Projectile : ScriptableObject
 
     public string projectileName;
 
+    [Header("Effects")]
+    public List<Effect> effects;
+
     [Header("Base Stats")]
     [SerializeField] private List<ProjectileBaseStatEntry> baseStats;
+
+    [Header("Visual")]
+    public float scale = 1f;
 
     private Dictionary<ProjectileStatType, float> baseStatMap;
     public IReadOnlyDictionary<ProjectileStatType, float> BaseStatMap => baseStatMap;
