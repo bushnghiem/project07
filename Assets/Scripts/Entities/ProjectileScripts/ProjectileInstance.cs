@@ -44,6 +44,15 @@ public class ProjectileInstance : MonoBehaviour, Entity
 
         ApplyStats();
         ApplyEffects();
+
+        if (effectController != null)
+        {
+            effectController.TriggerEffects(
+                EffectTrigger.OnShoot,
+                transform.position,
+                owner
+            );
+        }
     }
 
     private void ApplyStats()
@@ -147,7 +156,7 @@ public class ProjectileInstance : MonoBehaviour, Entity
         CancelInvoke();
 
         if ((template.doesExplode) && (effectController != null))
-            effectController.TriggerEffects(transform.position, owner);
+            effectController.TriggerEffects(EffectTrigger.OnDeath, transform.position, owner);
 
         Kill();
         DeathEvent.OnEntityDeath?.Invoke(this);

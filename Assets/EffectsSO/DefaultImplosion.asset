@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b929a2ca01957eb46b56836c22d1c365, type: 3}
   m_Name: DefaultImplosion
   m_EditorClassIdentifier: Assembly-CSharp::ImplosionEffect
+  trigger: 1
   radius: 5
   pullForce: 300
   affectedLayers:

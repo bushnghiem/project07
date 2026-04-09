@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad7a0c031faf43e4eaf07f12202cc9b9, type: 3}
   m_Name: IronBallSpread
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileSpawnEffect
+  trigger: 1
   projectile: {fileID: 11400000, guid: aae9720e5127c984c836194e5914e874, type: 2}
   count: 3
   spread: 1

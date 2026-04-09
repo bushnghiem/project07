@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c1239d1549ab449b3ab28e5b5c68e1, type: 3}
   m_Name: ScrapExplosion
   m_EditorClassIdentifier: Assembly-CSharp::ScrapProjectileSpawnEffect
+  trigger: 1
   projectile: {fileID: 11400000, guid: 28395094fc309b54083c32c841f40486, type: 2}
   count: 8
   minRadius: 1

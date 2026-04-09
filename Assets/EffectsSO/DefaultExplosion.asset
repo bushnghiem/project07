@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7cf1134c2b930744b8bd7415e11d4f4, type: 3}
   m_Name: DefaultExplosion
   m_EditorClassIdentifier: Assembly-CSharp::ExplosionEffect
+  trigger: 1
   radius: 3
   damage: 100
   force: 100

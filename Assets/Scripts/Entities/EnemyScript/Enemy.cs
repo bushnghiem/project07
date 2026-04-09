@@ -120,7 +120,7 @@ public class Enemy : UnitBase
         DisableVisuals();
 
         if (effectController != null)
-            effectController.TriggerEffects(transform.position, this);
+            effectController.TriggerEffects(EffectTrigger.OnDeath, transform.position, this);
 
         base.Kill();
         DeathEvent.OnEntityDeath?.Invoke(this);
