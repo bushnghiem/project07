@@ -762,17 +762,17 @@ MonoBehaviour:
     team:
     - uniqueID: StartShip1
       templateID: 0
-      currentHealth: 10
+      currentHealth: 100
       isDead: 0
       statModifiers: []
       items:
-      - itemID: projectile_scrap_ball
+      - itemID: projectile_scrap_gun
       - itemID: passive_maxhp_up
       - itemID: active_heal_100
       - itemID: passive_heal_turn
     - uniqueID: StartShip1
       templateID: 0
-      currentHealth: 10
+      currentHealth: 100
       isDead: 0
       statModifiers: []
       items:

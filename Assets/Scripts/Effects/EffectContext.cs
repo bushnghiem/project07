@@ -7,6 +7,9 @@ public struct EffectContext
     public Entity sourceEntity;
     public UnitBase owner;
 
+    public Vector3 direction;
+    public float force;
+
     public EffectContext(
         Vector3 position,
         GameObject source,
@@ -17,5 +20,8 @@ public struct EffectContext
         this.source = source;
         this.sourceEntity = sourceEntity;
         this.owner = owner;
+
+        this.direction = Vector3.forward;
+        this.force = 0f;
     }
 }

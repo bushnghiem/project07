@@ -44,15 +44,6 @@ public class ProjectileInstance : MonoBehaviour, Entity
 
         ApplyStats();
         ApplyEffects();
-
-        if (effectController != null)
-        {
-            effectController.TriggerEffects(
-                EffectTrigger.OnShoot,
-                transform.position,
-                owner
-            );
-        }
     }
 
     private void ApplyStats()

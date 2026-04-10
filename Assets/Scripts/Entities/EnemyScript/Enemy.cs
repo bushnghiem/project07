@@ -7,7 +7,6 @@ public class Enemy : UnitBase
     public float angularDamping = 2f;
     public int orbitSide = 1;
 
-    public EffectController effectController;
     public ClickAndFling clickAndFlingComp;
     public EnemyAIBase aiComp;
 
@@ -23,7 +22,6 @@ public class Enemy : UnitBase
     {
         base.Awake();
 
-        effectController = GetComponent<EffectController>();
         clickAndFlingComp = GetComponent<ClickAndFling>();
         colliders = GetComponentsInChildren<Collider>();
         renderers = GetComponentsInChildren<Renderer>();

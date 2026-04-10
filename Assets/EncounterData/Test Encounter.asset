@@ -16,11 +16,11 @@ MonoBehaviour:
   enemies:
   - uniqueID: Solo Pirate
     templateID: 3
-    currentHealth: 10
-    isDead: 0
+    currentHealth: 35
+    isDead: 1
     statModifiers: []
     items:
-    - itemID: projectile_basic
+    - itemID: projectile_scrap_gun
   enemyFormation: {fileID: 11400000, guid: 029c8aef893468d4bb86de9bda98d8d0, type: 2}
   playerFormation: {fileID: 0}
   environmentLayout: {fileID: 11400000, guid: 9d09ab4dae245014ab994feec01791b3, type: 2}

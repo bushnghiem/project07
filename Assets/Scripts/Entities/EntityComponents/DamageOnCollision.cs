@@ -4,9 +4,18 @@ public class DamageOnCollision : MonoBehaviour
 {
     [SerializeField] private float contactDamage = 15f;
     [SerializeField] private float knockbackStrength = 12f;
+    private float spawnTime;
+
+    void Awake()
+    {
+        spawnTime = Time.time;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (Time.time - spawnTime < 0.05f)
+            return;
+
         Entity entity = collision.collider.GetComponentInParent<Entity>();
         if (entity == null) return;
 

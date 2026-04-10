@@ -8,7 +8,6 @@ public class Player : UnitBase
     public float angularDamping = 2f;
 
     public ClickAndFling clickAndFlingComponent;
-    public EffectController effectController;
 
     private Collider[] colliders;
     private Renderer[] renderers;
@@ -21,7 +20,6 @@ public class Player : UnitBase
     {
         base.Awake();
 
-        effectController = GetComponent<EffectController>();
         colliders = GetComponentsInChildren<Collider>();
         renderers = GetComponentsInChildren<Renderer>();
 

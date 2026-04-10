@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: ScrapShotgun
   m_EditorClassIdentifier: Assembly-CSharp::ShotgunEffect
   trigger: 0
-  pelletCount: 6
-  spreadAngle: 180
-  pelletProjectile: {fileID: 0}
+  projectileCount: 6
+  spreadAngle: 40
+  forceMultiplier: 1
+  forceVariance: {x: 0.9, y: 1.1}
+  spawnRadius: 1

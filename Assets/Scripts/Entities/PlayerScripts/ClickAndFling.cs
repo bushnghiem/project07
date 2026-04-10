@@ -132,19 +132,25 @@ public class ClickAndFling : MonoBehaviour
 
         direction.Normalize();
 
-        Vector3 projectileSpawnPosition = transform.position + direction * projectileSpawnRadius;
-
         if (projectileMode)
         {
             float forceStrength = Mathf.Lerp(minShootingForce, maxShootingForce, t);
 
-            ProjectileSpawnEvent.OnProjectileSpawn?.Invoke(
-                projectileSpawnPosition,
-                direction,
-                forceStrength,
-                projectile,
-                owner
-            );
+            bool handled = owner != null &&
+                           owner.TriggerShootEffects(direction, forceStrength);
+
+            if (!handled)
+            {
+                Vector3 projectileSpawnPosition = transform.position + direction * projectileSpawnRadius;
+
+                ProjectileSpawnEvent.OnProjectileSpawn?.Invoke(
+                    projectileSpawnPosition,
+                    direction,
+                    forceStrength,
+                    projectile,
+                    owner
+                );
+            }
 
             OnFling?.Invoke(direction, forceStrength);
         }

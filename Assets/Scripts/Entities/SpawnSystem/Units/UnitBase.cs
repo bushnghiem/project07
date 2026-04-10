@@ -20,10 +20,13 @@ public abstract class UnitBase : MonoBehaviour, Unit
     protected Rigidbody rb;
     protected HealthComponent healthComp;
     protected DamageOnCollision collisionDamageComp;
+    protected EffectController effectController;
 
     protected ActiveItemInstance activeItem;
     protected Projectile projectile;
     protected List<PassiveItemInstance> passiveItems = new List<PassiveItemInstance>();
+
+    protected List<Effect> projectileInjectedEffects = new();
 
     protected ItemDatabase itemDatabaseRef;
 
@@ -42,6 +45,7 @@ public abstract class UnitBase : MonoBehaviour, Unit
         rb = GetComponent<Rigidbody>();
         healthComp = GetComponent<HealthComponent>();
         collisionDamageComp = GetComponent<DamageOnCollision>();
+        effectController = GetComponent<EffectController>();
     }
 
     public virtual void Initialize(ShipRunData data)
@@ -162,6 +166,32 @@ public abstract class UnitBase : MonoBehaviour, Unit
     public virtual void EquipProjectile(Projectile proj)
     {
         projectile = proj;
+
+        if (effectController == null) return;
+
+        RemoveProjectileEffects(effectController);
+
+        if (proj.effects != null)
+        {
+            foreach (var effect in proj.effects)
+            {
+                if (effect.trigger == EffectTrigger.OnShoot)
+                {
+                    effectController.effects.Add(effect);
+                    projectileInjectedEffects.Add(effect);
+                }
+            }
+        }
+    }
+
+    protected void RemoveProjectileEffects(EffectController effectController)
+    {
+        foreach (var effect in projectileInjectedEffects)
+        {
+            effectController.effects.Remove(effect);
+        }
+
+        projectileInjectedEffects.Clear();
     }
 
     public void AddItemToRunData(Item item)
@@ -265,6 +295,38 @@ public abstract class UnitBase : MonoBehaviour, Unit
 
         runData.statModifiers.Clear();
         statsDirty = true;
+    }
+
+    public virtual bool TriggerShootEffects(Vector3 direction, float force)
+    {
+        if (effectController == null) return false;
+
+        bool hasShootEffect = false;
+
+        foreach (var effect in effectController.effects)
+        {
+            if (effect.trigger == EffectTrigger.OnShoot)
+            {
+                hasShootEffect = true;
+                break;
+            }
+        }
+
+        if (!hasShootEffect) return false;
+
+        var context = new EffectContext(
+            transform.position,
+            gameObject,
+            this,
+            this
+        );
+
+        context.direction = direction;
+        context.force = force;
+
+        effectController.TriggerEffects(EffectTrigger.OnShoot, context);
+
+        return true;
     }
 
     public ActiveItemInstance GetActiveItem() => activeItem;
