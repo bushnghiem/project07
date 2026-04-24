@@ -1,18 +1,17 @@
-using UnityEngine;
-
 public class UnitTurnState : BattleState
 {
-    public UnitTurnState(BattleManager manager) : base(manager) { }
+    private bool isNewTurn;
+
+    public UnitTurnState(BattleManager manager, bool isNewTurn = true) : base(manager)
+    {
+        this.isNewTurn = isNewTurn;
+    }
 
     public override void Enter()
     {
-        //Debug.Log(manager.currentUnit +  "'s Turn");
-        manager.currentUnit.StartTurn();
-        //TurnEvent.OnUnitTurnStart?.Invoke(manager.currentUnit);
-    }
-
-    public override void Exit()
-    {
-        
+        if (isNewTurn)
+        {
+            manager.currentUnit.StartTurn();
+        }
     }
 }

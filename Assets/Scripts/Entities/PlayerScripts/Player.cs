@@ -110,7 +110,8 @@ public class Player : UnitBase
         base.Item();
         if (activeItem != null && activeItem.Use(this, this))
         {
-            EndTurn();
+            SpendAP(1);
+            ActionResolved();
         }
     }
 
@@ -181,8 +182,10 @@ public class Player : UnitBase
             Debug.Log("Move");
             Moved();  // Signal move event for effects
         }
+        SpendAP(1);
 
-        EndTurn();
+        clickAndFlingComponent.SetFlingable(false);
+        ActionResolved();
     }
 
     

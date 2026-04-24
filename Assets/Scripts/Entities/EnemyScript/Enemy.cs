@@ -1,5 +1,6 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Enemy : UnitBase
 {
@@ -103,6 +104,17 @@ public class Enemy : UnitBase
     {
         base.StartTurn();
         TurnEvent.OnUnitTurnStart?.Invoke(this);
+        aiComp?.TakeTurn(this);
+    }
+
+    public override void ContinueTurn()
+    {
+        StartCoroutine(ContinueWithDelay());
+    }
+
+    private IEnumerator ContinueWithDelay()
+    {
+        yield return new WaitForSeconds(0.3f);
         aiComp?.TakeTurn(this);
     }
 

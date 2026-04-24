@@ -24,5 +24,9 @@ public interface Unit : Movable, Shootable, Entity
 
     void StartTurn();
 
+    void ContinueTurn();
+
     void EndTurn();
+
+    void ActionResolved();
 }

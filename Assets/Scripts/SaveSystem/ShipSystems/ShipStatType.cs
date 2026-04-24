@@ -17,5 +17,7 @@ public enum ShipStatType
 
     ProjectileMass,
     ProjectileHealth,
-    ProjectileShield
+    ProjectileShield,
+
+    ActionPoints
 }

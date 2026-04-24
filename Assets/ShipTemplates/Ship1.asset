@@ -41,6 +41,8 @@ MonoBehaviour:
     value: 0
   - statType: 12
     value: 0
+  - statType: 13
+    value: 2
   startingActiveItemID: 
   startingPassiveItemIDs: []
   startingProjectileID: 

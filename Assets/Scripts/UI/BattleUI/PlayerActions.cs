@@ -21,12 +21,16 @@ public class PlayerActions : MonoBehaviour
     {
         TurnEvent.OnUnitTurnStart += HandleUnitTurnStart;
         TurnEvent.OnUnitTurnEnd += HandleUnitTurnEnd;
+        TurnEvent.OnUnitContinueTurn += HandleUnitTurnStart;
+        TurnEvent.OnUnitActionResolved += HandleUnitTurnEnd;
     }
 
     private void OnDisable()
     {
         TurnEvent.OnUnitTurnStart -= HandleUnitTurnStart;
         TurnEvent.OnUnitTurnEnd -= HandleUnitTurnEnd;
+        TurnEvent.OnUnitContinueTurn -= HandleUnitTurnStart;
+        TurnEvent.OnUnitActionResolved -= HandleUnitTurnEnd;
     }
 
     private void Awake()

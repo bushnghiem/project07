@@ -71,6 +71,7 @@ public class MoveState : EnemyState
         enemy.clickAndFlingComp.ExecuteFling(bestDir, movePower);
 
         enemy.Move();
-        enemy.EndTurn();
+        enemy.SpendAP(1);
+        enemy.ActionResolved();
     }
 }

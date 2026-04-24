@@ -11,6 +11,7 @@ public class CamFollow : MonoBehaviour
     private void OnEnable()
     {
         TurnEvent.OnUnitTurnStart += HandleUnitTurnStart;
+        TurnEvent.OnUnitContinueTurn += HandleUnitTurnStart;
         DeathEvent.OnEntityDeath += HandleDeath;
         ProjectileSpawnEvent.AddCamFollow += HandleCamFollow;
     }
@@ -18,6 +19,7 @@ public class CamFollow : MonoBehaviour
     private void OnDisable()
     {
         TurnEvent.OnUnitTurnStart -= HandleUnitTurnStart;
+        TurnEvent.OnUnitContinueTurn -= HandleUnitTurnStart;
         DeathEvent.OnEntityDeath -= HandleDeath;
         ProjectileSpawnEvent.AddCamFollow -= HandleCamFollow;
     }

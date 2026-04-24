@@ -19,6 +19,7 @@ public class BattleManager : MonoBehaviour
     {
         DeathEvent.OnEntityDeath += HandleBattleDeath;
         TurnEvent.OnUnitTurnEnd += HandleUnitTurnEnd;
+        TurnEvent.OnUnitActionResolved += HandleUnitActionResolved;
         SpawnEvent.OnUnitSpawned += HandleUnitSpawned;
     }
 
@@ -26,6 +27,7 @@ public class BattleManager : MonoBehaviour
     {
         DeathEvent.OnEntityDeath -= HandleBattleDeath;
         TurnEvent.OnUnitTurnEnd -= HandleUnitTurnEnd;
+        TurnEvent.OnUnitActionResolved -= HandleUnitActionResolved;
         SpawnEvent.OnUnitSpawned -= HandleUnitSpawned;
     }
 
@@ -104,28 +106,54 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator WaitForBattlefieldToSettle(Unit actingUnit)
     {
-        //Debug.Log("Waiting for battlefield to settle");
-
         float stillTimer = 0f;
         const float requiredStillTime = 0.5f;
 
         while (stillTimer < requiredStillTime)
         {
             if (IsAnythingMoving())
-            {
-                //Debug.Log("Something moving");
                 stillTimer = 0f;
-            }
             else
-            {
                 stillTimer += Time.fixedDeltaTime;
-            }
 
             yield return new WaitForFixedUpdate();
         }
 
-        //Debug.Log("Battlefield settled. Ending turn.");
-        EndOfTurn(actingUnit);
+        ResolvePostAction(actingUnit);
+    }
+
+    private void ResolvePostAction(Unit unit)
+    {
+        if (unit == null || unit.isDead)
+        {
+            EndOfTurn(unit);
+            return;
+        }
+
+        if (checkLoss())
+        {
+            RemovePlayersPassiveEffects();
+            SwitchState(new LoseState(this));
+            return;
+        }
+
+        if (checkWin())
+        {
+            RemovePlayersPassiveEffects();
+            CleanupDeadUnits();
+            SwitchState(new WinState(this));
+            return;
+        }
+
+        if (unit is UnitBase ub && ub.CurrentAP > 0)
+        {
+            Debug.Log($"{unit} continues turn with {ub.CurrentAP} AP");
+            unit.ContinueTurn();
+        }
+        else
+        {
+            unit.EndTurn();
+        }
     }
 
     private bool IsAnythingMoving()
@@ -178,7 +206,7 @@ public class BattleManager : MonoBehaviour
         else
         {
             currentUnit = allUnits[currentIndex];
-            SwitchState(new UnitTurnState(this));
+            SwitchState(new UnitTurnState(this, true));
         }
     }
 
@@ -209,9 +237,14 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public void HandleUnitTurnEnd(Unit unit)
+    public void HandleUnitActionResolved(Unit unit)
     {
         StartCoroutine(WaitForBattlefieldToSettle(unit));
+    }
+
+    public void HandleUnitTurnEnd(Unit unit)
+    {
+        EndOfTurn(unit);
     }
 
     public void HandleUnitSpawned(Unit unit)

@@ -31,6 +31,7 @@ public class OrbitState : EnemyState
         enemy.clickAndFlingComp.ExecuteFling(dir, power);
 
         enemy.Move();
-        enemy.EndTurn();
+        enemy.SpendAP(1);
+        enemy.ActionResolved();
     }
 }

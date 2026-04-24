@@ -33,6 +33,7 @@ public class AttackState : EnemyState
         enemy.clickAndFlingComp.ExecuteFling(direction, power);
 
         enemy.Shoot();
-        enemy.EndTurn();
+        enemy.SpendAP(1);
+        enemy.ActionResolved();
     }
 }

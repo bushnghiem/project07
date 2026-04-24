@@ -40,6 +40,10 @@ public abstract class UnitBase : MonoBehaviour, Unit
     public Vector3 Position => transform.position;
     public bool isDead => healthComp != null && healthComp.isDead;
 
+    protected int currentAP;
+    public int CurrentAP => currentAP;
+    protected int MaxAP;
+
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -63,6 +67,7 @@ public abstract class UnitBase : MonoBehaviour, Unit
         float mass = GetStat(ShipStatType.Mass);
         float collisionDamage = GetStat(ShipStatType.CollisionDamage);
         float collisionKnockback = GetStat(ShipStatType.CollisionKnockback);
+        MaxAP = (int)GetStat(ShipStatType.ActionPoints);
 
         healthComp.SetMaxHealth(maxHealth);
         healthComp.SetShield(shield);
@@ -422,11 +427,17 @@ public abstract class UnitBase : MonoBehaviour, Unit
 
     public virtual void StartTurn()
     {
+        currentAP = MaxAP;
         EventBus.Raise(new UnitEvent
         {
             source = this,
             type = UnitEventType.TurnStart
         });
+    }
+
+    public virtual void ContinueTurn()
+    {
+        TurnEvent.OnUnitContinueTurn?.Invoke(this);
     }
 
     public virtual void EndTurn()
@@ -436,5 +447,22 @@ public abstract class UnitBase : MonoBehaviour, Unit
             source = this,
             type = UnitEventType.TurnIntentEnd
         });
+    }
+
+    public virtual void ActionResolved()
+    {
+        TurnEvent.OnUnitActionResolved?.Invoke(this);
+    }
+
+    public virtual bool SpendAP(int amount)
+    {
+        if (amount < 0) return false;
+
+        if (currentAP >= amount)
+        {
+            currentAP -= amount;
+            return true;
+        }
+        return false;
     }
 }
