@@ -16,14 +16,7 @@ MonoBehaviour:
   enemies:
   - uniqueID: Corupt
     templateID: 3
-    currentHealth: 90
-    isDead: 0
-    statModifiers: []
-    items:
-    - itemID: projectile_basic
-  - uniqueID: Corupt
-    templateID: 3
-    currentHealth: 90
+    currentHealth: 100
     isDead: 0
     statModifiers: []
     items:
@@ -31,14 +24,21 @@ MonoBehaviour:
   - uniqueID: Corupt
     templateID: 3
     currentHealth: 100
-    isDead: 1
+    isDead: 0
     statModifiers: []
     items:
     - itemID: projectile_basic
   - uniqueID: Corupt
     templateID: 3
     currentHealth: 100
-    isDead: 1
+    isDead: 0
+    statModifiers: []
+    items:
+    - itemID: projectile_basic
+  - uniqueID: Corupt
+    templateID: 3
+    currentHealth: 100
+    isDead: 0
     statModifiers: []
     items:
     - itemID: projectile_basic

@@ -21,6 +21,7 @@ public abstract class UnitBase : MonoBehaviour, Unit
     protected HealthComponent healthComp;
     protected DamageOnCollision collisionDamageComp;
     protected EffectController effectController;
+    protected StatusEffectController statusController;
 
     protected ActiveItemInstance activeItem;
     protected Projectile projectile;
@@ -50,6 +51,7 @@ public abstract class UnitBase : MonoBehaviour, Unit
         healthComp = GetComponent<HealthComponent>();
         collisionDamageComp = GetComponent<DamageOnCollision>();
         effectController = GetComponent<EffectController>();
+        statusController = GetComponent<StatusEffectController>();
     }
 
     public virtual void Initialize(ShipRunData data)
@@ -338,10 +340,9 @@ public abstract class UnitBase : MonoBehaviour, Unit
     public Projectile GetProjectile() => projectile;
     public float GetCurrentHealth() => healthComp.GetCurrentHealth();
 
-    public void Hurt(float amount)
+    public virtual void Hurt(float amount)
     {
         healthComp.Hurt(amount);
-        runData.currentHealth = healthComp.GetCurrentHealth();
 
         EventBus.Raise(new UnitEvent
         {
@@ -352,10 +353,9 @@ public abstract class UnitBase : MonoBehaviour, Unit
         });
     }
 
-    public void Heal(float amount)
+    public virtual void Heal(float amount)
     {
         healthComp.Heal(amount);
-        runData.currentHealth = healthComp.GetCurrentHealth();
 
         EventBus.Raise(new UnitEvent
         {
@@ -433,6 +433,7 @@ public abstract class UnitBase : MonoBehaviour, Unit
             source = this,
             type = UnitEventType.TurnStart
         });
+        statusController?.OnTurnStart();
     }
 
     public virtual void ContinueTurn()
@@ -442,16 +443,22 @@ public abstract class UnitBase : MonoBehaviour, Unit
 
     public virtual void EndTurn()
     {
+        statusController?.OnTurnEnd();
         EventBus.Raise(new UnitEvent
         {
             source = this,
-            type = UnitEventType.TurnIntentEnd
+            type = UnitEventType.TurnEnd
         });
     }
 
     public virtual void ActionResolved()
     {
         TurnEvent.OnUnitActionResolved?.Invoke(this);
+        EventBus.Raise(new UnitEvent
+        {
+            source = this,
+            type = UnitEventType.ActionResolved
+        });
     }
 
     public virtual bool SpendAP(int amount)

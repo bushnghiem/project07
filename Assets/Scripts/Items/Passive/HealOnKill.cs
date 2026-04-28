@@ -34,7 +34,7 @@ public class HealOnKill : PassiveItem
                     active = true;
                 break;
 
-            case UnitEventType.TurnResolved:
+            case UnitEventType.TurnEnd:
                 if (e.source == owner)
                     active = false;
                 break;

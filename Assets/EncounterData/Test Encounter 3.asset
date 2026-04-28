@@ -16,24 +16,25 @@ MonoBehaviour:
   enemies:
   - uniqueID: enemy 1
     templateID: 3
-    currentHealth: 20
+    currentHealth: 100
     isDead: 0
     statModifiers: []
     items:
     - itemID: projectile_basic
   - uniqueID: enemy 2
     templateID: 3
-    currentHealth: 20
+    currentHealth: 100
     isDead: 0
     statModifiers:
     - statType: 2
       flatBonus: 600
       percentBonus: 0
+      sourceID: 
     items:
     - itemID: projectile_iron_ball
   - uniqueID: enemy 3
     templateID: 3
-    currentHealth: 20
+    currentHealth: 100
     isDead: 0
     statModifiers: []
     items:

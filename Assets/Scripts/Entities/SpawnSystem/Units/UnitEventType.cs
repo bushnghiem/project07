@@ -3,8 +3,8 @@ using UnityEngine;
 public enum UnitEventType
 {
     TurnStart,
-    TurnIntentEnd,
-    TurnResolved,
+    ActionResolved,
+    TurnEnd,
 
     Move,
     Shoot,

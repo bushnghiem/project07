@@ -19,6 +19,7 @@ public class ProjectileInstance : MonoBehaviour, Entity
 
     public Vector3 Position => transform.position;
     public bool isDead => healthComp.isDead;
+    private bool deathProcessed;
 
     private Collider[] colliders;
     private Renderer[] renderers;
@@ -144,6 +145,10 @@ public class ProjectileInstance : MonoBehaviour, Entity
 
     private void HandleDeath()
     {
+        if (deathProcessed) return;
+
+        deathProcessed = true;
+
         CancelInvoke();
 
         if ((template.doesExplode) && (effectController != null))

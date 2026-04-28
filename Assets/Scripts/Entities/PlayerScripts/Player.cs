@@ -154,6 +154,18 @@ public class Player : UnitBase
             r.enabled = false;
     }
 
+    public override void Hurt(float amount)
+    {
+        base.Hurt(amount);
+        runData.currentHealth = healthComp.GetCurrentHealth(); // Make damage track throughout scenes and save
+    }
+
+    public override void Heal(float amount)
+    {
+        base.Heal(amount);
+        runData.currentHealth = healthComp.GetCurrentHealth(); // Make healing track throughout scenes and save
+    }
+
     private void HandleDamaged(float damage)
     {
         Debug.Log($"Player took {damage} damage");

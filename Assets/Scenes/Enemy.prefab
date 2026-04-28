@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 422427263791694644}
   - component: {fileID: 8374612290320036123}
   - component: {fileID: 3702619891664605346}
+  - component: {fileID: -7639077806755490702}
   - component: {fileID: -7074283443480327474}
   - component: {fileID: 4698052969269132540}
   m_Layer: 0
@@ -165,7 +166,6 @@ MonoBehaviour:
   linearDamping: 2
   angularDamping: 2
   orbitSide: 1
-  effectController: {fileID: 0}
   clickAndFlingComp: {fileID: 0}
   aiComp: {fileID: 4698052969269132540}
   projectileDatabase: {fileID: 11400000, guid: 629b14458ca5a9f44841fc000b5eb679, type: 2}
@@ -234,6 +234,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EffectController
   effects:
   - {fileID: 11400000, guid: b0481528f2774814b8c7a6ee7a4dd213, type: 2}
+--- !u!114 &-7639077806755490702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8253756129412509392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d098c8c8911bc240b6b9c8735420177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusEffectController
 --- !u!114 &-7074283443480327474
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,8 +16,8 @@ MonoBehaviour:
   enemies:
   - uniqueID: Solo Pirate
     templateID: 3
-    currentHealth: 35
-    isDead: 1
+    currentHealth: 100
+    isDead: 0
     statModifiers: []
     items:
     - itemID: projectile_scrap_gun

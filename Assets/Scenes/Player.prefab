@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 4614211871170628527}
   - component: {fileID: 2481838852082444043}
   - component: {fileID: 1479998179400794727}
+  - component: {fileID: 1668516504558228359}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -202,7 +203,6 @@ MonoBehaviour:
   linearDamping: 2
   angularDamping: 2
   clickAndFlingComponent: {fileID: 7007496768919672062}
-  effectController: {fileID: 0}
   projectileDatabase: {fileID: 11400000, guid: 629b14458ca5a9f44841fc000b5eb679, type: 2}
   itemDatabase: {fileID: 11400000, guid: bfaea5ec0055b8a4ea4be52c7bee643b, type: 2}
 --- !u!114 &4614211871170628527
@@ -253,6 +253,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EffectController
   effects:
   - {fileID: 11400000, guid: de3dc3fcb0820574da50be9b7d50b50a, type: 2}
+--- !u!114 &1668516504558228359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7295725305768939094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d098c8c8911bc240b6b9c8735420177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusEffectController
 --- !u!1001 &7491458859326076987
 PrefabInstance:
   m_ObjectHideFlags: 0

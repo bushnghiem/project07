@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 public class HealthComponent : MonoBehaviour
@@ -32,15 +32,22 @@ public class HealthComponent : MonoBehaviour
     public void SetCurrentHealth(float newCurrentHealth)
     {
         float oldHealth = currentHealth;
-        currentHealth = newCurrentHealth;
-        currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+
+        Debug.Log($"[SET HP] {oldHealth} → {newCurrentHealth} frame={Time.frameCount}");
+
+        currentHealth = Mathf.Clamp(newCurrentHealth, 0f, maxHealth);
+
+        Debug.Log($"[CLAMPED HP] now={currentHealth}");
+
         OnHealthChanged?.Invoke(oldHealth, currentHealth);
 
         if (currentHealth <= 0f && !isDead)
         {
             isDead = true;
+            Debug.Log($"[DEATH TRIGGERED]");
             OnDeath?.Invoke();
         }
+
         if (currentHealth == maxHealth)
         {
             OnFullHealth?.Invoke();
@@ -76,17 +83,25 @@ public class HealthComponent : MonoBehaviour
 
     public void Hurt(float damage)
     {
-        if (isDead) return;
+        if (isDead)
+        {
+            Debug.Log($"[HURT IGNORED - DEAD] dmg={damage} frame={Time.frameCount}");
+            return;
+        }
+
+        Debug.Log($"[HURT ENTER] dmg={damage} hpBefore={currentHealth} shield={shield} frame={Time.frameCount}");
 
         if (shield > 0)
         {
             shield--;
-            Debug.Log("shield point lost");
+            Debug.Log($"[SHIELD BLOCK] remainingShield={shield} frame={Time.frameCount}");
         }
         else
         {
             SetCurrentHealth(currentHealth - damage);
             OnDamaged?.Invoke(damage);
+
+            Debug.Log($"[HURT APPLIED] dmg={damage} hpAfter={currentHealth} frame={Time.frameCount}");
         }
     }
 
