@@ -148,6 +148,11 @@ public abstract class UnitBase : MonoBehaviour, Unit
         ApplyStats();
     }
 
+    public void SetCollisionStatusEffects(List<StatusEffectData> newStatusEffects)
+    {
+        collisionDamageComp.statusEffects = newStatusEffects;
+    }
+
     public virtual void EquipPassive(PassiveItem passive)
     {
         var instance = new PassiveItemInstance(passive);

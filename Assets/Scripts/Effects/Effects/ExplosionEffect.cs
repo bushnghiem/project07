@@ -15,7 +15,7 @@ public class ExplosionEffect : Effect
 
     public override void Execute(EffectContext context)
     {
-        Debug.Log($"EXPLOSION ID: {GetInstanceID()} on frame {Time.frameCount}");
+        //Debug.Log($"EXPLOSION ID: {GetInstanceID()} on frame {Time.frameCount}");
         Vector3 position = context.position;
 
         if (visualPrefab != null)

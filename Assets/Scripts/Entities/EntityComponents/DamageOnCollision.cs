@@ -1,7 +1,9 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class DamageOnCollision : MonoBehaviour
 {
+    public List<StatusEffectData> statusEffects = new();
     [SerializeField] private float contactDamage = 15f;
     [SerializeField] private float knockbackStrength = 12f;
     private float spawnTime;
@@ -31,6 +33,18 @@ public class DamageOnCollision : MonoBehaviour
             Vector3 bonusImpulse = bonusDirection * knockbackStrength;
 
             rb.AddForce(physicsImpulse + bonusImpulse, ForceMode.Impulse);
+        }
+        var unit = collision.collider.GetComponent<Unit>();
+        if (unit != null)
+        {
+            var statusController = collision.collider.GetComponent<StatusEffectController>();
+            if (statusController != null)
+            {
+                foreach (var effectData in statusEffects)
+                {
+                    statusController.ApplyEffect(effectData, 10);
+                }
+            }
         }
     }
 
