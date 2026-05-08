@@ -16,11 +16,14 @@ MonoBehaviour:
   weight: 10
   shopItems:
   - {fileID: 11400000, guid: b520111aabc017c479e0d1ff25bc211e, type: 2}
-  - {fileID: 11400000, guid: 6920cfe2da04cd54594de7b0aab400c8, type: 2}
+  - {fileID: 11400000, guid: f8b3ab400d52194489fa5424de61e7c7, type: 2}
   - {fileID: 11400000, guid: 24a652dfd62bb79418356f18a3ac3033, type: 2}
-  - {fileID: 11400000, guid: 83d24198a227e65468b7f8d1ccb2915e, type: 2}
+  - {fileID: 11400000, guid: 1f9b4e861908ef8448b43880d62d11e2, type: 2}
+  - {fileID: 11400000, guid: 7e68fc54394137149807636a55ad5520, type: 2}
   combatEncounters:
   - {fileID: 11400000, guid: 62d4f349102a88b44817a5cc2cd4be58, type: 2}
+  - {fileID: 11400000, guid: ef0ced9d7730ec64ca9d4121db8c3f4e, type: 2}
+  - {fileID: 11400000, guid: e0181069af6320f4e807c10a5b5ecb77, type: 2}
   corruptionEncounters:
   - {fileID: 11400000, guid: edfa626bb21edc846af9ffd61ea7488d, type: 2}
   events:

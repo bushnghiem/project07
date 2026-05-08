@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e93a7fabfa2a136468c131aa34da5647, type: 3}
   m_Name: BurningTouch
   m_EditorClassIdentifier: Assembly-CSharp::StatusCollision
-  itemID: burn_on_collision
+  itemID: passive_burn_on_collision
   itemName: Burning Touch
   icon: {fileID: 0}
   description: Burn Everything On Collision

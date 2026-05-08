@@ -10,22 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8db64e4c879a3b741a7db007435ce107, type: 3}
-  m_Name: Test Encounter
+  m_Name: Junker Duo
   m_EditorClassIdentifier: Assembly-CSharp::EncounterData
-  encounterName: Test Fight 1
+  encounterName: Junker Duo
   enemies:
-  - uniqueID: Solo Pirate
+  - uniqueID: Ball Junker
+    templateID: 3
+    currentHealth: 100
+    isDead: 0
+    statModifiers: []
+    items:
+    - itemID: projectile_scrap_ball
+  - uniqueID: Shotgun Junker
     templateID: 3
     currentHealth: 100
     isDead: 0
     statModifiers: []
     items:
     - itemID: projectile_scrap_gun
-  enemyFormation: {fileID: 11400000, guid: 029c8aef893468d4bb86de9bda98d8d0, type: 2}
+  enemyFormation: {fileID: 11400000, guid: 264d3c4f4bd4ebf4db485492610b96d4, type: 2}
   playerFormation: {fileID: 0}
   environmentLayout: {fileID: 11400000, guid: 9d09ab4dae245014ab994feec01791b3, type: 2}
   playerAnchorPosition: {x: 0, y: 0, z: 0}
   enemyAnchorPosition: {x: 0, y: 0, z: 15}
   encounterType: 0
-  runCurrencyReward: 10
-  metaCurrencyReward: 10
+  runCurrencyReward: 20
+  metaCurrencyReward: 20

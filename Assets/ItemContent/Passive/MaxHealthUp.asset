@@ -17,5 +17,8 @@ MonoBehaviour:
   icon: {fileID: 0}
   description: Increases Max Health
   price: 100
-  statType: 0
-  statChangeAmount: 100
+  slotType: 2
+  statAdjustments:
+  - statType: 0
+    flatBonus: 100
+    percentBonus: 0
