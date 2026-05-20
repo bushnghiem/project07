@@ -35,7 +35,8 @@ public class ExplosionEffect : Effect
                 float finalDamage = Mathf.Lerp(damage, 0f, t);
                 int stacks = Mathf.RoundToInt(Mathf.Lerp(3, 1, t));
                 Debug.Log($"Boom Hit {entity} for {finalDamage}");
-                entity.Hurt(finalDamage);
+
+                entity.Hurt(DamagePresets.Explosion(finalDamage));
 
                 var unit = hit.GetComponent<Unit>();
                 if (unit != null)

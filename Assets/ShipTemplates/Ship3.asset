@@ -43,6 +43,20 @@ MonoBehaviour:
     value: 0
   - statType: 13
     value: 2
+  - statType: 14
+    value: 0
+  - statType: 15
+    value: 0
+  - statType: 16
+    value: 0
+  - statType: 17
+    value: 0
+  - statType: 18
+    value: 0
+  - statType: 19
+    value: 0
+  - statType: 20
+    value: 0
   startingActiveItemID: active_heal_100
   startingPassiveItemIDs:
   - passive_heal_kill

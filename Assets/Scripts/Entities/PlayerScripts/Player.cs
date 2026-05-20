@@ -154,9 +154,9 @@ public class Player : UnitBase
             r.enabled = false;
     }
 
-    public override void Hurt(float amount)
+    public override void Hurt(DamageInfo damageInfo)
     {
-        base.Hurt(amount);
+        base.Hurt(damageInfo);
         runData.currentHealth = healthComp.GetCurrentHealth(); // Make damage track throughout scenes and save
     }
 

@@ -15,7 +15,11 @@ public class DamageTrigger : MonoBehaviour
         Entity entity = other.GetComponentInParent<Entity>();
         if (entity == null) return;
 
-        entity.Hurt(damage);
+        entity.Hurt(new DamageInfo(
+            damage,
+            DamageCategory.Generic,
+            DamageElement.None
+        ));
         lastDamageTime = Time.time;
     }
 }

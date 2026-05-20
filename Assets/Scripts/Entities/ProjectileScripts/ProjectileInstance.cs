@@ -123,7 +123,11 @@ public class ProjectileInstance : MonoBehaviour, Entity
         Destroy(gameObject, 1f);
     }
 
-    public void Hurt(float amount) => healthComp.Hurt(amount);
+    public void Hurt(DamageInfo damageInfo)
+    {
+        healthComp.Hurt(damageInfo);
+    }
+
     public void Heal(float amount) => healthComp.Heal(amount);
 
     private void OnEnable()

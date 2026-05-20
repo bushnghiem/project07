@@ -50,17 +50,17 @@ public class RewardManager : MonoBehaviour
         player.Heal((float)value);
     }
 
-    public void DamageAllPlayers(int value)
+    public void DamageAllPlayers(DamageInfo damageInfo)
     {
         foreach (var player in shipHolder.allPlayers)
         {
-            player.Hurt((float)value);
+            player.Hurt(damageInfo);
         }
     }
 
-    public void HurtPlayer(Player player, int value)
+    public void HurtPlayer(Player player, DamageInfo damageInfo)
     {
-        player.Hurt((float)value);
+        player.Hurt(damageInfo);
     }
 
     public void AddItemToAllPlayers(Item item)

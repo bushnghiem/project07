@@ -16,11 +16,14 @@ public enum OutcomeType
 public class EventOutcome
 {
     public OutcomeType type;
+
     public TileModification tileModification;
 
     public int value;
 
-    // Optional references depending on type
+    public DamageDefinition damage;
+
+    // Optional references
     public EncounterData encounter;
     public Item item;
 }

@@ -21,7 +21,7 @@ public class DamageOnCollision : MonoBehaviour
         Entity entity = collision.collider.GetComponentInParent<Entity>();
         if (entity == null) return;
 
-        entity.Hurt(contactDamage);
+        entity.Hurt(DamagePresets.Collision(contactDamage));
 
         Rigidbody rb = collision.rigidbody;
         if (rb != null)

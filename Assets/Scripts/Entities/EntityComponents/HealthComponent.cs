@@ -81,28 +81,26 @@ public class HealthComponent : MonoBehaviour
         return shield;
     }
 
-    public void Hurt(float damage)
+    public void Hurt(DamageInfo damageInfo)
     {
         if (isDead)
+            return;
+
+        float damage = damageInfo.Amount;
+
+        bool blockedByShield =
+            shield > 0 &&
+            !damageInfo.BypassShields;
+
+        if (blockedByShield)
         {
-            Debug.Log($"[HURT IGNORED - DEAD] dmg={damage} frame={Time.frameCount}");
+            shield--;
             return;
         }
 
-        Debug.Log($"[HURT ENTER] dmg={damage} hpBefore={currentHealth} shield={shield} frame={Time.frameCount}");
+        SetCurrentHealth(currentHealth - damage);
 
-        if (shield > 0)
-        {
-            shield--;
-            Debug.Log($"[SHIELD BLOCK] remainingShield={shield} frame={Time.frameCount}");
-        }
-        else
-        {
-            SetCurrentHealth(currentHealth - damage);
-            OnDamaged?.Invoke(damage);
-
-            Debug.Log($"[HURT APPLIED] dmg={damage} hpAfter={currentHealth} frame={Time.frameCount}");
-        }
+        OnDamaged?.Invoke(damage);
     }
 
     public void Heal(float gain)

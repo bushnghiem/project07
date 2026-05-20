@@ -71,7 +71,13 @@ public class EventManager : MonoBehaviour
                     shipHolder.allPlayers,
                     (player) =>
                     {
-                        RewardManager.Instance.HurtPlayer(player, outcome.value);
+                        if (outcome.damage == null)
+                        {
+                            Debug.LogWarning("DamagePlayer outcome missing DamageDefinition!");
+                            return;
+                        }
+                        DamageInfo damageInfo = outcome.damage.ToDamageInfo();
+                        RewardManager.Instance.HurtPlayer(player, damageInfo);
                     });
                 break;
 

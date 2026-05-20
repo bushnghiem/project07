@@ -47,7 +47,7 @@ public class Explosion : MonoBehaviour
                 float t = Mathf.Clamp01(distance / radius);
 
                 float finalDamage = Mathf.Lerp(damage, 0f, t);
-                entity.Hurt(finalDamage);
+                //entity.Hurt(finalDamage);
             }
 
             Rigidbody rb = hit.attachedRigidbody;

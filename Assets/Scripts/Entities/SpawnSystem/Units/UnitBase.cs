@@ -345,16 +345,43 @@ public abstract class UnitBase : MonoBehaviour, Unit
     public Projectile GetProjectile() => projectile;
     public float GetCurrentHealth() => healthComp.GetCurrentHealth();
 
-    public virtual void Hurt(float amount)
+    public virtual void Hurt(DamageInfo damageInfo)
     {
-        healthComp.Hurt(amount);
+        float finalDamage = damageInfo.Amount;
+
+        // Category Res
+        ShipStatType? categoryStat =
+            DamageStatUtility.GetResistanceStat(damageInfo.Category);
+
+        if (categoryStat.HasValue)
+        {
+            float resist = GetStat(categoryStat.Value);
+
+            finalDamage *= Mathf.Max(0f, 1f - resist);
+        }
+
+        // Element Res
+        ShipStatType? elementStat =
+            DamageStatUtility.GetResistanceStat(damageInfo.Element);
+
+        if (elementStat.HasValue)
+        {
+            float resist = GetStat(elementStat.Value);
+
+            finalDamage *= Mathf.Max(0f, 1f - resist);
+        }
+
+        DamageInfo resolvedDamage = damageInfo;
+        resolvedDamage.Amount = finalDamage;
+
+        healthComp.Hurt(resolvedDamage);
 
         EventBus.Raise(new UnitEvent
         {
-            source = this,
+            source = (UnitBase)damageInfo.Attacker,
             target = this,
             type = UnitEventType.Hurt,
-            value = amount
+            value = finalDamage
         });
     }
 

@@ -26,7 +26,7 @@ public class BurnEffectInstance : StatusEffectInstance
 
         Debug.Log($"Burn Damage: {damage}");
 
-        target.Hurt(damage);
+        target.Hurt(DamagePresets.Burn(damage));
     }
 
     public override void OnTurnEnd()

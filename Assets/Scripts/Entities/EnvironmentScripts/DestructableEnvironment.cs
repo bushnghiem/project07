@@ -36,9 +36,9 @@ public class DestructableEnvironment : MonoBehaviour, Entity
         Destroy(gameObject, 1.0f);
     }
 
-    public void Hurt(float amount)
+    public void Hurt(DamageInfo damageInfo)
     {
-        healthComp.Hurt(amount);
+        healthComp.Hurt(damageInfo);
     }
 
     public void Heal(float amount)

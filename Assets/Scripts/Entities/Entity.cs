@@ -5,6 +5,6 @@ public interface Entity
     Vector3 Position { get; }
     bool isDead { get; }
     void Kill();
-    void Hurt(float amount);
+    void Hurt(DamageInfo damageInfo);
     void Heal(float amount);
 }
