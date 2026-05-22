@@ -19,6 +19,9 @@ public class FloorContentProfile : ScriptableObject
     public List<EncounterData> combatEncounters;
     public List<EncounterData> corruptionEncounters;
 
+    [Header("Boss")]
+    public EncounterData bossEncounter;
+
     [Header("Events")]
     public List<EventData> events;
 }

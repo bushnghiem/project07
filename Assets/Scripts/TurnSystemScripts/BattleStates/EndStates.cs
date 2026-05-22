@@ -7,14 +7,49 @@ public class WinState : BattleState
 
     public override void Enter()
     {
-        RunManager.Instance.CurrentRun.currentFloorData.clearedCombatTiles.Add(RunManager.Instance.CurrentRun.currentFloorData.currentGridPosition);
-        EncounterData fightData = RunManager.Instance.CurrentRun.currentFloorData.currentEncounter;
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
+        EncounterData fightData = floor.currentEncounter;
+
+        // Rewards
         RewardManager.Instance.AddRunCurrency(fightData.runCurrencyReward);
         RewardManager.Instance.AddMetaCurrency(fightData.metaCurrencyReward);
+
+        // Handle encounter completion
+        switch (fightData.encounterType)
+        {
+            case EncounterType.Normal:
+
+                floor.clearedCombatTiles.Add(floor.currentGridPosition);
+
+                Debug.Log("Normal encounter cleared.");
+
+                break;
+
+            case EncounterType.Elite:
+
+                floor.clearedCombatTiles.Add(floor.currentGridPosition);
+
+                Debug.Log("Elite encounter cleared.");
+
+                break;
+
+            case EncounterType.Boss:
+
+                floor.bossDefeated = true;
+
+                Debug.Log("Boss defeated!");
+
+                break;
+        }
+
+        // Cleanup current encounter
+        //floor.currentEncounter = null;
+
         SaveManager.Instance.SaveRun();
         SaveManager.Instance.SaveMeta();
-        //TurnEvent.OnFightWon?.Invoke();
+
         SceneManager.LoadScene("TestGrid");
+
         Debug.Log("You Win!");
     }
 }

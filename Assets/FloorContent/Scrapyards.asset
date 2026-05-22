@@ -26,6 +26,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e0181069af6320f4e807c10a5b5ecb77, type: 2}
   corruptionEncounters:
   - {fileID: 11400000, guid: edfa626bb21edc846af9ffd61ea7488d, type: 2}
+  bossEncounter: {fileID: 11400000, guid: c65304e758cad2944b3c49293a936ad0, type: 2}
   events:
   - {fileID: 11400000, guid: 736f528aa4a37294bacc7b3e44419e82, type: 2}
   - {fileID: 11400000, guid: 7e89f20dde6630142b0c9c4a48bf387a, type: 2}

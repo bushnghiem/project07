@@ -25,4 +25,5 @@ public class FloorData
     public int corruptionRadius = -1;
 
     public bool hasInitializedSpawn = false;
+    public bool bossDefeated = false;
 }

@@ -137,6 +137,15 @@ public class GridMovement : MonoBehaviour
 
     public void HandlePortalTile()
     {
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
+
+        // Boss floor and boss not defeated yet
+        if (IsBossFloor() && !floor.bossDefeated)
+        {
+            StartBossFight();
+            return;
+        }
+
         StartCoroutine(HandleFloorTransition());
     }
 
@@ -186,5 +195,28 @@ public class GridMovement : MonoBehaviour
             nextCorruptionTimeThreshold = 5,
             corruptionRadius = -1
         };
+    }
+
+    bool IsBossFloor()
+    {
+        var run = RunManager.Instance.CurrentRun;
+
+        // Floors 3,6,9...
+        return (run.currentFloor + 1) % 3 == 0;
+    }
+
+    void StartBossFight()
+    {
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
+
+        floor.currentEncounter = floor.contentProfile.bossEncounter;
+
+        Debug.Log("Boss Fight: " + floor.currentEncounter?.encounterName);
+
+        shipHolder.RemovePlayersPassiveEffects();
+
+        SaveManager.Instance.SaveRun();
+
+        SceneManager.LoadScene("SpawnTestScene");
     }
 }
