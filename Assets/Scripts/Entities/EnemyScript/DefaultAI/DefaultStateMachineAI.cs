@@ -1,66 +1,51 @@
 ﻿using UnityEngine;
 
-public class StateMachineAI : EnemyAIBase
+public class StateMachineAI : EnemyAIBase 
 {
-    public BattleManager battleManager;
-
     [Header("Behavior")]
     public float preferredShootDistancePercent = 0.7f;
 
     [Header("Personality")]
     [Range(0f, 1f)] public float aggression = 0.7f;
-    [Range(0f, 1f)] public float orbitPreference = 0.5f;
+    [Range(0f, 1f)] public float orbitPreference = 0.5f; 
     [Range(0f, 1f)] public float decisiveness = 0.7f;
 
     [Header("Accuracy")]
-    [Range(0f, 20f)]
-    public float aimErrorAngle = 6f;
+    [Range(0f, 20f)] public float aimErrorAngle = 6f;
 
     private EnemyState idleState = new IdleState();
     private EnemyState moveState = new MoveState();
     private EnemyState attackState = new AttackState();
     private EnemyState orbitState = new OrbitState();
-
-    private EnemyState lastState;
-    private UnitActionExecutor executor;
-
+    private EnemyState lastState; private UnitActionExecutor executor;
     private void Awake()
+
     {
         if (battleManager == null)
         {
-            battleManager =
-                FindFirstObjectByType<BattleManager>();
+            battleManager = FindFirstObjectByType<BattleManager>();
         }
-
-        executor =
-            FindFirstObjectByType<UnitActionExecutor>();
+        executor = FindFirstObjectByType<UnitActionExecutor>(); 
     }
 
-    public override void TakeTurn(Enemy enemy)
-    {
-        EnemyState chosenState =
-            DecideState(enemy);
-
-        if (chosenState == null)
+    public override void TakeTurn(Enemy enemy) 
+    { 
+        EnemyState chosenState = DecideState(enemy); 
+        if (chosenState == null) 
         {
             enemy.EndTurn();
             return;
-        }
+        } 
 
-        UnitAction action =
-            chosenState.DecideAction(
-                enemy,
-                this
-            );
+        UnitAction action = chosenState.DecideAction(enemy, this);
 
         if (action == null)
         {
             enemy.EndTurn();
             return;
-        }
+        } 
 
         executor.Execute(action);
-
         lastState = chosenState;
     }
 
@@ -102,25 +87,21 @@ public class StateMachineAI : EnemyAIBase
 
         int blockedCount = 0;
         int samples = 2;
-
         for (int i = 0; i < samples; i++)
         {
             float testError = aimErrorAngle * (distance / maxShotRange);
             Vector3 testDir = EnemyAIUtility.ApplyAimError(dirToTarget, testError);
-
             if (EnemyAIUtility.IsShotBlockedByAlly(enemy, testDir, distance))
-                blockedCount++;
+                blockedCount++; 
         }
-
         float unsafeFactor = (float)blockedCount / samples;
 
         attack *= Mathf.Lerp(1f, 0.2f, unsafeFactor);
 
         float rand = 0.15f;
         attack += Random.Range(0f, rand);
-        move += Random.Range(0f, rand);
-        orbit += Random.Range(0f, rand);
-
+        move += Random.Range(0f, rand); 
+        orbit += Random.Range(0f, rand); 
         // "Stickiness" of actions
         if (lastState != null)
         {
@@ -137,9 +118,7 @@ public class StateMachineAI : EnemyAIBase
 
     public void ForceMove(Enemy enemy)
     {
-        UnitAction action =
-            moveState.DecideAction(enemy, this);
-
+        UnitAction action = moveState.DecideAction(enemy, this);
         if (action != null)
         {
             executor.Execute(action);

@@ -20,8 +20,9 @@ GameObject:
   - component: {fileID: 3702619891664605346}
   - component: {fileID: -7639077806755490702}
   - component: {fileID: -7074283443480327474}
-  - component: {fileID: 4698052969269132540}
   - component: {fileID: 3791339269249510641}
+  - component: {fileID: 6239330227619273706}
+  - component: {fileID: 6062124241288497016}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -168,7 +169,7 @@ MonoBehaviour:
   angularDamping: 2
   orbitSide: 1
   clickAndFlingComp: {fileID: 0}
-  aiComp: {fileID: 4698052969269132540}
+  aiComp: {fileID: 6239330227619273706}
   projectileDatabase: {fileID: 11400000, guid: 629b14458ca5a9f44841fc000b5eb679, type: 2}
   itemDatabase: {fileID: 11400000, guid: bfaea5ec0055b8a4ea4be52c7bee643b, type: 2}
 --- !u!114 &3374685751876068217
@@ -269,7 +270,20 @@ MonoBehaviour:
   minShootingForce: 2
   maxShootingForce: 20
   executor: {fileID: 3791339269249510641}
---- !u!114 &4698052969269132540
+--- !u!114 &3791339269249510641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8253756129412509392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3086223868213b4fa7e46e2d750428b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitActionExecutor
+  projectileSpawnRadius: 2
+--- !u!114 &6239330227619273706
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -287,7 +301,7 @@ MonoBehaviour:
   orbitPreference: 0.5
   decisiveness: 0.7
   aimErrorAngle: 6
---- !u!114 &3791339269249510641
+--- !u!114 &6062124241288497016
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -296,7 +310,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8253756129412509392}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3086223868213b4fa7e46e2d750428b, type: 3}
+  m_Script: {fileID: 11500000, guid: dd5dc575ec8b11647b68949efbc2ffbd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UnitActionExecutor
-  projectileSpawnRadius: 2
+  m_EditorClassIdentifier: Assembly-CSharp::RamStateMachineAI
+  battleManager: {fileID: 0}
+  ramDistanceThreshold: 3
+  aggression: 1
+  decisiveness: 0.8
