@@ -2,5 +2,8 @@ using UnityEngine;
 
 public abstract class EnemyState
 {
-    public abstract void Execute(Enemy enemy, StateMachineAI ai);
+    public abstract UnitAction DecideAction(
+        Enemy enemy,
+        StateMachineAI ai
+    );
 }

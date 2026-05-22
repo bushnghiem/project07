@@ -2,38 +2,63 @@
 
 public class AttackState : EnemyState
 {
-    public override void Execute(Enemy enemy, StateMachineAI ai)
+    public override UnitAction DecideAction(
+        Enemy enemy,
+        StateMachineAI ai)
     {
-        var target = EnemyAIUtility.GetClosestPlayer(enemy, ai.battleManager);
+        var target =
+            EnemyAIUtility.GetClosestPlayer(
+                enemy,
+                ai.battleManager
+            );
 
         if (target == null)
-        {
-            enemy.EndTurn();
-            return;
-        }
+            return null;
 
-        Vector3 direction = target.transform.position - enemy.transform.position;
+        Vector3 direction =
+            target.Position -
+            enemy.Position;
+
         direction.y = 0;
         direction.Normalize();
 
-        float distance = Vector3.Distance(enemy.transform.position, target.transform.position);
-        float maxShotRange = EnemyAIUtility.EstimateShotRange(enemy);
+        float distance =
+            Vector3.Distance(
+                enemy.Position,
+                target.Position
+            );
 
-        float power = distance / maxShotRange;
+        float maxRange =
+            EnemyAIUtility.EstimateShotRange(enemy);
 
-        // Add error
-        power += Random.Range(-0.15f, 0.2f);
-        power = Mathf.Clamp01(power);
+        float power =
+            Mathf.Clamp01(
+                distance / maxRange
+            );
 
-        float error = ai.aimErrorAngle * (distance / maxShotRange);
-        direction = EnemyAIUtility.ApplyAimError(direction, error);
+        float error =
+            ai.aimErrorAngle *
+            (distance / maxRange);
 
-        enemy.clickAndFlingComp.SetFlingable(true);
-        enemy.clickAndFlingComp.SetProjectileMode(true);
-        enemy.clickAndFlingComp.ExecuteFling(direction, power);
+        direction =
+            EnemyAIUtility.ApplyAimError(
+                direction,
+                error
+            );
 
-        enemy.Shoot();
-        enemy.SpendAP(1);
-        enemy.ActionResolved();
+        return new UnitAction
+        {
+            actor = enemy,
+
+            actionType =
+                ActionType.Shoot,
+
+            direction = direction,
+
+            powerPercent = power,
+
+            projectile =
+                enemy.GetProjectile()
+        };
     }
 }

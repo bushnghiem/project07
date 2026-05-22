@@ -4,38 +4,42 @@ using System;
 public class ClickAndFling : MonoBehaviour
 {
     Camera cam;
-    Rigidbody rb;
+
     Quaternion startRotation;
+
     private UnitBase owner;
 
-    Vector3 mouseStart; float zDistance;
-    [SerializeField] bool flingable = false;
-    [SerializeField] bool projectileMode = false;
-    [SerializeField] float projectileSpawnRadius = 2.0f;
+    Vector3 mouseStart;
+
+    [SerializeField]
+    bool flingable = false;
+
+    [SerializeField]
+    ActionType currentActionType;
+
     public Projectile projectile;
+
     bool isDragging = false;
 
     [Header("Force Settings")]
-    public float minMovementForce = 2f;
-    public float maxMovementForce = 20f;
-    public float minShootingForce = 2f;
-    public float maxShootingForce = 20f;
     public float maxDragDistance = 200f;
 
-    public event Action<Vector3, float> OnFling; // direction, force
+    public float minMovementForce = 2f;
+    public float maxMovementForce = 20f;
+
+    public float minShootingForce = 2f;
+    public float maxShootingForce = 20f;
+
+    [SerializeField]
+    private UnitActionExecutor executor;
 
     void Start()
     {
         cam = Camera.main;
-        rb = GetComponent<Rigidbody>();
-        startRotation = transform.rotation;
-        owner = GetComponent<UnitBase>();
-    }
 
-    public void SetForces(float movement, float shooting)
-    {
-        maxMovementForce = movement;
-        maxShootingForce = shooting;
+        startRotation = transform.rotation;
+
+        owner = GetComponent<UnitBase>();
     }
 
     public void SetFlingable(bool value)
@@ -43,14 +47,9 @@ public class ClickAndFling : MonoBehaviour
         flingable = value;
     }
 
-    public void SetProjectileMode(bool value)
+    public void SetActionType(ActionType type)
     {
-        projectileMode = value;
-    }
-
-    public bool GetProjectileMode()
-    {
-        return projectileMode;
+        currentActionType = type;
     }
 
     public void SetProjectile(Projectile newProjectile)
@@ -73,14 +72,20 @@ public class ClickAndFling : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && isDragging)
         {
             HandleRelease();
+
             isDragging = false;
         }
     }
 
     void TryStartDrag()
     {
-        if (!flingable) return;
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        if (!flingable)
+            return;
+
+        Ray ray =
+            cam.ScreenPointToRay(
+                Input.mousePosition
+            );
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
@@ -88,10 +93,12 @@ public class ClickAndFling : MonoBehaviour
             {
                 isDragging = true;
 
-                rb.linearVelocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
-                mouseStart = Input.mousePosition;
-                transform.rotation = startRotation;
+                mouseStart =
+                    Input.mousePosition;
+
+                transform.rotation =
+                    startRotation;
+
                 FlingEvent.OnPowerChanged?.Invoke(0f);
             }
         }
@@ -99,70 +106,101 @@ public class ClickAndFling : MonoBehaviour
 
     void HandleDrag()
     {
-        if (!flingable) return;
-        Vector3 drag = Input.mousePosition - mouseStart;
-        if (drag.magnitude < 1f) return;
-        float angleY = Mathf.Atan2(drag.x, drag.y) * Mathf.Rad2Deg;
-        transform.rotation = startRotation * Quaternion.Euler(0f, angleY, 0f);
-        float t = Mathf.Clamp01(drag.magnitude / maxDragDistance);
+        if (!flingable)
+            return;
+
+        Vector3 drag =
+            Input.mousePosition -
+            mouseStart;
+
+        if (drag.magnitude < 1f)
+            return;
+
+        float angleY =
+            Mathf.Atan2(
+                drag.x,
+                drag.y
+            ) * Mathf.Rad2Deg;
+
+        transform.rotation =
+            startRotation *
+            Quaternion.Euler(
+                0f,
+                angleY,
+                0f
+            );
+
+        float t =
+            Mathf.Clamp01(
+                drag.magnitude /
+                maxDragDistance
+            );
+
         FlingEvent.OnPowerChanged?.Invoke(t);
     }
 
     void HandleRelease()
     {
-        if (!flingable) return;
+        if (!flingable)
+            return;
 
-        Vector3 mouseEnd = Input.mousePosition;
-        Vector3 drag = mouseEnd - mouseStart;
+        Vector3 drag =
+            Input.mousePosition -
+            mouseStart;
 
-        float dragLength = drag.magnitude;
-        if (dragLength < 10f) return;
+        float dragLength =
+            drag.magnitude;
 
-        float t = Mathf.Clamp01(dragLength / maxDragDistance);
+        if (dragLength < 10f)
+            return;
 
-        Vector3 direction = new Vector3(-drag.x, 0, -drag.y);
-        direction.Normalize();
+        float t =
+            Mathf.Clamp01(
+                dragLength /
+                maxDragDistance
+            );
 
-        ExecuteFling(direction, t);
-    }
+        Vector3 direction =
+            new Vector3(
+                -drag.x,
+                0,
+                -drag.y
+            ).normalized;
 
-    public void ExecuteFling(Vector3 direction, float t)
-    {
-        if (!flingable) return;
-
-        direction.Normalize();
-
-        if (projectileMode)
-        {
-            float forceStrength = Mathf.Lerp(minShootingForce, maxShootingForce, t);
-
-            bool handled = owner != null &&
-                           owner.TriggerShootEffects(direction, forceStrength);
-
-            if (!handled)
+        UnitAction action =
+            new UnitAction
             {
-                Vector3 projectileSpawnPosition = transform.position + direction * projectileSpawnRadius;
+                actor = owner,
 
-                ProjectileSpawnEvent.OnProjectileSpawn?.Invoke(
-                    projectileSpawnPosition,
-                    direction,
-                    forceStrength,
-                    projectile,
-                    owner
-                );
-            }
+                actionType =
+                    currentActionType,
 
-            OnFling?.Invoke(direction, forceStrength);
-        }
-        else
+                direction = direction,
+
+                powerPercent = t,
+
+                projectile = projectile
+            };
+
+        if (executor == null)
         {
-            float forceStrength = Mathf.Lerp(minMovementForce, maxMovementForce, t);
-
-            rb.AddForce(direction * forceStrength, ForceMode.Impulse);
-
-            OnFling?.Invoke(direction, forceStrength);
+            executor = FindFirstObjectByType<UnitActionExecutor>();
         }
+
+        if (executor == null)
+        {
+            Debug.LogError("No UnitActionExecutor found in scene!");
+            return;
+        }
+
+        executor.Execute(action);
 
         FlingEvent.OnPowerChanged?.Invoke(0f);
+    }
+
+    public void SetForces(float movement, float shooting)
+    {
+        maxMovementForce = movement;
+        maxShootingForce = shooting;
     }
 }

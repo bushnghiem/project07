@@ -16,6 +16,9 @@ public class Player : UnitBase
     public ProjectileDatabase projectileDatabase; // Make sure it is assigned
     public ItemDatabase itemDatabase; // Make sure it is assigned
 
+    [SerializeField]
+    private UnitActionExecutor executor;
+
     protected override void Awake()
     {
         base.Awake();
@@ -32,7 +35,6 @@ public class Player : UnitBase
         healthComp.OnDamaged += HandleDamaged;
         healthComp.OnHealed += HandleHealed;
         healthComp.OnDeath += HandleDeath;
-        clickAndFlingComponent.OnFling += HandleFling;
     }
 
     private void OnDisable()
@@ -40,7 +42,6 @@ public class Player : UnitBase
         healthComp.OnDamaged -= HandleDamaged;
         healthComp.OnHealed -= HandleHealed;
         healthComp.OnDeath -= HandleDeath;
-        clickAndFlingComponent.OnFling -= HandleFling;
     }
 
     public override void Initialize(ShipRunData data)
@@ -96,23 +97,39 @@ public class Player : UnitBase
     public override void Move()
     {
         clickAndFlingComponent.SetFlingable(true);
-        clickAndFlingComponent.SetProjectileMode(false);
+
+        clickAndFlingComponent.SetActionType(
+            ActionType.Move
+        );
     }
 
     public override void Shoot()
     {
         clickAndFlingComponent.SetFlingable(true);
-        clickAndFlingComponent.SetProjectileMode(true);
+
+        clickAndFlingComponent.SetActionType(
+            ActionType.Shoot
+        );
     }
 
     public override void Item()
     {
-        base.Item();
-        if (activeItem != null && activeItem.Use(this, this))
+        EnsureExecutor();
+
+        if (executor == null)
         {
-            SpendAP(1);
-            ActionResolved();
+            Debug.LogError("No UnitActionExecutor found in scene.");
+            return;
         }
+
+        UnitAction action = new UnitAction
+        {
+            actor = this,
+            actionType = ActionType.Item,
+            activeItem = activeItem
+        };
+
+        executor.Execute(action);
     }
 
     public override void StartTurn()
@@ -125,8 +142,10 @@ public class Player : UnitBase
     public override void EndTurn()
     {
         base.EndTurn();
+
         clickAndFlingComponent.SetFlingable(false);
-        clickAndFlingComponent.SetProjectileMode(false);
+        clickAndFlingComponent.SetActionType(ActionType.Move);
+
         TurnEvent.OnUnitTurnEnd?.Invoke(this);
     }
 
@@ -182,23 +201,9 @@ public class Player : UnitBase
         Kill();
     }
 
-    private void HandleFling(Vector3 direction, float forceStrength)
+    private void EnsureExecutor()
     {
-        if (clickAndFlingComponent.GetProjectileMode())
-        {
-            Debug.Log("Shoot");
-            Shot(); // Signal shoot event for effects
-        }
-        else
-        {
-            Debug.Log("Move");
-            Moved();  // Signal move event for effects
-        }
-        SpendAP(1);
-
-        clickAndFlingComponent.SetFlingable(false);
-        ActionResolved();
+        if (executor == null)
+            executor = FindFirstObjectByType<UnitActionExecutor>();
     }
-
-    
 }

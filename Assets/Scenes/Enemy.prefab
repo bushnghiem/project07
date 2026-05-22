@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: -7639077806755490702}
   - component: {fileID: -7074283443480327474}
   - component: {fileID: 4698052969269132540}
+  - component: {fileID: 3791339269249510641}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -198,6 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dbc194c2475d134a8e20e68bf5cbcc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnCollision
+  statusEffects: []
   contactDamage: 15
   knockbackStrength: 12
 --- !u!114 &8374612290320036123
@@ -259,14 +261,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClickAndFling
   flingable: 0
-  projectileMode: 0
-  projectileSpawnRadius: 2
+  currentActionType: 0
   projectile: {fileID: 0}
+  maxDragDistance: 200
   minMovementForce: 2
   maxMovementForce: 20
   minShootingForce: 2
   maxShootingForce: 20
-  maxDragDistance: 200
+  executor: {fileID: 3791339269249510641}
 --- !u!114 &4698052969269132540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,3 +287,16 @@ MonoBehaviour:
   orbitPreference: 0.5
   decisiveness: 0.7
   aimErrorAngle: 6
+--- !u!114 &3791339269249510641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8253756129412509392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3086223868213b4fa7e46e2d750428b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitActionExecutor
+  projectileSpawnRadius: 2

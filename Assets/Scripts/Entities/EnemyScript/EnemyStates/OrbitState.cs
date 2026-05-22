@@ -2,36 +2,72 @@ using UnityEngine;
 
 public class OrbitState : EnemyState
 {
-    public override void Execute(Enemy enemy, StateMachineAI ai)
+    public override UnitAction DecideAction(
+        Enemy enemy,
+        StateMachineAI ai)
     {
-        var target = EnemyAIUtility.GetClosestPlayer(enemy, ai.battleManager);
+        var target =
+            EnemyAIUtility.GetClosestPlayer(
+                enemy,
+                ai.battleManager
+            );
+
         if (target == null)
+            return null;
+
+        float maxRange =
+            EnemyAIUtility.EstimateShotRange(enemy);
+
+        float desiredDistance =
+            maxRange *
+            ai.preferredShootDistancePercent;
+
+        float distance =
+            Vector3.Distance(
+                enemy.Position,
+                target.Position
+            );
+
+        float error =
+            Mathf.Abs(
+                distance -
+                desiredDistance
+            );
+
+        Vector3 dir =
+            EnemyAIUtility.GetOrbitDirection(
+                enemy,
+                target,
+                desiredDistance
+            );
+
+        dir =
+            EnemyAIUtility.GetSteeredDirection(
+                enemy,
+                dir
+            );
+
+        float power =
+            Mathf.Lerp(
+                0.4f,
+                0.8f,
+                error / desiredDistance
+            );
+
+        if (Random.value < 0.1f)
         {
-            enemy.EndTurn();
-            return;
+            enemy.orbitSide *= -1;
         }
 
-        float maxRange = EnemyAIUtility.EstimateShotRange(enemy);
-        float desiredDistance = maxRange * ai.preferredShootDistancePercent;
+        return new UnitAction
+        {
+            actor = enemy,
 
-        float distance = Vector3.Distance(enemy.Position, target.Position);
-        float error = Mathf.Abs(distance - desiredDistance);
+            actionType = ActionType.Move,
 
-        Vector3 dir = EnemyAIUtility.GetOrbitDirection(enemy, target, desiredDistance);
-        dir = EnemyAIUtility.GetSteeredDirection(enemy, dir);
+            direction = dir,
 
-        float power = Mathf.Lerp(0.4f, 0.8f, error / desiredDistance);
-
-        // Flip sometimes
-        if (Random.value < 0.1f)
-            enemy.orbitSide *= -1;
-
-        enemy.clickAndFlingComp.SetFlingable(true);
-        enemy.clickAndFlingComp.SetProjectileMode(false);
-        enemy.clickAndFlingComp.ExecuteFling(dir, power);
-
-        enemy.Move();
-        enemy.SpendAP(1);
-        enemy.ActionResolved();
+            powerPercent = power
+        };
     }
 }

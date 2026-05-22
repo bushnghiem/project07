@@ -22,16 +22,24 @@ public class StateMachineAI : EnemyAIBase
     private EnemyState orbitState = new OrbitState();
 
     private EnemyState lastState;
+    private UnitActionExecutor executor;
 
     private void Awake()
     {
         if (battleManager == null)
-            battleManager = FindFirstObjectByType<BattleManager>();
+        {
+            battleManager =
+                FindFirstObjectByType<BattleManager>();
+        }
+
+        executor =
+            FindFirstObjectByType<UnitActionExecutor>();
     }
 
     public override void TakeTurn(Enemy enemy)
     {
-        EnemyState chosenState = DecideState(enemy);
+        EnemyState chosenState =
+            DecideState(enemy);
 
         if (chosenState == null)
         {
@@ -39,7 +47,20 @@ public class StateMachineAI : EnemyAIBase
             return;
         }
 
-        chosenState.Execute(enemy, this);
+        UnitAction action =
+            chosenState.DecideAction(
+                enemy,
+                this
+            );
+
+        if (action == null)
+        {
+            enemy.EndTurn();
+            return;
+        }
+
+        executor.Execute(action);
+
         lastState = chosenState;
     }
 
@@ -116,7 +137,13 @@ public class StateMachineAI : EnemyAIBase
 
     public void ForceMove(Enemy enemy)
     {
-        moveState.Execute(enemy, this);
-        lastState = moveState;
+        UnitAction action =
+            moveState.DecideAction(enemy, this);
+
+        if (action != null)
+        {
+            executor.Execute(action);
+            lastState = moveState;
+        }
     }
 }
