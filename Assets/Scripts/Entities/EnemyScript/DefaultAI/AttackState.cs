@@ -2,24 +2,35 @@
 
 public class AttackState : EnemyState
 {
-    public override UnitAction DecideAction(Enemy enemy, EnemyAIBase ai)
-    {
-        var typedAI = ai as StateMachineAI;
-        if (typedAI == null) return null;
+    private float aimErrorAngle;
 
-        var target = EnemyAIUtility.GetClosestPlayer(enemy, typedAI.battleManager);
-        if (target == null) return null;
+    public AttackState(float aimErrorAngle)
+    {
+        this.aimErrorAngle = aimErrorAngle;
+    }
+
+    public override UnitAction DecideAction(
+        Enemy enemy,
+        BattleManager battleManager)
+    {
+        var target = EnemyAIUtility.GetClosestPlayer(enemy, battleManager);
+
+        if (target == null)
+            return null;
 
         Vector3 direction = target.Position - enemy.Position;
+
         direction.y = 0;
         direction.Normalize();
 
         float distance = Vector3.Distance(enemy.Position, target.Position);
+
         float maxRange = EnemyAIUtility.EstimateShotRange(enemy);
 
         float power = Mathf.Clamp01(distance / maxRange);
 
-        float error = typedAI.aimErrorAngle * (distance / maxRange);
+        float error = aimErrorAngle * (distance / maxRange);
+
         direction = EnemyAIUtility.ApplyAimError(direction, error);
 
         return new UnitAction

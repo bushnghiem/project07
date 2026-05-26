@@ -16,6 +16,7 @@ MonoBehaviour:
   enemies:
   - uniqueID: Shotgun Junker
     templateID: 3
+    aiBehaviorID: ram_ai
     currentHealth: 100
     isDead: 0
     statModifiers: []

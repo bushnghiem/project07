@@ -986,6 +986,7 @@ MonoBehaviour:
   enemyUnitPrefab: {fileID: 8253756129412509392, guid: 1ff7513c1271612409931f4defb8a356, type: 3}
   playerAnchor: {fileID: 476124623}
   enemyAnchor: {fileID: 1649102355}
+  aiDatabase: {fileID: 11400000, guid: a6128930e163a694b89bbae55b0bd190, type: 2}
 --- !u!4 &1738765428
 Transform:
   m_ObjectHideFlags: 0

@@ -9,13 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c09f9c2af01dfb44593435d2ea10e661, type: 3}
-  m_Name: Ram
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAIPersonality
-  aggression: 0.8
-  orbitPreference: 0
-  ramPreference: 1
-  aimErrorAngle: 0
-  preferredShootDistancePercent: 0
+  m_Script: {fileID: 11500000, guid: 6a5ddb83686c73e4fb87fc70bb4968f8, type: 3}
+  m_Name: RamAI
+  m_EditorClassIdentifier: Assembly-CSharp::RamAIBehavior
+  behaviorID: ram_ai
   ramDistanceThreshold: 3
-  decisiveness: 0.8

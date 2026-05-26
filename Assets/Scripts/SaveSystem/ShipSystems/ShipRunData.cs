@@ -8,6 +8,8 @@ public class ShipRunData
     public string uniqueID;
     public string templateID;
 
+    public string aiBehaviorID;
+
     public float currentHealth;
     public bool isDead;
 

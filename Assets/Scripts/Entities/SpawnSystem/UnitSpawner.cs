@@ -8,6 +8,8 @@ public class UnitSpawner : MonoBehaviour
     public Transform playerAnchor;
     public Transform enemyAnchor;
 
+    public AIDatabase aiDatabase;
+
     public void SetAnchorPositions(Vector3 playerAnchorPos, Vector3 enemyAnchorPos)
     {
         playerAnchor.position = playerAnchorPos;
@@ -24,7 +26,14 @@ public class UnitSpawner : MonoBehaviour
                 spawnPos = anchor.TransformPoint(formation.positions[i]);
 
             GameObject obj = Instantiate(prefab, spawnPos, Quaternion.identity);
-            obj.GetComponent<UnitBase>().Initialize(units[i]);
+            UnitBase unit = obj.GetComponent<UnitBase>();
+            unit.Initialize(units[i]);
+
+            Enemy enemy = unit as Enemy;
+            if (enemy != null)
+            {
+                enemy.aiController.InitializeFromRunData(units[i],aiDatabase);
+            }
         }
     }
 

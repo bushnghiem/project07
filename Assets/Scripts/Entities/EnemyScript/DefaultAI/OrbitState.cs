@@ -2,20 +2,28 @@ using UnityEngine;
 
 public class OrbitState : EnemyState
 {
-    public override UnitAction DecideAction(Enemy enemy, EnemyAIBase ai)
-    {
-        var typedAI = ai as StateMachineAI;
-        if (typedAI == null) return null;
+    private float preferredShootDistancePercent;
 
-        var target = EnemyAIUtility.GetClosestPlayer(enemy, typedAI.battleManager);
-        if (target == null) return null;
+    public OrbitState(float preferredShootDistancePercent)
+    {
+        this.preferredShootDistancePercent = preferredShootDistancePercent;
+    }
+
+    public override UnitAction DecideAction(Enemy enemy, BattleManager battleManager)
+    {
+        var target = EnemyAIUtility.GetClosestPlayer(enemy, battleManager);
+
+        if (target == null)
+            return null;
 
         float maxRange = EnemyAIUtility.EstimateShotRange(enemy);
-        float desiredDistance = maxRange * typedAI.preferredShootDistancePercent;
+
+        float desiredDistance = maxRange * preferredShootDistancePercent;
 
         float distance = Vector3.Distance(enemy.Position, target.Position);
 
         Vector3 dir = EnemyAIUtility.GetOrbitDirection(enemy, target, desiredDistance);
+
         dir = EnemyAIUtility.GetSteeredDirection(enemy, dir);
 
         float error = Mathf.Abs(distance - desiredDistance);

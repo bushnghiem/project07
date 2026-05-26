@@ -16,6 +16,7 @@ MonoBehaviour:
   enemies:
   - uniqueID: Scrap Boss
     templateID: scrap_boss
+    aiBehaviorID: default_ai
     currentHealth: 300
     isDead: 0
     statModifiers: []

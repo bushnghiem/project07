@@ -9,7 +9,7 @@ public class Enemy : UnitBase
     public int orbitSide = 1;
 
     public ClickAndFling clickAndFlingComp;
-    public EnemyAIBase aiComp;
+    public EnemyAIController aiController;
 
     private Collider[] colliders;
     private Renderer[] renderers;
@@ -24,6 +24,8 @@ public class Enemy : UnitBase
         base.Awake();
 
         clickAndFlingComp = GetComponent<ClickAndFling>();
+        aiController = GetComponent<EnemyAIController>();
+
         colliders = GetComponentsInChildren<Collider>();
         renderers = GetComponentsInChildren<Renderer>();
 
@@ -104,7 +106,7 @@ public class Enemy : UnitBase
     {
         base.StartTurn();
         TurnEvent.OnUnitTurnStart?.Invoke(this);
-        aiComp?.TakeTurn(this);
+        aiController?.TakeTurn();
     }
 
     public override void ContinueTurn()
@@ -115,7 +117,7 @@ public class Enemy : UnitBase
     private IEnumerator ContinueWithDelay()
     {
         yield return new WaitForSeconds(0.3f);
-        aiComp?.TakeTurn(this);
+        aiController?.TakeTurn();
     }
 
     public override void EndTurn()
