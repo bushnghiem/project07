@@ -103,6 +103,12 @@ public class Player : UnitBase
         );
     }
 
+    public override void Moved()
+    {
+        base.Moved();
+        clickAndFlingComponent.SetFlingable(false);
+    }
+
     public override void Shoot()
     {
         clickAndFlingComponent.SetFlingable(true);

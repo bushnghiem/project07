@@ -410,7 +410,7 @@ public abstract class UnitBase : MonoBehaviour, Unit
         Debug.Log($"{gameObject.name} gained {amount} shield");
     }
 
-    public void Moved()
+    public virtual void Moved()
     {
         EventBus.Raise(new UnitEvent
         {

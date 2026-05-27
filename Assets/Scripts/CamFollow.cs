@@ -4,59 +4,58 @@ public class CamFollow : MonoBehaviour
 {
     public Entity target;
 
-    public Vector3 offset;
-    public float smoothSpeed = 0.125f;
+    private Unit currentUnit;
 
+    public Vector3 offset;
+    public float smoothTime = 0.2f;
+
+    private Vector3 velocity;
 
     private void OnEnable()
     {
         TurnEvent.OnUnitTurnStart += HandleUnitTurnStart;
-        TurnEvent.OnUnitContinueTurn += HandleUnitTurnStart;
         DeathEvent.OnEntityDeath += HandleDeath;
-        ProjectileSpawnEvent.AddCamFollow += HandleCamFollow;
+        ProjectileSpawnEvent.AddCamFollow += HandleProjectileFollow;
     }
 
     private void OnDisable()
     {
         TurnEvent.OnUnitTurnStart -= HandleUnitTurnStart;
-        TurnEvent.OnUnitContinueTurn -= HandleUnitTurnStart;
         DeathEvent.OnEntityDeath -= HandleDeath;
-        ProjectileSpawnEvent.AddCamFollow -= HandleCamFollow;
+        ProjectileSpawnEvent.AddCamFollow -= HandleProjectileFollow;
     }
 
-    public void HandleUnitTurnStart(Unit unit)
+    void HandleUnitTurnStart(Unit unit)
     {
-        if (unit != null)
+        currentUnit = unit;
+
+        // Don't override projectile tracking if desired
+        if (!(target is Projectile))
         {
-            Debug.Log("Swapped to " + unit);
             target = unit;
         }
     }
 
-    public void HandleDeath(Entity entity)
+    void HandleProjectileFollow(Entity entity)
+    {
+        target = entity;
+    }
+
+    void HandleDeath(Entity entity)
     {
         if (entity == target)
         {
-            //Debug.Log(entity + " died");
-            target = null;
-        }
-    }
-
-    public void HandleCamFollow(Entity entity)
-    {
-        if (entity != null)
-        {
-            Debug.Log("Swapped to " + entity);
-            target = entity;
+            target = currentUnit;
         }
     }
 
     void LateUpdate()
     {
-        if (target != null)
-        {
-            Vector3 desiredPosition = target.Position + offset;
-            transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-        }
+        if (target == null)
+            return;
+
+        Vector3 desiredPosition = target.Position + offset;
+
+        transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothTime);
     }
 }
