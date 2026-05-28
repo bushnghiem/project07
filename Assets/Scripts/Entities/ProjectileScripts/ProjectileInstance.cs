@@ -164,12 +164,20 @@ public class ProjectileInstance : MonoBehaviour, Entity
 
     void FixedUpdate()
     {
-        if (!template.dieWhenStopped || isDead) return;
+        if (isDead) return;
 
         if (rb.linearVelocity.sqrMagnitude < template.velocityThreshold * template.velocityThreshold)
         {
             stopTimer += Time.fixedDeltaTime;
-            if (stopTimer >= template.stopTimeRequired) Expire();
+            if (stopTimer >= template.stopTimeRequired)
+            {
+                ProjectileEvent.OnProjectileStopped?.Invoke(this);
+                if (template.dieWhenStopped)
+                {
+                    Expire();
+                }
+            }
+                
         }
         else stopTimer = 0f;
     }

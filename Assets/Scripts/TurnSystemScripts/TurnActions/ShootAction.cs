@@ -6,8 +6,9 @@ public class ShootAction : TurnAction
 
     public void Execute(Unit unit)
     {
-        //Debug.Log(unit + " is shooting");
-        // enter attack targeting mode
+        CameraEvent.LockCamera?.Invoke();
+        CameraEvent.RecenterCamera?.Invoke();
+
         unit.Shoot();
     }
 }

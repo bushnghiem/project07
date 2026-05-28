@@ -6,8 +6,9 @@ public class MoveAction : TurnAction
 
     public void Execute(Unit unit)
     {
-        //Debug.Log(unit + " is moving");
-        // enter movement targeting mode
+        CameraEvent.LockCamera?.Invoke();
+        CameraEvent.RecenterCamera?.Invoke();
+
         unit.Move();
     }
 }
