@@ -757,21 +757,24 @@ MonoBehaviour:
       shops: []
       corruptionRadius: -1
       hasInitializedSpawn: 0
+      bossDefeated: 0
     completedFloors: []
     playerFormation: {fileID: 11400000, guid: ea09909161c27d04d923a2d9c407861b, type: 2}
     team:
     - uniqueID: StartShip1
       templateID: 0
+      aiBehaviorID: 
       currentHealth: 100
       isDead: 0
       statModifiers: []
       items:
       - itemID: projectile_basic
       - itemID: passive_maxhp_up
-      - itemID: active_heal_100
+      - itemID: active_test
       - itemID: passive_heal_turn
     - uniqueID: StartShip1
       templateID: 0
+      aiBehaviorID: 
       currentHealth: 100
       isDead: 0
       statModifiers: []

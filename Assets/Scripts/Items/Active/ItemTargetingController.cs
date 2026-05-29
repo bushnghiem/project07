@@ -13,6 +13,7 @@ public class ItemTargetingController : MonoBehaviour
 
     public void BeginTargeting(UnitBase user, ActiveItemInstance item)
     {
+        Debug.Log("Item range: " + item.itemData.range);
         if (user == null)
         {
             Debug.LogWarning("BeginTargeting failed: user is null");
@@ -113,6 +114,7 @@ public class ItemTargetingController : MonoBehaviour
 
             ExecuteItem(data);
         }
+        Debug.Log("Hit object: " + hit.collider.name);
     }
 
     private void ConfirmUnit()

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46c35c6c87528b147993c7492b310b1d, type: 3}
+  m_Name: TestField
+  m_EditorClassIdentifier: Assembly-CSharp::DamageFieldItem
+  itemID: active_test
+  itemName: dam field
+  icon: {fileID: 0}
+  description: 
+  price: 100
+  slotType: 0
+  cooldownTurns: 2
+  range: 100000
+  fieldPrefab: {fileID: 216280543112345849, guid: 48c6bc9704dd7f34f85fc60e125f098c, type: 3}
