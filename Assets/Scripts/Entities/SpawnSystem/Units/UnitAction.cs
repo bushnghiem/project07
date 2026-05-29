@@ -29,6 +29,8 @@ public class UnitAction
 
     public ActiveItemInstance activeItem;
 
+    public ItemTargetData itemTargetData;
+
     // Costs
     public int apCost = 1;
 }

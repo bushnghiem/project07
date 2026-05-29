@@ -20,7 +20,6 @@ GameObject:
   - component: {fileID: 2481838852082444043}
   - component: {fileID: 1479998179400794727}
   - component: {fileID: 1668516504558228359}
-  - component: {fileID: 5289091741984117853}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -169,7 +168,7 @@ MonoBehaviour:
   maxMovementForce: 300
   minShootingForce: 2
   maxShootingForce: 10
-  executor: {fileID: 5289091741984117853}
+  executor: {fileID: 0}
 --- !u!114 &2875450249567645148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,19 +267,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d098c8c8911bc240b6b9c8735420177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffectController
---- !u!114 &5289091741984117853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7295725305768939094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3086223868213b4fa7e46e2d750428b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UnitActionExecutor
-  projectileSpawnRadius: 2
 --- !u!1001 &7491458859326076987
 PrefabInstance:
   m_ObjectHideFlags: 0

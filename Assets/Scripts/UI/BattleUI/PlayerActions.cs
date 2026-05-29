@@ -15,7 +15,12 @@ public class PlayerActions : MonoBehaviour
 
     private TurnAction moveAction = new MoveAction();
     private TurnAction shootAction = new ShootAction();
-    private TurnAction itemAction = new ItemAction();
+
+
+    [SerializeField]
+    private ItemTargetingController targetingController;
+
+    private TurnAction itemAction;
 
     private void OnEnable()
     {
@@ -41,7 +46,18 @@ public class PlayerActions : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //Debug.Log("Added button clicks");
+        if (targetingController == null)
+        {
+            targetingController = FindFirstObjectByType<ItemTargetingController>();
+        }
+
+        if (targetingController == null)
+        {
+            Debug.LogError("No ItemTargetingController found in scene");
+            return;
+        }
+        itemAction = new ItemAction(targetingController);
+
         moveButton.onClick.AddListener(() => Execute(moveAction));
         attackButton.onClick.AddListener(() => Execute(shootAction));
         itemButton.onClick.AddListener(() => Execute(itemAction));

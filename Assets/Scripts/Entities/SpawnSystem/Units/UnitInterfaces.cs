@@ -29,4 +29,6 @@ public interface Unit : Movable, Shootable, Entity
     void EndTurn();
 
     void ActionResolved();
+
+    ActiveItemInstance GetActiveItem();
 }

@@ -63,7 +63,7 @@ public class EnemyAIController : MonoBehaviour
             return;
         }
 
-        UnitAction action =currentBehavior.DecideAction(enemy, battleManager, context);
+        UnitAction action = currentBehavior.DecideAction(enemy, battleManager, context);
 
         if (action == null)
         {

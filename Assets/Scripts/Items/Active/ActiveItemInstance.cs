@@ -4,6 +4,7 @@
 public class ActiveItemInstance
 {
     public ActiveItem itemData;
+
     private int remainingCooldown = 0;
 
     public ActiveItemInstance(ActiveItem data)
@@ -16,13 +17,19 @@ public class ActiveItemInstance
         return remainingCooldown <= 0;
     }
 
-    public bool Use(Unit user, Unit target)
+    public bool Use(
+        Unit user,
+        ItemTargetData targetData
+    )
     {
         if (!CanUse())
             return false;
 
-        itemData.Activate(user, target);
-        remainingCooldown = itemData.cooldownTurns;
+        itemData.Execute(user, targetData);
+
+        remainingCooldown =
+            itemData.cooldownTurns;
+
         return true;
     }
 
@@ -32,5 +39,8 @@ public class ActiveItemInstance
             remainingCooldown--;
     }
 
-    public int GetRemainingCooldown() => remainingCooldown;
+    public int GetRemainingCooldown()
+    {
+        return remainingCooldown;
+    }
 }

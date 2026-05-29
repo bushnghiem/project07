@@ -102,7 +102,7 @@ public class UnitActionExecutor : MonoBehaviour
         bool used =
             action.activeItem.Use(
                 action.actor,
-                action.actor
+                action.itemTargetData
             );
 
         if (!used)

@@ -16,7 +16,6 @@ public class Player : UnitBase
     public ProjectileDatabase projectileDatabase; // Make sure it is assigned
     public ItemDatabase itemDatabase; // Make sure it is assigned
 
-    [SerializeField]
     private UnitActionExecutor executor;
 
     protected override void Awake()
@@ -25,6 +24,7 @@ public class Player : UnitBase
 
         colliders = GetComponentsInChildren<Collider>();
         renderers = GetComponentsInChildren<Renderer>();
+        executor = FindFirstObjectByType<UnitActionExecutor>();
 
         rb.linearDamping = linearDamping;
         rb.angularDamping = angularDamping;

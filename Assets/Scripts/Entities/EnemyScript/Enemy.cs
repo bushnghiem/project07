@@ -95,9 +95,6 @@ public class Enemy : UnitBase
 
     public override void Item()
     {
-        if (activeItem != null)
-            activeItem.Use(this, this); // Use on self for enemies
-
         Debug.Log("Enemy Used Item");
         EndTurn();
     }

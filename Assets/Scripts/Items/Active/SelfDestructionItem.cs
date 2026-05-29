@@ -5,10 +5,14 @@ public class SelfDestructionItem : ActiveItem
 {
     public Effect explosion;
 
-    public override void Activate(Unit user, Unit target)
-    {
-        if (target == null) return;
+    public override ItemTargetType TargetType =>
+        ItemTargetType.Self;
 
+    public override void Execute(
+        Unit user,
+        ItemTargetData data
+    )
+    {
         EffectContext context = new EffectContext(
             user.Position,
             user.GameObject,

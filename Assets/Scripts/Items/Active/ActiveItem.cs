@@ -3,7 +3,9 @@
 public abstract class ActiveItem : Item
 {
     public int cooldownTurns = 2;
+    public float range = 10f;
 
+    public abstract ItemTargetType TargetType { get; }
     private void OnEnable()
     {
         slotType = ItemSlotType.Active;
@@ -14,7 +16,8 @@ public abstract class ActiveItem : Item
         unit.EquipActive(this);
     }
 
-    public virtual void Activate(Unit user, Unit target)
-    {
-    }
+    public abstract void Execute(
+        Unit user,
+        ItemTargetData targetData
+    );
 }

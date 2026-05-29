@@ -5,15 +5,21 @@ public class ShieldItem : ActiveItem
 {
     public int shieldAmount = 1;
 
-    public override void Activate(Unit user, Unit target)
-    {
-        if (target == null) return;
+    public override ItemTargetType TargetType =>
+        ItemTargetType.Self;
 
-        // Use the public method on UnitBase
-        if (target is UnitBase unit)
+    public override void Execute(
+        Unit user,
+        ItemTargetData data
+    )
+    {
+        if (user is UnitBase unit)
         {
             unit.AddShield(shieldAmount);
-            Debug.Log($"{unit.gameObject.name} gained {shieldAmount} shield");
+
+            Debug.Log(
+                $"{unit.gameObject.name} gained {shieldAmount} shield"
+            );
         }
     }
 }
