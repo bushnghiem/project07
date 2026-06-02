@@ -3,27 +3,42 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Effect/Projectile Spawn")]
 public class CleanProjectileSpawnEffect : Effect
 {
-    public Projectile projectile;
-    public int count = 1;
-    public float spread = 1f;
+    public float spreadAngle = 30f;
+    public int projectileCount = 5;
 
     public override void Execute(EffectContext context)
     {
-        float angleStep = 360f / count;
+        Projectile projectile = context.owner.GetProjectile();
 
-        for (int i = 0; i < count; i++)
+        if (projectile == null)
+            return;
+
+        for (int i = 0; i < projectileCount; i++)
         {
-            float angle = angleStep * i;
+            float t =
+                projectileCount == 1
+                ? 0.5f
+                : i / (float)(projectileCount - 1);
 
-            Vector3 dir = Quaternion.Euler(0, angle, 0) * Vector3.forward;
+            float angle =
+                Mathf.Lerp(
+                    -spreadAngle * 0.5f,
+                    spreadAngle * 0.5f,
+                    t);
 
-            Vector3 spawnPos = context.position + dir * spread;
+            Vector3 dir =
+                Quaternion.AngleAxis(angle, Vector3.up)
+                * context.direction.normalized;
+
+            Vector3 spawnPos =
+                context.position +
+                dir.normalized * 2f;
 
             ProjectileSpawnEvent.OnProjectileSpawn?.Invoke(
                 spawnPos,
                 dir,
-                5f,
-                projectile,
+                context.force,
+                context.owner.GetProjectile(),
                 context.owner
             );
         }

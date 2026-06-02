@@ -772,6 +772,7 @@ MonoBehaviour:
       - itemID: passive_maxhp_up
       - itemID: active_test
       - itemID: passive_heal_turn
+      - itemID: passive_explosive_death
     - uniqueID: StartShip1
       templateID: 0
       aiBehaviorID: 
@@ -782,6 +783,7 @@ MonoBehaviour:
       - itemID: projectile_iron_ball
       - itemID: passive_heal_kill
       - itemID: active_shield
+      - itemID: passive_trishot
     runCurrency: 0
 --- !u!1 &2011352280
 GameObject:

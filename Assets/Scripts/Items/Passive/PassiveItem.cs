@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public abstract class PassiveItem : Item
 {
     private void OnEnable()
@@ -15,4 +13,15 @@ public abstract class PassiveItem : Item
     public abstract void ApplyEffect(Unit unit);
 
     public virtual void RemoveEffect(Unit unit) { }
+
+    // Optional instance-aware versions
+    public virtual void ApplyEffect(Unit unit, PassiveItemInstance instance)
+    {
+        ApplyEffect(unit);
+    }
+
+    public virtual void RemoveEffect(Unit unit, PassiveItemInstance instance)
+    {
+        RemoveEffect(unit);
+    }
 }

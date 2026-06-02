@@ -1,9 +1,12 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class PassiveItemInstance
 {
     public PassiveItem itemData;
+
+    public List<Effect> injectedEffects = new();
 
     public PassiveItemInstance(PassiveItem data)
     {
@@ -12,11 +15,11 @@ public class PassiveItemInstance
 
     public void Apply(Unit unit)
     {
-        itemData.ApplyEffect(unit);
+        itemData.ApplyEffect(unit, this);
     }
 
     public void Remove(Unit unit)
     {
-        itemData.RemoveEffect(unit);
+        itemData.RemoveEffect(unit, this);
     }
 }

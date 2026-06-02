@@ -205,7 +205,6 @@ MonoBehaviour:
   clickAndFlingComponent: {fileID: 7007496768919672062}
   projectileDatabase: {fileID: 11400000, guid: 629b14458ca5a9f44841fc000b5eb679, type: 2}
   itemDatabase: {fileID: 11400000, guid: bfaea5ec0055b8a4ea4be52c7bee643b, type: 2}
-  executor: {fileID: 0}
 --- !u!114 &4614211871170628527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,8 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1edba893152b6b47a4db01b832b5203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EffectController
-  effects:
-  - {fileID: 11400000, guid: de3dc3fcb0820574da50be9b7d50b50a, type: 2}
+  effects: []
 --- !u!114 &1668516504558228359
 MonoBehaviour:
   m_ObjectHideFlags: 0
