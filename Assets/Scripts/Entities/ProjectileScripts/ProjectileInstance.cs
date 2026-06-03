@@ -78,6 +78,13 @@ public class ProjectileInstance : MonoBehaviour, Entity
 
         collisionDamageComp.SetCollisionStats(damage, knockback);
 
+        if (owner != null)
+        {
+            collisionDamageComp.statusEffects.AddRange(
+                owner.ProjectileCollisionStatusModifiers
+            );
+        }
+
         if (template.useLifetime)
         {
             Invoke(nameof(Expire), template.lifeTime);
@@ -89,7 +96,30 @@ public class ProjectileInstance : MonoBehaviour, Entity
     {
         if (effectController == null) return;
 
-        effectController.effects.AddRange(template.effects);
+        if (template.effects != null)
+        {
+            foreach (var effect in template.effects)
+            {
+                if (effect == null)
+                    continue;
+
+                effectController.effects.Add(
+                    Instantiate(effect)
+                );
+            }
+        }
+
+        if (owner != null)
+        {
+            foreach (var effect in owner.ProjectileEffectModifiers)
+            {
+                if (effect == null)
+                    continue;
+                Effect projectileRuntimeEffect = Instantiate(effect);
+
+                effectController.effects.Add(projectileRuntimeEffect);
+            }
+        }
     }
 
     void ApplyScale()
@@ -126,6 +156,8 @@ public class ProjectileInstance : MonoBehaviour, Entity
     public void Hurt(DamageInfo damageInfo)
     {
         healthComp.Hurt(damageInfo);
+        if (effectController != null)
+            effectController.TriggerEffects(EffectTrigger.OnHit, transform.position, owner);
     }
 
     public void Heal(float amount) => healthComp.Heal(amount);
@@ -155,7 +187,7 @@ public class ProjectileInstance : MonoBehaviour, Entity
 
         CancelInvoke();
 
-        if ((template.doesExplode) && (effectController != null))
+        if (effectController != null)
             effectController.TriggerEffects(EffectTrigger.OnDeath, transform.position, owner);
 
         Kill();

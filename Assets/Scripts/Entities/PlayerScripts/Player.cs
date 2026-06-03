@@ -52,6 +52,9 @@ public class Player : UnitBase
         ClearAllStatModifiers();
         passiveItems.Clear();
 
+        projectileEffectModifiers.Clear();
+        onShootEffectsFromProjectile.Clear();
+
         InitializeItems();
 
         float moveStrength = GetStat(ShipStatType.MoveStrength);

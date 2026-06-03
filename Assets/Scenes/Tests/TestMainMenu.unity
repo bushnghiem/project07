@@ -784,6 +784,8 @@ MonoBehaviour:
       - itemID: passive_heal_kill
       - itemID: active_shield
       - itemID: passive_trishot
+      - itemID: passive_projectile_explosive_death
+      - itemID: passive_all_fire
     runCurrency: 0
 --- !u!1 &2011352280
 GameObject:

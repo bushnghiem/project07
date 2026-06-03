@@ -27,7 +27,13 @@ public abstract class UnitBase : MonoBehaviour, Unit
     protected Projectile projectile;
     protected List<PassiveItemInstance> passiveItems = new List<PassiveItemInstance>();
 
-    protected List<Effect> projectileInjectedEffects = new();
+    protected List<Effect> onShootEffectsFromProjectile = new();
+    protected List<Effect> projectileEffectModifiers = new();
+    public IReadOnlyList<Effect> ProjectileEffectModifiers => projectileEffectModifiers;
+
+    protected List<StatusEffectData> projectileCollisionStatusModifiers = new();
+    public IReadOnlyList<StatusEffectData> ProjectileCollisionStatusModifiers
+        => projectileCollisionStatusModifiers;
 
     protected ItemDatabase itemDatabaseRef;
 
@@ -181,7 +187,7 @@ public abstract class UnitBase : MonoBehaviour, Unit
 
         if (effectController == null) return;
 
-        RemoveProjectileEffects(effectController);
+        RemoveOnShootProjectileInjectedEffects(effectController);
 
         if (proj.effects != null)
         {
@@ -189,21 +195,42 @@ public abstract class UnitBase : MonoBehaviour, Unit
             {
                 if (effect.trigger == EffectTrigger.OnShoot)
                 {
-                    effectController.effects.Add(effect);
-                    projectileInjectedEffects.Add(effect);
+                    Effect projectileInjectedEffect = Instantiate(effect);
+                    effectController.effects.Add(projectileInjectedEffect);
+                    onShootEffectsFromProjectile.Add(projectileInjectedEffect);
                 }
             }
         }
     }
 
-    protected void RemoveProjectileEffects(EffectController effectController)
+    protected void RemoveOnShootProjectileInjectedEffects(EffectController effectController)
     {
-        foreach (var effect in projectileInjectedEffects)
+        foreach (var effect in onShootEffectsFromProjectile)
         {
             effectController.effects.Remove(effect);
         }
 
-        projectileInjectedEffects.Clear();
+        onShootEffectsFromProjectile.Clear();
+    }
+
+    public void AddProjectileRuntimeEffect(Effect effect)
+    {
+        projectileEffectModifiers.Add(effect);
+    }
+
+    public void RemoveProjectileRuntimeEffect(Effect effect)
+    {
+        projectileEffectModifiers.Remove(effect);
+    }
+
+    public void AddProjectileCollisionStatus(StatusEffectData effect)
+    {
+        projectileCollisionStatusModifiers.Add(effect);
+    }
+
+    public void RemoveProjectileCollisionStatus(StatusEffectData effect)
+    {
+        projectileCollisionStatusModifiers.Remove(effect);
     }
 
     public void AddItemToRunData(Item item)
