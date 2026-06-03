@@ -2,30 +2,44 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Items/Modifiers/Projectile Collision Status")]
-public class ProjectileCollisionStatusModifier
-    : PassiveModifier
+public class ProjectileCollisionStatusModifier : PassiveModifier
 {
-    public List<StatusEffectData> statusEffects = new();
-
-    public override void Apply(
-        UnitBase unit,
-        PassiveItemInstance instance)
+    [System.Serializable]
+    public class Entry
     {
-        foreach (var effect in statusEffects)
+        public StatusEffectData effect;
+        public int stacks = 1;
+    }
+
+    public List<Entry> statusEffects = new();
+
+    public override void Apply(UnitBase unit, PassiveItemInstance instance)
+    {
+        foreach (var entry in statusEffects)
         {
-            unit.AddProjectileCollisionStatus(
-                effect);
+            if (entry.effect == null)
+                continue;
+
+            unit.AddProjectileCollisionStatus(new AppliedStatusEffect
+            {
+                effect = entry.effect,
+                stacks = entry.stacks
+            });
         }
     }
 
-    public override void Remove(
-        UnitBase unit,
-        PassiveItemInstance instance)
+    public override void Remove(UnitBase unit, PassiveItemInstance instance)
     {
-        foreach (var effect in statusEffects)
+        foreach (var entry in statusEffects)
         {
-            unit.RemoveProjectileCollisionStatus(
-                effect);
+            if (entry.effect == null)
+                continue;
+
+            unit.RemoveProjectileCollisionStatus(new AppliedStatusEffect
+            {
+                effect = entry.effect,
+                stacks = entry.stacks
+            });
         }
     }
 }

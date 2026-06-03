@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Projectile Burn Collision
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileCollisionStatusModifier
   statusEffects:
-  - {fileID: 11400000, guid: cc1bed43c2b5dcf428b9de7e3c74158e, type: 2}
+  - effect: {fileID: 11400000, guid: cc1bed43c2b5dcf428b9de7e3c74158e, type: 2}
+    stacks: 2

@@ -31,8 +31,8 @@ public abstract class UnitBase : MonoBehaviour, Unit
     protected List<Effect> projectileEffectModifiers = new();
     public IReadOnlyList<Effect> ProjectileEffectModifiers => projectileEffectModifiers;
 
-    protected List<StatusEffectData> projectileCollisionStatusModifiers = new();
-    public IReadOnlyList<StatusEffectData> ProjectileCollisionStatusModifiers
+    protected List<AppliedStatusEffect> projectileCollisionStatusModifiers = new();
+    public IReadOnlyList<AppliedStatusEffect> ProjectileCollisionStatusModifiers
         => projectileCollisionStatusModifiers;
 
     protected ItemDatabase itemDatabaseRef;
@@ -154,9 +154,27 @@ public abstract class UnitBase : MonoBehaviour, Unit
         ApplyStats();
     }
 
-    public void SetCollisionStatusEffects(List<StatusEffectData> newStatusEffects)
+    public void SetCollisionStatusEffects(List<AppliedStatusEffect> newStatusEffects)
     {
         collisionDamageComp.statusEffects = newStatusEffects;
+    }
+
+    public void AddCollisionStatusEffects(List<AppliedStatusEffect> newStatusEffects)
+    {
+        foreach (var status in newStatusEffects)
+        {
+            collisionDamageComp.statusEffects.Add(status);
+        }
+    }
+
+    public void RemoveCollisionStatusEffects(List<AppliedStatusEffect> toRemove)
+    {
+        foreach (var remove in toRemove)
+        {
+            collisionDamageComp.statusEffects.RemoveAll(s =>
+                s.sourceID == remove.sourceID
+            );
+        }
     }
 
     public virtual void EquipPassive(PassiveItem passive)
@@ -223,12 +241,12 @@ public abstract class UnitBase : MonoBehaviour, Unit
         projectileEffectModifiers.Remove(effect);
     }
 
-    public void AddProjectileCollisionStatus(StatusEffectData effect)
+    public void AddProjectileCollisionStatus(AppliedStatusEffect effect)
     {
         projectileCollisionStatusModifiers.Add(effect);
     }
 
-    public void RemoveProjectileCollisionStatus(StatusEffectData effect)
+    public void RemoveProjectileCollisionStatus(AppliedStatusEffect effect)
     {
         projectileCollisionStatusModifiers.Remove(effect);
     }

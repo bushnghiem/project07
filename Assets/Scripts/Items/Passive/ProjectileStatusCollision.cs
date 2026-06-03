@@ -4,31 +4,48 @@ using System.Collections.Generic;
 [CreateAssetMenu(menuName = "Items/Passive/Projectile Status")]
 public class ProjectileStatusCollision : PassiveItem
 {
-    public List<StatusEffectData> statusEffects = new();
+    [System.Serializable]
+    public class Entry
+    {
+        public StatusEffectData effect;
+        public int stacks = 1;
+    }
 
-    public override void ApplyEffect(
-        Unit unit,
-        PassiveItemInstance instance)
+    public List<Entry> statusEffects = new();
+
+    public override void ApplyEffect(Unit unit, PassiveItemInstance instance)
     {
         if (unit is not UnitBase unitBase)
             return;
 
-        foreach (var effect in statusEffects)
+        foreach (var entry in statusEffects)
         {
-            unitBase.AddProjectileCollisionStatus(effect);
+            if (entry.effect == null)
+                continue;
+
+            unitBase.AddProjectileCollisionStatus(new AppliedStatusEffect
+            {
+                effect = entry.effect,
+                stacks = entry.stacks
+            });
         }
     }
 
-    public override void RemoveEffect(
-        Unit unit,
-        PassiveItemInstance instance)
+    public override void RemoveEffect(Unit unit, PassiveItemInstance instance)
     {
         if (unit is not UnitBase unitBase)
             return;
 
-        foreach (var effect in statusEffects)
+        foreach (var entry in statusEffects)
         {
-            unitBase.RemoveProjectileCollisionStatus(effect);
+            if (entry.effect == null)
+                continue;
+
+            unitBase.RemoveProjectileCollisionStatus(new AppliedStatusEffect
+            {
+                effect = entry.effect,
+                stacks = entry.stacks
+            });
         }
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class DamageOnCollision : MonoBehaviour
 {
-    public List<StatusEffectData> statusEffects = new();
+    public List<AppliedStatusEffect> statusEffects = new ();
     [SerializeField] private float contactDamage = 15f;
     [SerializeField] private float knockbackStrength = 12f;
     private float spawnTime;
@@ -40,9 +40,9 @@ public class DamageOnCollision : MonoBehaviour
             var statusController = collision.collider.GetComponent<StatusEffectController>();
             if (statusController != null)
             {
-                foreach (var effectData in statusEffects)
+                foreach (var applied in statusEffects)
                 {
-                    statusController.ApplyEffect(effectData, 10);
+                    statusController.ApplyEffect(applied.effect, applied.stacks);
                 }
             }
         }

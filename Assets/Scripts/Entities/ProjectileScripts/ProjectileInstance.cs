@@ -80,9 +80,13 @@ public class ProjectileInstance : MonoBehaviour, Entity
 
         if (owner != null)
         {
-            collisionDamageComp.statusEffects.AddRange(
-                owner.ProjectileCollisionStatusModifiers
-            );
+            foreach (var applied in owner.ProjectileCollisionStatusModifiers)
+            {
+                if (applied.effect == null)
+                    continue;
+
+                collisionDamageComp.statusEffects.Add(applied);
+            }
         }
 
         if (template.useLifetime)

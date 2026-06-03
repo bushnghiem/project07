@@ -4,24 +4,54 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Items/Modifiers/Collision Status")]
 public class UnitCollisionStatusModifier : PassiveModifier
 {
-    public List<StatusEffectData> statusEffects = new();
-
-    private static readonly List<StatusEffectData>
-        EmptyEffects = new();
-
-    public override void Apply(
-        UnitBase unit,
-        PassiveItemInstance instance)
+    [System.Serializable]
+    public class Entry
     {
-        unit.SetCollisionStatusEffects(
-            statusEffects);
+        public StatusEffectData effect;
+        public int stacks = 1;
     }
 
-    public override void Remove(
-        UnitBase unit,
-        PassiveItemInstance instance)
+    public List<Entry> statusEffects = new();
+
+    private List<AppliedStatusEffect> runtimeCache = new();
+
+    public override void Apply(UnitBase unit, PassiveItemInstance instance)
     {
-        unit.SetCollisionStatusEffects(
-            EmptyEffects);
+        var runtimeCache = new List<AppliedStatusEffect>();
+
+        foreach (var entry in statusEffects)
+        {
+            if (entry.effect == null)
+                continue;
+
+            runtimeCache.Add(new AppliedStatusEffect
+            {
+                effect = entry.effect,
+                stacks = entry.stacks,
+                sourceID = instance.itemData.itemID
+            });
+        }
+
+        unit.AddCollisionStatusEffects(runtimeCache);
+    }
+
+    public override void Remove(UnitBase unit, PassiveItemInstance instance)
+    {
+        var runtimeCache = new List<AppliedStatusEffect>();
+
+        foreach (var entry in statusEffects)
+        {
+            if (entry.effect == null)
+                continue;
+
+            runtimeCache.Add(new AppliedStatusEffect
+            {
+                effect = entry.effect,
+                stacks = entry.stacks,
+                sourceID = instance.itemData.itemID
+            });
+        }
+
+        unit.RemoveCollisionStatusEffects(runtimeCache);
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [CreateAssetMenu(menuName = "Effect/Explosion")]
 public class ExplosionEffect : Effect
 {
-    public List<StatusEffectData> statusEffects = new();
+    public List<AppliedStatusEffect> statusEffects = new ();
     public float radius = 5f;
     public float damage = 50f;
     public float force = 500f;
@@ -44,9 +44,9 @@ public class ExplosionEffect : Effect
                     var statusController = hit.GetComponent<StatusEffectController>();
                     if (statusController != null)
                     {
-                        foreach (var effectData in statusEffects)
+                        foreach (var applied in statusEffects)
                         {
-                            statusController.ApplyEffect(effectData, 10);
+                            statusController.ApplyEffect(applied.effect, applied.stacks);
                         }
                     }
                 }
