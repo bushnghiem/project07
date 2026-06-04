@@ -120,7 +120,9 @@ MonoBehaviour:
   attackButton: {fileID: 5608205144785793601}
   itemButton: {fileID: 4965704899982897291}
   endTurnButton: {fileID: 5142758657049257637}
-  panel: {fileID: 8532776998183341147}
+  playerActionPanel: {fileID: 0}
+  barPanel: {fileID: 0}
+  targetingController: {fileID: 0}
 --- !u!1001 &2883673304391386566
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -257,6 +259,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 571932740759070050, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: ddc5e2536e2ba9a40b664ba844e652d5, type: 2}
+    - target: {fileID: 571932740759070050, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -2607819003468360149, guid: ddc5e2536e2ba9a40b664ba844e652d5, type: 2}
+    - target: {fileID: 571932740759070050, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5333506625590361156, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -279,6 +293,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5333506625590361156, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5813822613080041711, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: ddc5e2536e2ba9a40b664ba844e652d5, type: 2}
+    - target: {fileID: 5813822613080041711, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -2607819003468360149, guid: ddc5e2536e2ba9a40b664ba844e652d5, type: 2}
+    - target: {fileID: 5813822613080041711, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
+      propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6804480468278380957, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
@@ -307,6 +333,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6928987522687167361, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7251986375289993290, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: ddc5e2536e2ba9a40b664ba844e652d5, type: 2}
+    - target: {fileID: 7251986375289993290, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -2607819003468360149, guid: ddc5e2536e2ba9a40b664ba844e652d5, type: 2}
+    - target: {fileID: 7251986375289993290, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7981904859284930375, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: ddc5e2536e2ba9a40b664ba844e652d5, type: 2}
+    - target: {fileID: 7981904859284930375, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -2607819003468360149, guid: ddc5e2536e2ba9a40b664ba844e652d5, type: 2}
+    - target: {fileID: 7981904859284930375, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
+      propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -363,11 +413,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
---- !u!1 &8532776998183341147 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6804480468278380957, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
-  m_PrefabInstance: {fileID: 2883673304391386566}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7271095508664535227
 PrefabInstance:
   m_ObjectHideFlags: 0

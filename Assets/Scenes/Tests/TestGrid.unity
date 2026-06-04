@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 48a772e6bceaa084d911cf815101d1a1, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -1155,6 +1155,7 @@ MonoBehaviour:
   enemyUnitPrefab: {fileID: 8253756129412509392, guid: 1ff7513c1271612409931f4defb8a356, type: 3}
   playerAnchor: {fileID: 638226480}
   enemyAnchor: {fileID: 742707783}
+  aiDatabase: {fileID: 0}
 --- !u!4 &1976219049
 Transform:
   m_ObjectHideFlags: 0

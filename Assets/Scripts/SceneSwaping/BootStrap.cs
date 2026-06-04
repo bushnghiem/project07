@@ -7,7 +7,7 @@ public class BootStrap : MonoBehaviour
     void Start()
     {
         SaveManager.Instance.LoadMeta();
-        SceneManager.LoadScene("TestMainMenu");
+        SceneManager.LoadScene("MainMenu");
     }
 
     // Update is called once per frame

@@ -63,7 +63,7 @@ public class LoseState : BattleState
         //TurnEvent.OnFightLost?.Invoke();
         SaveManager.Instance.DeleteRun();
         SaveManager.Instance.SaveMeta();
-        SceneManager.LoadScene("TestMainMenu");
+        SceneManager.LoadScene("MainMenu");
         Debug.Log("You Lose!");
     }
 }

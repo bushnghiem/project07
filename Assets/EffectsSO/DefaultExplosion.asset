@@ -16,6 +16,7 @@ MonoBehaviour:
   statusEffects:
   - effect: {fileID: 11400000, guid: cc1bed43c2b5dcf428b9de7e3c74158e, type: 2}
     stacks: 10
+    sourceID: explosion
   radius: 3
   damage: 100
   force: 100
