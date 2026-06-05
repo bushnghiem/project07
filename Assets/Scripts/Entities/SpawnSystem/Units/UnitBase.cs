@@ -51,6 +51,18 @@ public abstract class UnitBase : MonoBehaviour, Unit
     public int CurrentAP => currentAP;
     protected int MaxAP;
 
+    public ActiveItemInstance ActiveItem => activeItem;
+
+    public Projectile Projectile => projectile;
+
+    public IReadOnlyList<PassiveItemInstance> PassiveItems => passiveItems;
+
+    public ShipRunData RunData => runData;
+
+    public float CurrentHealth => healthComp.GetCurrentHealth();
+
+    public ShipTemplate Template => template;
+
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();

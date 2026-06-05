@@ -514,7 +514,7 @@ MonoBehaviour:
     completedFloors: []
     playerFormation: {fileID: 11400000, guid: ea09909161c27d04d923a2d9c407861b, type: 2}
     team:
-    - uniqueID: StartShip1
+    - uniqueID: Player 1
       templateID: 0
       aiBehaviorID: 
       currentHealth: 100
@@ -526,7 +526,7 @@ MonoBehaviour:
       - itemID: active_test
       - itemID: passive_heal_turn
       - itemID: passive_explosive_death
-    - uniqueID: StartShip1
+    - uniqueID: Player 2
       templateID: 0
       aiBehaviorID: 
       currentHealth: 100
