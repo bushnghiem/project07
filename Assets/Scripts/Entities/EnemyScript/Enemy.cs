@@ -75,10 +75,10 @@ public class Enemy : UnitBase
         }
     }
 
-    public override void EquipProjectile(Projectile proj)
+    public override void EquipProjectile(ProjectileItem proj)
     {
         base.EquipProjectile(proj);
-        clickAndFlingComp.SetProjectile(proj);
+        clickAndFlingComp.SetProjectile(proj.projectile);
     }
 
     public override void Move()

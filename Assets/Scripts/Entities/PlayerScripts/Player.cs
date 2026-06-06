@@ -82,10 +82,10 @@ public class Player : UnitBase
         }
     }
 
-    public override void EquipProjectile(Projectile proj)
+    public override void EquipProjectile(ProjectileItem proj)
     {
         base.EquipProjectile(proj);
-        clickAndFlingComponent.SetProjectile(proj);
+        clickAndFlingComponent.SetProjectile(proj.projectile);
     }
 
     public void RemoveAllPassiveEffects()

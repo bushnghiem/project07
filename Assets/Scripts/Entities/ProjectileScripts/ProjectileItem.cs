@@ -12,6 +12,6 @@ public class ProjectileItem : Item
 
     public override void OnAcquire(UnitBase unit)
     {
-        unit.EquipProjectile(projectile);
+        unit.EquipProjectile(this);
     }
 }

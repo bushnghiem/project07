@@ -13,6 +13,16 @@ public class FleetUI : MonoBehaviour
     public Transform shipListParent;
     public GameObject shipEntryPrefab;
 
+    public Transform statsParent;
+    public GameObject statPrefab;
+    public FleetTooltipUI tooltipUI;
+
+    public Transform activeParent;
+    public Transform projectileParent;
+    public Transform passiveParent;
+
+    public GameObject itemEntryPrefab;
+
     [Header("Details")]
     public TMP_Text nameText;
     public TMP_Text healthText;
@@ -64,11 +74,66 @@ public class FleetUI : MonoBehaviour
         }
     }
 
+    void PopulateStats(Player player)
+    {
+        foreach (Transform child in statsParent)
+            Destroy(child.gameObject);
+
+        foreach (ShipStatType stat in System.Enum.GetValues(typeof(ShipStatType)))
+        {
+            float value = player.GetStat(stat);
+
+            GameObject entry = Instantiate(statPrefab, statsParent);
+
+            entry.GetComponent<StatEntryUI>()
+                .Init(stat.ToString(), value, tooltipUI);
+        }
+    }
+
+    void PopulateItems(Player player)
+    {
+        Clear(activeParent);
+        Clear(projectileParent);
+        Clear(passiveParent);
+
+        // ACTIVE
+        if (player.ActiveItem != null)
+        {
+            CreateItem(player.ActiveItem.itemData, activeParent);
+        }
+
+        // PROJECTILE
+        if (player.Projectile != null)
+        {
+            CreateItem(player.ProjectileItem, projectileParent);
+        }
+
+        // PASSIVES
+        foreach (var passive in player.PassiveItems)
+        {
+            CreateItem(passive.itemData, passiveParent);
+        }
+    }
+
+    void CreateItem(Item item, Transform parent)
+    {
+        GameObject obj = Instantiate(itemEntryPrefab, parent);
+
+        obj.GetComponent<ItemEntryUI>()
+            .Init(item, tooltipUI);
+    }
+
     public void SelectPlayer(Player player)
     {
         selectedPlayer = player;
 
         RefreshDetails();
+    }
+
+    void Clear(Transform parent)
+    {
+        foreach (Transform child in parent)
+            Destroy(child.gameObject);
     }
 
     void RefreshDetails()
@@ -98,5 +163,10 @@ public class FleetUI : MonoBehaviour
             passiveText.text +=
                 passive.itemData.itemName + "\n";
         }
+
+        PopulateStats(selectedPlayer);
+        PopulateItems(selectedPlayer);
     }
+
+
 }

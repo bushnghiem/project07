@@ -25,6 +25,7 @@ public abstract class UnitBase : MonoBehaviour, Unit
 
     protected ActiveItemInstance activeItem;
     protected Projectile projectile;
+    protected ProjectileItem projectileItem;
     protected List<PassiveItemInstance> passiveItems = new List<PassiveItemInstance>();
 
     protected List<Effect> onShootEffectsFromProjectile = new();
@@ -54,6 +55,8 @@ public abstract class UnitBase : MonoBehaviour, Unit
     public ActiveItemInstance ActiveItem => activeItem;
 
     public Projectile Projectile => projectile;
+
+    public ProjectileItem ProjectileItem => projectileItem;
 
     public IReadOnlyList<PassiveItemInstance> PassiveItems => passiveItems;
 
@@ -211,17 +214,18 @@ public abstract class UnitBase : MonoBehaviour, Unit
         activeItem = new ActiveItemInstance(item);
     }
 
-    public virtual void EquipProjectile(Projectile proj)
+    public virtual void EquipProjectile(ProjectileItem projectileItem)
     {
-        projectile = proj;
+        this.projectile = projectileItem.projectile;
+        this.projectileItem = projectileItem;
 
         if (effectController == null) return;
 
         RemoveOnShootProjectileInjectedEffects(effectController);
 
-        if (proj.effects != null)
+        if (this.projectile.effects != null)
         {
-            foreach (var effect in proj.effects)
+            foreach (var effect in this.projectile.effects)
             {
                 if (effect.trigger == EffectTrigger.OnShoot)
                 {
