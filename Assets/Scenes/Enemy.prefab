@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: -7639077806755490702}
   - component: {fileID: -7074283443480327474}
   - component: {fileID: 3892166245631848422}
+  - component: {fileID: 5830347001131650910}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -281,3 +282,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAIController
   defaultBehavior: {fileID: 0}
+--- !u!114 &5830347001131650910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8253756129412509392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cb0dc0fbb86d0649b113f2f88edf0d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldHealthBarSpawner
+  healthBarPrefab: {fileID: 6658602720541539222, guid: 2bac08e5072286e408a7e0ac85d9c9b0, type: 3}

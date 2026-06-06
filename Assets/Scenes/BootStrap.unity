@@ -215,6 +215,7 @@ MonoBehaviour:
     team:
     - uniqueID: 1
       templateID: 0
+      aiBehaviorID: 
       currentHealth: 20
       isDead: 0
       statModifiers: []

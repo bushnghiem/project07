@@ -15,6 +15,7 @@ public class HealthComponent : MonoBehaviour
     public event Action OnFullHealth;
     public event Action<float, float> OnHealthChanged;
     public event Action<float, float> OnMaxHealthChanged;
+    public event Action<int> OnShieldChanged;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -74,6 +75,8 @@ public class HealthComponent : MonoBehaviour
     public void SetShield(int newShield)
     {
         shield = newShield;
+
+        OnShieldChanged?.Invoke(shield);
     }
 
     public int GetShield()
@@ -95,6 +98,7 @@ public class HealthComponent : MonoBehaviour
         if (blockedByShield)
         {
             shield--;
+            OnShieldChanged?.Invoke(shield);
             return;
         }
 

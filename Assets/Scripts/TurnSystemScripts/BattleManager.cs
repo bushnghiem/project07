@@ -257,4 +257,21 @@ public class BattleManager : MonoBehaviour
             //Debug.Log(allEnemies);
         }
     }
+
+    public List<Unit> GetTurnOrder()
+    {
+        return new List<Unit>(allUnits);
+    }
+
+    public List<Unit> GetUpcomingTurns(int roundsToShow = 3)
+    {
+        List<Unit> turns = new();
+
+        for (int i = 0; i < roundsToShow; i++)
+        {
+            turns.AddRange(allUnits);
+        }
+
+        return turns;
+    }
 }
