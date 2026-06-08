@@ -64,6 +64,10 @@ public abstract class UnitBase : MonoBehaviour, Unit
 
     public float CurrentHealth => healthComp.GetCurrentHealth();
 
+    public float MaxHealth => healthComp.GetMaxHealth();
+
+    public int CurrentShield => healthComp.GetShield();
+
     public ShipTemplate Template => template;
 
     protected virtual void Awake()
@@ -409,32 +413,34 @@ public abstract class UnitBase : MonoBehaviour, Unit
     public virtual void Hurt(DamageInfo damageInfo)
     {
         float finalDamage = damageInfo.Amount;
+        Debug.Log($"Initial Damage: {damageInfo.Amount}");
 
         // Category Res
-        ShipStatType? categoryStat =
-            DamageStatUtility.GetResistanceStat(damageInfo.Category);
-
+        ShipStatType? categoryStat = DamageStatUtility.GetResistanceStat(damageInfo.Category);
         if (categoryStat.HasValue)
         {
             float resist = GetStat(categoryStat.Value);
+            Debug.Log($"Category Resistance ({categoryStat.Value}): {resist}");
 
             finalDamage *= Mathf.Max(0f, 1f - resist);
+            Debug.Log($"Damage after Category Resistance: {finalDamage}");
         }
 
         // Element Res
-        ShipStatType? elementStat =
-            DamageStatUtility.GetResistanceStat(damageInfo.Element);
-
+        ShipStatType? elementStat = DamageStatUtility.GetResistanceStat(damageInfo.Element);
         if (elementStat.HasValue)
         {
             float resist = GetStat(elementStat.Value);
+            Debug.Log($"Element Resistance ({elementStat.Value}): {resist}");
 
             finalDamage *= Mathf.Max(0f, 1f - resist);
+            Debug.Log($"Damage after Element Resistance: {finalDamage}");
         }
 
         DamageInfo resolvedDamage = damageInfo;
         resolvedDamage.Amount = finalDamage;
 
+        Debug.Log($"Final Damage to Apply: {finalDamage}");
         healthComp.Hurt(resolvedDamage);
 
         EventBus.Raise(new UnitEvent

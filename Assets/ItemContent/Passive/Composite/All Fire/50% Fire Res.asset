@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dc46a97f086ac54295393d7519be524, type: 3}
-  m_Name: 50 Flame Resistance
+  m_Name: 50% Fire Res
   m_EditorClassIdentifier: Assembly-CSharp::StatModifierModule
   statAdjustments:
   - statType: 17
-    flatBonus: 50
+    flatBonus: 0.5
     percentBonus: 0

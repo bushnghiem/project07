@@ -4,7 +4,10 @@ using System.Collections.Generic;
 public class StatusEffectController : MonoBehaviour
 {
     private List<StatusEffectInstance> activeEffects = new();
+    public IReadOnlyList<StatusEffectInstance> ActiveEffects => activeEffects;
     private Unit unit;
+
+    public event System.Action OnEffectsChanged;
 
     void Awake()
     {
@@ -45,13 +48,17 @@ public class StatusEffectController : MonoBehaviour
         activeEffects.Add(instance);
         instance.OnApply();
 
-        Debug.Log($"Applied effect: {data.name} | stacks={stacks} on {unit}");
+        OnEffectsChanged?.Invoke();
+
+        //Debug.Log($"Applied effect: {data.name} | stacks={stacks} on {unit}");
     }
 
     public void RemoveEffect(StatusEffectInstance effect)
     {
         effect.OnRemove();
         activeEffects.Remove(effect);
+
+        OnEffectsChanged?.Invoke();
     }
 
     void OnUnitEvent(UnitEvent e)
@@ -89,7 +96,11 @@ public class StatusEffectController : MonoBehaviour
             effect.TickDuration();
 
             if (effect.IsExpired)
+            {
                 RemoveEffect(effect);
+                OnEffectsChanged?.Invoke();
+            }
+                
         }
     }
 }

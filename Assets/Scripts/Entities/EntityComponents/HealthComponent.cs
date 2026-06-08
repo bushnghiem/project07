@@ -34,18 +34,18 @@ public class HealthComponent : MonoBehaviour
     {
         float oldHealth = currentHealth;
 
-        Debug.Log($"[SET HP] {oldHealth} → {newCurrentHealth} frame={Time.frameCount}");
+        //Debug.Log($"[SET HP] {oldHealth} → {newCurrentHealth} frame={Time.frameCount}");
 
         currentHealth = Mathf.Clamp(newCurrentHealth, 0f, maxHealth);
 
-        Debug.Log($"[CLAMPED HP] now={currentHealth}");
+        //Debug.Log($"[CLAMPED HP] now={currentHealth}");
 
         OnHealthChanged?.Invoke(oldHealth, currentHealth);
 
         if (currentHealth <= 0f && !isDead)
         {
             isDead = true;
-            Debug.Log($"[DEATH TRIGGERED]");
+            //Debug.Log($"[DEATH TRIGGERED]");
             OnDeath?.Invoke();
         }
 

@@ -539,8 +539,6 @@ MonoBehaviour:
       - itemID: passive_double_shot
       - itemID: passive_projectile_explosive_death
       - itemID: passive_all_fire
-      - itemID: passive_trishot
-      - itemID: passive_burn_on_collision
     runCurrency: 0
   continueButton: {fileID: 1354013984}
 --- !u!4 &295304960

@@ -196,12 +196,12 @@ public class Player : UnitBase
 
     private void HandleDamaged(float damage)
     {
-        Debug.Log($"Player took {damage} damage");
+        //Debug.Log($"Player took {damage} damage");
     }
 
     private void HandleHealed(float amount)
     {
-        Debug.Log($"Player healed {amount}");
+        //Debug.Log($"Player healed {amount}");
     }
 
     private void HandleDeath()
