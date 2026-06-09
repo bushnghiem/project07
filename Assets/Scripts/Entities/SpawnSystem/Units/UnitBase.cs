@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class UnitBase : MonoBehaviour, Unit
+public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 {
     [SerializeField] private ShipTemplateDatabase shipDatabase;
     public void SetShipDatabase(ShipTemplateDatabase db) => shipDatabase = db;
@@ -570,5 +570,25 @@ public abstract class UnitBase : MonoBehaviour, Unit
             return true;
         }
         return false;
+    }
+
+    public virtual InspectionData GetInspectionData()
+    {
+        return new InspectionData
+        {
+            Name = RunData.uniqueID,
+
+            CurrentHP = CurrentHealth,
+            MaxHP = MaxHealth,
+
+            Shield = CurrentShield,
+
+            CollisionDamage = GetStat(ShipStatType.CollisionDamage),
+
+            ExtraInfo =
+                IsPlayerControllable
+                ? "Player Ship"
+                : "Enemy Ship"
+        };
     }
 }

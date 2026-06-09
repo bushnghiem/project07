@@ -5,6 +5,7 @@ public class DamageOnCollision : MonoBehaviour
 {
     public List<AppliedStatusEffect> statusEffects = new ();
     [SerializeField] private float contactDamage = 15f;
+    public float ContactDamage => contactDamage;
     [SerializeField] private float knockbackStrength = 12f;
     private float spawnTime;
 

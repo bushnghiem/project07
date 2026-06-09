@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class ProjectileInstance : MonoBehaviour, Entity
+public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
 {
     Rigidbody rb;
     float stopTimer;
@@ -221,5 +221,22 @@ public class ProjectileInstance : MonoBehaviour, Entity
     public void Fling(Vector3 direction, float force)
     {
         rb.AddForce(direction * force, ForceMode.Impulse);
+    }
+
+    public InspectionData GetInspectionData()
+    {
+        return new InspectionData
+        {
+            Name = template.projectileName,
+
+            CurrentHP = healthComp.GetCurrentHealth(),
+            MaxHP = healthComp.GetMaxHealth(),
+
+            Shield = healthComp.GetShield(),
+
+            CollisionDamage = collisionDamageComp.ContactDamage,
+
+            ExtraInfo = "Projectile"
+        };
     }
 }

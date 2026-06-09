@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class DestructableEnvironment : MonoBehaviour, Entity
+public class DestructableEnvironment : MonoBehaviour, Entity, IInspectable
 {
     public HealthComponent healthComp;
+    public DamageOnCollision collisionDamageComp;
 
     public Vector3 Position => transform.position;
     public bool isDead => healthComp.isDead;
@@ -13,6 +14,7 @@ public class DestructableEnvironment : MonoBehaviour, Entity
     private void Awake()
     {
         healthComp = GetComponent<HealthComponent>();
+        collisionDamageComp = GetComponent<DamageOnCollision>();
         colliders = GetComponentsInChildren<Collider>();
         renderers = GetComponentsInChildren<Renderer>();
     }
@@ -75,6 +77,24 @@ public class DestructableEnvironment : MonoBehaviour, Entity
         Kill();
         DeathEvent.OnEntityDeath?.Invoke(this);
     }
+
+    public InspectionData GetInspectionData()
+    {
+        return new InspectionData
+        {
+            Name = gameObject.name,
+
+            CurrentHP = healthComp.GetCurrentHealth(),
+            MaxHP = healthComp.GetMaxHealth(),
+
+            Shield = healthComp.GetShield(),
+
+            CollisionDamage = collisionDamageComp.ContactDamage,
+
+            ExtraInfo = "Environment"
+        };
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
