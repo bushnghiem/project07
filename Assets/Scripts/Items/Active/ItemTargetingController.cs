@@ -43,6 +43,12 @@ public class ItemTargetingController : MonoBehaviour
 
     private void Update()
     {
+        if (BattleUIManager.Instance != null &&
+            BattleUIManager.Instance.IsOverlayOpen())
+        {
+            return;
+        }
+
         if (!targeting)
             return;
 
@@ -188,7 +194,7 @@ public class ItemTargetingController : MonoBehaviour
         currentItem = null;
     }
 
-    private void CancelTargeting()
+    public void CancelTargeting()
     {
         targeting = false;
         currentUser = null;
@@ -207,5 +213,10 @@ public class ItemTargetingController : MonoBehaviour
 
         return dist <=
             currentItem.itemData.range;
+    }
+
+    public bool IsTargeting()
+    {
+        return targeting;
     }
 }

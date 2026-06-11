@@ -14,6 +14,12 @@ public class HoverInspector : MonoBehaviour
     void Update()
     {
 
+        if (BattleUIManager.Instance != null && BattleUIManager.Instance.IsOverlayOpen())
+        {
+            tooltip.Hide();
+            return;
+        }
+
         bool inspectionMode =
             Input.GetKey(KeyCode.LeftShift);
 

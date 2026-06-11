@@ -6,9 +6,6 @@ public class FleetUI : MonoBehaviour
     [Header("References")]
     public ShipHolder shipHolder;
 
-    [Header("Panel")]
-    public GameObject panel;
-
     [Header("Ship List")]
     public Transform shipListParent;
     public GameObject shipEntryPrefab;
@@ -32,28 +29,36 @@ public class FleetUI : MonoBehaviour
 
     private Player selectedPlayer;
 
-    void Start()
+    private void OnEnable()
     {
-        panel.SetActive(false);
+        PopulateShipList();
     }
 
-    void Update()
+    public void Open()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            panel.SetActive(!panel.activeSelf);
+        gameObject.SetActive(true);
+        RefreshFleet();
+    }
 
-            if (panel.activeSelf)
-            {
-                PopulateShipList();
-            }
-        }
+    public void Close()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void RefreshFleet()
+    {
+        if (shipHolder == null || shipHolder.allPlayers == null)
+            return;
+
+        PopulateShipList();
     }
 
     public void PopulateShipList()
     {
         foreach (Transform child in shipListParent)
+        {
             Destroy(child.gameObject);
+        }
 
         foreach (Player player in shipHolder.allPlayers)
         {
@@ -74,50 +79,70 @@ public class FleetUI : MonoBehaviour
         }
     }
 
-    void PopulateStats(Player player)
+    private void PopulateStats(Player player)
     {
         foreach (Transform child in statsParent)
+        {
             Destroy(child.gameObject);
+        }
 
         foreach (ShipStatType stat in System.Enum.GetValues(typeof(ShipStatType)))
         {
             float value = player.GetStat(stat);
 
-            GameObject entry = Instantiate(statPrefab, statsParent);
+            GameObject entry =
+                Instantiate(
+                    statPrefab,
+                    statsParent
+                );
 
             entry.GetComponent<StatEntryUI>()
-                .Init(stat.ToString(), value, tooltipUI);
+                .Init(
+                    stat.ToString(),
+                    value,
+                    tooltipUI
+                );
         }
     }
 
-    void PopulateItems(Player player)
+    private void PopulateItems(Player player)
     {
         Clear(activeParent);
         Clear(projectileParent);
         Clear(passiveParent);
 
-        // ACTIVE
         if (player.ActiveItem != null)
         {
-            CreateItem(player.ActiveItem.itemData, activeParent);
+            CreateItem(
+                player.ActiveItem.itemData,
+                activeParent
+            );
         }
 
-        // PROJECTILE
         if (player.Projectile != null)
         {
-            CreateItem(player.ProjectileItem, projectileParent);
+            CreateItem(
+                player.ProjectileItem,
+                projectileParent
+            );
         }
 
-        // PASSIVES
         foreach (var passive in player.PassiveItems)
         {
-            CreateItem(passive.itemData, passiveParent);
+            CreateItem(
+                passive.itemData,
+                passiveParent
+            );
         }
     }
 
-    void CreateItem(Item item, Transform parent)
+    private void CreateItem(Item item, Transform parent)
     {
-        GameObject obj = Instantiate(itemEntryPrefab, parent);
+        GameObject obj =
+            Instantiate(
+                itemEntryPrefab,
+                parent
+            );
 
         obj.GetComponent<ItemEntryUI>()
             .Init(item, tooltipUI);
@@ -130,18 +155,21 @@ public class FleetUI : MonoBehaviour
         RefreshDetails();
     }
 
-    void Clear(Transform parent)
+    private void Clear(Transform parent)
     {
         foreach (Transform child in parent)
+        {
             Destroy(child.gameObject);
+        }
     }
 
-    void RefreshDetails()
+    private void RefreshDetails()
     {
         if (selectedPlayer == null)
             return;
 
-        nameText.text = selectedPlayer.RunData.uniqueID;
+        nameText.text =
+            selectedPlayer.RunData.uniqueID;
 
         healthText.text =
             $"HP: {selectedPlayer.CurrentHealth}";
@@ -167,6 +195,4 @@ public class FleetUI : MonoBehaviour
         PopulateStats(selectedPlayer);
         PopulateItems(selectedPlayer);
     }
-
-
 }

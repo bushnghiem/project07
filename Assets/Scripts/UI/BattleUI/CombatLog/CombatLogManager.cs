@@ -48,7 +48,7 @@ public class CombatLogManager : MonoBehaviour
 
         OnLogAdded?.Invoke(entry);
 
-        Debug.Log($"[Combat Log] {message}");
+        //Debug.Log($"[Combat Log] {message}");
     }
 
     private string BuildMessage(UnitEvent evt)

@@ -1,11 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
+using System;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
     private BattleState currentState;
+
+    public BattlePhase CurrentPhase { get; private set; }
+
+    public static event Action OnBattlePhaseChanged;
 
     public Unit currentUnit;
     private int currentIndex = 0;
@@ -55,6 +60,12 @@ public class BattleManager : MonoBehaviour
         SortByInitiative();
         currentIndex = 0;
         currentUnit = allUnits[currentIndex];
+
+        SetPhase(
+            currentUnit.IsPlayerControllable
+                ? BattlePhase.WaitingForInput
+                : BattlePhase.EnemyTurn
+        );
     }
 
     public void SortByInitiative()
@@ -147,6 +158,7 @@ public class BattleManager : MonoBehaviour
 
         if (unit is UnitBase ub && ub.CurrentAP > 0)
         {
+            SetPhase(BattlePhase.WaitingForInput);
             Debug.Log($"{unit} continues turn with {ub.CurrentAP} AP");
             unit.ContinueTurn();
         }
@@ -201,6 +213,12 @@ public class BattleManager : MonoBehaviour
         else
         {
             currentUnit = allUnits[currentIndex];
+            SetPhase(
+                currentUnit.IsPlayerControllable
+                    ? BattlePhase.WaitingForInput
+                    : BattlePhase.EnemyTurn
+            );
+
             SwitchState(new UnitTurnState(this, true));
         }
     }
@@ -234,7 +252,13 @@ public class BattleManager : MonoBehaviour
 
     public void HandleUnitActionResolved(Unit unit)
     {
-        StartCoroutine(WaitForBattlefieldToSettle(unit));
+        Debug.Log("ACTION RESOLVED");
+
+        SetPhase(BattlePhase.ResolvingAction);
+
+        StartCoroutine(
+            WaitForBattlefieldToSettle(unit)
+        );
     }
 
     public void HandleUnitTurnEnd(Unit unit)
@@ -273,5 +297,12 @@ public class BattleManager : MonoBehaviour
         }
 
         return turns;
+    }
+
+    public void SetPhase(BattlePhase phase)
+    {
+        CurrentPhase = phase;
+
+        OnBattlePhaseChanged?.Invoke();
     }
 }

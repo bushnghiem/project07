@@ -59,6 +59,12 @@ public class ClickAndFling : MonoBehaviour
 
     void Update()
     {
+        if (BattleUIManager.Instance != null && BattleUIManager.Instance.IsOverlayOpen())
+        {
+            isDragging = false;
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             TryStartDrag();
@@ -202,5 +208,19 @@ public class ClickAndFling : MonoBehaviour
     {
         maxMovementForce = movement;
         maxShootingForce = shooting;
+    }
+
+    public bool IsAwaitingInput()
+    {
+        return flingable;
+    }
+
+    public void CancelPendingAction()
+    {
+        flingable = false;
+
+        isDragging = false;
+
+        FlingEvent.OnPowerChanged?.Invoke(0f);
     }
 }
