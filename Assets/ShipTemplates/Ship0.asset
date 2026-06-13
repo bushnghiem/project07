@@ -57,6 +57,7 @@ MonoBehaviour:
     value: 0
   - statType: 20
     value: 0
+  visualData: {fileID: 11400000, guid: d8472f00c4a3b5b4db6f7f888f848a34, type: 2}
   startingActiveItemID: active_heal_100
   startingPassiveItemIDs:
   - passive_maxhp_up

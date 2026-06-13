@@ -12,6 +12,10 @@ public class ShipTemplate : ScriptableObject
     [Header("Base Stats")]
     [SerializeField] private List<BaseStatEntry> baseStats;
 
+    [Header("Visuals")]
+    [SerializeField] private ShipVisualData visualData;
+    public ShipVisualData VisualData => visualData;
+
     private Dictionary<ShipStatType, float> baseStatMap;
     public IReadOnlyDictionary<ShipStatType, float> BaseStatMap => baseStatMap;
 

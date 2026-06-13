@@ -158,7 +158,11 @@ public class BattleManager : MonoBehaviour
 
         if (unit is UnitBase ub && ub.CurrentAP > 0)
         {
-            SetPhase(BattlePhase.WaitingForInput);
+            SetPhase(
+                currentUnit.IsPlayerControllable
+                    ? BattlePhase.WaitingForInput
+                    : BattlePhase.EnemyTurn
+            );
             Debug.Log($"{unit} continues turn with {ub.CurrentAP} AP");
             unit.ContinueTurn();
         }
