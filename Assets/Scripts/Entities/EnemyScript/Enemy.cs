@@ -143,6 +143,7 @@ public class Enemy : UnitBase
 
     private void DisableVisuals()
     {
+        GetComponent<ShipVisualController>()?.OnDeath();
         foreach (var r in renderers)
             r.enabled = false;
     }

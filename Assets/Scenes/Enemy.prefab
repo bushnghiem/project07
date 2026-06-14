@@ -344,4 +344,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e156eddb51a2f2d4bb1774cf736e118a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShipVisualController
-  visualRoot: {fileID: 2621244759591998727}
+  visualRoot: {fileID: 7143293876257182204}

@@ -35,4 +35,27 @@ public class ShipVisualController : MonoBehaviour
             }
         }
     }
+
+    public void HideVisuals()
+    {
+        if (currentVisual != null)
+        {
+            currentVisual.SetActive(false);
+        }
+    }
+
+    public void DestroyVisuals()
+    {
+        if (currentVisual != null)
+        {
+            Destroy(currentVisual);
+            currentVisual = null;
+        }
+    }
+
+    public void OnDeath()
+    {
+        HideVisuals();
+    }
+
 }

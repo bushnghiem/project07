@@ -27,6 +27,8 @@ public class UnitActionExecutor : MonoBehaviour
 
     private void ExecuteMove(UnitAction action)
     {
+        FaceActionDirection(action);
+
         Rigidbody rb =
             action.actor.GetComponent<Rigidbody>();
 
@@ -54,6 +56,8 @@ public class UnitActionExecutor : MonoBehaviour
 
     private void ExecuteShoot(UnitAction action)
     {
+        FaceActionDirection(action);
+
         float maxForce =
             action.actor.GetStat(
                 ShipStatType.ShotStrength
@@ -116,5 +120,16 @@ public class UnitActionExecutor : MonoBehaviour
         action.actor.SpendAP(action.apCost);
 
         action.actor.ActionResolved();
+    }
+
+    private void FaceActionDirection(UnitAction action)
+    {
+        Vector3 dir = action.direction;
+        dir.y = 0f;
+
+        if (dir.sqrMagnitude < 0.001f)
+            return;
+
+        action.actor.transform.rotation = Quaternion.LookRotation(dir) * Quaternion.Euler(0f, 180f, 0f);
     }
 }

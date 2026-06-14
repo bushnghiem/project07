@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a56ede619abf93e44aa09a42e54d2a70, type: 3}
   m_Name: ScrapShipVisual
   m_EditorClassIdentifier: Assembly-CSharp::ShipVisualData
-  visualPrefab: {fileID: 8382909165254678763, guid: 0afaac625a695694aac6d0c2bc62d43b, type: 3}
+  visualPrefab: {fileID: 846379403078427515, guid: 0afaac625a695694aac6d0c2bc62d43b, type: 3}
   shipIcon: {fileID: 0}
   overrideMaterial: {fileID: 0}
