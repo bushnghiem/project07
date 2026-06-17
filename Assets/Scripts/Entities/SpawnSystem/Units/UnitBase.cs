@@ -479,6 +479,7 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
     public virtual void Moved()
     {
+        SoundManager.PlaySound(SoundType.MOVE);
         EventBus.Raise(new UnitEvent
         {
             source = this,
@@ -488,6 +489,7 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
     public void Shot()
     {
+        SoundManager.PlaySound(SoundType.SHOOT);
         EventBus.Raise(new UnitEvent
         {
             source = this,
