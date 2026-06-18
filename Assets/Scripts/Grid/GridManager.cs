@@ -233,7 +233,20 @@ public class GridManager : MonoBehaviour
         foreach (var pos in floor.clearedCombatTiles)
         {
             if (IsInsideGrid(pos.x, pos.y))
+            {
                 grid[pos.x, pos.y].tileType = TileType.Empty;
+                grid[pos.x, pos.y].assignedEncounter = null;
+            }
+        }
+
+        foreach (var pos in floor.clearedCorruptionTiles)
+        {
+            if (IsInsideGrid(pos.x, pos.y))
+            {
+                grid[pos.x, pos.y].tileType = TileType.Empty;
+                grid[pos.x, pos.y].assignedEncounter = null;
+                grid[pos.x, pos.y].isCorrupted = false;
+            }
         }
 
         foreach (var pos in floor.clearedEventTiles)

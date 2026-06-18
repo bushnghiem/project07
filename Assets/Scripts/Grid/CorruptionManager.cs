@@ -9,7 +9,6 @@ public class CorruptionManager : MonoBehaviour
     public int currentRadius;
 
     private GridManager grid;
-    public EncounterPool combatEncounterPool;
 
     void Awake()
     {
@@ -27,11 +26,13 @@ public class CorruptionManager : MonoBehaviour
         if (floor.corruptionRadius >= 0)
         {
             currentRadius = floor.corruptionRadius;
-            ApplyCorruption();
+
+            RebuildCorruptionState();
         }
         else
         {
             currentRadius = maxRadius;
+
             floor.corruptionRadius = currentRadius;
 
             SaveManager.Instance.SaveRun();
@@ -44,21 +45,24 @@ public class CorruptionManager : MonoBehaviour
 
         if (floor.timeElapsed >= floor.nextCorruptionTimeThreshold)
         {
+            int oldRadius = currentRadius;
+
             currentRadius--;
 
             floor.corruptionRadius = currentRadius;
 
             floor.nextCorruptionTimeThreshold += stepsPerShrink;
 
-            ApplyCorruption();
+            ApplyCorruption(oldRadius, currentRadius);
 
             SaveManager.Instance.SaveRun();
         }
     }
 
-    void ApplyCorruption()
+    void RebuildCorruptionState()
     {
-        Vector2Int center = new Vector2Int(grid.width / 2, grid.height / 2);
+        Vector2Int center =
+            new Vector2Int(grid.width / 2, grid.height / 2);
 
         for (int x = 0; x < grid.width; x++)
         {
@@ -66,7 +70,8 @@ public class CorruptionManager : MonoBehaviour
             {
                 Vector2Int pos = new Vector2Int(x, y);
 
-                float dist = Vector2Int.Distance(pos, center);
+                float dist =
+                    Vector2Int.Distance(pos, center);
 
                 if (dist > currentRadius)
                 {
@@ -78,8 +83,39 @@ public class CorruptionManager : MonoBehaviour
         grid.GenerateVisuals();
     }
 
+    void ApplyCorruption(int oldRadius, int newRadius)
+    {
+        Vector2Int center =
+            new Vector2Int(grid.width / 2, grid.height / 2);
+
+        for (int x = 0; x < grid.width; x++)
+        {
+            for (int y = 0; y < grid.height; y++)
+            {
+                Vector2Int pos = new Vector2Int(x, y);
+
+                float dist =
+                    Vector2Int.Distance(pos, center);
+
+                if (dist > newRadius &&
+                    dist <= oldRadius)
+                {
+                    CorruptTile(pos);
+                }
+            }
+        }
+
+        grid.GenerateVisuals();
+    }
+
     void CorruptTile(Vector2Int pos)
     {
+        var floor =
+            RunManager.Instance.CurrentRun.currentFloorData;
+
+        if (floor.clearedCorruptionTiles.Contains(pos))
+            return;
+
         TileData tile = grid.grid[pos.x, pos.y];
 
         if (tile.tileType == TileType.Portal)
@@ -88,11 +124,9 @@ public class CorruptionManager : MonoBehaviour
         if (tile.tileType == TileType.Wall)
             return;
 
-        if (tile.tileType == TileType.Combat && tile.assignedEncounter != null)
-            return;
-
         tile.tileType = TileType.Combat;
         tile.assignedEncounter = GetCorruptionEncounter(pos);
+        tile.isCorrupted = true;
     }
 
     EncounterData GetCorruptionEncounter(Vector2Int pos)
@@ -105,11 +139,14 @@ public class CorruptionManager : MonoBehaviour
                    ^ (pos.y * 7654321)
                    ^ 999999;
 
-        System.Random rng = new System.Random(seed);
+        System.Random rng =
+            new System.Random(seed);
 
-        var pool = floor.contentProfile.corruptionEncounters;
+        var pool =
+            floor.contentProfile.corruptionEncounters;
 
-        int index = rng.Next(pool.Count / 2, pool.Count);
+        int index =
+            rng.Next(pool.Count / 2, pool.Count);
 
         return pool[index];
     }

@@ -130,8 +130,12 @@ public class GridMovement : MonoBehaviour
 
         floor.currentGridPosition = gridPosition;
         floor.currentEncounter = tile.assignedEncounter;
+        floor.currentEncounterIsCorrupted = tile.isCorrupted;
+
         Debug.Log("Fight: " + tile.assignedEncounter?.encounterName);
+
         shipHolder.RemovePlayersPassiveEffects();
+
         SceneManager.LoadScene("SpawnTestScene");
     }
 

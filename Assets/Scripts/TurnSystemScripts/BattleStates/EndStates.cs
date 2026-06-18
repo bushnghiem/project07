@@ -10,26 +10,46 @@ public class WinState : BattleState
         var floor = RunManager.Instance.CurrentRun.currentFloorData;
         EncounterData fightData = floor.currentEncounter;
 
-        // Rewards
         RewardManager.Instance.AddRunCurrency(fightData.runCurrencyReward);
         RewardManager.Instance.AddMetaCurrency(fightData.metaCurrencyReward);
 
-        // Handle encounter completion
         switch (fightData.encounterType)
         {
             case EncounterType.Normal:
 
-                floor.clearedCombatTiles.Add(floor.currentGridPosition);
+                if (floor.currentEncounterIsCorrupted)
+                {
+                    floor.clearedCorruptionTiles.Add(
+                        floor.currentGridPosition);
 
-                Debug.Log("Normal encounter cleared.");
+                    Debug.Log("Corruption encounter cleared.");
+                }
+                else
+                {
+                    floor.clearedCombatTiles.Add(
+                        floor.currentGridPosition);
+
+                    Debug.Log("Normal encounter cleared.");
+                }
 
                 break;
 
             case EncounterType.Elite:
 
-                floor.clearedCombatTiles.Add(floor.currentGridPosition);
+                if (floor.currentEncounterIsCorrupted)
+                {
+                    floor.clearedCorruptionTiles.Add(
+                        floor.currentGridPosition);
 
-                Debug.Log("Elite encounter cleared.");
+                    Debug.Log("Corruption elite cleared.");
+                }
+                else
+                {
+                    floor.clearedCombatTiles.Add(
+                        floor.currentGridPosition);
+
+                    Debug.Log("Elite encounter cleared.");
+                }
 
                 break;
 
@@ -42,8 +62,8 @@ public class WinState : BattleState
                 break;
         }
 
-        // Cleanup current encounter
-        //floor.currentEncounter = null;
+        floor.currentEncounter = null;
+        floor.currentEncounterIsCorrupted = false;
 
         SaveManager.Instance.SaveRun();
         SaveManager.Instance.SaveMeta();

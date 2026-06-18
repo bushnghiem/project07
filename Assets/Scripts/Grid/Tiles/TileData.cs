@@ -14,8 +14,18 @@ public enum TileType
 public class TileData
 {
     public TileType tileType;
+
     public bool IsWalkable => tileType != TileType.Wall;
 
     public EncounterData assignedEncounter;
     public EventData assignedEvent;
+
+    public bool isCorrupted;
+}
+
+[System.Serializable]
+public class ClearedCorruptionTile
+{
+    public Vector2Int position;
+    public int clearedAtRadius;
 }
