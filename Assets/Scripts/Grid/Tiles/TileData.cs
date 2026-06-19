@@ -22,10 +22,3 @@ public class TileData
 
     public bool isCorrupted;
 }
-
-[System.Serializable]
-public class ClearedCorruptionTile
-{
-    public Vector2Int position;
-    public int clearedAtRadius;
-}

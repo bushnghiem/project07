@@ -11,6 +11,8 @@ public class FloorData
 
     public Vector2Int currentGridPosition;
 
+    public Vector2Int spawnPosition;
+
     public EncounterData currentEncounter;
 
     public bool currentEncounterIsCorrupted;
@@ -30,6 +32,7 @@ public class FloorData
 
     public int corruptionRadius = -1;
 
+    public bool hasShownFloorIntro = false;
     public bool hasInitializedSpawn = false;
     public bool bossDefeated = false;
 }

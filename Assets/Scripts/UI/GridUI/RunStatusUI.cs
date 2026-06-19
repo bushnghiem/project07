@@ -51,7 +51,7 @@ public class RunStatusUI : MonoBehaviour
         var run = RunManager.Instance.CurrentRun;
         var floor = run.currentFloorData;
 
-        floorInfoText.text = $"Floor {run.currentFloor + 1} // {floor.contentProfile.floorName}";
+        floorInfoText.text = $"Sector {run.currentFloor + 1} // {floor.contentProfile.floorName}";
 
         currencyText.text = $"Units: {run.runCurrency}";
 
@@ -61,7 +61,7 @@ public class RunStatusUI : MonoBehaviour
 
         bool bossFloor = (run.currentFloor + 1) % 3 == 0;
 
-        bossText.text = bossFloor ? "Boss Floor" : "Normal Floor";
+        bossText.text = bossFloor ? "Boss Sector" : "Normal Sector";
 
         objectiveText.text =
             bossFloor

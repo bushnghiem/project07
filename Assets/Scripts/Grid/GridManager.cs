@@ -82,8 +82,17 @@ public class GridManager : MonoBehaviour
         if (!floor.hasInitializedSpawn)
         {
             Vector2Int spawnPos = GetSafeSpawnPosition();
+
+            floor.spawnPosition = spawnPos;
             floor.currentGridPosition = spawnPos;
+
+            ClearArea(spawnPos);
+
             floor.hasInitializedSpawn = true;
+        }
+        else
+        {
+            ClearArea(floor.spawnPosition);
         }
 
         GenerateVisuals();
@@ -96,7 +105,6 @@ public class GridManager : MonoBehaviour
 
         if (IsAreaSafe(center))
         {
-            ClearArea(center);
             return center;
         }
 
@@ -113,7 +121,6 @@ public class GridManager : MonoBehaviour
 
                     if (IsAreaSafe(pos))
                     {
-                        ClearArea(pos);
                         return pos;
                     }
                 }
@@ -379,5 +386,13 @@ public class GridManager : MonoBehaviour
     public bool IsInsideGrid(int x, int y)
     {
         return x >= 0 && y >= 0 && x < width && y < height;
+    }
+
+    public Vector3 GetGridCenterWorldPosition()
+    {
+        float centerX = (width - 1) * tileSize * 0.5f;
+        float centerY = (height - 1) * tileSize * 0.5f;
+
+        return new Vector3(centerX, centerY, 0f);
     }
 }
