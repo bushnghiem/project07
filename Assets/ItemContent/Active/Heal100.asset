@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealItem
   itemID: active_heal_100
   itemName: 100 HP Health Pot
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: d5967cf3dd01d3a45a7bdcd38c52b40e, type: 3}
   description: 
   price: 100
+  slotType: 0
   cooldownTurns: 2
+  range: 10
   healAmount: 100

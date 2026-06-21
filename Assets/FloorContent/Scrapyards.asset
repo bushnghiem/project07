@@ -20,6 +20,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 24a652dfd62bb79418356f18a3ac3033, type: 2}
   - {fileID: 11400000, guid: 1f9b4e861908ef8448b43880d62d11e2, type: 2}
   - {fileID: 11400000, guid: 7e68fc54394137149807636a55ad5520, type: 2}
+  - {fileID: 11400000, guid: 96278c34879fab747abcac6b71eca66b, type: 2}
+  - {fileID: 11400000, guid: c2f6d84a5d1231a42b6a5a470df5584b, type: 2}
+  - {fileID: 11400000, guid: 4b9b5bc9e7970d34699236c5f9543ecb, type: 2}
+  - {fileID: 11400000, guid: 61311689851c1c9438a4eceb8971db4d, type: 2}
   combatEncounters:
   - {fileID: 11400000, guid: 62d4f349102a88b44817a5cc2cd4be58, type: 2}
   - {fileID: 11400000, guid: ef0ced9d7730ec64ca9d4121db8c3f4e, type: 2}

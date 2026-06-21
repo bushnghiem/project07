@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SelfDestructionItem
   itemID: active_self_explode
   itemName: Self Destruct
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: e75404d0d6a5c84429ff44e7fbc8e9ff, type: 3}
   description: 
   price: 100
   slotType: 0
   cooldownTurns: 2
+  range: 10
   explosion: {fileID: 11400000, guid: b0481528f2774814b8c7a6ee7a4dd213, type: 2}

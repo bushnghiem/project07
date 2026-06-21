@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ShopManager : MonoBehaviour
@@ -48,18 +49,34 @@ public class ShopManager : MonoBehaviour
 
         var allItems = floor.contentProfile.shopItems;
 
-        for (int i = 0; i < shopItemCount; i++)
-        {
-            int index = rng.Next(0, allItems.Count);
-            Item item = allItems[index];
+        var passiveItems = allItems
+            .Where(i => i.slotType == ItemSlotType.Passive)
+            .ToList();
 
-            shopItems.Add(new ShopItem
-            {
-                item = item,
-                price = item.price,
-                purchased = false
-            });
-        }
+        var activeItems = allItems
+            .Where(i => i.slotType == ItemSlotType.Active)
+            .ToList();
+
+        var projectileItems = allItems
+            .Where(i => i.slotType == ItemSlotType.Projectile)
+            .ToList();
+
+        Item passive = GetRandomAndRemove(passiveItems, rng);
+        Item active = GetRandomAndRemove(activeItems, rng);
+        Item projectile = GetRandomAndRemove(projectileItems, rng);
+
+        if (passive != null)
+            shopItems.Add(CreateShopItem(passive));
+
+        if (active != null)
+            shopItems.Add(CreateShopItem(active));
+
+        if (projectile != null)
+            shopItems.Add(CreateShopItem(projectile));
+
+        shopItems = shopItems
+            .OrderBy(_ => rng.Next())
+            .ToList();
 
         shopData.shopItems = shopItems;
     }
@@ -109,5 +126,39 @@ public class ShopManager : MonoBehaviour
     public void Reroll()
     {
         GenerateShop(currentShopPosition, forceReroll: true);
+    }
+
+    private ShopItem CreateShopItem(Item item)
+    {
+        return new ShopItem
+        {
+            item = item,
+            price = item.price,
+            purchased = false
+        };
+    }
+
+    private T GetRandom<T>(List<T> list, System.Random rng)
+    {
+        if (list == null || list.Count == 0)
+        {
+            Debug.LogError($"No items found for type {typeof(T).Name}");
+            return default;
+        }
+
+        return list[rng.Next(list.Count)];
+    }
+
+    private Item GetRandomAndRemove(List<Item> pool, System.Random rng)
+    {
+        if (pool.Count == 0)
+            return null;
+
+        int index = rng.Next(pool.Count);
+
+        Item item = pool[index];
+        pool.RemoveAt(index);
+
+        return item;
     }
 }
