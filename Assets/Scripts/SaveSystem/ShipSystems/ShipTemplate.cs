@@ -16,6 +16,17 @@ public class ShipTemplate : ScriptableObject
     [SerializeField] private ShipVisualData visualData;
     public ShipVisualData VisualData => visualData;
 
+    [Header("Audio")]
+    [SerializeField]
+    private ShipAudioData audioData;
+
+    public ShipAudioData AudioData => audioData;
+
+    [Header("Gameplay")]
+    [SerializeField] private float collisionRadius = 1f;
+
+    public float CollisionRadius => collisionRadius;
+
     private Dictionary<ShipStatType, float> baseStatMap;
     public IReadOnlyDictionary<ShipStatType, float> BaseStatMap => baseStatMap;
 

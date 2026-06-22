@@ -360,19 +360,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   soundList:
-  - name: SHOOT
-    sounds:
-    - {fileID: 8300000, guid: 0924ebb13ff1f1e45a84b8edd0e5e254, type: 3}
-  - name: MOVE
-    sounds:
-    - {fileID: 8300000, guid: 14465fe0c10b09f4385d3eb9b22ff8ec, type: 3}
-  - name: ITEM
+  - name: BUTTON
     sounds: []
-  - name: COLLISION
+  - name: VICTORY
     sounds: []
-  - name: EXPLOSION
+  - name: DEFEAT
     sounds: []
-  - name: HEAL
+  - name: ERROR
     sounds: []
 --- !u!1 &172886599
 GameObject:
@@ -456,13 +450,17 @@ MonoBehaviour:
       floorSeed: 0
       contentProfile: {fileID: 0}
       currentGridPosition: {x: 0, y: 0}
+      spawnPosition: {x: 0, y: 0}
       currentEncounter: {fileID: 0}
+      currentEncounterIsCorrupted: 0
       timeElapsed: 0
       nextCorruptionTimeThreshold: 5
       clearedCombatTiles: []
+      clearedCorruptionTiles: []
       clearedEventTiles: []
       shops: []
       corruptionRadius: -1
+      hasShownFloorIntro: 0
       hasInitializedSpawn: 0
       bossDefeated: 0
     completedFloors: []

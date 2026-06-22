@@ -26,6 +26,7 @@ public class ShipVisualController : MonoBehaviour
 
         currentVisual.transform.localPosition = Vector3.zero;
         currentVisual.transform.localRotation = Quaternion.identity;
+        currentVisual.transform.localScale = Vector3.one * visualData.visualScale;
 
         if (visualData.overrideMaterial != null)
         {

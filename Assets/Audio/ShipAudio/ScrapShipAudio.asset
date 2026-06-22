@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56ba1fc048f6ee042a072c3596834a3e, type: 3}
+  m_Name: ScrapShipAudio
+  m_EditorClassIdentifier: Assembly-CSharp::ShipAudioData
+  moveSounds:
+  - {fileID: 8300000, guid: 0760214947b406c46823969c92ebc1e1, type: 3}
+  shootSounds:
+  - {fileID: 8300000, guid: b28816c92f330df488a205bd5ca3a2f2, type: 3}
+  collisionSounds:
+  - {fileID: 8300000, guid: 47811bafa6aab114ca0146fedc1c242f, type: 3}

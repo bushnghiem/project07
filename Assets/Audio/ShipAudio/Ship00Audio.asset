@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56ba1fc048f6ee042a072c3596834a3e, type: 3}
+  m_Name: Ship00Audio
+  m_EditorClassIdentifier: Assembly-CSharp::ShipAudioData
+  moveSounds:
+  - {fileID: 8300000, guid: 14465fe0c10b09f4385d3eb9b22ff8ec, type: 3}
+  shootSounds:
+  - {fileID: 8300000, guid: 0924ebb13ff1f1e45a84b8edd0e5e254, type: 3}
+  collisionSounds:
+  - {fileID: 8300000, guid: cfb89dffd9051264cadb002f1f07ed98, type: 3}

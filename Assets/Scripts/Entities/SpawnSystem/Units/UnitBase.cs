@@ -70,6 +70,9 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
     public ShipTemplate Template => template;
 
+    protected SphereCollider sphereCollider;
+    protected ShipAudioComponent audioComp;
+
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -77,6 +80,8 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
         collisionDamageComp = GetComponent<DamageOnCollision>();
         effectController = GetComponent<EffectController>();
         statusController = GetComponent<StatusEffectController>();
+        sphereCollider = GetComponent<SphereCollider>();
+        audioComp = GetComponent<ShipAudioComponent>();
     }
 
     public virtual void Initialize(ShipRunData data)
@@ -85,6 +90,7 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
         template = shipDatabase.GetTemplate(runData.templateID);
 
         ApplyStats();
+        collisionDamageComp.SetCollisionSounds(template.AudioData.collisionSounds);
     }
 
     protected virtual void ApplyStats()
@@ -107,6 +113,11 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
         if (collisionDamageComp != null)
             collisionDamageComp.SetCollisionStats(collisionDamage, collisionKnockback);
+
+        if (sphereCollider != null)
+        {
+            sphereCollider.radius = template.CollisionRadius;
+        }
     }
 
     public float GetStat(ShipStatType statType)
@@ -479,7 +490,7 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
     public virtual void Moved()
     {
-        SoundManager.PlaySound(SoundType.MOVE);
+        audioComp?.PlayMove();
         EventBus.Raise(new UnitEvent
         {
             source = this,
@@ -489,7 +500,7 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
     public void Shot()
     {
-        SoundManager.PlaySound(SoundType.SHOOT);
+        audioComp?.PlayShoot();
         EventBus.Raise(new UnitEvent
         {
             source = this,

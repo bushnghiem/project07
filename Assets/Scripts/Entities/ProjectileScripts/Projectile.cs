@@ -47,8 +47,18 @@ public class Projectile : ScriptableObject
     [Header("Base Stats")]
     [SerializeField] private List<ProjectileBaseStatEntry> baseStats;
 
-    [Header("Visual")]
-    public float scale = 1f;
+    [Header("Visuals")]
+    [SerializeField] private ProjectileVisualData visualData;
+    public ProjectileVisualData VisualData => visualData;
+
+    [Header("Audio")]
+    [SerializeField]
+    private ProjectileAudioData audioData;
+
+    public ProjectileAudioData AudioData => audioData;
+
+    [Header("Gameplay")]
+    public float collisionRadius = 0.5f;
 
     private Dictionary<ProjectileStatType, float> baseStatMap;
     public IReadOnlyDictionary<ProjectileStatType, float> BaseStatMap => baseStatMap;

@@ -24,6 +24,11 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
     private Collider[] colliders;
     private Renderer[] renderers;
 
+    private ProjectileVisualController visualController;
+    private SphereCollider sphereCollider;
+
+    private ProjectileAudioController audioController;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -32,6 +37,9 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
         collisionDamageComp = GetComponent<DamageOnCollision>();
         colliders = GetComponentsInChildren<Collider>();
         renderers = GetComponentsInChildren<Renderer>();
+        visualController = GetComponent<ProjectileVisualController>();
+        sphereCollider = GetComponent<SphereCollider>();
+        audioController = GetComponent<ProjectileAudioController>();
     }
 
     public void Initialize(Projectile stats, UnitBase owner)
@@ -45,6 +53,11 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
 
         ApplyStats();
         ApplyEffects();
+        visualController?.ApplyVisuals(template.VisualData);
+        audioController?.Initialize(template.AudioData);
+
+
+        audioController?.PlayLaunch();
     }
 
     private void ApplyStats()
@@ -93,7 +106,11 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
         {
             Invoke(nameof(Expire), template.lifeTime);
         }
-        ApplyScale();
+
+        if (sphereCollider != null)
+        {
+            sphereCollider.radius = template.collisionRadius;
+        }
     }
 
     void ApplyEffects()
@@ -126,11 +143,6 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
         }
     }
 
-    void ApplyScale()
-    {
-        transform.localScale = Vector3.one * template.scale;
-    }
-
     // Get stat value from instance copy
     private float GetStat(ProjectileStatType type)
     {
@@ -148,6 +160,7 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
     void DisableVisuals()
     {
         foreach (var r in renderers) r.enabled = false;
+        visualController?.HideVisuals();
     }
 
     public void Kill()

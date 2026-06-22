@@ -9,6 +9,9 @@ public class DamageOnCollision : MonoBehaviour
     [SerializeField] private float knockbackStrength = 12f;
     private float spawnTime;
 
+    [SerializeField]
+    private AudioClip[] collisionSounds;
+
     void Awake()
     {
         spawnTime = Time.time;
@@ -18,6 +21,8 @@ public class DamageOnCollision : MonoBehaviour
     {
         if (Time.time - spawnTime < 0.05f)
             return;
+
+        PlayCollisionSound();
 
         Entity entity = collision.collider.GetComponentInParent<Entity>();
         if (entity == null) return;
@@ -53,5 +58,25 @@ public class DamageOnCollision : MonoBehaviour
     {
         contactDamage = damage;
         knockbackStrength = knockback;
+    }
+
+    private void PlayCollisionSound()
+    {
+        if (collisionSounds == null || collisionSounds.Length == 0)
+        {
+            Debug.LogWarning("No collision sounds assigned!");
+            return;
+        }
+
+        var clip = collisionSounds[0];
+
+
+        AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position, 1f);
+    }
+
+    public void SetCollisionSounds(
+    AudioClip[] clips)
+    {
+        collisionSounds = clips;
     }
 }
