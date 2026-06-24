@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShotgunModifier
   pelletCount: 5
   spreadAngle: 30
+  laneSpacing: 0.3

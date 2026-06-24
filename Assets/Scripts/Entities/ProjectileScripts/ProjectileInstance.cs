@@ -29,6 +29,7 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
 
     private ProjectileAudioController audioController;
 
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -233,7 +234,7 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
 
     public void Fling(Vector3 direction, float force)
     {
-        rb.AddForce(direction * force, ForceMode.Impulse);
+        rb.AddForce(direction.normalized * force, ForceMode.Impulse);
     }
 
     public InspectionData GetInspectionData()

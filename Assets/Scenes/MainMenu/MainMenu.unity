@@ -530,6 +530,7 @@ MonoBehaviour:
       - itemID: active_test
       - itemID: passive_heal_turn
       - itemID: passive_explosive_death
+      - itemID: passive_three_burst
     - uniqueID: Player 2
       templateID: 0
       aiBehaviorID: 
@@ -544,6 +545,7 @@ MonoBehaviour:
       - itemID: passive_projectile_explosive_death
       - itemID: passive_all_fire
       - itemID: passive_side_cannons
+      - itemID: passive_three_burst
     runCurrency: 0
   continueButton: {fileID: 1354013984}
 --- !u!4 &295304960

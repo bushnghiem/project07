@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae059c4c82793984092cf630b6f73ec8, type: 3}
+  m_Name: ThreeBurst
+  m_EditorClassIdentifier: Assembly-CSharp::CompositePassive
+  itemID: passive_three_burst
+  itemName: Three Burst
+  icon: {fileID: 0}
+  description: 
+  price: 100
+  slotType: 2
+  modifiers:
+  - {fileID: 11400000, guid: 2d538d16c14e7bc4e9b9b4fbbc30eb21, type: 2}

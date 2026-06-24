@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66fb0d7e85a2b66429ad2ac5fe8593e2, type: 3}
-  m_Name: SideCannons
-  m_EditorClassIdentifier: Assembly-CSharp::SideCannonsModifier
-  angle: 90
-  laneSpacing: 0.5
+  m_Script: {fileID: 11500000, guid: 88a3bad6fa7504d48af258eaef68de26, type: 3}
+  m_Name: TriShot
+  m_EditorClassIdentifier: Assembly-CSharp::ShotgunModifier
+  pelletCount: 3
+  spreadAngle: 30

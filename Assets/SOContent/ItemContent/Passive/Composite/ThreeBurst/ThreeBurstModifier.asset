@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66fb0d7e85a2b66429ad2ac5fe8593e2, type: 3}
-  m_Name: SideCannons
-  m_EditorClassIdentifier: Assembly-CSharp::SideCannonsModifier
-  angle: 90
-  laneSpacing: 0.5
+  m_Script: {fileID: 11500000, guid: a26f38a99257da84a8b224a46ad35fa1, type: 3}
+  m_Name: ThreeBurstModifier
+  m_EditorClassIdentifier: Assembly-CSharp::ShotModifierPassive
+  modifiers:
+  - {fileID: 11400000, guid: 2fc54666be4f3f74786dd824849b3b63, type: 2}

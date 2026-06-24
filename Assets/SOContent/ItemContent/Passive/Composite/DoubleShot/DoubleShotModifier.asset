@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a26f38a99257da84a8b224a46ad35fa1, type: 3}
   m_Name: DoubleShotModifier
   m_EditorClassIdentifier: Assembly-CSharp::ShotModifierPassive
-  modifiers: []
+  modifiers:
+  - {fileID: 11400000, guid: 30d766d3f29ec444399aa7e68fed0eda, type: 2}
