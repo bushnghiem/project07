@@ -70,28 +70,31 @@ public class UnitActionExecutor : MonoBehaviour
                 action.powerPercent
             );
 
-        bool handled =
-            action.actor.TriggerShootEffects(
+        Projectile projectile =
+            action.projectile;
+
+        ShotPattern pattern =
+            ShotPatternFactory.CreateBasicShot(
+                action.actor,
+                projectile,
                 action.direction,
                 force
             );
 
-        if (!handled)
+        foreach (var modifier in action.actor.ShotModifiers)
         {
-            Vector3 spawnPos =
-                action.actor.Position +
-                action.direction.normalized * (action.actor.Template.CollisionRadius
-                + action.actor.Template.ProjectileSpawnRadius);
-
-            ProjectileSpawnEvent
-                .OnProjectileSpawn?.Invoke(
-                    spawnPos,
-                    action.direction.normalized,
-                    force,
-                    action.projectile,
-                    action.actor
-                );
+            modifier.Modify(
+                pattern,
+                action.actor
+            );
         }
+
+        ShotPatternSpawner.Spawn(
+            pattern,
+            action.actor
+        );
+
+        action.actor.TriggerShootEffects(action.direction, force);
 
         action.actor.Shot();
 

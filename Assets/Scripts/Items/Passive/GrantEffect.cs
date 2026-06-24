@@ -37,7 +37,7 @@ public class GrantEffectPassive : PassiveItem
 
             controller.effects.Add(runtimeEffect);
 
-            instance.injectedEffects.Add(runtimeEffect);
+            instance.grantedObjects.Add(runtimeEffect);
         }
     }
 
@@ -54,14 +54,14 @@ public class GrantEffectPassive : PassiveItem
         if (controller == null)
             return;
 
-        foreach (var effect in instance.injectedEffects)
+        foreach (var obj in instance.grantedObjects)
         {
-            controller.effects.Remove(effect);
+            if (obj is Effect effect)
+            {
+                controller.effects.Remove(effect);
 
-            if (effect != null)
                 Destroy(effect);
+            }
         }
-
-        instance.injectedEffects.Clear();
     }
 }

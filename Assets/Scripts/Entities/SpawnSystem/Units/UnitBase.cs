@@ -73,6 +73,10 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
     protected SphereCollider sphereCollider;
     protected ShipAudioComponent audioComp;
 
+    protected List<ShotModifier> shotModifiers = new();
+
+    public IReadOnlyList<ShotModifier> ShotModifiers => shotModifiers;
+
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -282,6 +286,16 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
         projectileCollisionStatusModifiers.Remove(effect);
     }
 
+    public void AddShotModifier(ShotModifier modifier)
+    {
+        shotModifiers.Add(modifier);
+    }
+
+    public void RemoveShotModifier(ShotModifier modifier)
+    {
+        shotModifiers.Remove(modifier);
+    }
+
     public void AddItemToRunData(Item item)
     {
         if (runData.items == null)
@@ -385,36 +399,28 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
         statsDirty = true;
     }
 
-    public virtual bool TriggerShootEffects(Vector3 direction, float force)
+    public virtual void TriggerShootEffects(
+    Vector3 direction,
+    float force)
     {
-        if (effectController == null) return false;
+        if (effectController == null)
+            return;
 
-        bool hasShootEffect = false;
-
-        foreach (var effect in effectController.effects)
-        {
-            if (effect.trigger == EffectTrigger.OnShoot)
-            {
-                hasShootEffect = true;
-                break;
-            }
-        }
-
-        if (!hasShootEffect) return false;
-
-        var context = new EffectContext(
-            transform.position,
-            gameObject,
-            this,
-            this
-        );
+        var context =
+            new EffectContext(
+                transform.position,
+                gameObject,
+                this,
+                this
+            );
 
         context.direction = direction;
         context.force = force;
 
-        effectController.TriggerEffects(EffectTrigger.OnShoot, context);
-
-        return true;
+        effectController.TriggerEffects(
+            EffectTrigger.OnShoot,
+            context
+        );
     }
 
     public ActiveItemInstance GetActiveItem() => activeItem;

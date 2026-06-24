@@ -6,7 +6,8 @@ public class PassiveItemInstance
 {
     public PassiveItem itemData;
 
-    public List<Effect> injectedEffects = new();
+    // Runtime objects added by this item
+    public List<Object> grantedObjects = new();
 
     public PassiveItemInstance(PassiveItem data)
     {

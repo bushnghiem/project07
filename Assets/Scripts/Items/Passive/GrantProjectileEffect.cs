@@ -31,7 +31,7 @@ public class GrantProjectileEffect : PassiveItem
 
             unitBase.AddProjectileRuntimeEffect(runtimeEffect);
 
-            instance.injectedEffects.Add(runtimeEffect);
+            instance.grantedObjects.Add(runtimeEffect);
         }
     }
 
@@ -42,14 +42,14 @@ public class GrantProjectileEffect : PassiveItem
         if (unit is not UnitBase unitBase)
             return;
 
-        foreach (var effect in instance.injectedEffects)
+        foreach (var obj in instance.grantedObjects)
         {
-            unitBase.RemoveProjectileRuntimeEffect(effect);
+            if (obj is Effect effect)
+            {
+                unitBase.RemoveProjectileRuntimeEffect(effect);
 
-            if (effect != null)
                 Destroy(effect);
+            }
         }
-
-        instance.injectedEffects.Clear();
     }
 }

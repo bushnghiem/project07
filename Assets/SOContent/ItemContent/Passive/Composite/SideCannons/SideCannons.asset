@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae059c4c82793984092cf630b6f73ec8, type: 3}
-  m_Name: DoubleShot
+  m_Name: SideCannons
   m_EditorClassIdentifier: Assembly-CSharp::CompositePassive
-  itemID: passive_double_shot
-  itemName: Double Shot
+  itemID: passive_side_cannons
+  itemName: Side Cannons
   icon: {fileID: 0}
   description: 
   price: 100
   slotType: 2
   modifiers:
-  - {fileID: 11400000, guid: 7e29b2a8262986e46bc19ede9e313d5a, type: 2}
+  - {fileID: 11400000, guid: 6033e2de5fbe90a48a5b3233282eb878, type: 2}

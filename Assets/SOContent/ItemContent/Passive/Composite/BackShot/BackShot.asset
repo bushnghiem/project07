@@ -9,13 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2c664bab9c5444438311191def0d038, type: 3}
-  m_Name: ScrapGunItem
-  m_EditorClassIdentifier: Assembly-CSharp::ProjectileItem
-  itemID: projectile_scrap_gun
-  itemName: Scrap Gun
+  m_Script: {fileID: 11500000, guid: ae059c4c82793984092cf630b6f73ec8, type: 3}
+  m_Name: BackShot
+  m_EditorClassIdentifier: Assembly-CSharp::CompositePassive
+  itemID: passive_back_shot
+  itemName: Back Shot
   icon: {fileID: 0}
   description: 
   price: 100
-  slotType: 1
-  projectile: {fileID: 11400000, guid: c63de655628d0ce4796f49af46404829, type: 2}
+  slotType: 2
+  modifiers:
+  - {fileID: 11400000, guid: d27138a7d24ec4944a0d3c6a26c8de7b, type: 2}

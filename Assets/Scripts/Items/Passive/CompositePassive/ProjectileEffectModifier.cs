@@ -24,8 +24,7 @@ public class ProjectileEffectModifier : PassiveModifier
             unit.AddProjectileRuntimeEffect(
                 runtimeEffect);
 
-            instance.injectedEffects.Add(
-                runtimeEffect);
+            instance.grantedObjects.Add(runtimeEffect);
         }
     }
 
@@ -33,15 +32,14 @@ public class ProjectileEffectModifier : PassiveModifier
         UnitBase unit,
         PassiveItemInstance instance)
     {
-        foreach (var effect in instance.injectedEffects)
+        foreach (var obj in instance.grantedObjects)
         {
-            unit.RemoveProjectileRuntimeEffect(
-                effect);
+            if (obj is Effect effect)
+            {
+                unit.RemoveProjectileRuntimeEffect(effect);
 
-            if (effect != null)
                 Destroy(effect);
+            }
         }
-
-        instance.injectedEffects.Clear();
     }
 }

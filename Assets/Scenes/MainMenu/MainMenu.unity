@@ -540,9 +540,10 @@ MonoBehaviour:
       - itemID: projectile_iron_ball
       - itemID: passive_heal_kill
       - itemID: active_shield
-      - itemID: passive_double_shot
+      - itemID: passive_extra_shot
       - itemID: passive_projectile_explosive_death
       - itemID: passive_all_fire
+      - itemID: passive_side_cannons
     runCurrency: 0
   continueButton: {fileID: 1354013984}
 --- !u!4 &295304960
