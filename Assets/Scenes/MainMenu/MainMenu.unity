@@ -502,13 +502,17 @@ MonoBehaviour:
       floorSeed: 0
       contentProfile: {fileID: 0}
       currentGridPosition: {x: 0, y: 0}
+      spawnPosition: {x: 0, y: 0}
       currentEncounter: {fileID: 0}
+      currentEncounterIsCorrupted: 0
       timeElapsed: 0
       nextCorruptionTimeThreshold: 5
       clearedCombatTiles: []
+      clearedCorruptionTiles: []
       clearedEventTiles: []
       shops: []
       corruptionRadius: -1
+      hasShownFloorIntro: 0
       hasInitializedSpawn: 0
       bossDefeated: 0
     completedFloors: []
@@ -1019,6 +1023,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1156344674}
   m_CullTransparentMesh: 1
+--- !u!1 &1209737850
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1209737852}
+  - component: {fileID: 1209737851}
+  m_Layer: 0
+  m_Name: SceneMusic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1209737851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1209737850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18ce26c6854b9c642bcd72b2a671df8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneMusic
+  music: 0
+--- !u!4 &1209737852
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1209737850}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.57861, y: 0, z: 3.7819}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1305051421
 GameObject:
   m_ObjectHideFlags: 0
@@ -2248,3 +2297,4 @@ SceneRoots:
   - {fileID: 16002306}
   - {fileID: 716565672}
   - {fileID: 295304960}
+  - {fileID: 1209737852}

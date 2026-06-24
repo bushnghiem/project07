@@ -18,7 +18,7 @@ MonoBehaviour:
     stacks: 10
     sourceID: explosion
   radius: 3
-  damage: 100
+  damage: 50
   force: 100
   upwardModifier: 2
   damageLayers:

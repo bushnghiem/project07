@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 118ed928165d27c4c86d0fca1de2c61e, type: 3}
+  m_Name: ScrapVisual
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileVisualData
+  visualPrefab: {fileID: 6593386021743094920, guid: 4a4b36c9df2016c4596893e7d66f141e, type: 3}
+  overrideMaterial: {fileID: 0}
+  icon: {fileID: 0}
+  visualScale: 40

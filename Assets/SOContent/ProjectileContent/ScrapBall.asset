@@ -27,7 +27,9 @@ MonoBehaviour:
     value: 50
   - statType: 4
     value: 1
-  scale: 1
+  visualData: {fileID: 11400000, guid: 2579f660ac7fc8949a328693176edcad, type: 2}
+  audioData: {fileID: 11400000, guid: fac19600c5db6bb49922350d425d9aee, type: 2}
+  collisionRadius: 0.5
   linearDamping: 2
   angularDamping: 2
   useLifetime: 1

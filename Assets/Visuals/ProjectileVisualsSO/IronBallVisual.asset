@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 118ed928165d27c4c86d0fca1de2c61e, type: 3}
   m_Name: IronBallVisual
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileVisualData
-  visualPrefab: {fileID: 919132149155446097, guid: 029322bd686ed37488a13891a5c0ada3, type: 3}
+  visualPrefab: {fileID: 3189743628526857742, guid: 39655b13026c00b43a24a2da8ff32fde, type: 3}
   overrideMaterial: {fileID: 0}
   icon: {fileID: 0}
-  visualScale: 1
+  visualScale: 80

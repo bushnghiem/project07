@@ -25,13 +25,15 @@ MonoBehaviour:
   - statType: 3
     value: 10
   - statType: 4
-    value: 0.5
-  scale: 0.5
+    value: 0.25
+  visualData: {fileID: 11400000, guid: 60530ea1423534d4fa94dd435c68f8b2, type: 2}
+  audioData: {fileID: 11400000, guid: fac19600c5db6bb49922350d425d9aee, type: 2}
+  collisionRadius: 0.25
   linearDamping: 2
   angularDamping: 2
-  useLifetime: 1
+  useLifetime: 0
   lifeTime: 5
-  dieWhenStopped: 1
+  dieWhenStopped: 0
   velocityThreshold: 0.1
   stopTimeRequired: 0.5
   doesExplode: 0

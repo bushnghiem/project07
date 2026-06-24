@@ -24,8 +24,10 @@ public class ShipTemplate : ScriptableObject
 
     [Header("Gameplay")]
     [SerializeField] private float collisionRadius = 1f;
+    [SerializeField] private float projectileSpawnRadius = 2f;
 
     public float CollisionRadius => collisionRadius;
+    public float ProjectileSpawnRadius => projectileSpawnRadius;
 
     private Dictionary<ShipStatType, float> baseStatMap;
     public IReadOnlyDictionary<ShipStatType, float> BaseStatMap => baseStatMap;

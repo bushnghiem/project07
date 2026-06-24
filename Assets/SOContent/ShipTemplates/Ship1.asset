@@ -57,6 +57,10 @@ MonoBehaviour:
     value: 0
   - statType: 20
     value: 0
+  visualData: {fileID: 0}
+  audioData: {fileID: 0}
+  collisionRadius: 1
+  projectileSpawnRadius: 1
   startingActiveItemID: 
   startingPassiveItemIDs: []
   startingProjectileID: 

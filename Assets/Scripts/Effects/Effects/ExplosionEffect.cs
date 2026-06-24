@@ -30,13 +30,9 @@ public class ExplosionEffect : Effect
             Entity entity = hit.GetComponent<Entity>();
             if (entity != null && hitEntities.Add(entity))
             {
-                float dist = Vector3.Distance(position, hit.transform.position);
-                float t = Mathf.Clamp01(dist / radius);
-                float finalDamage = Mathf.Lerp(damage, 0f, t);
-                int stacks = Mathf.RoundToInt(Mathf.Lerp(3, 1, t));
-                Debug.Log($"Boom Hit {entity} for {finalDamage}");
+                Debug.Log($"Boom Hit {entity} for {damage}");
 
-                entity.Hurt(DamagePresets.Explosion(finalDamage));
+                entity.Hurt(DamagePresets.Explosion(damage));
 
                 var unit = hit.GetComponent<Unit>();
                 if (unit != null)

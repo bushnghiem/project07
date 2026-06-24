@@ -11,6 +11,8 @@ public class TestRun : MonoBehaviour
         var runData = RunManager.Instance.CurrentRun;
         var encounterData = runData.currentFloorData.currentEncounter;
 
+        MusicManager.PlayMusic(encounterData.music);
+
         unitSpawner.SetAnchorPositions(encounterData.playerAnchorPosition, encounterData.enemyAnchorPosition);
 
         if (encounterData.playerFormation != null)

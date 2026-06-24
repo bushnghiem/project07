@@ -60,6 +60,7 @@ MonoBehaviour:
   visualData: {fileID: 11400000, guid: 3d40b9dfbb2f0c344817012da41a4c03, type: 2}
   audioData: {fileID: 11400000, guid: c7b0fc4da74c57349a74552f28276ddf, type: 2}
   collisionRadius: 2
+  projectileSpawnRadius: 1
   startingActiveItemID: active_heal_100
   startingPassiveItemIDs:
   - passive_heal_kill

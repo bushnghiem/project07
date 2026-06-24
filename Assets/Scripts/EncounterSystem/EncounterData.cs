@@ -17,4 +17,6 @@ public class EncounterData : ScriptableObject
 
     public int runCurrencyReward;
     public int metaCurrencyReward;
+
+    public MusicType music;
 }

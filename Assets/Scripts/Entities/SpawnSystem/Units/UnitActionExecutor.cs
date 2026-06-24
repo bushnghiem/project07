@@ -80,8 +80,8 @@ public class UnitActionExecutor : MonoBehaviour
         {
             Vector3 spawnPos =
                 action.actor.Position +
-                action.direction.normalized *
-                projectileSpawnRadius;
+                action.direction.normalized * (action.actor.Template.CollisionRadius
+                + action.actor.Template.ProjectileSpawnRadius);
 
             ProjectileSpawnEvent
                 .OnProjectileSpawn?.Invoke(

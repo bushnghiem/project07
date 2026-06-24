@@ -57,6 +57,10 @@ MonoBehaviour:
     value: 0
   - statType: 20
     value: 0
+  visualData: {fileID: 11400000, guid: 3d40b9dfbb2f0c344817012da41a4c03, type: 2}
+  audioData: {fileID: 11400000, guid: c7b0fc4da74c57349a74552f28276ddf, type: 2}
+  collisionRadius: 2
+  projectileSpawnRadius: 3
   startingActiveItemID: 
   startingPassiveItemIDs: []
   startingProjectileID: projectile_scrap_ball
