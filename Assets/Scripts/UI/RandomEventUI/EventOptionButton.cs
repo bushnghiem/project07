@@ -1,14 +1,17 @@
-﻿using UnityEngine;
-using TMPro;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class EventOptionButton : MonoBehaviour
+public class EventOptionButton : MonoBehaviour,
+    IPointerEnterHandler,
+    IPointerExitHandler
 {
     public TextMeshProUGUI label;
-    private EventOption option;
-    private EventUI eventUI;
     public Button optionButton;
 
+    private EventOption option;
+    private EventUI eventUI;
     private int optionIndex;
 
     public void Setup(EventOption option, int index, EventUI ui, bool isUsed)
@@ -16,18 +19,6 @@ public class EventOptionButton : MonoBehaviour
         this.option = option;
         this.optionIndex = index;
         this.eventUI = ui;
-
-        if (label == null)
-        {
-            Debug.LogError("Label is NOT assigned on EventOptionButton!");
-            return;
-        }
-
-        if (optionButton == null)
-        {
-            Debug.LogError("Button component missing!");
-            return;
-        }
 
         if (isUsed)
         {
@@ -47,5 +38,17 @@ public class EventOptionButton : MonoBehaviour
     void OnClick()
     {
         eventUI.SelectOption(option, optionIndex);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        EventTooltipUI.Instance.Show(
+            EventTooltipBuilder.Build(option)
+        );
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        EventTooltipUI.Instance.Hide();
     }
 }

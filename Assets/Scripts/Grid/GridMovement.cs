@@ -15,6 +15,7 @@ public class GridMovement : MonoBehaviour
     public Vector3 playerAnchorPos; // Set far away from grid
     public FormationData playerFormation; // Set to formation created for grid
     public ShipHolder shipHolder; // See all player ship instances
+    public bool inputLocked;
 
     IEnumerator Start()
     {
@@ -43,10 +44,16 @@ public class GridMovement : MonoBehaviour
 
     void Update()
     {
+        if (inputLocked)
+            return;
+
         if (Input.GetKeyDown(KeyCode.W)) TryMove(Vector2Int.up);
         if (Input.GetKeyDown(KeyCode.S)) TryMove(Vector2Int.down);
         if (Input.GetKeyDown(KeyCode.A)) TryMove(Vector2Int.left);
         if (Input.GetKeyDown(KeyCode.D)) TryMove(Vector2Int.right);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+            InteractWithCurrentTile();
     }
 
     void TryMove(Vector2Int direction)
@@ -111,11 +118,9 @@ public class GridMovement : MonoBehaviour
     public void HandleRandomEventTile(TileData tile)
     {
         if (tile.assignedEvent == null)
-        {
-            Debug.Log("No event assigned.");
             return;
-        }
-        Debug.Log(tile.assignedEvent);
+
+        inputLocked = true;
         eventUI.ShowEvent(tile.assignedEvent);
     }
 
@@ -158,6 +163,8 @@ public class GridMovement : MonoBehaviour
         Vector2Int shopPos = gridPosition;
 
         shopManager.GenerateShop(shopPos);
+
+        inputLocked = true;
 
         shopUI.PopulateShop();
         shopUI.gameObject.SetActive(true);
@@ -222,5 +229,16 @@ public class GridMovement : MonoBehaviour
         SaveManager.Instance.SaveRun();
 
         SceneManager.LoadScene("SpawnTestScene");
+    }
+
+    void InteractWithCurrentTile()
+    {
+        TileData tile =
+            gridManager.grid[gridPosition.x, gridPosition.y];
+
+        if (tile == null)
+            return;
+
+        HandleTileEvent(tile);
     }
 }

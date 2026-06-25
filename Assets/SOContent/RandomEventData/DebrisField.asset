@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: DebrisField
   m_EditorClassIdentifier: Assembly-CSharp::EventData
   eventName: Debris Field
-  description: Carefully avoid debris or rush through
+  description: You find yourself caught in a debris field. You could have sworn that
+    you were careful.
   options:
   - optionText: Rush
     conditions: []
@@ -27,6 +28,17 @@ MonoBehaviour:
         element: 1
         bypassShields: 1
         bypassResistance: 1
+      encounter: {fileID: 0}
+      item: {fileID: 0}
+    - type: 6
+      tileModification: 0
+      value: 1
+      damage:
+        amount: 0
+        category: 0
+        element: 0
+        bypassShields: 0
+        bypassResistance: 0
       encounter: {fileID: 0}
       item: {fileID: 0}
     removeAfterUse: 0

@@ -45,5 +45,6 @@ public class ShopUI : MonoBehaviour
     private void OnClosePressed()
     {
         gameObject.SetActive(false);
+        FindFirstObjectByType<GridMovement>().inputLocked = false;
     }
 }

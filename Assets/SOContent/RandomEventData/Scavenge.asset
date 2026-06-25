@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Scavenge
   m_EditorClassIdentifier: Assembly-CSharp::EventData
   eventName: Scavenge
-  description: 'Scavenge Area for 100 gold, hurt player 5 in turn
+  description: 'You spot a seemingly abandoned ship. It''s security systems still
+    seem to be running. You might make some money scavenging the ship at your own
+    risk.
 
 '
   options:

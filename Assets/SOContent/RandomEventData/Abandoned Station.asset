@@ -13,12 +13,8 @@ MonoBehaviour:
   m_Name: Abandoned Station
   m_EditorClassIdentifier: Assembly-CSharp::EventData
   eventName: Abandoned Repair Station
-  description: 'You can salvage whole station for 100 gold (clear event)
-
-    Use
-    Equipment to heal 10 HP (Reusable)
-
-    Leave '
+  description: 'You find an abandoned repair station. It just so happens that some
+    of the equipment is still working. They seem quite valuable. '
   options:
   - optionText: Salvage
     conditions: []
@@ -26,11 +22,23 @@ MonoBehaviour:
     - type: 0
       tileModification: 0
       value: 100
+      damage:
+        amount: 0
+        category: 0
+        element: 0
+        bypassShields: 0
+        bypassResistance: 0
       encounter: {fileID: 0}
       item: {fileID: 0}
     - type: 6
       tileModification: 1
       value: 1
+      damage:
+        amount: 0
+        category: 0
+        element: 0
+        bypassShields: 0
+        bypassResistance: 0
       encounter: {fileID: 0}
       item: {fileID: 0}
     removeAfterUse: 0
@@ -40,11 +48,23 @@ MonoBehaviour:
     - type: 3
       tileModification: 0
       value: 100
+      damage:
+        amount: 0
+        category: 0
+        element: 0
+        bypassShields: 0
+        bypassResistance: 0
       encounter: {fileID: 0}
       item: {fileID: 0}
     - type: 6
       tileModification: 0
       value: 5
+      damage:
+        amount: 0
+        category: 0
+        element: 0
+        bypassShields: 0
+        bypassResistance: 0
       encounter: {fileID: 0}
       item: {fileID: 0}
     removeAfterUse: 0
@@ -54,6 +74,12 @@ MonoBehaviour:
     - type: 7
       tileModification: 0
       value: 0
+      damage:
+        amount: 0
+        category: 0
+        element: 0
+        bypassShields: 0
+        bypassResistance: 0
       encounter: {fileID: 0}
       item: {fileID: 0}
     removeAfterUse: 0

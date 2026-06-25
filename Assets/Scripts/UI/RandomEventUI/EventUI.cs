@@ -14,6 +14,11 @@ public class EventUI : MonoBehaviour
 
     public void ShowEvent(EventData eventData)
     {
+        if (EventTooltipUI.Instance != null)
+        {
+            EventTooltipUI.Instance.Hide();
+        }
+
         if (eventData == null)
         {
             Debug.LogError("EventData is NULL");
@@ -64,6 +69,11 @@ public class EventUI : MonoBehaviour
 
     public void SelectOption(EventOption option, int index)
     {
+        if (EventTooltipUI.Instance != null)
+        {
+            EventTooltipUI.Instance.Hide();
+        }
+
         var run = RunManager.Instance.CurrentRun;
         var pos = run.currentFloorData.currentGridPosition;
 
@@ -83,6 +93,8 @@ public class EventUI : MonoBehaviour
         EventManager.Instance.ExecuteOption(option);
 
         gameObject.SetActive(false);
+
+        FindFirstObjectByType<GridMovement>().inputLocked = false;
     }
 
     bool IsOptionUsed(int index, EventOption option)
