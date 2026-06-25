@@ -23,7 +23,9 @@ public class EventOutcome
 
     public DamageDefinition damage;
 
-    // Optional references
     public EncounterData encounter;
     public Item item;
+
+    [Range(0f, 1f)]
+    public float chance = 1f;
 }

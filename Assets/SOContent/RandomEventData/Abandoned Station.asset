@@ -18,70 +18,87 @@ MonoBehaviour:
   options:
   - optionText: Salvage
     conditions: []
-    outcomes:
-    - type: 0
-      tileModification: 0
-      value: 100
-      damage:
-        amount: 0
-        category: 0
-        element: 0
-        bypassShields: 0
-        bypassResistance: 0
-      encounter: {fileID: 0}
-      item: {fileID: 0}
-    - type: 6
-      tileModification: 1
-      value: 1
-      damage:
-        amount: 0
-        category: 0
-        element: 0
-        bypassShields: 0
-        bypassResistance: 0
-      encounter: {fileID: 0}
-      item: {fileID: 0}
+    outcomeGroups:
+    - groupName: 
+      description: 
+      groupChance: 1
+      outcomes:
+      - type: 0
+        tileModification: 0
+        value: 100
+        damage:
+          amount: 0
+          category: 0
+          element: 0
+          bypassShields: 0
+          bypassResistance: 0
+        encounter: {fileID: 0}
+        item: {fileID: 0}
+        chance: 1
+      - type: 6
+        tileModification: 1
+        value: 1
+        damage:
+          amount: 0
+          category: 0
+          element: 0
+          bypassShields: 0
+          bypassResistance: 0
+        encounter: {fileID: 0}
+        item: {fileID: 0}
+        chance: 1
     removeAfterUse: 0
   - optionText: Rest
     conditions: []
-    outcomes:
-    - type: 3
-      tileModification: 0
-      value: 100
-      damage:
-        amount: 0
-        category: 0
-        element: 0
-        bypassShields: 0
-        bypassResistance: 0
-      encounter: {fileID: 0}
-      item: {fileID: 0}
-    - type: 6
-      tileModification: 0
-      value: 5
-      damage:
-        amount: 0
-        category: 0
-        element: 0
-        bypassShields: 0
-        bypassResistance: 0
-      encounter: {fileID: 0}
-      item: {fileID: 0}
+    outcomeGroups:
+    - groupName: 
+      description: 
+      groupChance: 1
+      outcomes:
+      - type: 3
+        tileModification: 0
+        value: 100
+        damage:
+          amount: 0
+          category: 0
+          element: 0
+          bypassShields: 0
+          bypassResistance: 0
+        encounter: {fileID: 0}
+        item: {fileID: 0}
+        chance: 1
+      - type: 6
+        tileModification: 0
+        value: 1
+        damage:
+          amount: 0
+          category: 0
+          element: 0
+          bypassShields: 0
+          bypassResistance: 0
+        encounter: {fileID: 0}
+        item: {fileID: 0}
+        chance: 1
     removeAfterUse: 0
   - optionText: Leave
     conditions: []
-    outcomes:
-    - type: 7
-      tileModification: 0
-      value: 0
-      damage:
-        amount: 0
-        category: 0
-        element: 0
-        bypassShields: 0
-        bypassResistance: 0
-      encounter: {fileID: 0}
-      item: {fileID: 0}
+    outcomeGroups:
+    - groupName: 
+      description: 
+      groupChance: 1
+      outcomes:
+      - type: 7
+        tileModification: 0
+        value: 0
+        damage:
+          amount: 0
+          category: 0
+          element: 0
+          bypassShields: 0
+          bypassResistance: 0
+        encounter: {fileID: 0}
+        item: {fileID: 0}
+        chance: 1
     removeAfterUse: 0
   minFloor: 0
   maxFloor: 0

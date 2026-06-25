@@ -21,55 +21,67 @@ MonoBehaviour:
   options:
   - optionText: Scavenge
     conditions: []
-    outcomes:
-    - type: 0
-      tileModification: 0
-      value: 100
-      damage:
-        amount: 0
-        category: 0
-        element: 0
-        bypassShields: 0
-        bypassResistance: 0
-      encounter: {fileID: 0}
-      item: {fileID: 0}
-    - type: 4
-      tileModification: 0
-      value: 0
-      damage:
-        amount: 20
-        category: 5
-        element: 0
-        bypassShields: 1
-        bypassResistance: 1
-      encounter: {fileID: 0}
-      item: {fileID: 0}
-    - type: 6
-      tileModification: 1
-      value: 5
-      damage:
-        amount: 0
-        category: 0
-        element: 0
-        bypassShields: 0
-        bypassResistance: 0
-      encounter: {fileID: 0}
-      item: {fileID: 0}
+    outcomeGroups:
+    - groupName: 
+      description: 
+      groupChance: 1
+      outcomes:
+      - type: 0
+        tileModification: 0
+        value: 100
+        damage:
+          amount: 0
+          category: 0
+          element: 0
+          bypassShields: 0
+          bypassResistance: 0
+        encounter: {fileID: 0}
+        item: {fileID: 0}
+        chance: 1
+      - type: 4
+        tileModification: 0
+        value: 0
+        damage:
+          amount: 20
+          category: 0
+          element: 0
+          bypassShields: 1
+          bypassResistance: 1
+        encounter: {fileID: 0}
+        item: {fileID: 0}
+        chance: 1
+      - type: 6
+        tileModification: 1
+        value: 1
+        damage:
+          amount: 20
+          category: 0
+          element: 0
+          bypassShields: 1
+          bypassResistance: 1
+        encounter: {fileID: 0}
+        item: {fileID: 0}
+        chance: 1
     removeAfterUse: 0
   - optionText: Leave
     conditions: []
-    outcomes:
-    - type: 7
-      tileModification: 0
-      value: 0
-      damage:
-        amount: 0
-        category: 0
-        element: 0
-        bypassShields: 0
-        bypassResistance: 0
-      encounter: {fileID: 0}
-      item: {fileID: 0}
+    outcomeGroups:
+    - groupName: 
+      description: 
+      groupChance: 1
+      outcomes:
+      - type: 7
+        tileModification: 0
+        value: 0
+        damage:
+          amount: 0
+          category: 0
+          element: 0
+          bypassShields: 0
+          bypassResistance: 0
+        encounter: {fileID: 0}
+        item: {fileID: 0}
+        chance: 1
     removeAfterUse: 0
   minFloor: 0
   maxFloor: 0

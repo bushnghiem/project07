@@ -16,11 +16,19 @@ public class EventManager : MonoBehaviour
     public void ExecuteOption(EventOption option)
     {
         var run = RunManager.Instance.CurrentRun;
-        Vector2Int pos = run.currentFloorData.currentGridPosition;
 
-        foreach (var outcome in option.outcomes)
+        foreach (var group in option.outcomeGroups)
         {
-            ApplyOutcome(outcome);
+            if (!RollChance(group.groupChance))
+                continue;
+
+            foreach (var outcome in group.outcomes)
+            {
+                if (RollChance(outcome.chance))
+                {
+                    ApplyOutcome(outcome);
+                }
+            }
         }
 
         SaveManager.Instance.SaveRun();
@@ -107,5 +115,10 @@ public class EventManager : MonoBehaviour
         CorruptionManager.Instance.OnTimePassed();
 
         SaveManager.Instance.SaveRun();
+    }
+
+    bool RollChance(float chance)
+    {
+        return RunManager.Instance.CurrentRun.rng.NextFloat() <= chance;
     }
 }

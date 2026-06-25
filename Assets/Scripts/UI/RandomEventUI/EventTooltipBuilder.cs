@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Text;
+using UnityEngine;
 
 public static class EventTooltipBuilder
 {
@@ -7,61 +7,101 @@ public static class EventTooltipBuilder
     {
         StringBuilder sb = new StringBuilder();
 
-        foreach (var outcome in option.outcomes)
+        if (option.outcomeGroups == null)
+            return "";
+
+        foreach (var group in option.outcomeGroups)
         {
-            switch (outcome.type)
+            if (group == null)
+                continue;
+
+            // --- Group Header ---
+            if (group.groupChance < 1f)
             {
-                case OutcomeType.GainCurrency:
-                    sb.AppendLine($"+{outcome.value} Scrap");
-                    break;
-
-                case OutcomeType.LoseCurrency:
-                    sb.AppendLine($"-{outcome.value} Scrap");
-                    break;
-
-                case OutcomeType.HealPlayer:
-                    sb.AppendLine($"Heal {outcome.value} HP");
-                    break;
-
-                case OutcomeType.DamagePlayer:
-                    if (outcome.damage != null)
-                    {
-                        string damageText = $"Take {outcome.damage.amount:0}";
-
-                        if (outcome.damage.element != DamageElement.None)
-                        {
-                            damageText += $" {outcome.damage.element}";
-                        }
-
-                        damageText += " Damage";
-
-                        sb.AppendLine(damageText);
-                    }
-                    else
-                    {
-                        sb.AppendLine("Take Damage");
-                    }
-                    break;
-
-                case OutcomeType.GiveItem:
-                    if (outcome.item != null)
-                        sb.AppendLine($"Gain {outcome.item.itemName}");
-                    break;
-
-                case OutcomeType.TakeTime:
-                    sb.AppendLine($"Consumes {outcome.value} Moves");
-                    break;
-
-                case OutcomeType.StartCombat:
-                    sb.AppendLine("Starts Combat");
-                    break;
-
-                case OutcomeType.Nothing:
-                    sb.AppendLine("Nothing");
-                    break;
+                sb.AppendLine($"[{Mathf.RoundToInt(group.groupChance * 100)}% Risk]");
             }
+            else if (!string.IsNullOrEmpty(group.groupName))
+            {
+                sb.AppendLine(group.groupName);
+            }
+
+            // Optional description (nice for clarity in roguelikes)
+            if (!string.IsNullOrEmpty(group.description))
+            {
+                sb.AppendLine(group.description);
+            }
+
+            if (group.outcomes == null)
+            {
+                sb.AppendLine();
+                continue;
+            }
+
+            // --- Outcomes ---
+            foreach (var outcome in group.outcomes)
+            {
+                if (outcome == null)
+                    continue;
+
+                string chanceText =
+                    outcome.chance < 1f
+                    ? $"{Mathf.RoundToInt(outcome.chance * 100)}% "
+                    : "";
+
+                switch (outcome.type)
+                {
+                    case OutcomeType.GainCurrency:
+                        sb.AppendLine($"{chanceText}+{outcome.value} Scrap");
+                        break;
+
+                    case OutcomeType.LoseCurrency:
+                        sb.AppendLine($"{chanceText}-{outcome.value} Scrap");
+                        break;
+
+                    case OutcomeType.HealPlayer:
+                        sb.AppendLine($"{chanceText}Heal {outcome.value} HP");
+                        break;
+
+                    case OutcomeType.DamagePlayer:
+                        if (outcome.damage != null)
+                        {
+                            string element =
+                                outcome.damage.element == DamageElement.None
+                                    ? ""
+                                    : $"{outcome.damage.element} ";
+
+                            sb.AppendLine(
+                                $"{chanceText}Take {outcome.damage.amount:0} {element}Damage"
+                            );
+                        }
+                        else
+                        {
+                            sb.AppendLine($"{chanceText}Take Damage");
+                        }
+                        break;
+
+                    case OutcomeType.GiveItem:
+                        if (outcome.item != null)
+                            sb.AppendLine($"{chanceText}Gain {outcome.item.itemName}");
+                        break;
+
+                    case OutcomeType.StartCombat:
+                        sb.AppendLine($"{chanceText}Start Combat");
+                        break;
+
+                    case OutcomeType.TakeTime:
+                        sb.AppendLine($"{chanceText}Consumes {outcome.value} Time");
+                        break;
+
+                    case OutcomeType.Nothing:
+                        sb.AppendLine($"{chanceText}Nothing");
+                        break;
+                }
+            }
+
+            sb.AppendLine(); // spacing between groups
         }
 
-        return sb.ToString();
+        return sb.ToString().TrimEnd();
     }
 }

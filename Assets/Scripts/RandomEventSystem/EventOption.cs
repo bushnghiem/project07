@@ -7,7 +7,9 @@ public class EventOption
     public string optionText;
 
     public List<EventCondition> conditions;
-    public List<EventOutcome> outcomes;
+
+    [Header("Outcome Groups")]
+    public List<OutcomeGroup> outcomeGroups = new List<OutcomeGroup>();
 
     public bool removeAfterUse;
 }
