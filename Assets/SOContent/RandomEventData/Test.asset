@@ -14,7 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EventData
   eventName: 
   description: 
-  options: []
+  options:
+  - optionText: 
+    conditions: []
+    outcomeGroups:
+    - groupName: 
+      description: 
+      groupChance: 0
+      outcomes: []
+    removeAfterUse: 0
   minFloor: 0
   maxFloor: 0
   unique: 0

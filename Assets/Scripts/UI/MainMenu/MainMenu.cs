@@ -22,7 +22,6 @@ public class MainMenu : MonoBehaviour
     {
         RunManager.Instance.CurrentRun = startingRunData;
         MetaManager.Instance.totalRuns++;
-        RunManager.Instance.CurrentRun.rng = new RunRNG(RunManager.Instance.CurrentRun.runSeed);
         SaveManager.Instance.SaveMeta();
         SceneManager.LoadScene("TestGrid");
 

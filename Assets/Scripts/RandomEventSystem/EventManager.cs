@@ -16,20 +16,18 @@ public class EventManager : MonoBehaviour
     public void ExecuteOption(EventOption option)
     {
         var run = RunManager.Instance.CurrentRun;
+        var pos = run.currentFloorData.currentGridPosition;
+        var floor = run.currentFloorData;
 
-        foreach (var group in option.outcomeGroups)
-        {
-            if (!RollChance(group.groupChance))
-                continue;
+        int eventSeed =
+            run.runSeed ^
+            (pos.x * 73856093) ^
+            (pos.y * 19349663) ^
+            floor.timeElapsed;
 
-            foreach (var outcome in group.outcomes)
-            {
-                if (RollChance(outcome.chance))
-                {
-                    ApplyOutcome(outcome);
-                }
-            }
-        }
+        System.Random eventRng = new System.Random(eventSeed);
+
+        ResolveOption(option, eventRng);
 
         SaveManager.Instance.SaveRun();
     }
@@ -117,8 +115,25 @@ public class EventManager : MonoBehaviour
         SaveManager.Instance.SaveRun();
     }
 
-    bool RollChance(float chance)
+    bool Roll(float chance, System.Random rng)
     {
-        return RunManager.Instance.CurrentRun.rng.NextFloat() <= chance;
+        return rng.NextDouble() <= chance;
+    }
+
+    void ResolveOption(EventOption option, System.Random rng)
+    {
+        foreach (var group in option.outcomeGroups)
+        {
+            if (!Roll(group.groupChance, rng))
+                continue;
+
+            foreach (var outcome in group.outcomes)
+            {
+                if (Roll(outcome.chance, rng))
+                {
+                    ApplyOutcome(outcome);
+                }
+            }
+        }
     }
 }
