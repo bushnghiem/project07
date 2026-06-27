@@ -9,18 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46c35c6c87528b147993c7492b310b1d, type: 3}
-  m_Name: TestField
-  m_EditorClassIdentifier: Assembly-CSharp::DamageFieldItem
-  itemID: active_test
-  itemName: dam field
+  m_Script: {fileID: 11500000, guid: a6ed921d2b65cfa4296122b614c56397, type: 3}
+  m_Name: TractorBeam
+  m_EditorClassIdentifier: Assembly-CSharp::TractorBeamItem
+  itemID: active_tractor_beam
+  itemName: Tractor Beam
   icon: {fileID: 0}
   description: 
   price: 100
   slotType: 0
-  previewPrefab: {fileID: 919132149155446097, guid: 330cc02628650e246b6becab861384e4, type: 3}
+  previewPrefab: {fileID: 2906971151795962351, guid: a698f9053de4b2544b82c2bc2629cbaf, type: 3}
   validColor: {r: 0, g: 1, b: 0, a: 1}
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
+  coneAngle: 120
+  effectRadius: 20
   cooldownTurns: 2
-  range: 10
-  fieldPrefab: {fileID: 216280543112345849, guid: 48c6bc9704dd7f34f85fc60e125f098c, type: 3}
+  range: 20
+  force: 100

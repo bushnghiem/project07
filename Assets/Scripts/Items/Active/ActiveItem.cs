@@ -2,6 +2,15 @@
 
 public abstract class ActiveItem : Item
 {
+    [Header("Targeting Visuals (Optional)")]
+    public GameObject previewPrefab;
+    public Color validColor = Color.green;
+    public Color invalidColor = Color.red;
+
+    [Header("Direction Targeting (Optional)")]
+    public float coneAngle = 45f;   // degrees
+    public float effectRadius = 8f;
+
     public int cooldownTurns = 2;
     public float range = 10f;
 

@@ -128,8 +128,4 @@ public class Projectile : ScriptableObject
     public bool dieWhenStopped = true;
     public float velocityThreshold = 0.1f;
     public float stopTimeRequired = 0.5f;
-
-    [Header("Explosion")]
-    public bool doesExplode = true;
-    public ExplosionStats explosionStats;
 }

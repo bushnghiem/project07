@@ -79,8 +79,8 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
         healthComp.SetCurrentHealth(maxHealth);
 
         healthComp.SetShield(
-            Mathf.RoundToInt(template.GetBaseStat(ProjectileStatType.StartingShield))
-        );
+            Mathf.RoundToInt(template.GetBaseStat(ProjectileStatType.StartingShield)
+            + owner.GetStat(ShipStatType.ProjectileShield)));
 
         float damage =
             (template.GetBaseStat(ProjectileStatType.CollisionDamage)
