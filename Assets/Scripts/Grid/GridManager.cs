@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class GridManager : MonoBehaviour
 {
     public GameObject floorPrefab;
     public GameObject combatPrefab;
+    public GameObject eliteCombatPrefab;
+    public GameObject corruptionCombatPrefab;
     public GameObject eventPrefab;
     public GameObject portalPrefab;
     public GameObject shopPrefab;
@@ -75,6 +78,7 @@ public class GridManager : MonoBehaviour
 
         PlacePortal();
         PlaceShops();
+        PlaceEliteEncounters();
         ApplyRunModifications();
 
         var floor = RunManager.Instance.CurrentRun.currentFloorData;
@@ -233,6 +237,43 @@ public class GridManager : MonoBehaviour
         return false;
     }
 
+    void PlaceEliteEncounters()
+    {
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
+        var pool = floor.contentProfile.eliteEncounters;
+
+        if (pool == null || pool.Count == 0)
+            return;
+
+        List<Vector2Int> combatTiles = new();
+
+        for (int x = 1; x < width - 1; x++)
+        {
+            for (int y = 1; y < height - 1; y++)
+            {
+                if (grid[x, y].tileType == TileType.Combat)
+                    combatTiles.Add(new Vector2Int(x, y));
+            }
+        }
+
+        int elitesToPlace = Mathf.Min(
+            floor.contentProfile.eliteCount,
+            combatTiles.Count);
+
+        for (int i = 0; i < elitesToPlace; i++)
+        {
+            int tileIndex = rng.Next(combatTiles.Count);
+
+            Vector2Int pos = combatTiles[tileIndex];
+            combatTiles.RemoveAt(tileIndex);
+
+            TileData tile = grid[pos.x, pos.y];
+
+            tile.isElite = true;
+            tile.assignedEncounter = pool[rng.Next(pool.Count)];
+        }
+    }
+
     void ApplyRunModifications()
     {
         var floor = RunManager.Instance.CurrentRun.currentFloorData;
@@ -355,26 +396,58 @@ public class GridManager : MonoBehaviour
             for (int y = 0; y < height; y++)
             {
                 Vector3 worldPos = GetWorldPosition(x, y);
-                SpawnFeature(grid[x, y].tileType, worldPos);
+                SpawnFeature(grid[x, y], worldPos);
             }
         }
     }
 
-    private void SpawnFeature(TileType type, Vector3 position)
+    private void SpawnFeature(TileData tile, Vector3 position)
     {
         GameObject prefab = null;
+        Quaternion rotation = Quaternion.identity;
 
-        switch (type)
+        switch (tile.tileType)
         {
-            case TileType.Combat: prefab = combatPrefab; break;
-            case TileType.Event: prefab = eventPrefab; break;
-            case TileType.Portal: prefab = portalPrefab; break;
-            case TileType.Shop: prefab = shopPrefab; break;
+            case TileType.Combat:
+
+                if (tile.isCorrupted)
+                {
+                    prefab = corruptionCombatPrefab;
+                }
+                else if (tile.isElite)
+                {
+                    prefab = eliteCombatPrefab;
+                }
+                else
+                {
+                    prefab = combatPrefab;
+                }
+                rotation = Quaternion.Euler(270f, 90f, 0f);
+                break;
+
+            case TileType.Event:
+                prefab = eventPrefab;
+                rotation = Quaternion.Euler(0f, 270f, 0f);
+                break;
+
+            case TileType.Portal:
+                prefab = portalPrefab;
+                rotation = Quaternion.Euler(0f, 0f, 0f);
+                break;
+
+            case TileType.Shop:
+                prefab = shopPrefab;
+                rotation = Quaternion.Euler(270f, 90f, 0f);
+                break;
         }
 
         if (prefab != null)
         {
-            Instantiate(prefab, position + Vector3.up * 0.5f, Quaternion.identity, transform);
+            Instantiate(
+                prefab,
+                position + Vector3.up * 0.5f,
+                rotation,
+                transform);
         }
     }
 

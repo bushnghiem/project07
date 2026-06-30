@@ -20,5 +20,6 @@ public class TileData
     public EncounterData assignedEncounter;
     public EventData assignedEvent;
 
+    public bool isElite;
     public bool isCorrupted;
 }

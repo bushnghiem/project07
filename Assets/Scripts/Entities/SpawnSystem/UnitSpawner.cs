@@ -45,6 +45,7 @@ public class UnitSpawner : MonoBehaviour
     public void SpawnPlayerTeam(List<ShipRunData> players, FormationData formation)
     {
         SpawnTeam(players, formation, playerUnitPrefab, playerAnchor);
+        Debug.Log("Spawned Players");
     }
 
 }
