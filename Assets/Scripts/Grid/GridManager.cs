@@ -396,12 +396,12 @@ public class GridManager : MonoBehaviour
             for (int y = 0; y < height; y++)
             {
                 Vector3 worldPos = GetWorldPosition(x, y);
-                SpawnFeature(grid[x, y], worldPos);
+                SpawnFeature(grid[x, y], worldPos, x, y);
             }
         }
     }
 
-    private void SpawnFeature(TileData tile, Vector3 position)
+    private void SpawnFeature(TileData tile, Vector3 position, int x, int y)
     {
         GameObject prefab = null;
         Quaternion rotation = Quaternion.identity;
@@ -443,11 +443,15 @@ public class GridManager : MonoBehaviour
 
         if (prefab != null)
         {
-            Instantiate(
+            GameObject obj = Instantiate(
                 prefab,
                 position + Vector3.up * 0.5f,
                 rotation,
                 transform);
+
+            TileHover hover = obj.AddComponent<TileHover>();
+            hover.tile = tile;
+            hover.gridPosition = new Vector2Int(x, y);
         }
     }
 
@@ -467,5 +471,12 @@ public class GridManager : MonoBehaviour
         float centerY = (height - 1) * tileSize * 0.5f;
 
         return new Vector3(centerX, centerY, 0f);
+    }
+
+    public bool IsEventDiscovered(Vector2Int position)
+    {
+        return RunManager.Instance.CurrentRun.currentFloorData
+            .discoveredEventTiles
+            .Contains(position);
     }
 }

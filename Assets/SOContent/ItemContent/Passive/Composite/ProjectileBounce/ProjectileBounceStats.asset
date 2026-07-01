@@ -16,6 +16,3 @@ MonoBehaviour:
   - statType: 12
     flatBonus: 1
     percentBonus: 0
-  - statType: 10
-    flatBonus: -0.5
-    percentBonus: 0

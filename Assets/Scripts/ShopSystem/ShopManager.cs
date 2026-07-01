@@ -22,21 +22,20 @@ public class ShopManager : MonoBehaviour
 
         ShopData shopData = floor.shops.Find(s => s.gridPosition == shopPosition);
 
-        if (shopData != null && !forceReroll)
-        {
-            shopItems = shopData.shopItems;
-            return;
-        }
-
         if (shopData == null)
         {
             shopData = new ShopData { gridPosition = shopPosition };
             floor.shops.Add(shopData);
         }
-        else if (forceReroll)
+
+        if (shopData.shopItems != null && shopData.shopItems.Count == 3 && !forceReroll)
         {
-            shopData.rerollCount++;
+            shopItems = shopData.shopItems;
+            return;
         }
+
+        if (forceReroll)
+            shopData.rerollCount++;
 
         int seed = run.runSeed
                    ^ (shopPosition.x * 73856093)
@@ -45,38 +44,18 @@ public class ShopManager : MonoBehaviour
 
         System.Random rng = new System.Random(seed);
 
-        shopItems = new List<ShopItem>();
-
         var allItems = floor.contentProfile.shopItems;
 
-        var passiveItems = allItems
-            .Where(i => i.slotType == ItemSlotType.Passive)
-            .ToList();
+        var passiveItems = allItems.Where(i => i.slotType == ItemSlotType.Passive).ToList();
+        var activeItems = allItems.Where(i => i.slotType == ItemSlotType.Active).ToList();
+        var projectileItems = allItems.Where(i => i.slotType == ItemSlotType.Projectile).ToList();
 
-        var activeItems = allItems
-            .Where(i => i.slotType == ItemSlotType.Active)
-            .ToList();
-
-        var projectileItems = allItems
-            .Where(i => i.slotType == ItemSlotType.Projectile)
-            .ToList();
-
-        Item passive = GetRandomAndRemove(passiveItems, rng);
-        Item active = GetRandomAndRemove(activeItems, rng);
-        Item projectile = GetRandomAndRemove(projectileItems, rng);
-
-        if (passive != null)
-            shopItems.Add(CreateShopItem(passive));
-
-        if (active != null)
-            shopItems.Add(CreateShopItem(active));
-
-        if (projectile != null)
-            shopItems.Add(CreateShopItem(projectile));
-
-        shopItems = shopItems
-            .OrderBy(_ => rng.Next())
-            .ToList();
+        shopItems = new List<ShopItem>
+    {
+        CreateShopItem(GetRandomAndRemove(passiveItems, rng), ShopSlotType.Passive),
+        CreateShopItem(GetRandomAndRemove(activeItems, rng), ShopSlotType.Active),
+        CreateShopItem(GetRandomAndRemove(projectileItems, rng), ShopSlotType.Projectile)
+    };
 
         shopData.shopItems = shopItems;
     }
@@ -128,13 +107,16 @@ public class ShopManager : MonoBehaviour
         GenerateShop(currentShopPosition, forceReroll: true);
     }
 
-    private ShopItem CreateShopItem(Item item)
+    private ShopItem CreateShopItem(Item item, ShopSlotType slotType)
     {
+        if (item == null) return null;
+
         return new ShopItem
         {
             item = item,
             price = item.price,
-            purchased = false
+            purchased = false,
+            slotType = slotType
         };
     }
 

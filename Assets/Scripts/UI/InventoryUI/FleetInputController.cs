@@ -16,9 +16,14 @@ public class FleetInputController : MonoBehaviour
             if (fleetUI.gameObject.activeInHierarchy)
             {
                 fleetUI.Close();
+                GridUIManager.Instance.ClearState();
             }
             else
             {
+                if (!GridUIManager.Instance.CanOpen(UIState.Fleet))
+                    return;
+
+                GridUIManager.Instance.SetState(UIState.Fleet);
                 fleetUI.Open();
             }
         }

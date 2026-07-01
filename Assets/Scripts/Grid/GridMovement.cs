@@ -120,6 +120,16 @@ public class GridMovement : MonoBehaviour
         if (tile.assignedEvent == null)
             return;
 
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
+
+        if (!floor.discoveredEventTiles.Contains(gridPosition))
+        {
+            floor.discoveredEventTiles.Add(gridPosition);
+            SaveManager.Instance.SaveRun();
+        }
+
+        GridUIManager.Instance.SetState(UIState.Event);
+
         inputLocked = true;
         eventUI.ShowEvent(tile.assignedEvent);
     }
@@ -163,6 +173,8 @@ public class GridMovement : MonoBehaviour
         Vector2Int shopPos = gridPosition;
 
         shopManager.GenerateShop(shopPos);
+
+        GridUIManager.Instance.SetState(UIState.Shop);
 
         inputLocked = true;
 

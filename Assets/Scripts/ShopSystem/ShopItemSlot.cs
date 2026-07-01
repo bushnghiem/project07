@@ -1,10 +1,10 @@
-﻿
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
+using System.Collections;
 
-public class ShopItemSlot : MonoBehaviour
+public class ShopItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Image icon;
     public TMP_Text nameText;
@@ -27,39 +27,50 @@ public class ShopItemSlot : MonoBehaviour
         buyButton.onClick.RemoveAllListeners();
         buyButton.onClick.AddListener(OnBuyPressed);
 
-        if (shopItem.purchased)
-        {
-            buyButton.interactable = false;
+        RefreshVisual();
+    }
 
-            if (canvasGroup != null)
-            {
-                canvasGroup.alpha = 0.5f;
-            }
-        }
-        else
-        {
-            buyButton.interactable = true;
+    private void RefreshVisual()
+    {
+        bool purchased = shopItem.purchased;
 
-            if (canvasGroup != null)
-            {
-                canvasGroup.alpha = 1f;
-            }
-        }
+        buyButton.interactable = !purchased;
+
+        if (canvasGroup != null)
+            canvasGroup.alpha = purchased ? 0.5f : 1f;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (shopItem == null || shopItem.item == null)
+            return;
+
+        ShopTooltipUI.Instance.Show(
+            shopItem.item.itemName,
+            BuildTooltipText()
+        );
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        ShopTooltipUI.Instance.Hide();
+    }
+
+    private string BuildTooltipText()
+    {
+        return
+            $"{shopItem.item.description}\n\n" +
+            $"Type: {shopItem.item.slotType}\n" +
+            $"Price: {shopItem.price}";
     }
 
     public void OnBuyPressed()
     {
         if (shopItem.purchased)
-        {
-            Debug.Log("Already bought");
             return;
-        }
 
         if (!RewardManager.Instance.CanAfford(shopItem.price))
-        {
-            Debug.Log("Too broke to buy this item!");
             return;
-        }
 
         PlayerSelectionUI.Instance.Open(
             shopManager.shipHolder.allPlayers,
@@ -69,40 +80,8 @@ public class ShopItemSlot : MonoBehaviour
 
                 if (success)
                 {
-                    Debug.Log($"Bought {shopItem.item.itemName} for {selectedPlayer.name}");
-
-                    buyButton.interactable = false;
-
-                    if (canvasGroup != null)
-                    {
-                        StartCoroutine(FadeTo(0.5f, 0.3f));
-                    }
-                }
-                else
-                {
-                    Debug.Log($"Could not buy {shopItem.item.itemName}");
+                    RefreshVisual();
                 }
             });
-    }
-
-    private IEnumerator FadeTo(float targetAlpha, float duration)
-    {
-        float startAlpha = canvasGroup.alpha;
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-
-            canvasGroup.alpha = Mathf.Lerp(
-                startAlpha,
-                targetAlpha,
-                elapsed / duration
-            );
-
-            yield return null;
-        }
-
-        canvasGroup.alpha = targetAlpha;
     }
 }

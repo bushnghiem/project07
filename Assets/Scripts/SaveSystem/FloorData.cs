@@ -26,6 +26,8 @@ public class FloorData
     public List<Vector2Int> clearedCorruptionTiles = new();
     public List<Vector2Int> clearedEventTiles = new();
 
+    public List<Vector2Int> discoveredEventTiles = new();
+
     public Dictionary<Vector2Int, List<int>> usedEventOptions = new();
 
     public List<ShopData> shops = new();

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ShopUI : MonoBehaviour
@@ -11,6 +12,10 @@ public class ShopUI : MonoBehaviour
 
     public Button rerollButton;
     public Button closeButton;
+
+    [Header("UI Text")]
+    public TMP_Text currencyText;
+    public TMP_Text rerollText;
 
     private void Awake()
     {
@@ -25,9 +30,21 @@ public class ShopUI : MonoBehaviour
 
         foreach (var item in shopManager.shopItems)
         {
+            if (item == null) continue;
+
             ShopItemSlot slot = Instantiate(slotPrefab, slotParent);
             slot.Setup(item, shopManager);
         }
+
+        RefreshTopUI();
+    }
+
+    private void RefreshTopUI()
+    {
+        var currency = RunManager.Instance.CurrentRun.runCurrency;
+
+        currencyText.text = $"Credits: {currency}";
+        rerollText.text = $"Reroll: {shopManager.rerollCost}";
     }
 
     private void OnRerollPressed()
@@ -45,6 +62,9 @@ public class ShopUI : MonoBehaviour
     private void OnClosePressed()
     {
         gameObject.SetActive(false);
+
+        GridUIManager.Instance.ClearState();
+
         FindFirstObjectByType<GridMovement>().inputLocked = false;
     }
 }

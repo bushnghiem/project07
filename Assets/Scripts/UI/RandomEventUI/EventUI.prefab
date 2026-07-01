@@ -48,6 +48,38 @@ PrefabInstance:
       propertyPath: optionButtonPrefab
       value: 
       objectReference: {fileID: 280988683238267810, guid: dd48ce6fd5e284946b0e0aca9a5f621a, type: 3}
+    - target: {fileID: 4082331331705995786, guid: 40da7bba410270349b5859af61c54752, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4082331331705995786, guid: 40da7bba410270349b5859af61c54752, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4082331331705995786, guid: 40da7bba410270349b5859af61c54752, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4082331331705995786, guid: 40da7bba410270349b5859af61c54752, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4082331331705995786, guid: 40da7bba410270349b5859af61c54752, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4082331331705995786, guid: 40da7bba410270349b5859af61c54752, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6457510082830152098, guid: 40da7bba410270349b5859af61c54752, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6457510082830152098, guid: 40da7bba410270349b5859af61c54752, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7639989821985112783, guid: 40da7bba410270349b5859af61c54752, type: 3}
       propertyPath: m_Pivot.x
       value: 0
