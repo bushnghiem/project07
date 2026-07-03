@@ -15,7 +15,7 @@ MonoBehaviour:
   encounterName: Junker Trio
   enemies:
   - uniqueID: Ball Junker
-    templateID: 3
+    templateID: ship_scrap_ship
     aiBehaviorID: default_ai
     currentHealth: 100
     isDead: 0
@@ -23,7 +23,7 @@ MonoBehaviour:
     items:
     - itemID: projectile_scrap_ball
   - uniqueID: Shotgun Junker
-    templateID: 3
+    templateID: ship_scrap_ship
     aiBehaviorID: default_ai
     currentHealth: 100
     isDead: 0
@@ -32,23 +32,18 @@ MonoBehaviour:
     - itemID: projectile_scrap
     - itemID: passive_shotgun
   - uniqueID: Drill Junker
-    templateID: 3
+    templateID: ship_scrap_driller
     aiBehaviorID: ram_ai
     currentHealth: 100
     isDead: 0
-    statModifiers:
-    - statType: 6
-      flatBonus: 100
-      percentBonus: 0
-      sourceID: passive_collision_damage_up
+    statModifiers: []
     items:
     - itemID: projectile_scrap
-    - itemID: passive_collision_damage_up
-  enemyFormation: {fileID: 11400000, guid: ea09909161c27d04d923a2d9c407861b, type: 2}
-  playerFormation: {fileID: 0}
+  enemyFormation: {fileID: 11400000, guid: e03a27543009f804c9eaa9bce016c0e0, type: 2}
+  playerFormation: {fileID: 11400000, guid: de0e0e80fdb089648b239068d3e95764, type: 2}
   environmentLayout: {fileID: 0}
   playerAnchorPosition: {x: 0, y: 0, z: 0}
-  enemyAnchorPosition: {x: 20, y: 0, z: 0}
+  enemyAnchorPosition: {x: 0, y: 0, z: 0}
   encounterType: 1
   runCurrencyReward: 50
   metaCurrencyReward: 50

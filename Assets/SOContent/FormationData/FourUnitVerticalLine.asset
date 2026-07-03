@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FourUnitVerticalLine
   m_EditorClassIdentifier: Assembly-CSharp::FormationData
   positions:
-  - {x: 0, y: 0, z: 3}
-  - {x: 0, y: 0, z: -3}
-  - {x: 0, y: 0, z: 6}
-  - {x: 0, y: 0, z: -6}
+  - {x: 0, y: 0, z: 5}
+  - {x: 0, y: 0, z: -5}
+  - {x: 0, y: 0, z: 10}
+  - {x: 0, y: 0, z: -10}

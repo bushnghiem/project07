@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71147c860272f964cb1629a3b4bafdeb, type: 3}
-  m_Name: ScrapShip
+  m_Name: ScrapDriller
   m_EditorClassIdentifier: Assembly-CSharp::ShipTemplate
-  templateID: ship_scrap_ship
-  displayName: ScrapShip
+  templateID: ship_scrap_driller
+  displayName: Scrap Driller
   baseStats:
   - statType: 0
     value: 100
@@ -28,9 +28,9 @@ MonoBehaviour:
   - statType: 5
     value: 10
   - statType: 6
-    value: 10
+    value: 50
   - statType: 7
-    value: 0
+    value: 75
   - statType: 8
     value: 0
   - statType: 9
@@ -57,11 +57,10 @@ MonoBehaviour:
     value: 0
   - statType: 20
     value: 0
-  visualData: {fileID: 11400000, guid: 3d40b9dfbb2f0c344817012da41a4c03, type: 2}
+  visualData: {fileID: 11400000, guid: ca74290350d29dc41b5ea7829db0fff2, type: 2}
   audioData: {fileID: 11400000, guid: c7b0fc4da74c57349a74552f28276ddf, type: 2}
   collisionRadius: 2
   projectileSpawnRadius: 3
-  startingActiveItemID: active_heal_100
-  startingPassiveItemIDs:
-  - passive_heal_kill
-  startingProjectileID: projectile_basic
+  startingActiveItemID: 
+  startingPassiveItemIDs: []
+  startingProjectileID: projectile_scrap_ball

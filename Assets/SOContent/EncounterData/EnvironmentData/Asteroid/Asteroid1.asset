@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 181f31b7e18c0fc4ca3a1b3371b8f510, type: 3}
+  m_Name: Asteroid1
+  m_EditorClassIdentifier: Assembly-CSharp::EnvironmentLayout
+  environmentObjects:
+  - prefab: {fileID: 5350854036997245697, guid: 4f4261fe773033547b456f6f655da91b, type: 3}
+    position: {x: -20, y: 0, z: 10}
+    rotation: {x: 200, y: 50, z: 60}
+    scale: {x: 100, y: 100, z: 100}
+  - prefab: {fileID: 5350854036997245697, guid: 4f4261fe773033547b456f6f655da91b, type: 3}
+    position: {x: 23, y: 0, z: 3}
+    rotation: {x: 0, y: 70, z: 0}
+    scale: {x: 100, y: 100, z: 100}
+  - prefab: {fileID: 5350854036997245697, guid: 4f4261fe773033547b456f6f655da91b, type: 3}
+    position: {x: 0, y: 0, z: -20}
+    rotation: {x: 30, y: 180, z: 300}
+    scale: {x: 100, y: 100, z: 100}
+  - prefab: {fileID: 5350854036997245697, guid: 4f4261fe773033547b456f6f655da91b, type: 3}
+    position: {x: 25, y: 0, z: -14}
+    rotation: {x: 30, y: 180, z: 300}
+    scale: {x: 100, y: 100, z: 100}
+  - prefab: {fileID: 5350854036997245697, guid: 4f4261fe773033547b456f6f655da91b, type: 3}
+    position: {x: -15, y: 0, z: -25}
+    rotation: {x: 30, y: 180, z: 300}
+    scale: {x: 100, y: 100, z: 100}
+  - prefab: {fileID: 5350854036997245697, guid: 4f4261fe773033547b456f6f655da91b, type: 3}
+    position: {x: 30, y: 0, z: 8}
+    rotation: {x: 30, y: 180, z: 300}
+    scale: {x: 100, y: 100, z: 100}
+  - prefab: {fileID: 5350854036997245697, guid: 4f4261fe773033547b456f6f655da91b, type: 3}
+    position: {x: -25, y: 0, z: 20}
+    rotation: {x: 30, y: 180, z: 300}
+    scale: {x: 100, y: 100, z: 100}
+  - prefab: {fileID: 5350854036997245697, guid: 4f4261fe773033547b456f6f655da91b, type: 3}
+    position: {x: -10, y: 0, z: 30}
+    rotation: {x: 30, y: 180, z: 300}
+    scale: {x: 100, y: 100, z: 100}

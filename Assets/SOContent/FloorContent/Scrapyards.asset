@@ -28,6 +28,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 62d4f349102a88b44817a5cc2cd4be58, type: 2}
   - {fileID: 11400000, guid: ef0ced9d7730ec64ca9d4121db8c3f4e, type: 2}
   - {fileID: 11400000, guid: e0181069af6320f4e807c10a5b5ecb77, type: 2}
+  - {fileID: 11400000, guid: ea0ac6c213ffc5f4286e3adbefacd722, type: 2}
+  - {fileID: 11400000, guid: bf2a9fd193ea26d43a88b72107aa5e7a, type: 2}
+  - {fileID: 11400000, guid: 7ff246d9ab758c64181976bf1c5c818b, type: 2}
+  - {fileID: 11400000, guid: 3c8c9a3d692cbc548b5d7a140d37e20e, type: 2}
   eliteEncounters:
   - {fileID: 11400000, guid: d643acb2ea1cabf4798ac726933d2251, type: 2}
   corruptionEncounters:

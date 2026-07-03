@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a56ede619abf93e44aa09a42e54d2a70, type: 3}
+  m_Name: ScrapDriller
+  m_EditorClassIdentifier: Assembly-CSharp::ShipVisualData
+  visualPrefab: {fileID: 7129010819848480898, guid: c818f8c518c62074985c846e1637ccaf, type: 3}
+  visualScale: 25
+  shipIcon: {fileID: 0}
+  overrideMaterial: {fileID: 0}

@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8db64e4c879a3b741a7db007435ce107, type: 3}
-  m_Name: Solo Pirate
+  m_Name: Solo Ball Junker
   m_EditorClassIdentifier: Assembly-CSharp::EncounterData
-  encounterName: Solo Pirate
+  encounterName: Solo Scrapper
   enemies:
-  - uniqueID: Pirate
+  - uniqueID: Ball Junker
     templateID: ship_scrap_ship
     aiBehaviorID: default_ai
     currentHealth: 100
     isDead: 0
     statModifiers: []
     items:
-    - itemID: projectile_basic
+    - itemID: projectile_scrap_ball
   enemyFormation: {fileID: 11400000, guid: 029c8aef893468d4bb86de9bda98d8d0, type: 2}
   playerFormation: {fileID: 11400000, guid: de0e0e80fdb089648b239068d3e95764, type: 2}
-  environmentLayout: {fileID: 11400000, guid: b8eb4aa8b0ebade4fba325287c808cdf, type: 2}
+  environmentLayout: {fileID: 0}
   playerAnchorPosition: {x: 0, y: 0, z: 0}
-  enemyAnchorPosition: {x: 0, y: 0, z: 30}
+  enemyAnchorPosition: {x: -30, y: 0, z: 0}
   encounterType: 0
-  runCurrencyReward: 15
-  metaCurrencyReward: 15
+  runCurrencyReward: 10
+  metaCurrencyReward: 10
   music: 2
