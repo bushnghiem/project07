@@ -45,11 +45,29 @@ public class ShopTooltipUI : MonoBehaviour
 
     private void UpdatePosition()
     {
-        Vector2 position = (Vector2)Input.mousePosition + mouseOffset;
+        Canvas.ForceUpdateCanvases();
 
-        if (position.x < 0) position.x = 0;
-        if (position.y < 0) position.y = 0;
+        Vector2 mouse = Input.mousePosition;
+        Vector2 size = panel.rect.size;
 
-        panel.position = position;
+        Vector2 pivot = new Vector2(0f, 1f);
+        Vector2 offset = mouseOffset;
+
+        // Right side -> show left of cursor
+        if (mouse.x + offset.x + size.x > Screen.width)
+        {
+            pivot.x = 1f;
+            offset.x = -mouseOffset.x;
+        }
+
+        // Bottom -> show above cursor
+        if (mouse.y + offset.y - size.y < 0)
+        {
+            pivot.y = 0f;
+            offset.y = Mathf.Abs(mouseOffset.y);
+        }
+
+        panel.pivot = pivot;
+        panel.position = mouse + offset;
     }
 }

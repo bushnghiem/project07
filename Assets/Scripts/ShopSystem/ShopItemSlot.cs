@@ -58,10 +58,7 @@ public class ShopItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     private string BuildTooltipText()
     {
-        return
-            $"{shopItem.item.description}\n\n" +
-            $"Type: {shopItem.item.slotType}\n" +
-            $"Price: {shopItem.price}";
+        return shopItem.item.GetTooltipText(shopItem.price);
     }
 
     public void OnBuyPressed()

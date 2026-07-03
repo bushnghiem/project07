@@ -1,3 +1,6 @@
+using UnityEngine;
+using System.Text;
+
 public abstract class PassiveItem : Item
 {
     private void OnEnable()
