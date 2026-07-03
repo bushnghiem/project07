@@ -23,9 +23,6 @@ public class FleetUI : MonoBehaviour
     [Header("Details")]
     public TMP_Text nameText;
     public TMP_Text healthText;
-    public TMP_Text activeText;
-    public TMP_Text projectileText;
-    public TMP_Text passiveText;
 
     private Player selectedPlayer;
 
@@ -173,24 +170,6 @@ public class FleetUI : MonoBehaviour
 
         healthText.text =
             $"HP: {selectedPlayer.CurrentHealth}";
-
-        activeText.text =
-            selectedPlayer.ActiveItem != null
-            ? selectedPlayer.ActiveItem.itemData.itemName
-            : "None";
-
-        projectileText.text =
-            selectedPlayer.Projectile != null
-            ? selectedPlayer.Projectile.projectileName
-            : "None";
-
-        passiveText.text = "";
-
-        foreach (var passive in selectedPlayer.PassiveItems)
-        {
-            passiveText.text +=
-                passive.itemData.itemName + "\n";
-        }
 
         PopulateStats(selectedPlayer);
         PopulateItems(selectedPlayer);

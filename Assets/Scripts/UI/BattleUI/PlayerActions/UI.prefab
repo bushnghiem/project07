@@ -122,6 +122,7 @@ MonoBehaviour:
   endTurnButton: {fileID: 5142758657049257637}
   playerActionPanel: {fileID: 0}
   barPanel: {fileID: 0}
+  battleManager: {fileID: 0}
   targetingController: {fileID: 0}
 --- !u!1001 &2883673304391386566
 PrefabInstance:
@@ -269,6 +270,22 @@ PrefabInstance:
       objectReference: {fileID: -2607819003468360149, guid: ddc5e2536e2ba9a40b664ba844e652d5, type: 2}
     - target: {fileID: 571932740759070050, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
       propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882746959555765838, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882746959555765838, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882746959555765838, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882746959555765838, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5333506625590361156, guid: ee7f9e8395665124789e84a753ba2e94, type: 3}
