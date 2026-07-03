@@ -24,22 +24,18 @@ public class ItemEntryUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (tooltip == null || item == null) return;
+        if (tooltip == null || item == null)
+            return;
 
-        tooltip.Show(BuildTooltipText());
+        tooltip.Show(
+            item.itemName,
+            item.GetTooltipText()
+        );
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (tooltip != null)
             tooltip.Hide();
-    }
-
-    private string BuildTooltipText()
-    {
-        return
-            $"{item.itemName}\n\n" +
-            $"{item.description}\n\n" +
-            $"Type: {item.slotType}";
     }
 }

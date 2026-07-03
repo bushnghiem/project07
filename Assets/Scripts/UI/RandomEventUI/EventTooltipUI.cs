@@ -49,22 +49,29 @@ public class EventTooltipUI : MonoBehaviour
 
     private void UpdatePosition()
     {
-        Vector2 position = (Vector2)Input.mousePosition + mouseOffset;
+        Canvas.ForceUpdateCanvases();
 
-        float width = panel.rect.width;
-        float height = panel.rect.height;
+        Vector2 mouse = Input.mousePosition;
+        Vector2 size = panel.rect.size;
 
-        // Clamp inside screen bounds
-        position.x = Mathf.Clamp(
-            position.x,
-            0,
-            Screen.width - width);
+        Vector2 pivot = new Vector2(0f, 1f);
+        Vector2 offset = mouseOffset;
 
-        position.y = Mathf.Clamp(
-            position.y,
-            height,
-            Screen.height);
+        // If there's not enough room on the right, show it to the left.
+        if (mouse.x + offset.x + size.x > Screen.width)
+        {
+            pivot.x = 1f;
+            offset.x = -Mathf.Abs(mouseOffset.x);
+        }
 
-        panel.position = position;
+        // If there's not enough room below, show it above.
+        if (mouse.y + offset.y - size.y < 0)
+        {
+            pivot.y = 0f;
+            offset.y = Mathf.Abs(mouseOffset.y);
+        }
+
+        panel.pivot = pivot;
+        panel.position = mouse + offset;
     }
 }

@@ -16,7 +16,7 @@ public class ProjectileItem : Item
         unit.EquipProjectile(this);
     }
 
-    public override string GetTooltipText(int shopPrice)
+    public override string GetTooltipText(int? shopPrice = null)
     {
         StringBuilder sb = new StringBuilder();
 
@@ -24,7 +24,8 @@ public class ProjectileItem : Item
         sb.AppendLine();
 
         sb.AppendLine($"Type: {slotType}");
-        sb.AppendLine($"Price: {shopPrice}");
+        if (shopPrice.HasValue)
+            sb.AppendLine($"Price: {shopPrice.Value}");
 
         if (projectile == null)
             return sb.ToString();

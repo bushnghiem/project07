@@ -32,14 +32,16 @@ public abstract class ActiveItem : Item
         ItemTargetData targetData
     );
 
-    public override string GetTooltipText(int shopPrice)
+    public override string GetTooltipText(int? shopPrice = null)
     {
         StringBuilder sb = new StringBuilder();
 
         sb.AppendLine(description);
         sb.AppendLine();
         sb.AppendLine($"Type: {slotType}");
-        sb.AppendLine($"Price: {shopPrice}");
+        if (shopPrice.HasValue)
+            sb.AppendLine($"Price: {shopPrice.Value}");
+
         sb.AppendLine($"Cooldown: {cooldownTurns} turns");
         sb.AppendLine($"Charge Cost: {chargeCost} turns");
         sb.AppendLine($"Target Type: {TargetType}°");

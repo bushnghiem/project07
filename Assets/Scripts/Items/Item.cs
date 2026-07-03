@@ -12,14 +12,16 @@ public abstract class Item : ScriptableObject
 
     public ItemSlotType slotType;
 
-    public virtual string GetTooltipText(int shopPrice)
+    public virtual string GetTooltipText(int? shopPrice = null)
     {
         StringBuilder sb = new StringBuilder();
 
         sb.AppendLine(description);
         sb.AppendLine();
         sb.AppendLine($"Type: {slotType}");
-        sb.AppendLine($"Price: {shopPrice}");
+
+        if (shopPrice.HasValue)
+            sb.AppendLine($"Price: {shopPrice.Value}");
 
         return sb.ToString();
     }
