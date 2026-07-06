@@ -13,17 +13,21 @@ public class ShopUI : MonoBehaviour
     public Button rerollButton;
     public Button closeButton;
     public Button buyChargesButton;
+    public Button buyKeyButton;
 
     [Header("UI Text")]
     public TMP_Text currencyText;
+    public TMP_Text keyText;
     public TMP_Text rerollText;
     public TMP_Text buyChargesText;
+    public TMP_Text buyKeyText;
 
     private void Awake()
     {
         rerollButton.onClick.AddListener(OnRerollPressed);
         closeButton.onClick.AddListener(OnClosePressed);
         buyChargesButton.onClick.AddListener(OnBuyChargesPressed);
+        buyKeyButton.onClick.AddListener(OnBuyKeyPressed);
     }
 
     public void PopulateShop()
@@ -45,10 +49,13 @@ public class ShopUI : MonoBehaviour
     private void RefreshTopUI()
     {
         var currency = RunManager.Instance.CurrentRun.runCurrency;
+        var key = RunManager.Instance.CurrentRun.runKeys;
 
         currencyText.text = $"Credits: {currency}";
+        keyText.text = $"Keys: {key}";
         rerollText.text = $"Reroll: {shopManager.rerollCost}";
-        buyChargesText.text = $"Buy {shopManager.chargesPerPurchase} Charges ({shopManager.chargePurchaseCost})";
+        buyChargesText.text = $"Buy {shopManager.chargesPerPurchase} Charges: ({shopManager.chargePurchaseCost})";
+        buyKeyText.text = $"Buy Key: ({shopManager.keyPurchaseCost})";
     }
 
     private void OnRerollPressed()
@@ -80,6 +87,14 @@ public class ShopUI : MonoBehaviour
                     RefreshTopUI();
                 }
             });
+    }
+
+    private void OnBuyKeyPressed()
+    {
+        if (!RewardManager.Instance.CanAfford(shopManager.keyPurchaseCost))
+            return;
+        shopManager.TryPurchaseKey(shopManager.keyPurchaseCost);
+        RefreshTopUI();
     }
 
     private void OnClosePressed()

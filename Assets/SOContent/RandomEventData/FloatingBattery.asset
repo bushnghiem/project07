@@ -22,7 +22,7 @@ MonoBehaviour:
       description: 
       groupChance: 1
       outcomes:
-      - type: 6
+      - type: 8
         tileModification: 1
         value: 5
         damage:
@@ -42,7 +42,7 @@ MonoBehaviour:
       description: 
       groupChance: 1
       outcomes:
-      - type: 8
+      - type: 10
         tileModification: 0
         value: 0
         damage:

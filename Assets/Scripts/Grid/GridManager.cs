@@ -10,6 +10,7 @@ public class GridManager : MonoBehaviour
     public GameObject eventPrefab;
     public GameObject portalPrefab;
     public GameObject shopPrefab;
+    public GameObject chestPrefab;
 
     public int width = 20;
     public int height = 20;
@@ -28,6 +29,9 @@ public class GridManager : MonoBehaviour
 
     [Range(0, 10)]
     public int maxShops = 3;
+
+    [Range(0, 10)]
+    public int maxChests = 2;
 
     [Header("Safe Zone")]
     public int safeZoneRadius = 1;
@@ -78,6 +82,7 @@ public class GridManager : MonoBehaviour
 
         PlacePortal();
         PlaceShops();
+        PlaceChests();
         PlaceEliteEncounters();
         ApplyRunModifications();
 
@@ -212,6 +217,29 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    void PlaceChests()
+    {
+        int placed = 0;
+        int safety = 0;
+
+        while (placed < maxChests && safety < 1000)
+        {
+            int x = rng.Next(1, width - 1);
+            int y = rng.Next(1, height - 1);
+
+            if (grid[x, y].tileType == TileType.Empty
+                && !IsAdjacentToTileType(x, y, TileType.Shop)
+                && !IsAdjacentToTileType(x, y, TileType.Portal)
+                && !IsAdjacentToTileType(x, y, TileType.Chest));
+            {
+                grid[x, y].tileType = TileType.Chest;
+                placed++;
+            }
+
+            safety++;
+        }
+    }
+
     bool IsAdjacentToTileType(int x, int y, TileType type)
     {
         Vector2Int[] directions =
@@ -303,6 +331,17 @@ public class GridManager : MonoBehaviour
             {
                 grid[pos.x, pos.y].tileType = TileType.Empty;
                 grid[pos.x, pos.y].assignedEvent = null;
+            }
+        }
+
+        foreach (var chest in floor.chests)
+        {
+            if (!chest.opened)
+                continue;
+
+            if (IsInsideGrid(chest.gridPosition.x, chest.gridPosition.y))
+            {
+                grid[chest.gridPosition.x, chest.gridPosition.y].tileType = TileType.Empty;
             }
         }
     }
@@ -439,6 +478,11 @@ public class GridManager : MonoBehaviour
                 prefab = shopPrefab;
                 rotation = Quaternion.Euler(270f, 90f, 0f);
                 break;
+
+            case TileType.Chest:
+                prefab = chestPrefab;
+                rotation = Quaternion.Euler(270f, 90f, 0f);
+                break;
         }
 
         if (prefab != null)
@@ -478,5 +522,20 @@ public class GridManager : MonoBehaviour
         return RunManager.Instance.CurrentRun.currentFloorData
             .discoveredEventTiles
             .Contains(position);
+    }
+
+    public void ClearTileVisualAt(int x, int y)
+    {
+        Vector3 worldPos = GetWorldPosition(x, y);
+
+        foreach (Transform child in transform)
+        {
+            if (Vector3.Distance(child.position,
+                worldPos + Vector3.up * 0.5f) < 0.1f)
+            {
+                Destroy(child.gameObject);
+                break;
+            }
+        }
     }
 }

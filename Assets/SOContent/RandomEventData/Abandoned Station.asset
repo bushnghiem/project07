@@ -35,7 +35,7 @@ MonoBehaviour:
         encounter: {fileID: 0}
         item: {fileID: 0}
         chance: 1
-      - type: 7
+      - type: 9
         tileModification: 1
         value: 1
         damage:
@@ -55,7 +55,7 @@ MonoBehaviour:
       description: 
       groupChance: 1
       outcomes:
-      - type: 3
+      - type: 5
         tileModification: 0
         value: 100
         damage:
@@ -67,7 +67,7 @@ MonoBehaviour:
         encounter: {fileID: 0}
         item: {fileID: 0}
         chance: 1
-      - type: 7
+      - type: 9
         tileModification: 0
         value: 1
         damage:
@@ -87,7 +87,7 @@ MonoBehaviour:
       description: 
       groupChance: 1
       outcomes:
-      - type: 8
+      - type: 10
         tileModification: 0
         value: 0
         damage:

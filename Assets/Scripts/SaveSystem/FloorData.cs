@@ -32,6 +32,8 @@ public class FloorData
 
     public List<ShopData> shops = new();
 
+    public List<ChestData> chests = new();
+
     public int corruptionRadius = -1;
 
     public bool hasShownFloorIntro = false;

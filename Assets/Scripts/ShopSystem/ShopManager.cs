@@ -11,6 +11,8 @@ public class ShopManager : MonoBehaviour
     public int rerollCost = 50;
     public int chargePurchaseCost = 30;
     public int chargesPerPurchase = 3;
+    public int keyPurchaseCost = 50;
+
 
     public List<ShopItem> shopItems = new();
     public Vector2Int currentShopPosition;
@@ -122,6 +124,16 @@ public class ShopManager : MonoBehaviour
             return false;
 
         RewardManager.Instance.GivePlayerCharges(player, amount);
+
+        return true;
+    }
+
+    public bool TryPurchaseKey(int cost)
+    {
+        if (!RewardManager.Instance.SpendRunCurrency(cost))
+            return false;
+
+        RewardManager.Instance.AddRunKeys(1);
 
         return true;
     }

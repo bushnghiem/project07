@@ -4,6 +4,8 @@ public enum OutcomeType
 {
     GainCurrency,
     LoseCurrency,
+    GainKeys,
+    LoseKeys,
     StartCombat,
     HealPlayer,
     DamagePlayer,

@@ -37,6 +37,24 @@ public class RewardManager : MonoBehaviour
         }
     }
 
+    public void AddRunKeys(int additionAmount)
+    {
+        RunManager.Instance.CurrentRun.runKeys += additionAmount;
+    }
+
+    public bool SpendRunKeys(int amount)
+    {
+        if (RunManager.Instance.CurrentRun.runKeys >= amount)
+        {
+            RunManager.Instance.CurrentRun.runKeys -= amount;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public void HealAllPlayers(int value)
     {
         foreach (var player in shipHolder.allPlayers)

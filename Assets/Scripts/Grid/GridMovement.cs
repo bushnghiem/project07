@@ -10,6 +10,7 @@ public class GridMovement : MonoBehaviour
     public UnitSpawner unitSpawner;
     public ShopManager shopManager;
     public ShopUI shopUI;
+    public ChestUI chestUI;
     public EventUI eventUI;
     public Vector3 fakeEnemyAnchorPos; // Here just to be here
     public Vector3 playerAnchorPos; // Set far away from grid
@@ -112,6 +113,9 @@ public class GridMovement : MonoBehaviour
             case TileType.Shop:
                 HandleShopTile();
                 break;
+            case TileType.Chest:
+                HandleChestTile();
+                break;
         }
     }
 
@@ -180,6 +184,21 @@ public class GridMovement : MonoBehaviour
 
         shopUI.PopulateShop();
         shopUI.gameObject.SetActive(true);
+    }
+
+    public void HandleChestTile()
+    {
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
+
+        ChestData chest =
+            floor.chests.Find(c => c.gridPosition == gridPosition);
+
+        if (chest != null && chest.opened)
+            return;
+
+        GridUIManager.Instance.OpenChest();
+
+        inputLocked = true;
     }
 
     IEnumerator HandleFloorTransition()

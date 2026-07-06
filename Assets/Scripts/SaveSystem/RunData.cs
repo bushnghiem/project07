@@ -15,4 +15,5 @@ public class RunData
     public List<ShipRunData> team = new List<ShipRunData>();
 
     public int runCurrency = 0;
+    public int runKeys = 0;
 }

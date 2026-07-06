@@ -7,6 +7,7 @@ public enum TileType
     Combat,
     Event,
     Shop,
+    Chest,
     Portal
 }
 

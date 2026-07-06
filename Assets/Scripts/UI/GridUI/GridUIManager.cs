@@ -6,6 +6,7 @@ public enum UIState
     Grid,
     Event,
     Shop,
+    Chest,
     Fleet
 }
 
@@ -19,6 +20,7 @@ public class GridUIManager : MonoBehaviour
     public FleetUI fleetUI;
     public ShopUI shopUI;
     public EventUI eventUI;
+    public ChestUI chestUI;
     public TileTooltipUI tileTooltip;
 
     private void Awake()
@@ -45,6 +47,9 @@ public class GridUIManager : MonoBehaviour
         if (newState != UIState.Event && eventUI != null)
             eventUI.gameObject.SetActive(false);
 
+        if (newState != UIState.Chest && chestUI != null)
+            chestUI.gameObject.SetActive(false);
+
         if (newState != UIState.None && tileTooltip != null)
             tileTooltip.Hide();
     }
@@ -52,5 +57,15 @@ public class GridUIManager : MonoBehaviour
     public void ClearState()
     {
         CurrentState = UIState.None;
+    }
+
+    public void OpenChest()
+    {
+        SetState(UIState.Chest);
+
+        if (chestUI != null)
+        {
+            chestUI.Show();
+        }
     }
 }

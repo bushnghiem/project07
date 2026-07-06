@@ -58,6 +58,14 @@ public static class EventTooltipBuilder
                         sb.AppendLine($"{chanceText}-{outcome.value} Scrap");
                         break;
 
+                    case OutcomeType.GainKeys:
+                        sb.AppendLine($"{chanceText}+{outcome.value} Key{(outcome.value == 1 ? "" : "s")}");
+                        break;
+
+                    case OutcomeType.LoseKeys:
+                        sb.AppendLine($"{chanceText}-{outcome.value} Key{(outcome.value == 1 ? "" : "s")}");
+                        break;
+
                     case OutcomeType.HealPlayer:
                         sb.AppendLine($"{chanceText}Heal {outcome.value} HP");
                         break;

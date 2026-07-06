@@ -58,6 +58,14 @@ public class EventManager : MonoBehaviour
                 RewardManager.Instance.SpendRunCurrency(outcome.value);
                 break;
 
+            case OutcomeType.GainKeys:
+                RewardManager.Instance.AddRunKeys(outcome.value);
+                break;
+
+            case OutcomeType.LoseKeys:
+                RewardManager.Instance.SpendRunKeys(outcome.value);
+                break;
+
             case OutcomeType.StartCombat:
                 run.currentFloorData.currentEncounter = outcome.encounter;
                 SceneManager.LoadScene("SpawnTestScene");

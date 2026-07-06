@@ -16,6 +16,7 @@ public class RunStatusUI : MonoBehaviour
     [Header("Texts")]
     public TMP_Text floorInfoText;
     public TMP_Text currencyText;
+    public TMP_Text keyText;
     public TMP_Text timeText;
     public TMP_Text corruptionText;
     public TMP_Text bossText;
@@ -54,6 +55,8 @@ public class RunStatusUI : MonoBehaviour
         floorInfoText.text = $"Sector {run.currentFloor + 1} // {floor.contentProfile.floorName}";
 
         currencyText.text = $"Units: {run.runCurrency}";
+
+        keyText.text = $"Keys: {run.runKeys}";
 
         timeText.text = $"Time Elapsed: {floor.timeElapsed}";
 

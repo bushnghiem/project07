@@ -512,6 +512,7 @@ MonoBehaviour:
       clearedEventTiles: []
       discoveredEventTiles: []
       shops: []
+      chests: []
       corruptionRadius: -1
       hasShownFloorIntro: 0
       hasInitializedSpawn: 0
@@ -550,6 +551,7 @@ MonoBehaviour:
       - itemID: passive_side_cannons
       - itemID: passive_three_burst
     runCurrency: 0
+    runKeys: 100
   continueButton: {fileID: 1354013984}
 --- !u!4 &295304960
 Transform:
