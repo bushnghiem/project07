@@ -78,6 +78,19 @@ public class RewardManager : MonoBehaviour
         player.AddItemToRunData(item);
     }
 
+    public void AddChargesToAllPlayers(int amount)
+    {
+        foreach (var player in shipHolder.allPlayers)
+        {
+            player.GainCharges(amount);
+        }
+    }
+
+    public void GivePlayerCharges(Player player, int amount)
+    {
+        player.GainCharges(amount);
+    }
+
     public bool CanAfford(int amount)
     {
         return RunManager.Instance.CurrentRun.runCurrency >= amount;

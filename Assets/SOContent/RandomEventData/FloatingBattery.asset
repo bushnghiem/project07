@@ -10,66 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2aa73ef29bb4b54c883ee618ceb14f0, type: 3}
-  m_Name: Abandoned Station
+  m_Name: FloatingBattery
   m_EditorClassIdentifier: Assembly-CSharp::EventData
-  eventName: Abandoned Repair Station
-  description: 'You find an abandoned repair station. It just so happens that some
-    of the equipment is still working. They seem quite valuable. '
+  eventName: Floating Battery
+  description: You find a battery floating in space
   options:
-  - optionText: Salvage
+  - optionText: Use Battery
     conditions: []
     outcomeGroups:
     - groupName: 
       description: 
       groupChance: 1
       outcomes:
-      - type: 0
-        tileModification: 0
-        value: 100
-        damage:
-          amount: 0
-          category: 0
-          element: 0
-          bypassShields: 0
-          bypassResistance: 0
-        encounter: {fileID: 0}
-        item: {fileID: 0}
-        chance: 1
-      - type: 7
+      - type: 6
         tileModification: 1
-        value: 1
-        damage:
-          amount: 0
-          category: 0
-          element: 0
-          bypassShields: 0
-          bypassResistance: 0
-        encounter: {fileID: 0}
-        item: {fileID: 0}
-        chance: 1
-    removeAfterUse: 0
-  - optionText: Rest
-    conditions: []
-    outcomeGroups:
-    - groupName: 
-      description: 
-      groupChance: 1
-      outcomes:
-      - type: 3
-        tileModification: 0
-        value: 100
-        damage:
-          amount: 0
-          category: 0
-          element: 0
-          bypassShields: 0
-          bypassResistance: 0
-        encounter: {fileID: 0}
-        item: {fileID: 0}
-        chance: 1
-      - type: 7
-        tileModification: 0
-        value: 1
+        value: 5
         damage:
           amount: 0
           category: 0

@@ -85,6 +85,10 @@ public static class EventTooltipBuilder
                             sb.AppendLine($"{chanceText}Gain {outcome.item.itemName}");
                         break;
 
+                    case OutcomeType.GiveCharges:
+                        sb.AppendLine($"{chanceText}Restore {outcome.value} Charge{(outcome.value == 1 ? "" : "s")}");
+                        break;
+
                     case OutcomeType.StartCombat:
                         sb.AppendLine($"{chanceText}Start Combat");
                         break;

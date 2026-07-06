@@ -2292,6 +2292,8 @@ MonoBehaviour:
   shipHolder: {fileID: 839342152}
   shopItemCount: 3
   rerollCost: 50
+  chargePurchaseCost: 30
+  chargesPerPurchase: 3
   shopItems: []
   currentShopPosition: {x: 0, y: 0}
 --- !u!4 &829096703
@@ -2436,6 +2438,14 @@ PrefabInstance:
       propertyPath: shopManager
       value: 
       objectReference: {fileID: 829096702}
+    - target: {fileID: 6177624845449151540, guid: f3ec553ee0c84114c9aaecad9a6b7264, type: 3}
+      propertyPath: buyChargesText
+      value: 
+      objectReference: {fileID: 863262720}
+    - target: {fileID: 6177624845449151540, guid: f3ec553ee0c84114c9aaecad9a6b7264, type: 3}
+      propertyPath: buyChargesButton
+      value: 
+      objectReference: {fileID: 863262721}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2452,6 +2462,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36bb0e89518c388439590c5d19b010cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopUI
+--- !u!114 &863262720 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 985532850966393539, guid: f3ec553ee0c84114c9aaecad9a6b7264, type: 3}
+  m_PrefabInstance: {fileID: 863262718}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &863262721 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2273366663900156499, guid: f3ec553ee0c84114c9aaecad9a6b7264, type: 3}
+  m_PrefabInstance: {fileID: 863262718}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1 &869570986
 GameObject:
   m_ObjectHideFlags: 0
@@ -3974,7 +4006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 954764198443734371, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000049496088
+      value: 0.00097612536
       objectReference: {fileID: 0}
     - target: {fileID: 1787106842759329495, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchorMax.x

@@ -9,6 +9,8 @@ public class ShopManager : MonoBehaviour
 
     public int shopItemCount = 3;
     public int rerollCost = 50;
+    public int chargePurchaseCost = 30;
+    public int chargesPerPurchase = 3;
 
     public List<ShopItem> shopItems = new();
     public Vector2Int currentShopPosition;
@@ -102,9 +104,26 @@ public class ShopManager : MonoBehaviour
         return true;
     }
 
+
     public void Reroll()
     {
         GenerateShop(currentShopPosition, forceReroll: true);
+    }
+
+    public bool TryPurchaseCharges(Player player, int cost, int amount)
+    {
+        if (player.CurrentCharges >= player.MaxCharges)
+        {
+            Debug.Log("Player already has full charges.");
+            return false;
+        }
+
+        if (!RewardManager.Instance.SpendRunCurrency(cost))
+            return false;
+
+        RewardManager.Instance.GivePlayerCharges(player, amount);
+
+        return true;
     }
 
     private ShopItem CreateShopItem(Item item, ShopSlotType slotType)

@@ -12,15 +12,18 @@ public class ShopUI : MonoBehaviour
 
     public Button rerollButton;
     public Button closeButton;
+    public Button buyChargesButton;
 
     [Header("UI Text")]
     public TMP_Text currencyText;
     public TMP_Text rerollText;
+    public TMP_Text buyChargesText;
 
     private void Awake()
     {
         rerollButton.onClick.AddListener(OnRerollPressed);
         closeButton.onClick.AddListener(OnClosePressed);
+        buyChargesButton.onClick.AddListener(OnBuyChargesPressed);
     }
 
     public void PopulateShop()
@@ -45,6 +48,7 @@ public class ShopUI : MonoBehaviour
 
         currencyText.text = $"Credits: {currency}";
         rerollText.text = $"Reroll: {shopManager.rerollCost}";
+        buyChargesText.text = $"Buy {shopManager.chargesPerPurchase} Charges ({shopManager.chargePurchaseCost})";
     }
 
     private void OnRerollPressed()
@@ -57,6 +61,25 @@ public class ShopUI : MonoBehaviour
 
         shopManager.Reroll();
         PopulateShop();
+    }
+
+    private void OnBuyChargesPressed()
+    {
+        if (!RewardManager.Instance.CanAfford(shopManager.chargePurchaseCost))
+            return;
+
+        PlayerSelectionUI.Instance.Open(
+            shipHolder.allPlayers,
+            player =>
+            {
+                if (shopManager.TryPurchaseCharges(
+                    player,
+                    shopManager.chargePurchaseCost,
+                    shopManager.chargesPerPurchase))
+                {
+                    RefreshTopUI();
+                }
+            });
     }
 
     private void OnClosePressed()

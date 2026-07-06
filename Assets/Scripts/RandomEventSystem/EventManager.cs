@@ -95,6 +95,16 @@ public class EventManager : MonoBehaviour
                         RewardManager.Instance.AddItemToPlayer(player, outcome.item);
                     });
                 break;
+
+            case OutcomeType.GiveCharges:
+                PlayerSelectionUI.Instance.Open(
+                    shipHolder.allPlayers,
+                    (player) =>
+                    {
+                        RewardManager.Instance.GivePlayerCharges(player, outcome.value);
+                    });
+                break;
+
             case OutcomeType.TakeTime:
                 AddTime(outcome.value);
                 break;

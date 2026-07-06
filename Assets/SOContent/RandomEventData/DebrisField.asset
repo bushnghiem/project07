@@ -23,7 +23,7 @@ MonoBehaviour:
       description: Rush Through Safely
       groupChance: 0.5
       outcomes:
-      - type: 6
+      - type: 7
         tileModification: 0
         value: 1
         damage:
@@ -51,7 +51,7 @@ MonoBehaviour:
         encounter: {fileID: 0}
         item: {fileID: 0}
         chance: 1
-      - type: 6
+      - type: 7
         tileModification: 0
         value: 1
         damage:
@@ -71,7 +71,7 @@ MonoBehaviour:
       description: 
       groupChance: 1
       outcomes:
-      - type: 6
+      - type: 7
         tileModification: 0
         value: 5
         damage:
