@@ -31,7 +31,7 @@ public class ItemDebugUI : MonoBehaviour
 
         itemNameText.text = item.itemData.itemName;
 
-        if (!item.CanUse())
+        if (!item.CanUse(currentUnit))
         {
             stateText.text = "On Cooldown";
             cooldownText.text = "CD: " + item.GetRemainingCooldown();

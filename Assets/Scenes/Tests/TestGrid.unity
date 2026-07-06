@@ -1596,6 +1596,7 @@ MonoBehaviour:
   itemEntryPrefab: {fileID: 318138601095125067, guid: 8c9bc76ec03250f47877833ba44b2c96, type: 3}
   nameText: {fileID: 472368832}
   healthText: {fileID: 415727731}
+  chargesText: {fileID: 7844998919603941006}
 --- !u!114 &432693004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3973,7 +3974,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 954764198443734371, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.0006481208
+      value: 0.000049496088
       objectReference: {fileID: 0}
     - target: {fileID: 1787106842759329495, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4223,6 +4224,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5395967752863053310, guid: c75906be982f9b040ba65192953a4170, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5395967752863053310, guid: c75906be982f9b040ba65192953a4170, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5395967752863053310, guid: c75906be982f9b040ba65192953a4170, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5395967752863053310, guid: c75906be982f9b040ba65192953a4170, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5918544786568653340, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -4319,6 +4336,17 @@ PrefabInstance:
 --- !u!114 &7844998919603941005 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 495524477396936568, guid: c75906be982f9b040ba65192953a4170, type: 3}
+  m_PrefabInstance: {fileID: 7844998919603941004}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &7844998919603941006 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6137190933243511677, guid: c75906be982f9b040ba65192953a4170, type: 3}
   m_PrefabInstance: {fileID: 7844998919603941004}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

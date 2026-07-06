@@ -19,6 +19,7 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
     protected Rigidbody rb;
     protected HealthComponent healthComp;
+    protected ChargeComponent chargeComp;
     protected DamageOnCollision collisionDamageComp;
     protected EffectController effectController;
     protected StatusEffectController statusController;
@@ -63,8 +64,10 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
     public ShipRunData RunData => runData;
 
     public float CurrentHealth => healthComp.GetCurrentHealth();
-
     public float MaxHealth => healthComp.GetMaxHealth();
+
+    public int CurrentCharges => chargeComp.GetCurrentCharges();
+    public int MaxCharges => chargeComp.GetMaxCharges();
 
     public int CurrentShield => healthComp.GetShield();
 
@@ -81,6 +84,7 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
     {
         rb = GetComponent<Rigidbody>();
         healthComp = GetComponent<HealthComponent>();
+        chargeComp = GetComponent<ChargeComponent>();
         collisionDamageComp = GetComponent<DamageOnCollision>();
         effectController = GetComponent<EffectController>();
         statusController = GetComponent<StatusEffectController>();
@@ -100,6 +104,7 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
     protected virtual void ApplyStats()
     {
         float maxHealth = GetStat(ShipStatType.MaxHealth);
+        int maxCharges = Mathf.RoundToInt(GetStat(ShipStatType.MaxCharges));
         int shield = Mathf.RoundToInt(GetStat(ShipStatType.StartingShield));
         float mass = GetStat(ShipStatType.Mass);
         float collisionDamage = GetStat(ShipStatType.CollisionDamage);
@@ -108,10 +113,13 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
         healthComp.SetMaxHealth(maxHealth);
         healthComp.SetShield(shield);
+        chargeComp.SetMaxCharges(maxCharges);
 
         healthComp.SetCurrentHealth(
             runData.currentHealth > 0 ? runData.currentHealth : maxHealth
-        );
+            );
+
+        chargeComp.SetCurrentCharges(runData.currentCharges);
 
         rb.mass = mass;
 
@@ -589,6 +597,16 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
             return true;
         }
         return false;
+    }
+
+    public bool SpendCharges(int amount)
+    {
+        return chargeComp.Spend(amount);
+    }
+
+    public void GainCharges(int amount)
+    {
+        chargeComp.Gain(amount);
     }
 
     public virtual InspectionData GetInspectionData()

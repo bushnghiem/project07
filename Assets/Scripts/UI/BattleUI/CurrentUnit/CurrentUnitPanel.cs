@@ -11,6 +11,8 @@ public class CurrentUnitPanel : MonoBehaviour
     [SerializeField] private TMP_Text apText;
     [SerializeField] private TMP_Text activeItemText;
     [SerializeField] private TMP_Text cooldownText;
+    [SerializeField] private TMP_Text currentChargeText;
+    [SerializeField] private TMP_Text chargeCostText;
 
     [Header("Status UI")]
     [SerializeField] private Transform statusContainer;
@@ -112,17 +114,21 @@ public class CurrentUnitPanel : MonoBehaviour
         hpText.text = $"HP {currentUnit.CurrentHealth:0}/{currentUnit.MaxHealth:0}";
         shieldText.text = $"Shield {currentUnit.CurrentShield}";
         apText.text = $"AP {currentUnit.CurrentAP}/{(int)currentUnit.GetStat(ShipStatType.ActionPoints)}";
+        currentChargeText.text = $"Charges {currentUnit.CurrentCharges:0}/{currentUnit.MaxCharges:0}";
 
         if (currentUnit.ActiveItem != null)
         {
             activeItemText.text = currentUnit.ActiveItem.itemData.itemName;
 
             int cd = currentUnit.ActiveItem.GetRemainingCooldown();
+            int cc = currentUnit.ActiveItem.itemData.chargeCost;
 
             cooldownText.text =
                 cd <= 0
                 ? "Ready"
                 : $"Cooldown: {cd}";
+
+            chargeCostText.text = $"Charge Cost: {cc}";
         }
         else
         {

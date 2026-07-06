@@ -11,6 +11,7 @@ public class ShipRunData
     public string aiBehaviorID;
 
     public float currentHealth;
+    public int currentCharges;
     public bool isDead;
 
     public List<StatModifier> statModifiers = new();

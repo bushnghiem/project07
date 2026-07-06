@@ -43,7 +43,7 @@ public abstract class ActiveItem : Item
             sb.AppendLine($"Price: {shopPrice.Value}");
 
         sb.AppendLine($"Cooldown: {cooldownTurns} turns");
-        sb.AppendLine($"Charge Cost: {chargeCost} turns");
+        sb.AppendLine($"Charge Cost: {chargeCost} charge");
         sb.AppendLine($"Target Type: {TargetType}°");
 
         switch (TargetType)

@@ -35,6 +35,9 @@ public class Player : UnitBase
         healthComp.OnDamaged += HandleDamaged;
         healthComp.OnHealed += HandleHealed;
         healthComp.OnDeath += HandleDeath;
+        healthComp.OnHealthChanged += HandleHealthChanged;
+
+        chargeComp.OnChargeChanged += HandleChargeChanged;
     }
 
     private void OnDisable()
@@ -42,6 +45,9 @@ public class Player : UnitBase
         healthComp.OnDamaged -= HandleDamaged;
         healthComp.OnHealed -= HandleHealed;
         healthComp.OnDeath -= HandleDeath;
+        healthComp.OnHealthChanged -= HandleHealthChanged;
+
+        chargeComp.OnChargeChanged -= HandleChargeChanged;
     }
 
     public override void Initialize(ShipRunData data)
@@ -183,18 +189,6 @@ public class Player : UnitBase
             r.enabled = false;
     }
 
-    public override void Hurt(DamageInfo damageInfo)
-    {
-        base.Hurt(damageInfo);
-        runData.currentHealth = healthComp.GetCurrentHealth(); // Make damage track throughout scenes and save
-    }
-
-    public override void Heal(float amount)
-    {
-        base.Heal(amount);
-        runData.currentHealth = healthComp.GetCurrentHealth(); // Make healing track throughout scenes and save
-    }
-
     private void HandleDamaged(float damage)
     {
         //Debug.Log($"Player took {damage} damage");
@@ -215,5 +209,17 @@ public class Player : UnitBase
     {
         if (executor == null)
             executor = FindFirstObjectByType<UnitActionExecutor>();
+    }
+
+    private void HandleHealthChanged(float oldHealth, float newHealth)
+    {
+        if (runData != null)
+            runData.currentHealth = newHealth;
+    }
+
+    private void HandleChargeChanged(int oldCharges, int newCharges)
+    {
+        if (runData != null)
+            runData.currentCharges = newCharges;
     }
 }

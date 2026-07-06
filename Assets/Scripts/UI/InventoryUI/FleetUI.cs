@@ -23,6 +23,7 @@ public class FleetUI : MonoBehaviour
     [Header("Details")]
     public TMP_Text nameText;
     public TMP_Text healthText;
+    public TMP_Text chargesText;
 
     private Player selectedPlayer;
 
@@ -170,6 +171,9 @@ public class FleetUI : MonoBehaviour
 
         healthText.text =
             $"HP: {selectedPlayer.CurrentHealth}";
+
+        chargesText.text =
+            $"Charges: {selectedPlayer.CurrentCharges}";
 
         PopulateStats(selectedPlayer);
         PopulateItems(selectedPlayer);

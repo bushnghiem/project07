@@ -510,6 +510,7 @@ MonoBehaviour:
       clearedCombatTiles: []
       clearedCorruptionTiles: []
       clearedEventTiles: []
+      discoveredEventTiles: []
       shops: []
       corruptionRadius: -1
       hasShownFloorIntro: 0
@@ -521,7 +522,8 @@ MonoBehaviour:
     - uniqueID: Player 1
       templateID: 0
       aiBehaviorID: 
-      currentHealth: 100
+      currentHealth: 90
+      currentCharges: 0
       isDead: 0
       statModifiers: []
       items:
@@ -535,6 +537,7 @@ MonoBehaviour:
       templateID: 0
       aiBehaviorID: 
       currentHealth: 100
+      currentCharges: 5
       isDead: 0
       statModifiers: []
       items:

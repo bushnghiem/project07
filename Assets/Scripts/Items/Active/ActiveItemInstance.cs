@@ -12,9 +12,10 @@ public class ActiveItemInstance
         itemData = data;
     }
 
-    public bool CanUse()
+    public bool CanUse(UnitBase user)
     {
-        return remainingCooldown <= 0;
+        return remainingCooldown <= 0 &&
+               user.CurrentCharges >= itemData.chargeCost;
     }
 
     public bool Use(
@@ -22,7 +23,13 @@ public class ActiveItemInstance
         ItemTargetData targetData
     )
     {
-        if (!CanUse())
+
+        UnitBase unitBase = user as UnitBase;
+
+        if (!CanUse(unitBase))
+            return false;
+
+        if (!unitBase.SpendCharges(itemData.chargeCost))
             return false;
 
         itemData.Execute(user, targetData);

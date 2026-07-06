@@ -46,7 +46,7 @@ public class ItemAction : TurnAction
             return;
         }
 
-         if (item.CanUse())
+        if (item.CanUse(unitBase))
         {
             targetingController.BeginTargeting(unitBase, item);
         }

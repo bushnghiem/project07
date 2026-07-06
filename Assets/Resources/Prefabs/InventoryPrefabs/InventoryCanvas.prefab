@@ -811,7 +811,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000028590986, y: 0}
+  m_AnchoredPosition: {x: 85.89039, y: 0}
   m_SizeDelta: {x: -183, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7732944511626569926
@@ -1084,7 +1084,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FleetUI
   shipHolder: {fileID: 0}
-  panel: {fileID: 6124334006697257845}
   shipListParent: {fileID: 3584351569589836297}
   shipEntryPrefab: {fileID: 8941645740710153600, guid: 3ba8864708987714a8a77d0a527c6d7b, type: 3}
   statsParent: {fileID: 8743182535349169664}
@@ -1096,9 +1095,7 @@ MonoBehaviour:
   itemEntryPrefab: {fileID: 318138601095125067, guid: 8c9bc76ec03250f47877833ba44b2c96, type: 3}
   nameText: {fileID: 198387605872453405}
   healthText: {fileID: 4955671913374689782}
-  activeText: {fileID: 5486911283395921679}
-  projectileText: {fileID: 1740323520250364285}
-  passiveText: {fileID: 7836352936933484873}
+  chargesText: {fileID: 0}
 --- !u!114 &3951216766823190899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1112,7 +1109,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FleetTooltipUI
   panel: {fileID: 4563095918571961286}
-  text: {fileID: 8753541768989548266}
+  titleText: {fileID: 0}
+  descriptionText: {fileID: 0}
 --- !u!1 &1987587539284891450
 GameObject:
   m_ObjectHideFlags: 0
@@ -1234,7 +1232,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4196985809196219279}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.99998176
+  m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

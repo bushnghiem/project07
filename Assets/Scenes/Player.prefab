@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 5107186074234832959}
   - component: {fileID: 2460210874807239879}
   - component: {fileID: 5893162899898124360}
+  - component: {fileID: 1039390686006144073}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -377,6 +378,7 @@ MonoBehaviour:
   statusEffects: []
   contactDamage: 20
   knockbackStrength: 12
+  collisionSounds: []
 --- !u!114 &2481838852082444043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,3 +487,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioController
   audioSource: {fileID: 1072105072046440700}
+--- !u!114 &1039390686006144073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7295725305768939094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 796716eb0c8c51248a01ce540f4d35cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChargeComponent
+  currentCharges: 0
+  maxCharges: 0

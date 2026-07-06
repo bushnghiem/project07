@@ -4,6 +4,7 @@ public enum ShipStatType
 {
     MaxHealth,
     StartingShield,
+    MaxCharges,
 
     ShotStrength,
     MoveStrength,

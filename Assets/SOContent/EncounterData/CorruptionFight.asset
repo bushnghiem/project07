@@ -47,7 +47,7 @@ MonoBehaviour:
     items:
     - itemID: projectile_basic
   enemyFormation: {fileID: 11400000, guid: ea09909161c27d04d923a2d9c407861b, type: 2}
-  playerFormation: {fileID: 0}
+  playerFormation: {fileID: 11400000, guid: de0e0e80fdb089648b239068d3e95764, type: 2}
   environmentLayout: {fileID: 11400000, guid: 03214a1cff6f178469c745c1aa539ba6, type: 2}
   playerAnchorPosition: {x: 0, y: 0, z: 0}
   enemyAnchorPosition: {x: -20, y: 0, z: 0}

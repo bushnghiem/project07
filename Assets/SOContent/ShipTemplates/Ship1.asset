@@ -20,17 +20,17 @@ MonoBehaviour:
   - statType: 1
     value: 0
   - statType: 2
-    value: 100
+    value: 5
   - statType: 3
-    value: 500
+    value: 100
   - statType: 4
-    value: 10
+    value: 500
   - statType: 5
     value: 10
   - statType: 6
     value: 10
   - statType: 7
-    value: 0
+    value: 10
   - statType: 8
     value: 0
   - statType: 9
@@ -42,9 +42,9 @@ MonoBehaviour:
   - statType: 12
     value: 0
   - statType: 13
-    value: 2
-  - statType: 14
     value: 0
+  - statType: 14
+    value: 2
   - statType: 15
     value: 0
   - statType: 16
@@ -56,6 +56,8 @@ MonoBehaviour:
   - statType: 19
     value: 0
   - statType: 20
+    value: 0
+  - statType: 21
     value: 0
   visualData: {fileID: 0}
   audioData: {fileID: 0}
