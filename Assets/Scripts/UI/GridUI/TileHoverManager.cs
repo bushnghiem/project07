@@ -3,13 +3,21 @@ using UnityEngine;
 public class TileHoverManager : MonoBehaviour
 {
     public Camera worldCamera;
-
-    public TileTooltipUI tooltip;
+    public GridManager gridManager;
 
     TileHover currentHover;
 
     void Update()
     {
+        // Another UI is open.
+        // Stop tile detection only.
+        if (GridUIManager.Instance != null &&
+            GridUIManager.Instance.CurrentState != UIState.None)
+        {
+            currentHover = null;
+            return;
+        }
+
         Ray ray = worldCamera.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out RaycastHit hit))
@@ -22,16 +30,21 @@ public class TileHoverManager : MonoBehaviour
                 {
                     currentHover = hover;
 
-                    tooltip.Show(
-                        hover.tile,
-                        hover.gridPosition);
+                    TooltipUI.Instance.Show(
+                        TileTooltipBuilder.Build(
+                            hover.tile,
+                            hover.gridPosition,
+                            gridManager));
                 }
 
                 return;
             }
         }
 
-        currentHover = null;
-        tooltip.Hide();
+        if (currentHover != null)
+        {
+            currentHover = null;
+            TooltipUI.Instance.Hide();
+        }
     }
 }

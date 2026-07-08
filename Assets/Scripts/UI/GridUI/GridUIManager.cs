@@ -21,7 +21,7 @@ public class GridUIManager : MonoBehaviour
     public ShopUI shopUI;
     public EventUI eventUI;
     public ChestUI chestUI;
-    public TileTooltipUI tileTooltip;
+    public TooltipUI tooltipUI;
 
     private void Awake()
     {
@@ -37,6 +37,9 @@ public class GridUIManager : MonoBehaviour
     {
         CurrentState = newState;
 
+        if (tooltipUI != null)
+            tooltipUI.Hide();
+
         // Close conflicting UI
         if (newState != UIState.Fleet && fleetUI != null)
             fleetUI.Close();
@@ -49,14 +52,14 @@ public class GridUIManager : MonoBehaviour
 
         if (newState != UIState.Chest && chestUI != null)
             chestUI.gameObject.SetActive(false);
-
-        if (newState != UIState.None && tileTooltip != null)
-            tileTooltip.Hide();
     }
 
     public void ClearState()
     {
         CurrentState = UIState.None;
+
+        if (tooltipUI != null)
+            tooltipUI.Hide();
     }
 
     public void OpenChest()

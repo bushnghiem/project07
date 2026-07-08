@@ -44,13 +44,12 @@ public class EventOptionButton : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        EventTooltipUI.Instance.Show(
-            EventTooltipBuilder.Build(option)
-        );
+        TooltipUI.Instance.Show(EventTooltipBuilder.Build(option));
+        Debug.Log("Hover over Event options");
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        EventTooltipUI.Instance.Hide();
+        TooltipUI.Instance.Hide();
     }
 }

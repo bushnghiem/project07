@@ -1,8 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
+using System.Collections;
 
-public class ItemChoiceSlot : MonoBehaviour
+public class ItemChoiceSlot :
+    MonoBehaviour,
+    IPointerEnterHandler,
+    IPointerExitHandler
 {
     public Image icon;
     public TMP_Text nameText;
@@ -19,5 +24,16 @@ public class ItemChoiceSlot : MonoBehaviour
 
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => onChosen(item));
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        TooltipUI.Instance.Show(
+            ItemTooltipBuilder.Build(item));
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        TooltipUI.Instance.Hide();
     }
 }

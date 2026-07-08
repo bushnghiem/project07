@@ -3,12 +3,12 @@ using UnityEngine;
 
 public static class EventTooltipBuilder
 {
-    public static string Build(EventOption option)
+    public static TooltipData Build(EventOption option)
     {
         StringBuilder sb = new StringBuilder();
 
         if (option.outcomeGroups == null)
-            return "";
+            return new TooltipData(option.optionText, "");
 
         foreach (var group in option.outcomeGroups)
         {
@@ -114,6 +114,6 @@ public static class EventTooltipBuilder
             sb.AppendLine(); // spacing between groups
         }
 
-        return sb.ToString().TrimEnd();
+        return new TooltipData(option.optionText, sb.ToString().TrimEnd());
     }
 }

@@ -45,20 +45,14 @@ public class ShopItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (shopItem == null || shopItem.item == null)
             return;
 
-        ShopTooltipUI.Instance.Show(
-            shopItem.item.itemName,
-            BuildTooltipText()
-        );
+        TooltipUI.Instance.Show(ItemTooltipBuilder.Build(shopItem));
+        Debug.Log("Hover over shop item");
+        Debug.Log(TooltipUI.Instance.panel.gameObject.activeSelf);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        ShopTooltipUI.Instance.Hide();
-    }
-
-    private string BuildTooltipText()
-    {
-        return shopItem.item.GetTooltipText(shopItem.price);
+        TooltipUI.Instance.Hide();
     }
 
     public void OnBuyPressed()
