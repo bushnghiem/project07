@@ -4,16 +4,15 @@ using TMPro;
 using UnityEngine.EventSystems;
 using System.Collections;
 
-public class ItemChoiceSlot :
-    MonoBehaviour,
-    IPointerEnterHandler,
-    IPointerExitHandler
+public class ItemChoiceSlot : MonoBehaviour
 {
     public Image icon;
     public TMP_Text nameText;
     public Button button;
 
     Item item;
+
+    [SerializeField] private TooltipTrigger tooltipTrigger;
 
     public void Setup(Item newItem, System.Action<Item> onChosen)
     {
@@ -24,16 +23,7 @@ public class ItemChoiceSlot :
 
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => onChosen(item));
-    }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        TooltipUI.Instance.Show(
-            ItemTooltipBuilder.Build(item));
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        TooltipUI.Instance.Hide();
+        tooltipTrigger.SetProvider(() => ItemTooltipBuilder.Build(item));
     }
 }

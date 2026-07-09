@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using System.Collections;
 
-public class ShopItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ShopItemSlot : MonoBehaviour
 {
     public Image icon;
     public TMP_Text nameText;
@@ -14,6 +14,7 @@ public class ShopItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     private ShopItem shopItem;
     private ShopManager shopManager;
+    [SerializeField] private TooltipTrigger tooltipTrigger;
 
     public void Setup(ShopItem item, ShopManager manager)
     {
@@ -28,6 +29,7 @@ public class ShopItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         buyButton.onClick.AddListener(OnBuyPressed);
 
         RefreshVisual();
+        tooltipTrigger.SetProvider(() => ItemTooltipBuilder.Build(shopItem));
     }
 
     private void RefreshVisual()
@@ -38,21 +40,6 @@ public class ShopItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         if (canvasGroup != null)
             canvasGroup.alpha = purchased ? 0.5f : 1f;
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (shopItem == null || shopItem.item == null)
-            return;
-
-        TooltipUI.Instance.Show(ItemTooltipBuilder.Build(shopItem));
-        Debug.Log("Hover over shop item");
-        Debug.Log(TooltipUI.Instance.panel.gameObject.activeSelf);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        TooltipUI.Instance.Hide();
     }
 
     public void OnBuyPressed()

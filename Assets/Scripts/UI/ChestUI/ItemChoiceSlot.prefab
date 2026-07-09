@@ -147,6 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 521671578389774037}
   - component: {fileID: 7977294124392270529}
+  - component: {fileID: 3007930355762106506}
   m_Layer: 5
   m_Name: ItemChoiceSlot
   m_TagString: Untagged
@@ -189,6 +190,19 @@ MonoBehaviour:
   icon: {fileID: 2779116142191400490}
   nameText: {fileID: 1232632087106824894}
   button: {fileID: 432627486306489786}
+  tooltipTrigger: {fileID: 3007930355762106506}
+--- !u!114 &3007930355762106506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5440161085841252755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 558d49a026507fc44ab64a763b591289, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TooltipTrigger
 --- !u!1 &8406735610037031273
 GameObject:
   m_ObjectHideFlags: 0

@@ -367,6 +367,7 @@ GameObject:
   - component: {fileID: 8360592453445129202}
   - component: {fileID: 3945476953153897580}
   - component: {fileID: 3320267851345112509}
+  - component: {fileID: 318449048166220419}
   m_Layer: 5
   m_Name: ShopItemSlot
   m_TagString: Untagged
@@ -495,6 +496,7 @@ MonoBehaviour:
   priceText: {fileID: 5677018280601669085}
   buyButton: {fileID: 8360592453445129202}
   canvasGroup: {fileID: 3320267851345112509}
+  tooltipTrigger: {fileID: 318449048166220419}
 --- !u!225 &3320267851345112509
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -507,3 +509,15 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &318449048166220419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7514878896952630961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 558d49a026507fc44ab64a763b591289, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TooltipTrigger

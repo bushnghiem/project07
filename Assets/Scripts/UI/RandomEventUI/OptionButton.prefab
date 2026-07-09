@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7465413418770061472}
   - component: {fileID: 526688606369332414}
   - component: {fileID: 973357583448124120}
+  - component: {fileID: 6714938792482777314}
   m_Layer: 5
   m_Name: OptionButton
   m_TagString: Untagged
@@ -136,6 +137,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EventOptionButton
   label: {fileID: 447780921108297}
   optionButton: {fileID: 526688606369332414}
+  tooltipTrigger: {fileID: 6714938792482777314}
+--- !u!114 &6714938792482777314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280988683238267810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 558d49a026507fc44ab64a763b591289, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TooltipTrigger
 --- !u!1 &6235593675144632139
 GameObject:
   m_ObjectHideFlags: 0

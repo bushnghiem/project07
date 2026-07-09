@@ -3,9 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class EventOptionButton : MonoBehaviour,
-    IPointerEnterHandler,
-    IPointerExitHandler
+public class EventOptionButton : MonoBehaviour
 {
     public TextMeshProUGUI label;
     public Button optionButton;
@@ -13,6 +11,8 @@ public class EventOptionButton : MonoBehaviour,
     private EventOption option;
     private EventUI eventUI;
     private int optionIndex;
+
+    [SerializeField] private TooltipTrigger tooltipTrigger;
 
     public void Setup(EventOption option, int index, EventUI ui, bool isUsed)
     {
@@ -33,6 +33,8 @@ public class EventOptionButton : MonoBehaviour,
 
         optionButton.onClick.RemoveAllListeners();
         optionButton.onClick.AddListener(OnClick);
+
+        tooltipTrigger.SetProvider(() => EventTooltipBuilder.Build(option));
     }
 
     void OnClick()
@@ -40,16 +42,5 @@ public class EventOptionButton : MonoBehaviour,
         eventUI.SelectOption(option, optionIndex);
         GridUIManager.Instance.ClearState();
         FindFirstObjectByType<GridMovement>().inputLocked = false;
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        TooltipUI.Instance.Show(EventTooltipBuilder.Build(option));
-        Debug.Log("Hover over Event options");
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        TooltipUI.Instance.Hide();
     }
 }
