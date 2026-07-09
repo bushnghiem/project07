@@ -26,6 +26,9 @@ public class FloorContentProfile : ScriptableObject
     [Header("Boss")]
     public EncounterData bossEncounter;
 
+    [Header("Boss Rewards")]
+    public List<BossRewardDefinition> bossRewards;
+
     [Header("Events")]
     public List<EventData> events;
 }

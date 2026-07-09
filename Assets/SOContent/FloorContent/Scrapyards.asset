@@ -38,6 +38,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: edfa626bb21edc846af9ffd61ea7488d, type: 2}
   eliteCount: 1
   bossEncounter: {fileID: 11400000, guid: c65304e758cad2944b3c49293a936ad0, type: 2}
+  bossRewards:
+  - {fileID: 11400000, guid: 67f0635327753124dad5845485ddf6c7, type: 2}
+  - {fileID: 11400000, guid: 2aea2362576efdb41bdbbee73084e360, type: 2}
+  - {fileID: 11400000, guid: dd81e06afc039b847a8e131283561633, type: 2}
   events:
   - {fileID: 11400000, guid: 736f528aa4a37294bacc7b3e44419e82, type: 2}
   - {fileID: 11400000, guid: 7e89f20dde6630142b0c9c4a48bf387a, type: 2}

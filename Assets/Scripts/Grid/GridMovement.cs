@@ -169,7 +169,12 @@ public class GridMovement : MonoBehaviour
             return;
         }
 
-        StartCoroutine(HandleFloorTransition());
+        BossRewardUI.Instance.Show(
+            BossRewardGenerator.Generate(),
+            () =>
+            {
+                StartCoroutine(HandleFloorTransition());
+            });
     }
 
     public void HandleShopTile()
@@ -205,7 +210,6 @@ public class GridMovement : MonoBehaviour
     {
         var run = RunManager.Instance.CurrentRun;
 
-        // Insert boss fight here later
 
         // Save completed floor
         run.completedFloors.Add(run.currentFloorData);
