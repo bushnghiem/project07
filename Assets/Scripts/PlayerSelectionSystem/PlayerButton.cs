@@ -12,15 +12,19 @@ public class PlayerButton : MonoBehaviour
     private Player player;
     private Action<Player> callback;
 
+    [SerializeField] private TooltipTrigger tooltipTrigger;
+
     public void Setup(Player player, Action<Player> callback)
     {
         this.player = player;
         this.callback = callback;
 
-        nameText.text = player.name;
+        nameText.text = player.Name;
         hpText.text = $"HP: {player.GetCurrentHealth()}";
 
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => callback(player));
+
+        tooltipTrigger.SetProvider(() => PlayerTooltipBuilder.Build(player));
     }
 }

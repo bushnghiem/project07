@@ -69,6 +69,8 @@ public class EventUI : MonoBehaviour
 
     public void SelectOption(EventOption option, int index)
     {
+
+        TooltipUI.Instance.Hide();
         if (EventTooltipUI.Instance != null)
         {
             EventTooltipUI.Instance.Hide();

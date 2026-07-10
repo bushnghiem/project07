@@ -6,12 +6,12 @@ public class BossRewardUI : MonoBehaviour
 {
     public static BossRewardUI Instance;
 
+    [Header("References")]
     public Transform rewardParent;
     public BossRewardSlot rewardSlotPrefab;
 
-    List<BossReward> rewards;
-
-    System.Action onFinished;
+    private List<BossReward> rewards;
+    private Action onFinished;
 
     private void Awake()
     {
@@ -28,10 +28,10 @@ public class BossRewardUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void Show(
-    List<BossReward> rewards,
-    Action onFinished)
+    public void Show(List<BossReward> rewards, Action onFinished)
     {
+        GridUIManager.Instance.SetState(UIState.BossReward);
+
         gameObject.SetActive(true);
 
         this.rewards = rewards;
@@ -52,10 +52,12 @@ public class BossRewardUI : MonoBehaviour
 
         gameObject.SetActive(false);
 
+        GridUIManager.Instance.ClearState();
+
         onFinished?.Invoke();
     }
 
-    void PopulateSlots()
+    private void PopulateSlots()
     {
         foreach (Transform child in rewardParent)
             Destroy(child.gameObject);

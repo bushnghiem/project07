@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6158520371200083432}
   - component: {fileID: 5508124675441437423}
   - component: {fileID: 7815079471494068540}
+  - component: {fileID: 6198253419119579286}
   m_Layer: 5
   m_Name: BossRewardSlot
   m_TagString: Untagged
@@ -137,6 +138,19 @@ MonoBehaviour:
   icon: {fileID: 6158520371200083432}
   title: {fileID: 7647399484417678039}
   button: {fileID: 5508124675441437423}
+  tooltipTrigger: {fileID: 6198253419119579286}
+--- !u!114 &6198253419119579286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3218856495216601142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 558d49a026507fc44ab64a763b591289, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TooltipTrigger
 --- !u!1 &5166380633532331675
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.EventSystems;
-using System.Collections;
 using System;
 
 public class BossRewardSlot : MonoBehaviour
@@ -11,7 +9,9 @@ public class BossRewardSlot : MonoBehaviour
     public TMP_Text title;
     public Button button;
 
-    BossReward reward;
+    [SerializeField] private TooltipTrigger tooltipTrigger;
+
+    private BossReward reward;
 
     public void Setup(BossReward reward, Action<BossReward> onChosen)
     {
@@ -22,5 +22,11 @@ public class BossRewardSlot : MonoBehaviour
 
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => onChosen(reward));
+
+        // Hook into the game's tooltip system.
+        if (tooltipTrigger != null)
+        {
+            tooltipTrigger.SetProvider(() => BossRewardTooltipBuilder.Build(reward));
+        }
     }
 }

@@ -73,6 +73,8 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
     public ShipTemplate Template => template;
 
+    public string Name => template.displayName;
+
     protected SphereCollider sphereCollider;
     protected ShipAudioComponent audioComp;
 

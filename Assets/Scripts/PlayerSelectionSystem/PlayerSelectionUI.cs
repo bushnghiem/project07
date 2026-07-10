@@ -9,6 +9,8 @@ public class PlayerSelectionUI : MonoBehaviour
     public Transform buttonParent;
     public PlayerButton buttonPrefab;
 
+    public bool Active = false;
+
     private Action<Player> onPlayerSelected;
 
     private void Awake()
@@ -24,15 +26,18 @@ public class PlayerSelectionUI : MonoBehaviour
     public void Open(List<Player> players, Action<Player> callback)
     {
         gameObject.SetActive(true);
+        Active = true;
+
+        TooltipUI.Instance.Hide();
 
         onPlayerSelected = callback;
 
         foreach (Transform child in buttonParent)
             Destroy(child.gameObject);
 
-        foreach (var player in players)
+        foreach (Player player in players)
         {
-            var btn = Instantiate(buttonPrefab, buttonParent);
+            PlayerButton btn = Instantiate(buttonPrefab, buttonParent);
             btn.Setup(player, OnPlayerClicked);
         }
     }
@@ -40,6 +45,8 @@ public class PlayerSelectionUI : MonoBehaviour
     private void OnPlayerClicked(Player player)
     {
         onPlayerSelected?.Invoke(player);
-        gameObject.SetActive(false);
+
+        GridUIManager.Instance.ClosePlayerSelection();
+        Active = false;
     }
 }

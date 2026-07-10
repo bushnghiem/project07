@@ -390,6 +390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TileHoverManager
   worldCamera: {fileID: 1989617336}
   gridManager: {fileID: 32902891}
+  playerSelectUI: {fileID: 316996702}
 --- !u!1 &24435314
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,7 +846,9 @@ MonoBehaviour:
   shopUI: {fileID: 863262719}
   eventUI: {fileID: 685578318}
   chestUI: {fileID: 1654535907}
+  bossRewardUI: {fileID: 1259256652}
   tooltipUI: {fileID: 20523467}
+  playerSelectionUI: {fileID: 316996702}
 --- !u!1 &133147033
 GameObject:
   m_ObjectHideFlags: 0
@@ -1717,6 +1720,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97bb4db9e34d63641b21a04966321af9, type: 3}
+--- !u!114 &316996702 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4618710142885876420, guid: 97bb4db9e34d63641b21a04966321af9, type: 3}
+  m_PrefabInstance: {fileID: 316996701}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e5b2f30bfe7dba4e8c0edaf4ba3ecb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSelectionUI
 --- !u!1 &329497667
 GameObject:
   m_ObjectHideFlags: 0
@@ -5665,7 +5679,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 954764198443734371, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.00004677232
+      value: 0.00003968877
       objectReference: {fileID: 0}
     - target: {fileID: 1787106842759329495, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchorMax.x

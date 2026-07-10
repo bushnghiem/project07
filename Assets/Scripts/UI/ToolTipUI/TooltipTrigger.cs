@@ -23,4 +23,10 @@ public class TooltipTrigger : MonoBehaviour,
     {
         TooltipUI.Instance.Hide();
     }
+
+    private void OnDisable()
+    {
+        if (TooltipUI.Instance != null)
+            TooltipUI.Instance.Hide();
+    }
 }

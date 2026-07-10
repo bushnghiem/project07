@@ -1,4 +1,6 @@
 using UnityEngine;
+using System;
+using System.Collections.Generic;
 
 public enum UIState
 {
@@ -7,7 +9,8 @@ public enum UIState
     Event,
     Shop,
     Chest,
-    Fleet
+    Fleet,
+    BossReward
 }
 
 public class GridUIManager : MonoBehaviour
@@ -21,7 +24,9 @@ public class GridUIManager : MonoBehaviour
     public ShopUI shopUI;
     public EventUI eventUI;
     public ChestUI chestUI;
+    public BossRewardUI bossRewardUI;
     public TooltipUI tooltipUI;
+    public PlayerSelectionUI playerSelectionUI;
 
     private void Awake()
     {
@@ -52,6 +57,9 @@ public class GridUIManager : MonoBehaviour
 
         if (newState != UIState.Chest && chestUI != null)
             chestUI.gameObject.SetActive(false);
+
+        if (newState != UIState.BossReward && bossRewardUI != null)
+            bossRewardUI.gameObject.SetActive(false);
     }
 
     public void ClearState()
@@ -70,5 +78,31 @@ public class GridUIManager : MonoBehaviour
         {
             chestUI.Show();
         }
+    }
+
+    public void OpenBossReward(List<BossReward> rewards, Action onFinished)
+    {
+        SetState(UIState.BossReward);
+
+        if (bossRewardUI != null)
+        {
+            bossRewardUI.Show(rewards, onFinished);
+        }
+    }
+
+    public void OpenPlayerSelection(List<Player> players, Action<Player> callback)
+    {
+        tooltipUI?.LockWorldTooltips();
+
+        if (playerSelectionUI != null)
+            playerSelectionUI.Open(players, callback);
+    }
+
+    public void ClosePlayerSelection()
+    {
+        tooltipUI?.UnlockWorldTooltips();
+
+        if (playerSelectionUI != null)
+            playerSelectionUI.gameObject.SetActive(false);
     }
 }

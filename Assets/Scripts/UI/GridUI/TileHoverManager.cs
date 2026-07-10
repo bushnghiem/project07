@@ -4,6 +4,7 @@ public class TileHoverManager : MonoBehaviour
 {
     public Camera worldCamera;
     public GridManager gridManager;
+    public PlayerSelectionUI playerSelectUI;
 
     TileHover currentHover;
 
@@ -13,6 +14,12 @@ public class TileHoverManager : MonoBehaviour
         // Stop tile detection only.
         if (GridUIManager.Instance != null &&
             GridUIManager.Instance.CurrentState != UIState.None)
+        {
+            currentHover = null;
+            return;
+        }
+
+        if (playerSelectUI.Active)
         {
             currentHover = null;
             return;

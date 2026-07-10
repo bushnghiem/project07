@@ -13,6 +13,9 @@ public class TooltipUI : MonoBehaviour
     [Header("Settings")]
     public Vector2 mouseOffset = new(-20f, -20f);
 
+    // When true, world objects (tiles) cannot show tooltips but UI tooltips still work normally.
+    public bool WorldTooltipsLocked { get; private set; }
+
     void Awake()
     {
         Instance = this;
@@ -27,6 +30,17 @@ public class TooltipUI : MonoBehaviour
         UpdatePosition();
     }
 
+    public void LockWorldTooltips()
+    {
+        WorldTooltipsLocked = true;
+        Hide();
+    }
+
+    public void UnlockWorldTooltips()
+    {
+        WorldTooltipsLocked = false;
+    }
+
     public void Show(TooltipData data)
     {
         titleText.text = data.Title;
@@ -34,7 +48,6 @@ public class TooltipUI : MonoBehaviour
 
         panel.gameObject.SetActive(true);
 
-        // Always draw above every other UI
         panel.SetAsLastSibling();
 
         Canvas.ForceUpdateCanvases();
