@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e756d2361af7d1245b8345ebeb724062, type: 3}
-  m_Name: Money
+  m_Name: Some Money
   m_EditorClassIdentifier: Assembly-CSharp::BossRewardDefinition
-  rewardName: Money
-  description: Here is Money
+  rewardName: Some Money
+  description: '150
+
+'
   icon: {fileID: 0}
   rewardType: 0
-  value: 500
+  value: 150
   item: {fileID: 0}
   ship:
     uniqueID: 

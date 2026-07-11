@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class BossRewardSlot : MonoBehaviour
+public class RewardSlot : MonoBehaviour
 {
     public Image icon;
     public TMP_Text title;
@@ -11,9 +11,9 @@ public class BossRewardSlot : MonoBehaviour
 
     [SerializeField] private TooltipTrigger tooltipTrigger;
 
-    private BossReward reward;
+    private Reward reward;
 
-    public void Setup(BossReward reward, Action<BossReward> onChosen)
+    public void Setup(Reward reward, Action<Reward> onChosen)
     {
         this.reward = reward;
 
@@ -26,7 +26,7 @@ public class BossRewardSlot : MonoBehaviour
         // Hook into the game's tooltip system.
         if (tooltipTrigger != null)
         {
-            tooltipTrigger.SetProvider(() => BossRewardTooltipBuilder.Build(reward));
+            tooltipTrigger.SetProvider(() => RewardTooltipBuilder.Build(reward));
         }
     }
 }

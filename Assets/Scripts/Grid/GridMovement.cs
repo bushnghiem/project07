@@ -41,6 +41,7 @@ public class GridMovement : MonoBehaviour
             Debug.Log($"Entering: {floor.contentProfile.floorName}");
         else
             Debug.Log($"Entering Floor {floor.floorIndex + 1}");
+        CheckPendingReward();
     }
 
     void Update()
@@ -151,6 +152,11 @@ public class GridMovement : MonoBehaviour
         floor.currentEncounter = tile.assignedEncounter;
         floor.currentEncounterIsCorrupted = tile.isCorrupted;
 
+        if (tile.isElite)
+        {
+            floor.pendingReward = PendingRewardType.Elite;
+        }
+
         Debug.Log("Fight: " + tile.assignedEncounter?.encounterName);
 
         shipHolder.RemovePlayersPassiveEffects();
@@ -165,16 +171,17 @@ public class GridMovement : MonoBehaviour
         // Boss floor and boss not defeated yet
         if (IsBossFloor() && !floor.bossDefeated)
         {
+            floor.pendingReward = PendingRewardType.Boss;
             StartBossFight();
             return;
         }
-
-        BossRewardUI.Instance.Show(
-            BossRewardGenerator.Generate(),
-            () =>
+        else
+        {
+            if (floor.pendingReward != PendingRewardType.Boss)
             {
                 StartCoroutine(HandleFloorTransition());
-            });
+            }
+        }
     }
 
     public void HandleShopTile()
@@ -275,5 +282,42 @@ public class GridMovement : MonoBehaviour
             return;
 
         HandleTileEvent(tile);
+    }
+
+    void CheckPendingReward()
+    {
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
+
+        switch (floor.pendingReward)
+        {
+            case PendingRewardType.Elite:
+
+                RewardMenuUI.Instance.Show(
+                    RewardGenerator.Generate(
+                        floor.contentProfile.eliteRewards,
+                        1),
+                    () =>
+                    {
+                        floor.pendingReward = PendingRewardType.None;
+                        SaveManager.Instance.SaveRun();
+                    });
+
+                break;
+
+            case PendingRewardType.Boss:
+
+                RewardMenuUI.Instance.Show(
+                    RewardGenerator.Generate(
+                        floor.contentProfile.bossRewards,
+                        3),
+                    () =>
+                    {
+                        floor.pendingReward = PendingRewardType.None;
+
+                        StartCoroutine(HandleFloorTransition());
+                    });
+
+                break;
+        }
     }
 }

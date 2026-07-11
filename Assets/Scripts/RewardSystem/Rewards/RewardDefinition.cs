@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum BossRewardType
+public enum RewardType
 {
     Currency,
     Keys,
@@ -9,8 +9,8 @@ public enum BossRewardType
     HealAllPlayers
 }
 
-[CreateAssetMenu(menuName = "Scriptable Objects/Boss Reward")]
-public class BossRewardDefinition : ScriptableObject
+[CreateAssetMenu(menuName = "Scriptable Objects/Reward")]
+public class RewardDefinition : ScriptableObject
 {
     [Header("Display")]
     public string rewardName;
@@ -21,7 +21,7 @@ public class BossRewardDefinition : ScriptableObject
     public Sprite icon;
 
     [Header("Reward")]
-    public BossRewardType rewardType;
+    public RewardType rewardType;
 
     public int value;
 

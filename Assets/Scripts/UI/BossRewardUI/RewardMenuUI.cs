@@ -1,16 +1,18 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
-public class BossRewardUI : MonoBehaviour
+public class RewardMenuUI : MonoBehaviour
 {
-    public static BossRewardUI Instance;
+    public static RewardMenuUI Instance;
+    public Button closeButton;
 
     [Header("References")]
     public Transform rewardParent;
-    public BossRewardSlot rewardSlotPrefab;
+    public RewardSlot rewardSlotPrefab;
 
-    private List<BossReward> rewards;
+    private List<Reward> rewards;
     private Action onFinished;
 
     private void Awake()
@@ -25,10 +27,11 @@ public class BossRewardUI : MonoBehaviour
             return;
         }
 
+        closeButton.onClick.AddListener(OnClosePressed);
         gameObject.SetActive(false);
     }
 
-    public void Show(List<BossReward> rewards, Action onFinished)
+    public void Show(List<Reward> rewards, Action onFinished)
     {
         GridUIManager.Instance.SetState(UIState.BossReward);
 
@@ -40,7 +43,7 @@ public class BossRewardUI : MonoBehaviour
         PopulateSlots();
     }
 
-    public void SelectReward(BossReward reward)
+    public void SelectReward(Reward reward)
     {
         reward.Claim();
     }
@@ -62,12 +65,21 @@ public class BossRewardUI : MonoBehaviour
         foreach (Transform child in rewardParent)
             Destroy(child.gameObject);
 
-        foreach (BossReward reward in rewards)
+        foreach (Reward reward in rewards)
         {
-            BossRewardSlot slot =
+            RewardSlot slot =
                 Instantiate(rewardSlotPrefab, rewardParent);
 
             slot.Setup(reward, SelectReward);
         }
+    }
+
+    private void OnClosePressed()
+    {
+        gameObject.SetActive(false);
+
+        GridUIManager.Instance.ClearState();
+
+        onFinished?.Invoke();
     }
 }

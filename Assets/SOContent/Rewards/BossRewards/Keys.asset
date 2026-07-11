@@ -10,21 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e756d2361af7d1245b8345ebeb724062, type: 3}
-  m_Name: JunkerDriller
-  m_EditorClassIdentifier: Assembly-CSharp::BossRewardDefinition
-  rewardName: Junker Driller
-  description: 
+  m_Name: Keys
+  m_EditorClassIdentifier: Assembly-CSharp::RewardDefinition
+  rewardName: Keys
+  description: 10 of them
   icon: {fileID: 0}
-  rewardType: 3
-  value: 0
+  rewardType: 1
+  value: 10
   item: {fileID: 0}
   ship:
-    uniqueID: Drill Junker
-    templateID: ship_scrap_driller
-    aiBehaviorID: ram_ai
-    currentHealth: 100
+    uniqueID: 
+    templateID: 
+    aiBehaviorID: 
+    currentHealth: 0
     currentCharges: 0
     isDead: 0
     statModifiers: []
-    items:
-    - itemID: projectile_scrap
+    items: []

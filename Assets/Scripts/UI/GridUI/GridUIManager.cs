@@ -24,7 +24,7 @@ public class GridUIManager : MonoBehaviour
     public ShopUI shopUI;
     public EventUI eventUI;
     public ChestUI chestUI;
-    public BossRewardUI bossRewardUI;
+    public RewardMenuUI rewardMenuUI;
     public TooltipUI tooltipUI;
     public PlayerSelectionUI playerSelectionUI;
 
@@ -58,8 +58,8 @@ public class GridUIManager : MonoBehaviour
         if (newState != UIState.Chest && chestUI != null)
             chestUI.gameObject.SetActive(false);
 
-        if (newState != UIState.BossReward && bossRewardUI != null)
-            bossRewardUI.gameObject.SetActive(false);
+        if (newState != UIState.BossReward && rewardMenuUI != null)
+            rewardMenuUI.gameObject.SetActive(false);
     }
 
     public void ClearState()
@@ -80,13 +80,13 @@ public class GridUIManager : MonoBehaviour
         }
     }
 
-    public void OpenBossReward(List<BossReward> rewards, Action onFinished)
+    public void OpenBossReward(List<Reward> rewards, Action onFinished)
     {
         SetState(UIState.BossReward);
 
-        if (bossRewardUI != null)
+        if (rewardMenuUI != null)
         {
-            bossRewardUI.Show(rewards, onFinished);
+            rewardMenuUI.Show(rewards, onFinished);
         }
     }
 

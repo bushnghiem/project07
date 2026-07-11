@@ -1,6 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+public enum PendingRewardType
+{
+    None,
+    Elite,
+    Boss
+}
+
 [System.Serializable]
 public class FloorData
 {
@@ -39,4 +46,6 @@ public class FloorData
     public bool hasShownFloorIntro = false;
     public bool hasInitializedSpawn = false;
     public bool bossDefeated = false;
+
+    public PendingRewardType pendingReward;
 }

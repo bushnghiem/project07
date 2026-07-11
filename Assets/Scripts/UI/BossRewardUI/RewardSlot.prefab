@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7815079471494068540}
   - component: {fileID: 6198253419119579286}
   m_Layer: 5
-  m_Name: BossRewardSlot
+  m_Name: RewardSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 2134112014354369687}
   - component: {fileID: 7647399484417678039}
   m_Layer: 5
-  m_Name: BossRewardText
+  m_Name: RewardText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

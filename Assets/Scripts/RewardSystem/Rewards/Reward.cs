@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class BossReward
+public class Reward
 {
-    public BossRewardDefinition Definition { get; }
+    public RewardDefinition Definition { get; }
 
-    public BossReward(BossRewardDefinition definition)
+    public Reward(RewardDefinition definition)
     {
         Definition = definition;
     }
@@ -17,22 +17,22 @@ public class BossReward
     {
         switch (Definition.rewardType)
         {
-            case BossRewardType.Currency:
+            case RewardType.Currency:
                 RewardManager.Instance.AddRunCurrency(
                     Definition.value);
                 break;
 
-            case BossRewardType.Keys:
+            case RewardType.Keys:
                 RewardManager.Instance.AddRunKeys(
                     Definition.value);
                 break;
 
-            case BossRewardType.HealAllPlayers:
+            case RewardType.HealAllPlayers:
                 RewardManager.Instance.HealAllPlayers(
                     Definition.value);
                 break;
 
-            case BossRewardType.Item:
+            case RewardType.Item:
 
                 PlayerSelectionUI.Instance.Open(
                     RewardManager.Instance.shipHolder.allPlayers,
@@ -42,18 +42,18 @@ public class BossReward
                             player,
                             Definition.item);
 
-                        BossRewardUI.Instance.FinishReward();
+                        RewardMenuUI.Instance.FinishReward();
                     });
 
                 return;
 
-            case BossRewardType.Ship:
+            case RewardType.Ship:
 
                 RunManager.Instance.CurrentRun.team.Add(Definition.ship);
 
                 break;
         }
 
-        BossRewardUI.Instance.FinishReward();
+        RewardMenuUI.Instance.FinishReward();
     }
 }

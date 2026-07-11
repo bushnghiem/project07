@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public static class BossRewardTooltipBuilder
+public static class RewardTooltipBuilder
 {
-    public static TooltipData Build(BossReward reward)
+    public static TooltipData Build(Reward reward)
     {
         return new TooltipData(
             reward.Title,

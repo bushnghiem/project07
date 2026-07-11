@@ -42,6 +42,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 67f0635327753124dad5845485ddf6c7, type: 2}
   - {fileID: 11400000, guid: 2aea2362576efdb41bdbbee73084e360, type: 2}
   - {fileID: 11400000, guid: dd81e06afc039b847a8e131283561633, type: 2}
+  - {fileID: 11400000, guid: 3651b6826b53d144b81d0a525bed07fe, type: 2}
+  eliteRewards:
+  - {fileID: 11400000, guid: 0af437174b6e1074b9f32f4179989ad9, type: 2}
+  - {fileID: 11400000, guid: 67c37a54c526a154f938c5c35558bbb0, type: 2}
+  - {fileID: 11400000, guid: 8e2a7c15adf37b444aa23d1366e37745, type: 2}
   events:
   - {fileID: 11400000, guid: 736f528aa4a37294bacc7b3e44419e82, type: 2}
   - {fileID: 11400000, guid: 7e89f20dde6630142b0c9c4a48bf387a, type: 2}
