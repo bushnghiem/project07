@@ -58,11 +58,9 @@ public class UnitActionExecutor : MonoBehaviour
     {
         FaceActionDirection(action);
 
-        AttackContext attack = new AttackContext();
+        ActionContext context = new ActionContext();
 
-        CameraEvent.FollowTarget?.Invoke(
-            attack.CameraTarget);
-
+        CameraEvent.FollowAction?.Invoke(context);
         CameraEvent.LockCamera?.Invoke();
 
         float maxForce =
@@ -88,7 +86,7 @@ public class UnitActionExecutor : MonoBehaviour
                 force
             );
 
-        pattern.attackContext = attack;
+        pattern.actionContext = context;
 
         foreach (var modifier in action.actor.ShotModifiers)
         {

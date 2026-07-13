@@ -10,7 +10,7 @@ public struct ProjectileSpawnRequest
     public Projectile Projectile;
     public UnitBase Owner;
 
-    public AttackContext Attack;
+    public ActionContext ActionContext;
 }
 
 public static class ProjectileSpawnEvent

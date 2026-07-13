@@ -29,8 +29,8 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
 
     private ProjectileAudioController audioController;
 
-    private AttackContext attackContext;
-    public AttackContext AttackContext => attackContext;
+    private ActionContext actionContext;
+    public ActionContext ActionContext => actionContext;
 
 
     private void Awake()
@@ -49,11 +49,11 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
     public void Initialize(
         Projectile stats,
         UnitBase owner,
-        AttackContext attack)
+        ActionContext context)
     {
         this.template = stats;
         this.owner = owner;
-        this.attackContext = attack;
+        this.actionContext = context;
 
         rb = rb ?? GetComponent<Rigidbody>();
         healthComp = healthComp ?? GetComponent<HealthComponent>();
@@ -67,7 +67,7 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
 
         audioController?.PlayLaunch();
 
-        attackContext?.RegisterProjectile(this);
+        actionContext?.AddTarget(this);
     }
 
     private void ApplyStats()
@@ -191,7 +191,7 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
                 gameObject,
                 this,
                 owner,
-                attackContext
+                actionContext
             );
 
             effectController.TriggerEffects(
@@ -234,7 +234,7 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
                 gameObject,
                 this,
                 owner,
-                attackContext
+                actionContext
             );
 
             effectController.TriggerEffects(
@@ -242,7 +242,7 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
                 context);
         }
 
-        attackContext?.UnregisterProjectile(this);
+        actionContext?.RemoveTarget(this);
 
         Kill();
         DeathEvent.OnEntityDeath?.Invoke(this);
@@ -258,7 +258,7 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
             if (stopTimer >= template.stopTimeRequired)
             {
                 ProjectileEvent.OnProjectileStopped?.Invoke(this);
-                attackContext?.ProjectileStopped(this);
+                actionContext?.RemoveTarget(this);
                 if (template.dieWhenStopped)
                 {
                     Expire();

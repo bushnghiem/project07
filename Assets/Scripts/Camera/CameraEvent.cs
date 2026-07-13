@@ -8,5 +8,8 @@ public static class CameraEvent
     public static Action RecenterCamera;
 
     public static Action<ICameraTarget> FollowTarget;
+
+    public static Action<ActionContext> FollowAction;
+
     public static Action AttackFinished;
 }

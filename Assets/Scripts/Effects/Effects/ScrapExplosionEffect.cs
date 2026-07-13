@@ -86,7 +86,7 @@ public class ScrapProjectileSpawnEffect : Effect
                         Force = force,
                         Projectile = projectile,
                         Owner = context.owner,
-                        Attack = context.attackContext
+                        ActionContext = context.actionContext
                     });
 
                     break;

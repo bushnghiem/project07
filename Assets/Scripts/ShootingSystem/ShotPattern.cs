@@ -5,5 +5,5 @@ public class ShotPattern
 {
     public List<ProjectileSpawnData> projectiles = new();
 
-    public AttackContext attackContext;
+    public ActionContext actionContext;
 }

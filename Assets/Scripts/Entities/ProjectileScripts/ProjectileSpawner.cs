@@ -24,7 +24,7 @@ public class ProjectileSpawner : MonoBehaviour
         instance.Initialize(
             request.Projectile,
             request.Owner,
-            request.Attack);
+            request.ActionContext);
 
         instance.Fling(
             request.Direction,

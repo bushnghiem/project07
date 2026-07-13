@@ -16,7 +16,7 @@ public static class ShotPatternSpawner
                 Force = shot.force,
                 Projectile = shot.projectile,
                 Owner = owner,
-                Attack = pattern.attackContext
+                ActionContext = pattern.actionContext
             });
         }
     }

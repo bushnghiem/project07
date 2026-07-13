@@ -4,6 +4,7 @@ public class BattleCam : MonoBehaviour
 {
     [Header("Target")]
     public ICameraTarget target;
+    private ActionContext currentActionContext;
 
     private Unit currentUnit;
 
@@ -31,7 +32,6 @@ public class BattleCam : MonoBehaviour
     {
         TurnEvent.OnUnitTurnStart += HandleUnitTurnStart;
         DeathEvent.OnEntityDeath += HandleDeath;
-        CameraEvent.FollowTarget += FollowTarget;
 
         CameraEvent.LockCamera += LockCameraToTarget;
         CameraEvent.UnlockCamera += UnlockCameraControls;
@@ -41,13 +41,13 @@ public class BattleCam : MonoBehaviour
 
         CameraEvent.AttackFinished += HandleAttackFinished;
 
+        CameraEvent.FollowAction += FollowAction;
     }
 
     private void OnDisable()
     {
         TurnEvent.OnUnitTurnStart -= HandleUnitTurnStart;
         DeathEvent.OnEntityDeath -= HandleDeath;
-        CameraEvent.FollowTarget -= FollowTarget;
 
         CameraEvent.LockCamera -= LockCameraToTarget;
         CameraEvent.UnlockCamera -= UnlockCameraControls;
@@ -56,25 +56,16 @@ public class BattleCam : MonoBehaviour
         TurnEvent.OnUnitActionResolved -= HandleUnitActionResolved;
 
         CameraEvent.AttackFinished -= HandleAttackFinished;
+        CameraEvent.FollowAction -= FollowAction;
     }
 
     void HandleUnitTurnStart(Unit unit)
     {
         currentUnit = unit;
 
-        if (!(target is Projectile))
-        {
-            target = unit;
-        }
+        target = unit;
 
         UnlockCameraControls();
-    }
-
-    private void FollowTarget(ICameraTarget newTarget)
-    {
-        target = newTarget;
-
-        LockCameraToTarget();
     }
 
     void HandleDeath(Entity entity)
@@ -178,6 +169,46 @@ public class BattleCam : MonoBehaviour
     private void HandleAttackFinished()
     {
         target = currentUnit;
+
+        UnlockCameraControls();
+
+        RecenterImmediately();
+    }
+
+    private void FollowAction(ActionContext context)
+    {
+        currentActionContext = context;
+
+        target = context.CameraTarget;
+
+        LockCameraToTarget();
+
+        context.OnTargetChanged += HandleActionTargetChanged;
+        context.OnContextFinished += HandleActionFinished;
+    }
+
+    private void HandleActionTargetChanged(ICameraTarget newTarget)
+    {
+        if (newTarget == null)
+            return;
+
+        target = newTarget;
+
+        LockCameraToTarget();
+    }
+
+
+    private void HandleActionFinished()
+    {
+        target = currentUnit;
+
+        if (currentActionContext != null)
+        {
+            currentActionContext.OnTargetChanged -= HandleActionTargetChanged;
+            currentActionContext.OnContextFinished -= HandleActionFinished;
+        }
+
+        currentActionContext = null;
 
         UnlockCameraControls();
 
