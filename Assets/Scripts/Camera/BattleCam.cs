@@ -31,7 +31,7 @@ public class BattleCam : MonoBehaviour
     {
         TurnEvent.OnUnitTurnStart += HandleUnitTurnStart;
         DeathEvent.OnEntityDeath += HandleDeath;
-        ProjectileSpawnEvent.AddCamFollow += HandleProjectileFollow;
+        CameraEvent.FollowTarget += FollowTarget;
 
         CameraEvent.LockCamera += LockCameraToTarget;
         CameraEvent.UnlockCamera += UnlockCameraControls;
@@ -39,7 +39,7 @@ public class BattleCam : MonoBehaviour
 
         TurnEvent.OnUnitActionResolved += HandleUnitActionResolved;
 
-        ProjectileEvent.OnProjectileStopped += HandleProjectileStopped;
+        CameraEvent.AttackFinished += HandleAttackFinished;
 
     }
 
@@ -47,7 +47,7 @@ public class BattleCam : MonoBehaviour
     {
         TurnEvent.OnUnitTurnStart -= HandleUnitTurnStart;
         DeathEvent.OnEntityDeath -= HandleDeath;
-        ProjectileSpawnEvent.AddCamFollow -= HandleProjectileFollow;
+        CameraEvent.FollowTarget -= FollowTarget;
 
         CameraEvent.LockCamera -= LockCameraToTarget;
         CameraEvent.UnlockCamera -= UnlockCameraControls;
@@ -55,7 +55,7 @@ public class BattleCam : MonoBehaviour
 
         TurnEvent.OnUnitActionResolved -= HandleUnitActionResolved;
 
-        ProjectileEvent.OnProjectileStopped -= HandleProjectileStopped;
+        CameraEvent.AttackFinished -= HandleAttackFinished;
     }
 
     void HandleUnitTurnStart(Unit unit)
@@ -70,9 +70,9 @@ public class BattleCam : MonoBehaviour
         UnlockCameraControls();
     }
 
-    void HandleProjectileFollow(Entity entity)
+    private void FollowTarget(ICameraTarget newTarget)
     {
-        target = entity;
+        target = newTarget;
 
         LockCameraToTarget();
     }
@@ -175,15 +175,12 @@ public class BattleCam : MonoBehaviour
         }
     }
 
-    void HandleProjectileStopped(ProjectileInstance projectile)
+    private void HandleAttackFinished()
     {
-        if (target == projectile)
-        {
-            target = currentUnit;
+        target = currentUnit;
 
-            UnlockCameraControls();
+        UnlockCameraControls();
 
-            RecenterImmediately();
-        }
+        RecenterImmediately();
     }
 }

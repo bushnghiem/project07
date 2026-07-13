@@ -79,12 +79,15 @@ public class ScrapProjectileSpawnEffect : Effect
                         force *= fastForceMultiplier;
 
                     ProjectileSpawnEvent.OnProjectileSpawn?.Invoke(
-                        spawnPos,
-                        dir,
-                        force,
-                        projectile,
-                        context.owner
-                    );
+                    new ProjectileSpawnRequest
+                    {
+                        Position = spawnPos,
+                        Direction = dir,
+                        Force = force,
+                        Projectile = projectile,
+                        Owner = context.owner,
+                        Attack = context.attackContext
+                    });
 
                     break;
                 }

@@ -1,6 +1,5 @@
-using UnityEngine;
-using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class CameraTargetGroup : ICameraTarget
 {
@@ -13,12 +12,14 @@ public class CameraTargetGroup : ICameraTarget
             if (targets.Count == 0)
                 return Vector3.zero;
 
-            Vector3 center = Vector3.zero;
+            Vector3 average = Vector3.zero;
 
             foreach (var target in targets)
-                center += target.Position;
+            {
+                average += target.Position;
+            }
 
-            return center / targets.Count;
+            return average / targets.Count;
         }
     }
 
@@ -26,7 +27,8 @@ public class CameraTargetGroup : ICameraTarget
 
     public void Add(ICameraTarget target)
     {
-        targets.Add(target);
+        if (!targets.Contains(target))
+            targets.Add(target);
     }
 
     public void Remove(ICameraTarget target)

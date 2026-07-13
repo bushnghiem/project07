@@ -10,11 +10,14 @@ public struct EffectContext
     public Vector3 direction;
     public float force;
 
+    public AttackContext attackContext;
+
     public EffectContext(
         Vector3 position,
         GameObject source,
         Entity sourceEntity,
-        UnitBase owner)
+        UnitBase owner,
+        AttackContext attackContext = null)
     {
         this.position = position;
         this.source = source;
@@ -23,5 +26,7 @@ public struct EffectContext
 
         this.direction = Vector3.forward;
         this.force = 0f;
+
+        this.attackContext = attackContext;
     }
 }

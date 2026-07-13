@@ -9,12 +9,15 @@ public static class ShotPatternSpawner
         foreach (var shot in pattern.projectiles)
         {
             ProjectileSpawnEvent.OnProjectileSpawn?.Invoke(
-                shot.position,
-                shot.direction,
-                shot.force,
-                shot.projectile,
-                owner
-            );
+            new ProjectileSpawnRequest
+            {
+                Position = shot.position,
+                Direction = shot.direction,
+                Force = shot.force,
+                Projectile = shot.projectile,
+                Owner = owner,
+                Attack = pattern.attackContext
+            });
         }
     }
 }

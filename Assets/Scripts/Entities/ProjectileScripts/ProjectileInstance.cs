@@ -29,6 +29,9 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
 
     private ProjectileAudioController audioController;
 
+    private AttackContext attackContext;
+    public AttackContext AttackContext => attackContext;
+
 
     private void Awake()
     {
@@ -43,10 +46,14 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
         audioController = GetComponent<ProjectileAudioController>();
     }
 
-    public void Initialize(Projectile stats, UnitBase owner)
+    public void Initialize(
+        Projectile stats,
+        UnitBase owner,
+        AttackContext attack)
     {
         this.template = stats;
         this.owner = owner;
+        this.attackContext = attack;
 
         rb = rb ?? GetComponent<Rigidbody>();
         healthComp = healthComp ?? GetComponent<HealthComponent>();
@@ -54,11 +61,13 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
 
         ApplyStats();
         ApplyEffects();
+
         visualController?.ApplyVisuals(template.VisualData);
         audioController?.Initialize(template.AudioData);
 
-
         audioController?.PlayLaunch();
+
+        attackContext?.RegisterProjectile(this);
     }
 
     private void ApplyStats()
@@ -174,8 +183,21 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
     public void Hurt(DamageInfo damageInfo)
     {
         healthComp.Hurt(damageInfo);
+
         if (effectController != null)
-            effectController.TriggerEffects(EffectTrigger.OnHit, transform.position, owner);
+        {
+            EffectContext context = new EffectContext(
+                transform.position,
+                gameObject,
+                this,
+                owner,
+                attackContext
+            );
+
+            effectController.TriggerEffects(
+                EffectTrigger.OnHit,
+                context);
+        }
     }
 
     public void Heal(float amount) => healthComp.Heal(amount);
@@ -206,7 +228,21 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
         CancelInvoke();
 
         if (effectController != null)
-            effectController.TriggerEffects(EffectTrigger.OnDeath, transform.position, owner);
+        {
+            EffectContext context = new EffectContext(
+                transform.position,
+                gameObject,
+                this,
+                owner,
+                attackContext
+            );
+
+            effectController.TriggerEffects(
+                EffectTrigger.OnDeath,
+                context);
+        }
+
+        attackContext?.UnregisterProjectile(this);
 
         Kill();
         DeathEvent.OnEntityDeath?.Invoke(this);
@@ -222,6 +258,7 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
             if (stopTimer >= template.stopTimeRequired)
             {
                 ProjectileEvent.OnProjectileStopped?.Invoke(this);
+                attackContext?.ProjectileStopped(this);
                 if (template.dieWhenStopped)
                 {
                     Expire();

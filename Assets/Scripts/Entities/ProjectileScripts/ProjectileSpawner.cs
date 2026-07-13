@@ -7,22 +7,27 @@ public class ProjectileSpawner : MonoBehaviour
     private void OnEnable() => ProjectileSpawnEvent.OnProjectileSpawn += SpawnProjectile;
     private void OnDisable() => ProjectileSpawnEvent.OnProjectileSpawn -= SpawnProjectile;
 
-    public void SpawnProjectile(
-        Vector3 position,
-        Vector3 direction,
-        float force,
-        Projectile stats,
-        UnitBase owner)
+    public void SpawnProjectile(ProjectileSpawnRequest request)
     {
-        Quaternion rot = Quaternion.LookRotation(direction);
-        GameObject obj = Instantiate(projectilePrefab, position, rot);
+        Quaternion rot =
+            Quaternion.LookRotation(request.Direction);
 
-        var instance = obj.GetComponent<ProjectileInstance>();
+        GameObject obj =
+            Instantiate(
+                projectilePrefab,
+                request.Position,
+                rot);
 
-        instance.Initialize(stats, owner);
+        var instance =
+            obj.GetComponent<ProjectileInstance>();
 
-        instance.Fling(direction, force);
+        instance.Initialize(
+            request.Projectile,
+            request.Owner,
+            request.Attack);
 
-        ProjectileSpawnEvent.AddCamFollow?.Invoke(instance);
+        instance.Fling(
+            request.Direction,
+            request.Force);
     }
 }
