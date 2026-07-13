@@ -60,6 +60,8 @@ public class UnitActionExecutor : MonoBehaviour
 
         ActionContext context = new ActionContext();
 
+        action.actionContext = context;
+
         CameraEvent.FollowAction?.Invoke(context);
         CameraEvent.LockCamera?.Invoke();
 
@@ -86,7 +88,7 @@ public class UnitActionExecutor : MonoBehaviour
                 force
             );
 
-        pattern.actionContext = context;
+        pattern.actionContext = action.actionContext;
 
         foreach (var modifier in action.actor.ShotModifiers)
         {
@@ -113,10 +115,20 @@ public class UnitActionExecutor : MonoBehaviour
         if (action.activeItem == null)
             return;
 
+        ActionContext context = new ActionContext();
+
+        action.actionContext = context;
+
+        context.AddTarget(action.actor);
+
+        CameraEvent.FollowAction?.Invoke(context);
+        CameraEvent.LockCamera?.Invoke();
+
         bool used =
             action.activeItem.Use(
                 action.actor,
-                action.itemTargetData
+                action.itemTargetData,
+                action.actionContext
             );
 
         if (!used)

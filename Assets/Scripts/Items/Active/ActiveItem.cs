@@ -29,7 +29,8 @@ public abstract class ActiveItem : Item
 
     public abstract void Execute(
         Unit user,
-        ItemTargetData targetData
+        ItemTargetData targetData,
+        ActionContext context
     );
 
     public override string GetTooltipText(int? shopPrice = null)

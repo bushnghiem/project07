@@ -7,7 +7,11 @@ public class DamageFieldItem : ActiveItem
 
     public override ItemTargetType TargetType => ItemTargetType.Position;
 
-    public override void Execute(Unit user, ItemTargetData data)
+    public override void Execute(
+        Unit user,
+        ItemTargetData data,
+        ActionContext context
+    )
     {
         if (fieldPrefab == null)
         {

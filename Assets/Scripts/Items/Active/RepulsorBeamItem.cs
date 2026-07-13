@@ -7,20 +7,26 @@ public class RepulsorBeamItem : ActiveItem
 
     public override ItemTargetType TargetType => ItemTargetType.Direction;
 
-    public override void Execute(Unit user, ItemTargetData data)
+    public override void Execute(
+    Unit user,
+    ItemTargetData data,
+    ActionContext context)
     {
         Vector3 origin = user.Position;
+
         Vector3 dir = data.direction;
         dir.y = 0f;
         dir.Normalize();
 
         Collider[] hits = Physics.OverlapSphere(origin, effectRadius);
 
-        float cosThreshold = Mathf.Cos(coneAngle * 0.5f * Mathf.Deg2Rad);
+        float cosThreshold =
+            Mathf.Cos(coneAngle * 0.5f * Mathf.Deg2Rad);
 
         foreach (var hit in hits)
         {
             Rigidbody rb = hit.attachedRigidbody;
+
             if (rb == null || rb.isKinematic)
                 continue;
 
@@ -28,6 +34,7 @@ public class RepulsorBeamItem : ActiveItem
             toTarget.y = 0f;
 
             float dist = toTarget.magnitude;
+
             if (dist < 0.01f)
                 continue;
 
@@ -38,9 +45,20 @@ public class RepulsorBeamItem : ActiveItem
             if (dot < cosThreshold)
                 continue;
 
-            Vector3 pushDir = (rb.position - origin).normalized;
 
-            rb.AddForce(pushDir * force, ForceMode.Impulse);
+            // Add to camera tracking
+            if (rb.TryGetComponent<ICameraTarget>(out var cameraTarget))
+            {
+                context?.AddTarget(cameraTarget);
+            }
+
+
+            Vector3 pushDir = toDir;
+
+            rb.AddForce(
+                pushDir * force,
+                ForceMode.Impulse
+            );
         }
     }
 }

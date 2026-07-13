@@ -31,6 +31,9 @@ public class UnitAction
 
     public ItemTargetData itemTargetData;
 
+    // Camera/action tracking
+    public ActionContext actionContext;
+
     // Costs
     public int apCost = 1;
 }

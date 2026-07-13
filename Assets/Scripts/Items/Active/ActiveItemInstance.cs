@@ -20,7 +20,8 @@ public class ActiveItemInstance
 
     public bool Use(
         Unit user,
-        ItemTargetData targetData
+        ItemTargetData targetData,
+        ActionContext context
     )
     {
 
@@ -32,7 +33,7 @@ public class ActiveItemInstance
         if (!unitBase.SpendCharges(itemData.chargeCost))
             return false;
 
-        itemData.Execute(user, targetData);
+        itemData.Execute(user, targetData, context);
 
         remainingCooldown =
             itemData.cooldownTurns;

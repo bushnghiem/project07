@@ -10,16 +10,17 @@ public class SelfDestructionItem : ActiveItem
 
     public override void Execute(
         Unit user,
-        ItemTargetData data
+        ItemTargetData data,
+        ActionContext context
     )
     {
-        EffectContext context = new EffectContext(
+        EffectContext effectContext = new EffectContext(
             user.Position,
             user.GameObject,
             user,
             (UnitBase)user
         );
 
-        explosion.Execute(context);
+        explosion.Execute(effectContext);
     }
 }

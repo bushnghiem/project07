@@ -7,7 +7,11 @@ public class TractorBeamItem : ActiveItem
 
     public override ItemTargetType TargetType => ItemTargetType.Direction;
 
-    public override void Execute(Unit user, ItemTargetData data)
+    public override void Execute(
+        Unit user,
+        ItemTargetData data,
+        ActionContext context
+    )
     {
         Vector3 origin = user.Position;
         Vector3 dir = data.direction;
