@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class CamFollow : MonoBehaviour
+public class BattleCam : MonoBehaviour
 {
     [Header("Target")]
-    public Entity target;
+    public ICameraTarget target;
 
     private Unit currentUnit;
 

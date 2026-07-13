@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface Entity
+public interface Entity : ICameraTarget
 {
     Vector3 Position { get; }
     bool isDead { get; }

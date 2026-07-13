@@ -8,4 +8,6 @@ public struct ProjectileSpawnData
     public float force;
 
     public Projectile projectile;
+
+    public AttackContext attack;
 }
