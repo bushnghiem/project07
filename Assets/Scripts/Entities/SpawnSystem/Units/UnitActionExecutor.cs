@@ -119,7 +119,10 @@ public class UnitActionExecutor : MonoBehaviour
 
         action.actionContext = context;
 
-        context.AddTarget(action.actor);
+        ActionContextTracker.Instance.TrackForSeconds(
+            context,
+            action.actor,
+            0.5f);
 
         CameraEvent.FollowAction?.Invoke(context);
         CameraEvent.LockCamera?.Invoke();

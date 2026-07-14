@@ -49,4 +49,9 @@ public class ActionContext
     {
         return new List<ICameraTarget>(targets);
     }
+
+    public bool ContainsTarget(ICameraTarget target)
+    {
+        return targets.Contains(target);
+    }
 }

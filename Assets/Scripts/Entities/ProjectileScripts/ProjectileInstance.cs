@@ -32,6 +32,8 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
     private ActionContext actionContext;
     public ActionContext ActionContext => actionContext;
 
+    public bool HasStopped { get; private set; }
+
 
     private void Awake()
     {
@@ -67,7 +69,9 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
 
         audioController?.PlayLaunch();
 
-        actionContext?.AddTarget(this);
+        ActionContextTracker.Instance.TrackProjectile(
+            actionContext,
+            this);
     }
 
     private void ApplyStats()
@@ -242,8 +246,6 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
                 context);
         }
 
-        actionContext?.RemoveTarget(this);
-
         Kill();
         DeathEvent.OnEntityDeath?.Invoke(this);
     }
@@ -257,8 +259,8 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
             stopTimer += Time.fixedDeltaTime;
             if (stopTimer >= template.stopTimeRequired)
             {
+                HasStopped = true;
                 ProjectileEvent.OnProjectileStopped?.Invoke(this);
-                actionContext?.RemoveTarget(this);
                 if (template.dieWhenStopped)
                 {
                     Expire();

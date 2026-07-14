@@ -44,6 +44,18 @@ public class TractorBeamItem : ActiveItem
             Vector3 pullDir = (origin - rb.position).normalized;
 
             rb.AddForce(pullDir * force, ForceMode.Impulse);
+
+            // Add to camera tracking
+            if (rb.TryGetComponent<ICameraTarget>(out var cameraTarget))
+            {
+                if (rb.TryGetComponent<Entity>(out var entity))
+                {
+                    ActionContextTracker.Instance.TrackWhileMoving(
+                        context,
+                        rb,
+                        entity);
+                }
+            }
         }
     }
 }

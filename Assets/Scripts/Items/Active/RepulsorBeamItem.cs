@@ -45,20 +45,21 @@ public class RepulsorBeamItem : ActiveItem
             if (dot < cosThreshold)
                 continue;
 
+            Vector3 pushDir = toDir;
+
+            rb.AddForce(pushDir * force, ForceMode.Impulse);
 
             // Add to camera tracking
             if (rb.TryGetComponent<ICameraTarget>(out var cameraTarget))
             {
-                context?.AddTarget(cameraTarget);
+                if (rb.TryGetComponent<Entity>(out var entity))
+                {
+                    ActionContextTracker.Instance.TrackWhileMoving(
+                        context,
+                        rb,
+                        entity);
+                }
             }
-
-
-            Vector3 pushDir = toDir;
-
-            rb.AddForce(
-                pushDir * force,
-                ForceMode.Impulse
-            );
         }
     }
 }
