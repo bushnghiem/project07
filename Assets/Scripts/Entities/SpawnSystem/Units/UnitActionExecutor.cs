@@ -119,6 +119,8 @@ public class UnitActionExecutor : MonoBehaviour
 
         action.actionContext = context;
 
+        action.actor.AssignActionContext(context);
+
         ActionContextTracker.Instance.TrackForSeconds(
             context,
             action.actor,

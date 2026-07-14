@@ -122,4 +122,21 @@ public class ActionContextTracker : MonoBehaviour
             context.RemoveTarget(target);
         }
     }
+
+    public void TrackCollision(
+        ActionContext context,
+        Entity entity,
+        Rigidbody rb)
+    {
+        if (rb == null)
+            return;
+
+        TrackUntil(
+            context,
+            entity,
+            () =>
+                entity.isDead ||
+                rb == null ||
+                rb.IsSleeping());
+    }
 }

@@ -27,6 +27,21 @@ public class DamageOnCollision : MonoBehaviour
         Entity entity = collision.collider.GetComponentInParent<Entity>();
         if (entity == null) return;
 
+        Entity otherEntity = collision.collider.GetComponentInParent<Entity>();
+
+        if (otherEntity != null)
+        {
+            ActionContext context = GetComponentInParent<Entity>()?.ActionContext;
+
+            if (context != null)
+            {
+                ActionContextTracker.Instance.TrackCollision(
+                    context,
+                    otherEntity,
+                    collision.rigidbody);
+            }
+        }
+
         entity.Hurt(DamagePresets.Collision(contactDamage));
 
         Rigidbody rb = collision.rigidbody;

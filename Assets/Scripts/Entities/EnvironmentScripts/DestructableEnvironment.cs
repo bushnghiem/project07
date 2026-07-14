@@ -11,6 +11,15 @@ public class DestructableEnvironment : MonoBehaviour, Entity, IInspectable
     private Collider[] colliders;
     private Renderer[] renderers;
 
+    private ActionContext actionContext;
+
+    public ActionContext ActionContext => actionContext;
+
+    public void SetActionContext(ActionContext context)
+    {
+        actionContext = context;
+    }
+
     private void Awake()
     {
         healthComp = GetComponent<HealthComponent>();

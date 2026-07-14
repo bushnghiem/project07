@@ -82,6 +82,25 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
     public IReadOnlyList<ShotModifier> ShotModifiers => shotModifiers;
 
+    private ActionContext actionContext;
+
+    public ActionContext ActionContext => actionContext;
+
+    public void AssignActionContext(ActionContext context)
+    {
+        actionContext = context;
+
+        if (context != null)
+        {
+            context.OnContextFinished += ClearActionContext;
+        }
+    }
+
+    private void ClearActionContext()
+    {
+        actionContext = null;
+    }
+
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();
