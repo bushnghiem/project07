@@ -32,6 +32,27 @@ public class ExplosionEffect : Effect
             {
                 Debug.Log($"Boom Hit {entity} for {damage}");
 
+                Rigidbody rigidBody = hit.attachedRigidbody;
+
+                if (context.actionContext != null)
+                {
+
+                    if (rigidBody != null)
+                    {
+                        ActionContextTracker.Instance.TrackWhileMoving(
+                            context.actionContext,
+                            rigidBody,
+                            entity);
+                    }
+                    else
+                    {
+                        ActionContextTracker.Instance.TrackForSeconds(
+                            context.actionContext,
+                            entity,
+                            0.5f);
+                    }
+                }
+
                 entity.Hurt(DamagePresets.Explosion(damage));
 
                 var unit = hit.GetComponent<Unit>();

@@ -5,7 +5,10 @@ public class EffectController : MonoBehaviour
 {
     public List<Effect> effects;
 
-    public void TriggerEffects(EffectTrigger trigger, Vector3 position, UnitBase owner)
+    public void TriggerEffects(
+        EffectTrigger trigger,
+        Vector3 position,
+        UnitBase owner)
     {
         Entity entity = GetComponent<Entity>();
 
@@ -13,7 +16,8 @@ public class EffectController : MonoBehaviour
             position,
             gameObject,
             entity,
-            owner
+            owner,
+            entity?.ActionContext
         );
 
         TriggerEffects(trigger, context);
