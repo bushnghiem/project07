@@ -1102,7 +1102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 954764198443734371, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.00009995626
+      value: 0.00000064158246
       objectReference: {fileID: 0}
     - target: {fileID: 954764198443734371, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1972,7 +1972,6 @@ GameObject:
   m_Component:
   - component: {fileID: 540616205}
   - component: {fileID: 540616204}
-  - component: {fileID: 540616206}
   m_Layer: 0
   m_Name: ItemTargettingController
   m_TagString: Untagged
@@ -2009,25 +2008,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &540616206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 540616203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff0a8bc6bdc608a468b33c1cf404ac0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TargetingPreviewDatabase
-  entries:
-  - type: 2
-    prefab: {fileID: 8581518166560289981, guid: d0347cfbd0600d34ebe2e77d672ff571, type: 3}
-  - type: 3
-    prefab: {fileID: 8581518166560289981, guid: d0347cfbd0600d34ebe2e77d672ff571, type: 3}
-  - type: 4
-    prefab: {fileID: 8581518166560289981, guid: d0347cfbd0600d34ebe2e77d672ff571, type: 3}
 --- !u!114 &606121726 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6137190933243511677, guid: c75906be982f9b040ba65192953a4170, type: 3}

@@ -44,6 +44,9 @@ public class Projectile : ScriptableObject
     [Header("Effects")]
     public List<Effect> effects;
 
+    [Header("Movement")]
+    public List<ProjectileMovement> movements = new();
+
     [Header("Base Stats")]
     [SerializeField] private List<ProjectileBaseStatEntry> baseStats;
 

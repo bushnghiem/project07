@@ -32,6 +32,8 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
     private ActionContext actionContext;
     public ActionContext ActionContext => actionContext;
 
+    private ProjectileMovementController movementController;
+
     public bool HasStopped { get; private set; }
 
 
@@ -46,6 +48,7 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
         visualController = GetComponent<ProjectileVisualController>();
         sphereCollider = GetComponent<SphereCollider>();
         audioController = GetComponent<ProjectileAudioController>();
+        movementController = GetComponent<ProjectileMovementController>();
     }
 
     public void Initialize(
@@ -273,6 +276,8 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
 
     public void Fling(Vector3 direction, float force)
     {
+        movementController.Initialize(template, this, owner, direction);
+
         rb.AddForce(direction.normalized * force, ForceMode.Impulse);
     }
 
