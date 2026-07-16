@@ -53,10 +53,14 @@ public class CombatLogManager : MonoBehaviour
 
     private string BuildMessage(UnitEvent evt)
     {
-        string sourceName =
-            evt.source != null
-            ? evt.source.RunData.uniqueID
-            : "Unknown";
+        string sourceName;
+
+        if (evt.source != null)
+            sourceName = evt.source.DisplayName;
+        else if (evt.damageSource != null)
+            sourceName = evt.damageSource.DisplayName;
+        else
+            sourceName = "Unknown";
 
         string targetName =
             evt.target != null

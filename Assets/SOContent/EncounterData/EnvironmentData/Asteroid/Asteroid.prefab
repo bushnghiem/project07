@@ -124,6 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DestructableEnvironment
   healthComp: {fileID: 2140541073521909749}
   collisionDamageComp: {fileID: 0}
+  displayName: Asteroid
 --- !u!135 &6936295336476768001
 SphereCollider:
   m_ObjectHideFlags: 0

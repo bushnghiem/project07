@@ -35,8 +35,11 @@ public struct DamageInfo
     public DamageCategory Category;
     public DamageElement Element;
 
-    public Entity Attacker;
-    public GameObject Source;
+    // Who gets credit for the damage.
+    public UnitBase Instigator;
+
+    // What actually dealt the damage.
+    public Entity Source;
 
     public bool BypassShields;
     public bool BypassResistance;
@@ -47,8 +50,8 @@ public struct DamageInfo
         float amount,
         DamageCategory category = DamageCategory.Generic,
         DamageElement element = DamageElement.None,
-        Entity attacker = null,
-        GameObject source = null
+        UnitBase instigator = null,
+        Entity source = null
     )
     {
         Amount = amount;
@@ -56,7 +59,7 @@ public struct DamageInfo
         Category = category;
         Element = element;
 
-        Attacker = attacker;
+        Instigator = instigator;
         Source = source;
 
         BypassShields = false;

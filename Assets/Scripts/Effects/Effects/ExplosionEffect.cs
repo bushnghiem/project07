@@ -53,7 +53,13 @@ public class ExplosionEffect : Effect
                     }
                 }
 
-                entity.Hurt(DamagePresets.Explosion(damage));
+                entity.Hurt(
+                    DamagePresets.Explosion(
+                        damage,
+                        context.owner,
+                        context.sourceEntity
+                    )
+                );
 
                 var unit = hit.GetComponent<Unit>();
                 if (unit != null)

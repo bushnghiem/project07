@@ -73,7 +73,7 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
     public ShipTemplate Template => template;
 
-    public string Name => template.displayName;
+    public string DisplayName => RunData.uniqueID;
 
     protected SphereCollider sphereCollider;
     protected ShipAudioComponent audioComp;
@@ -100,6 +100,8 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
     {
         actionContext = null;
     }
+
+    public UnitBase Instigator => this;
 
     protected virtual void Awake()
     {
@@ -491,7 +493,8 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
         EventBus.Raise(new UnitEvent
         {
-            source = (UnitBase)damageInfo.Attacker,
+            source = damageInfo.Instigator,
+            damageSource = damageInfo.Source,
             target = this,
             type = UnitEventType.Hurt,
             value = finalDamage

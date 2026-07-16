@@ -42,7 +42,15 @@ public class DamageOnCollision : MonoBehaviour
             }
         }
 
-        entity.Hurt(DamagePresets.Collision(contactDamage));
+        Entity source = GetComponentInParent<Entity>();
+
+        entity.Hurt(
+            DamagePresets.Collision(
+                contactDamage,
+                source?.Instigator,
+                source
+            )
+        );
 
         Rigidbody rb = collision.rigidbody;
         if (rb != null)

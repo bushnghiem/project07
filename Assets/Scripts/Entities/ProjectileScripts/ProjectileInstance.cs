@@ -32,6 +32,10 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
     private ActionContext actionContext;
     public ActionContext ActionContext => actionContext;
 
+    public UnitBase Instigator => owner;
+
+    public string DisplayName => template.projectileName;
+
     private ProjectileMovementController movementController;
 
     public bool HasStopped { get; private set; }

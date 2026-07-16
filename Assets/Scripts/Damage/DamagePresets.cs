@@ -2,52 +2,75 @@ using UnityEngine;
 
 public static class DamagePresets
 {
-    // -------------------------
-    // BASIC CATEGORIES
-    // -------------------------
-
-    public static DamageInfo Generic(float amount)
+    public static DamageInfo Generic(
+        float amount,
+        UnitBase instigator = null,
+        Entity source = null)
     {
         return new DamageInfo(
             amount,
             DamageCategory.Generic,
-            DamageElement.None
+            DamageElement.None,
+            instigator,
+            source
         );
     }
 
-    public static DamageInfo Collision(float amount)
+    public static DamageInfo Collision(
+        float amount,
+        UnitBase instigator = null,
+        Entity source = null)
     {
         return new DamageInfo(
             amount,
             DamageCategory.Collision,
-            DamageElement.Kinetic
+            DamageElement.Kinetic,
+            instigator,
+            source
         );
     }
 
-    public static DamageInfo Explosion(float amount, DamageElement element = DamageElement.Fire)
+    public static DamageInfo Explosion(
+        float amount,
+        UnitBase instigator = null,
+        Entity source = null,
+        DamageElement element = DamageElement.Fire)
     {
         return new DamageInfo(
             amount,
             DamageCategory.Explosion,
-            element
+            element,
+            instigator,
+            source
         );
     }
 
-    public static DamageInfo Environmental(float amount, DamageElement element = DamageElement.None)
+    public static DamageInfo Environmental(
+        float amount,
+        UnitBase instigator = null,
+        Entity source = null,
+        DamageElement element = DamageElement.None)
     {
         return new DamageInfo(
             amount,
             DamageCategory.Environmental,
-            element
+            element,
+            instigator,
+            source
         );
     }
 
-    public static DamageInfo True(float amount)
+    public static DamageInfo True(
+        float amount,
+        UnitBase instigator = null,
+        Entity source = null)
     {
         return new DamageInfo(
             amount,
             DamageCategory.True,
-            DamageElement.None
+            DamageElement.None,
+            instigator,
+            source
         )
         {
             BypassShields = true,
@@ -55,36 +78,51 @@ public static class DamagePresets
         };
     }
 
-    public static DamageInfo Burn(float amount)
+    public static DamageInfo Burn(
+        float amount,
+        UnitBase instigator = null,
+        Entity source = null)
     {
         return new DamageInfo(
             amount,
             DamageCategory.DamageOverTime,
-            DamageElement.Fire
+            DamageElement.Fire,
+            instigator,
+            source
         )
         {
             BypassShields = true
         };
     }
 
-    public static DamageInfo Poison(float amount)
+    public static DamageInfo Poison(
+        float amount,
+        UnitBase instigator = null,
+        Entity source = null)
     {
         return new DamageInfo(
             amount,
             DamageCategory.DamageOverTime,
-            DamageElement.Poison
+            DamageElement.Poison,
+            instigator,
+            source
         )
         {
             BypassShields = true
         };
     }
 
-    public static DamageInfo ElectricDOT(float amount)
+    public static DamageInfo ElectricDOT(
+        float amount,
+        UnitBase instigator = null,
+        Entity source = null)
     {
         return new DamageInfo(
             amount,
             DamageCategory.DamageOverTime,
-            DamageElement.Electric
+            DamageElement.Electric,
+            instigator,
+            source
         )
         {
             BypassShields = true

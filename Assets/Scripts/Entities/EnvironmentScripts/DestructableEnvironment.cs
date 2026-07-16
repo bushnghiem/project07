@@ -5,6 +5,8 @@ public class DestructableEnvironment : MonoBehaviour, Entity, IInspectable
     public HealthComponent healthComp;
     public DamageOnCollision collisionDamageComp;
 
+    public string displayName;
+
     public Vector3 Position => transform.position;
     public bool isDead => healthComp.isDead;
 
@@ -19,6 +21,10 @@ public class DestructableEnvironment : MonoBehaviour, Entity, IInspectable
     {
         actionContext = context;
     }
+
+    public UnitBase Instigator => null;
+
+    public string DisplayName => displayName;
 
     private void Awake()
     {

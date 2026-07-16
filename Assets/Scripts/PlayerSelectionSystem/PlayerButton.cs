@@ -19,7 +19,7 @@ public class PlayerButton : MonoBehaviour
         this.player = player;
         this.callback = callback;
 
-        nameText.text = player.Name;
+        nameText.text = player.DisplayName;
         hpText.text = $"HP: {player.GetCurrentHealth()}";
 
         button.onClick.RemoveAllListeners();

@@ -2,8 +2,11 @@ using UnityEngine;
 
 public struct UnitEvent
 {
-    public UnitBase source;   // who caused it
-    public UnitBase target;   // who received it (optional)
+    public UnitBase source;      // Who gets credit
+    public Entity damageSource;  // What actually dealt the damage
+
+    public UnitBase target;
+
     public UnitEventType type;
     public float value;
 }
