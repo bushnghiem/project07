@@ -361,7 +361,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   soundList:
   - name: BUTTON
-    sounds: []
+    sounds:
+    - {fileID: 8300000, guid: 47811bafa6aab114ca0146fedc1c242f, type: 3}
   - name: VICTORY
     sounds: []
   - name: DEFEAT
@@ -613,10 +614,12 @@ MonoBehaviour:
       clearedEventTiles: []
       discoveredEventTiles: []
       shops: []
+      chests: []
       corruptionRadius: -1
       hasShownFloorIntro: 0
       hasInitializedSpawn: 0
       bossDefeated: 0
+      pendingReward: 0
     completedFloors: []
     playerFormation: {fileID: 0}
     team:
@@ -624,10 +627,12 @@ MonoBehaviour:
       templateID: 0
       aiBehaviorID: 
       currentHealth: 20
+      currentCharges: 0
       isDead: 0
       statModifiers: []
       items: []
     runCurrency: 0
+    runKeys: 0
   easyFloors:
   - {fileID: 11400000, guid: 7f0207d97b2bdc24fbf4ad288052125d, type: 2}
   midFloors:
