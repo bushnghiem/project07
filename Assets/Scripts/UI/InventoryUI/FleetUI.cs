@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class FleetUI : MonoBehaviour
+public class FleetUI : AnimatedUI
 {
     [Header("References")]
     public ShipHolder shipHolder;
@@ -27,18 +27,39 @@ public class FleetUI : MonoBehaviour
 
     private Player selectedPlayer;
 
+    public bool activated = false;
+
+
+
     private void OnEnable()
     {
         PopulateShipList();
     }
 
-    public void Open()
+    public override void Open()
     {
-        gameObject.SetActive(true);
+        base.Open();
         RefreshFleet();
+        activated = true;
     }
 
-    public void Close()
+    public override void Close()
+    {
+        base.Close();
+    }
+
+    protected override void PlayOpenAnimation()
+    {
+        Debug.Log("Open Anim");
+        animator.SetTrigger("Open");
+    }
+
+    protected override void PlayCloseAnimation()
+    {
+        animator.SetTrigger("Close");
+    }
+
+    public void DisableUI()
     {
         gameObject.SetActive(false);
     }

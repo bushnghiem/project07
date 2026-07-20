@@ -155,15 +155,32 @@ public class TMPTerminalTypewriter : MonoBehaviour
 
     public void StopTyping()
     {
+        if (typingRoutine != null)
+        {
+            StopCoroutine(typingRoutine);
+            typingRoutine = null;
+        }
+
         if (cursorRoutine != null)
         {
             StopCoroutine(cursorRoutine);
             cursorRoutine = null;
         }
 
-
         cursor.gameObject.SetActive(false);
 
-        text.maxVisibleCharacters = int.MaxValue;
+        text.text = "";
+        text.maxVisibleCharacters = 0;
     }
+
+
+    private Coroutine typingRoutine;
+
+    public void ShowText(string message)
+    {
+        StopTyping();
+
+        typingRoutine = StartCoroutine(TypeText(message));
+    }
+
 }

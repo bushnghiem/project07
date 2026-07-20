@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class FleetTooltipUI : MonoBehaviour
 {
-    public GameObject panel;
+    [SerializeField] private GameObject panel;
 
     [Header("UI")]
-    public TMP_Text titleText;
-    public TMP_Text descriptionText;
+    [SerializeField] private TMP_Text titleText;
+
+    [SerializeField] private TMPTerminalTypewriter typewriter;
 
     private void Start()
     {
@@ -19,11 +20,14 @@ public class FleetTooltipUI : MonoBehaviour
         panel.SetActive(true);
 
         titleText.text = title;
-        descriptionText.text = description;
+
+        typewriter.ShowText(description);
     }
 
     public void Hide()
     {
+        typewriter.StopTyping();
         panel.SetActive(false);
     }
+
 }
