@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class DestructableEnvironment : MonoBehaviour, Entity, IInspectable
 {
+    [SerializeField]
+    private SoundDefinition deathSound;
+
+    [SerializeField]
+    private SoundDefinition damagedSound;
+
     public HealthComponent healthComp;
     public DamageOnCollision collisionDamageComp;
 
@@ -79,7 +85,7 @@ public class DestructableEnvironment : MonoBehaviour, Entity, IInspectable
 
     private void HandleDamaged(float damage)
     {
-        Debug.Log($"Wall took {damage} damage");
+        AudioManager.Play(damagedSound, transform.position);
     }
 
     private void HandleHealed(float amount)
@@ -89,6 +95,7 @@ public class DestructableEnvironment : MonoBehaviour, Entity, IInspectable
 
     private void HandleDeath()
     {
+        AudioManager.Play(deathSound, transform.position);
         Kill();
         DeathEvent.OnEntityDeath?.Invoke(this);
     }

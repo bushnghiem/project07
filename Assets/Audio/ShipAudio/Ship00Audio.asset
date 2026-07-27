@@ -12,9 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56ba1fc048f6ee042a072c3596834a3e, type: 3}
   m_Name: Ship00Audio
   m_EditorClassIdentifier: Assembly-CSharp::ShipAudioData
-  moveSounds:
-  - {fileID: 8300000, guid: 14465fe0c10b09f4385d3eb9b22ff8ec, type: 3}
-  shootSounds:
-  - {fileID: 8300000, guid: 0924ebb13ff1f1e45a84b8edd0e5e254, type: 3}
-  collisionSounds:
-  - {fileID: 8300000, guid: cfb89dffd9051264cadb002f1f07ed98, type: 3}
+  Move: {fileID: 11400000, guid: c7fc6b91a77556140a764e0bc36ee09d, type: 2}
+  Shoot: {fileID: 11400000, guid: 06ea870038fd6084f817abf4b03ed4bb, type: 2}
+  Collision: {fileID: 11400000, guid: 4be141e1ae5f5f94290646765d966669, type: 2}

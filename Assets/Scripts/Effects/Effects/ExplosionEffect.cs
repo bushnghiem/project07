@@ -4,6 +4,7 @@ using System.Collections.Generic;
 [CreateAssetMenu(menuName = "Effect/Explosion")]
 public class ExplosionEffect : Effect
 {
+    public SoundDefinition explosionSound;
     public List<AppliedStatusEffect> statusEffects = new ();
     public float radius = 5f;
     public float damage = 50f;
@@ -17,6 +18,8 @@ public class ExplosionEffect : Effect
     {
         //Debug.Log($"EXPLOSION ID: {GetInstanceID()} on frame {Time.frameCount}");
         Vector3 position = context.position;
+
+        AudioManager.Play(explosionSound, position);
 
         if (visualPrefab != null)
             Object.Instantiate(visualPrefab, position, Quaternion.identity);

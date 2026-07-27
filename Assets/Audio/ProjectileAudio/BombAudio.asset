@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba01f433b28734146a7495c88010767e, type: 3}
   m_Name: BombAudio
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileAudioData
-  launchSounds:
-  - {fileID: 8300000, guid: ded8a462162761c40be58d44adfd1fd8, type: 3}
-  collisionSounds:
-  - {fileID: 8300000, guid: 44e8e515d1eae22449c02a4f63efa8f2, type: 3}
-  deathSounds: []
+  Launch: {fileID: 11400000, guid: f625b5033ec6cab47b98683b162324fc, type: 2}
+  Collision: {fileID: 11400000, guid: 6e1644dac7388704a93ffeb116b99b12, type: 2}
+  Death: {fileID: 11400000, guid: 25c7cf71b97a03946a6401353c82be7c, type: 2}

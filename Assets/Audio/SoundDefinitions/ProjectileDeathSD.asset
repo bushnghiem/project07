@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33790ed14aa566242a36d3e2edaf8a84, type: 3}
+  m_Name: ProjectileDeathSD
+  m_EditorClassIdentifier: Assembly-CSharp::SoundDefinition
+  clips:
+  - {fileID: 8300000, guid: 13a7afd78f06de642afa79171b75e0b4, type: 3}
+  volume: 1
+  randomVolume: {x: 0, y: 0}
+  pitch: 1
+  randomPitch: {x: -0.05, y: 0.05}
+  spatial: 1
+  minDistance: 8
+  maxDistance: 120
+  rolloff: 1
+  loop: 0
+  category: 3
+  cooldown: 0
+  maxInstances: 8
+  priority: 0

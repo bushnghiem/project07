@@ -19,8 +19,7 @@ public class TMPTerminalTypewriter : MonoBehaviour
 
     [Header("Sound")]
     [SerializeField] private bool playSound = true;
-    [SerializeField] private SoundType typingSound = SoundType.BUTTON;
-    [SerializeField] private float soundVolume = 0.35f;
+    [SerializeField] private SoundDefinition typingSound;
 
 
     private int visibleCharacters;
@@ -68,10 +67,7 @@ public class TMPTerminalTypewriter : MonoBehaviour
 
             if (playSound)
             {
-                SoundManager.PlaySound(
-                    typingSound,
-                    soundVolume
-                );
+                AudioManager.Play(typingSound);
             }
 
 
@@ -81,9 +77,9 @@ public class TMPTerminalTypewriter : MonoBehaviour
 
         UpdateCursorPosition();
 
-        yield return new WaitForSeconds(endDelay);
-
-        StopTyping();
+        //yield return new WaitForSeconds(endDelay);
+        // End Delay is not active right now
+        //StopTyping();
     }
 
 
@@ -116,8 +112,8 @@ public class TMPTerminalTypewriter : MonoBehaviour
 
         if (visibleCharacters <= 0)
         {
-            cursor.rectTransform.position =
-                text.rectTransform.position;
+            //cursor.rectTransform.position =
+                //text.rectTransform.position;
 
             return;
         }

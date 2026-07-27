@@ -871,8 +871,7 @@ MonoBehaviour:
   cursorBlinkRate: 0.15
   cursorOffset: {x: 12, y: -8, z: 0}
   playSound: 1
-  typingSound: 0
-  soundVolume: 0.35
+  typingSound: {fileID: 11400000, guid: 2f5d056d78cb68144b5c66152b3ab113, type: 2}
 --- !u!1 &133147033
 GameObject:
   m_ObjectHideFlags: 0
@@ -2746,8 +2745,7 @@ MonoBehaviour:
   cursorBlinkRate: 0.25
   cursorOffset: {x: 10, y: -10, z: 0}
   playSound: 1
-  typingSound: 0
-  soundVolume: 0.35
+  typingSound: {fileID: 11400000, guid: 2f5d056d78cb68144b5c66152b3ab113, type: 2}
 --- !u!114 &472368832 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2790930208805416431, guid: c75906be982f9b040ba65192953a4170, type: 3}
@@ -6191,7 +6189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2327440532726682846, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2327440532726682846, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_SizeDelta.y
@@ -6227,7 +6225,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2327440532726682846, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -12.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2327440532726682846, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchoredPosition.y

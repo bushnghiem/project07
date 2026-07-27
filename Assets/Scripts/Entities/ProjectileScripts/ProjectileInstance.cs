@@ -27,7 +27,7 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
     private ProjectileVisualController visualController;
     private SphereCollider sphereCollider;
 
-    private ProjectileAudioController audioController;
+    private ProjectileAudioComponent audioComp;
 
     private ActionContext actionContext;
     public ActionContext ActionContext => actionContext;
@@ -51,7 +51,7 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
         renderers = GetComponentsInChildren<Renderer>();
         visualController = GetComponent<ProjectileVisualController>();
         sphereCollider = GetComponent<SphereCollider>();
-        audioController = GetComponent<ProjectileAudioController>();
+        audioComp = GetComponent<ProjectileAudioComponent>();
         movementController = GetComponent<ProjectileMovementController>();
     }
 
@@ -72,9 +72,9 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
         ApplyEffects();
 
         visualController?.ApplyVisuals(template.VisualData);
-        audioController?.Initialize(template.AudioData);
+        audioComp?.Initialize(template.AudioData);
 
-        audioController?.PlayLaunch();
+        audioComp?.PlayLaunch();
 
         ActionContextTracker.Instance.TrackProjectile(
             actionContext,

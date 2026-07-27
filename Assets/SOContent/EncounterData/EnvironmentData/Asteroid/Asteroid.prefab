@@ -108,8 +108,6 @@ MonoBehaviour:
   statusEffects: []
   contactDamage: 30
   knockbackStrength: 10
-  collisionSounds:
-  - {fileID: 8300000, guid: 44e8e515d1eae22449c02a4f63efa8f2, type: 3}
 --- !u!114 &6126476714967918871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,6 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8163baa409bff33428332271eabab18c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DestructableEnvironment
+  deathSound: {fileID: 11400000, guid: 4f085445f508c2542a7469ada5f30274, type: 2}
+  damagedSound: {fileID: 11400000, guid: bbcbd2bd28b27594d92f896988e1c4b0, type: 2}
   healthComp: {fileID: 2140541073521909749}
   collisionDamageComp: {fileID: 0}
   displayName: Asteroid

@@ -3,14 +3,14 @@ using UnityEngine;
 public class ShipAudioComponent : MonoBehaviour
 {
     private UnitBase unit;
-    private AudioController audioController;
-
+    private DamageOnCollision collision;
     private ShipAudioData audioData;
 
     private void Awake()
     {
+        collision = GetComponent<DamageOnCollision>();
+        collision.OnCollisionOccurred += PlayCollision;
         unit = GetComponent<UnitBase>();
-        audioController = GetComponent<AudioController>();
     }
 
     private void Start()
@@ -20,22 +20,16 @@ public class ShipAudioComponent : MonoBehaviour
 
     public void PlayMove()
     {
-        audioController.PlayRandom(
-            audioData.moveSounds
-        );
+        AudioManager.Play(audioData.Move, transform.position);
     }
 
     public void PlayShoot()
     {
-        audioController.PlayRandom(
-            audioData.shootSounds
-        );
+        AudioManager.Play(audioData.Shoot, transform.position);
     }
 
     public void PlayCollision()
     {
-        audioController.PlayRandom(
-            audioData.collisionSounds
-        );
+        AudioManager.Play(audioData.Collision, transform.position);
     }
 }
