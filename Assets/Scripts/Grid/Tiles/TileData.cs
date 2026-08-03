@@ -23,4 +23,7 @@ public class TileData
 
     public bool isElite;
     public bool isCorrupted;
+
+    public QuestInstance activeQuest;
+
 }

@@ -33,6 +33,7 @@ MonoBehaviour:
           bypassResistance: 0
         encounter: {fileID: 0}
         item: {fileID: 0}
+        quest: {fileID: 0}
         chance: 1
     removeAfterUse: 0
   - optionText: Leave
@@ -42,7 +43,7 @@ MonoBehaviour:
       description: 
       groupChance: 1
       outcomes:
-      - type: 10
+      - type: 11
         tileModification: 0
         value: 0
         damage:
@@ -53,6 +54,7 @@ MonoBehaviour:
           bypassResistance: 0
         encounter: {fileID: 0}
         item: {fileID: 0}
+        quest: {fileID: 0}
         chance: 1
     removeAfterUse: 0
   minFloor: 0

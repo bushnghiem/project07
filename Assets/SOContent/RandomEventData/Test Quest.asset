@@ -10,18 +10,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2aa73ef29bb4b54c883ee618ceb14f0, type: 3}
-  m_Name: Test
+  m_Name: Test Quest
   m_EditorClassIdentifier: Assembly-CSharp::EventData
-  eventName: 
-  description: 
+  eventName: Test Quest
+  description: 'Give The Player a Quest
+
+'
   options:
   - optionText: 
     conditions: []
     outcomeGroups:
     - groupName: 
       description: 
-      groupChance: 0
-      outcomes: []
+      groupChance: 1
+      outcomes:
+      - type: 10
+        tileModification: 1
+        value: 0
+        damage:
+          amount: 0
+          category: 0
+          element: 0
+          bypassShields: 0
+          bypassResistance: 0
+        encounter: {fileID: 0}
+        item: {fileID: 0}
+        quest: {fileID: 11400000, guid: f9f2ae0e28089204dbfe2c24bf76f647, type: 2}
+        chance: 1
     removeAfterUse: 0
   minFloor: 0
   maxFloor: 0

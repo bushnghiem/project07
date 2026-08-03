@@ -117,6 +117,11 @@ public class EventManager : MonoBehaviour
                 AddTime(outcome.value);
                 break;
 
+            case OutcomeType.StartQuest:
+                QuestManager.Instance.StartQuest(outcome.quest);
+                break;
+
+
             case OutcomeType.Nothing:
                 break;
         }

@@ -12,6 +12,7 @@ public enum OutcomeType
     GiveItem,
     GiveCharges,
     TakeTime,
+    StartQuest,
     Nothing
 }
 
@@ -28,6 +29,9 @@ public class EventOutcome
 
     public EncounterData encounter;
     public Item item;
+
+    public QuestData quest;
+
 
     [Range(0f, 1f)]
     public float chance = 1f;

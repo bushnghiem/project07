@@ -81,6 +81,15 @@ public class GridMovement : MonoBehaviour
             SaveManager.Instance.SaveRun();
 
             HandleTileEvent(tile);
+
+            if (tile.activeQuest != null)
+            {
+                QuestManager.Instance.CompleteQuest(tile.activeQuest);
+
+                tile.activeQuest = null;
+
+                gridManager.GenerateVisuals();
+            }
         }
     }
 

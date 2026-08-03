@@ -11,6 +11,7 @@ public class GridManager : MonoBehaviour
     public GameObject portalPrefab;
     public GameObject shopPrefab;
     public GameObject chestPrefab;
+    public GameObject questMarkerPrefab;
 
     public int width = 20;
     public int height = 20;
@@ -40,6 +41,7 @@ public class GridManager : MonoBehaviour
 
     void Start()
     {
+        QuestManager.Instance.RegisterGrid(this);
         var run = RunManager.Instance.CurrentRun;
         var floor = run.currentFloorData;
 
@@ -84,6 +86,7 @@ public class GridManager : MonoBehaviour
         PlaceShops();
         PlaceChests();
         PlaceEliteEncounters();
+        QuestManager.Instance.ApplyQuestObjectives(this);
         ApplyRunModifications();
 
         var floor = RunManager.Instance.CurrentRun.currentFloorData;
@@ -427,6 +430,7 @@ public class GridManager : MonoBehaviour
 
     public void GenerateVisuals()
     {
+        Debug.Log("Generated Visuals");
         foreach (Transform child in transform)
             Destroy(child.gameObject);
 
@@ -497,6 +501,15 @@ public class GridManager : MonoBehaviour
             hover.tile = tile;
             hover.gridPosition = new Vector2Int(x, y);
         }
+
+        if (tile.activeQuest != null)
+        {
+            Instantiate(
+                questMarkerPrefab,
+                position + Vector3.up * 0.75f,
+                Quaternion.identity,
+                transform);
+        }
     }
 
     public Vector3 GetWorldPosition(int x, int y)
@@ -537,5 +550,14 @@ public class GridManager : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void SpawnQuestMarker(Vector2Int pos)
+    {
+        Instantiate(
+            questMarkerPrefab,
+            GetWorldPosition(pos.x, pos.y) + Vector3.up * 0.75f,
+            Quaternion.identity,
+            transform);
     }
 }
