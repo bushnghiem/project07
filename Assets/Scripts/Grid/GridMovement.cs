@@ -81,15 +81,6 @@ public class GridMovement : MonoBehaviour
             SaveManager.Instance.SaveRun();
 
             HandleTileEvent(tile);
-
-            if (tile.activeQuest != null)
-            {
-                QuestManager.Instance.CompleteQuest(tile.activeQuest);
-
-                tile.activeQuest = null;
-
-                gridManager.GenerateVisuals();
-            }
         }
     }
 
@@ -126,6 +117,19 @@ public class GridMovement : MonoBehaviour
             case TileType.Chest:
                 HandleChestTile();
                 break;
+        }
+        if (tile.activeQuest != null)
+        {
+            QuestInstance quest = tile.activeQuest;
+
+            if (quest.quest.objective.TryComplete(quest, tile))
+            {
+                QuestManager.Instance.CompleteQuest(quest);
+
+                tile.activeQuest = null;
+
+                gridManager.GenerateVisuals();
+            }
         }
     }
 

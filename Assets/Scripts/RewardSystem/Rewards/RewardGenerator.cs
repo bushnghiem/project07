@@ -8,14 +8,23 @@ public static class RewardGenerator
         List<RewardDefinition> rewardPool,
         int amount)
     {
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
+
+        return Generate(
+            rewardPool,
+            amount,
+            RunManager.Instance.CurrentRun.runSeed + floor.floorIndex);
+    }
+
+    public static List<Reward> Generate(
+        List<RewardDefinition> rewardPool,
+        int amount,
+        int seed)
+    {
         List<RewardDefinition> pool = new(rewardPool);
         List<Reward> rewards = new();
 
-        var floor = RunManager.Instance.CurrentRun.currentFloorData;
-
-        System.Random rng = new System.Random(
-            RunManager.Instance.CurrentRun.runSeed +
-            floor.floorIndex);
+        System.Random rng = new(seed);
 
         while (rewards.Count < amount && pool.Count > 0)
         {
@@ -27,5 +36,14 @@ public static class RewardGenerator
         }
 
         return rewards;
+    }
+
+    public static List<Reward> GenerateQuestRewards(
+    QuestInstance quest)
+    {
+        return Generate(
+            quest.quest.rewards,
+            quest.quest.rewardsToChoose,
+            QuestUtility.GetQuestSeed(quest));
     }
 }

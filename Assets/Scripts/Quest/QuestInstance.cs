@@ -10,4 +10,6 @@ public class QuestInstance
     public int targetFloor;
 
     public Vector2Int targetPosition;
+
+    public object runtimeData;
 }

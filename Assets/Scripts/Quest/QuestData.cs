@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [CreateAssetMenu(menuName = "Scriptable Objects/Quest")]
 public class QuestData : ScriptableObject
@@ -10,13 +11,11 @@ public class QuestData : ScriptableObject
     [TextArea]
     public string description;
 
-    public QuestObjectiveType objectiveType;
+    public QuestObjective objective;
 
-    [Header("Objective")]
-    public int floorsAhead = 0;
+    public int floorsAhead;
 
-    [Header("Rewards")]
-    public int rewardCurrency;
+    public List<RewardDefinition> rewards;
 
-    public Item rewardItem;
+    public int rewardsToChoose = 1;
 }

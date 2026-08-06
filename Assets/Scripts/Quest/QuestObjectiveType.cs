@@ -1,12 +1,16 @@
 using UnityEngine;
 
-public enum QuestObjectiveType
+public abstract class QuestObjective : ScriptableObject
 {
-    ReachLocation,
-    EscortShip,
-    ReturnItem,
-    KillBoss,
-    VisitPortal,
-    DefeatElite
+    public abstract void PlaceObjective(GridManager grid, QuestInstance quest);
+
+    public abstract bool TryComplete(
+        QuestInstance quest,
+        TileData tile);
+
+    public virtual void OnQuestStarted(
+        QuestInstance quest)
+    {
+    }
 }
 

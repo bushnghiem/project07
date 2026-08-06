@@ -15,7 +15,9 @@ MonoBehaviour:
   questId: 0
   questName: Go To the Tile
   description: Go to the Location
-  objectiveType: 0
+  objective: {fileID: 11400000, guid: 102c76c046ffbb546aafc66732312b3b, type: 2}
   floorsAhead: 0
-  rewardCurrency: 100
-  rewardItem: {fileID: 0}
+  rewards:
+  - {fileID: 11400000, guid: dd81e06afc039b847a8e131283561633, type: 2}
+  - {fileID: 11400000, guid: 3651b6826b53d144b81d0a525bed07fe, type: 2}
+  rewardsToChoose: 2
