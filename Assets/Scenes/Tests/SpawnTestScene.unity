@@ -1102,7 +1102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 954764198443734371, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.00000064158246
+      value: 0.000009541123
       objectReference: {fileID: 0}
     - target: {fileID: 954764198443734371, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2793,6 +2793,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 811189504}
   m_CullTransparentMesh: 1
+--- !u!114 &857542193 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 233163638230226800, guid: c75906be982f9b040ba65192953a4170, type: 3}
+  m_PrefabInstance: {fileID: 299373569}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &857542194 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 495524477396936568, guid: c75906be982f9b040ba65192953a4170, type: 3}
+  m_PrefabInstance: {fileID: 299373569}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &892259612
 GameObject:
   m_ObjectHideFlags: 0
@@ -4558,6 +4580,7 @@ GameObject:
   - component: {fileID: 1474467625}
   - component: {fileID: 1474467626}
   - component: {fileID: 1474467627}
+  - component: {fileID: 1474467628}
   m_Layer: 5
   m_Name: FleetRoot
   m_TagString: Untagged
@@ -4597,6 +4620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc9e9d6336d138a4b9c50bd148f4343c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FleetUI
+  animator: {fileID: 0}
   shipHolder: {fileID: 1707256311}
   shipListParent: {fileID: 299373582}
   shipEntryPrefab: {fileID: 8941645740710153600, guid: 3ba8864708987714a8a77d0a527c6d7b, type: 3}
@@ -4610,6 +4634,7 @@ MonoBehaviour:
   nameText: {fileID: 299373579}
   healthText: {fileID: 299373578}
   chargesText: {fileID: 606121726}
+  activated: 0
 --- !u!114 &1474467627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4624,7 +4649,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FleetTooltipUI
   panel: {fileID: 299373581}
   titleText: {fileID: 299373580}
-  descriptionText: {fileID: 1578398947}
+  typewriter: {fileID: 1474467628}
+--- !u!114 &1474467628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474467624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4672e0fa98cfee48b2072acb553ce19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TMPTerminalTypewriter
+  text: {fileID: 857542194}
+  cursor: {fileID: 857542193}
+  charactersPerSecond: 30
+  startDelay: 0
+  endDelay: 1
+  cursorBlinkRate: 0.25
+  cursorOffset: {x: 10, y: -10, z: 0}
+  playSound: 1
+  typingSound: {fileID: 11400000, guid: 2f5d056d78cb68144b5c66152b3ab113, type: 2}
 --- !u!1 &1489767234
 GameObject:
   m_ObjectHideFlags: 0
@@ -4979,17 +5025,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1535603766}
   m_CullTransparentMesh: 1
---- !u!114 &1578398947 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 495524477396936568, guid: c75906be982f9b040ba65192953a4170, type: 3}
-  m_PrefabInstance: {fileID: 299373569}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1649102354
 GameObject:
   m_ObjectHideFlags: 0

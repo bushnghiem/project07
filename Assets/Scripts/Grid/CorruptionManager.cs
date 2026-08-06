@@ -113,9 +113,6 @@ public class CorruptionManager : MonoBehaviour
         var floor =
             RunManager.Instance.CurrentRun.currentFloorData;
 
-        if (floor.clearedCorruptionTiles.Contains(pos))
-            return;
-
         TileData tile = grid.grid[pos.x, pos.y];
 
         if (tile.tileType == TileType.Portal)
@@ -124,9 +121,12 @@ public class CorruptionManager : MonoBehaviour
         if (tile.tileType == TileType.Wall)
             return;
 
-        tile.tileType = TileType.Combat;
-        tile.assignedEncounter = GetCorruptionEncounter(pos);
-        tile.isCorrupted = true;
+        grid.ModifyTile(pos, tile =>
+        {
+            tile.tileType = TileType.Combat;
+            tile.assignedEncounter = GetCorruptionEncounter(pos);
+            tile.isCorrupted = true;
+        });
     }
 
     EncounterData GetCorruptionEncounter(Vector2Int pos)

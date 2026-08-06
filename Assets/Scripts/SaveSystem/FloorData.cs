@@ -29,9 +29,7 @@ public class FloorData
 
     public int TurnsUntilCorruption => nextCorruptionTimeThreshold - timeElapsed;
 
-    public List<Vector2Int> clearedCombatTiles = new();
-    public List<Vector2Int> clearedCorruptionTiles = new();
-    public List<Vector2Int> clearedEventTiles = new();
+    public List<TileOverride> tileOverrides = new();
 
     public List<Vector2Int> discoveredEventTiles = new();
 

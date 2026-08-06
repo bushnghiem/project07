@@ -19,16 +19,10 @@ public class WinState : BattleState
 
                 if (floor.currentEncounterIsCorrupted)
                 {
-                    floor.clearedCorruptionTiles.Add(
-                        floor.currentGridPosition);
-
                     Debug.Log("Corruption encounter cleared.");
                 }
                 else
                 {
-                    floor.clearedCombatTiles.Add(
-                        floor.currentGridPosition);
-
                     Debug.Log("Normal encounter cleared.");
                 }
 
@@ -38,16 +32,10 @@ public class WinState : BattleState
 
                 if (floor.currentEncounterIsCorrupted)
                 {
-                    floor.clearedCorruptionTiles.Add(
-                        floor.currentGridPosition);
-
                     Debug.Log("Corruption elite cleared.");
                 }
                 else
                 {
-                    floor.clearedCombatTiles.Add(
-                        floor.currentGridPosition);
-
                     Debug.Log("Elite encounter cleared.");
                 }
 
@@ -62,8 +50,7 @@ public class WinState : BattleState
                 break;
         }
 
-        floor.currentEncounter = null;
-        floor.currentEncounterIsCorrupted = false;
+        TileOverrideUtility.ClearEncounter(floor.currentGridPosition);
 
         SaveManager.Instance.SaveRun();
         SaveManager.Instance.SaveMeta();

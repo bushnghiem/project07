@@ -12,13 +12,14 @@ public class DefeatEncounterObjective : QuestObjective
         Vector2Int pos =
             QuestUtility.FindEmptyTile(grid, quest);
 
-        TileData tile = grid.grid[pos.x, pos.y];
-
         quest.targetPosition = pos;
 
-        tile.tileType = TileType.Combat;
-        tile.assignedEncounter = encounter;
-        tile.activeQuest = quest;
+        grid.ModifyTile(pos, tile =>
+        {
+            tile.tileType = TileType.Combat;
+            tile.assignedEncounter = encounter;
+            tile.activeQuest = quest;
+        });
     }
 
     public override bool TryComplete(

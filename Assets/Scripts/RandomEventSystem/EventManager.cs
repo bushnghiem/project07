@@ -41,9 +41,8 @@ public class EventManager : MonoBehaviour
         Debug.Log("ShipHolder: " + shipHolder);
         Debug.Log("Players list: " + (shipHolder != null ? shipHolder.allPlayers : null));
 
-        if (outcome.tileModification == TileModification.Clear && !run.currentFloorData.clearedEventTiles.Contains(pos))
+        if (outcome.tileModification == TileModification.Clear)
         {
-            run.currentFloorData.clearedEventTiles.Add(pos);
             gridManager.clearEventTile(pos.x, pos.y);
             gridManager.ClearEventVisualAt(pos.x, pos.y);
         }

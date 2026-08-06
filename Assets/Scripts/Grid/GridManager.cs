@@ -86,8 +86,10 @@ public class GridManager : MonoBehaviour
         PlaceShops();
         PlaceChests();
         PlaceEliteEncounters();
+        
+        ApplyTileOverrides();
+
         QuestManager.Instance.ApplyQuestObjectives(this);
-        ApplyRunModifications();
 
         var floor = RunManager.Instance.CurrentRun.currentFloorData;
 
@@ -233,7 +235,7 @@ public class GridManager : MonoBehaviour
             if (grid[x, y].tileType == TileType.Empty
                 && !IsAdjacentToTileType(x, y, TileType.Shop)
                 && !IsAdjacentToTileType(x, y, TileType.Portal)
-                && !IsAdjacentToTileType(x, y, TileType.Chest));
+                && !IsAdjacentToTileType(x, y, TileType.Chest))
             {
                 grid[x, y].tileType = TileType.Chest;
                 placed++;
@@ -305,56 +307,19 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    void ApplyRunModifications()
-    {
-        var floor = RunManager.Instance.CurrentRun.currentFloorData;
-
-        foreach (var pos in floor.clearedCombatTiles)
-        {
-            if (IsInsideGrid(pos.x, pos.y))
-            {
-                grid[pos.x, pos.y].tileType = TileType.Empty;
-                grid[pos.x, pos.y].assignedEncounter = null;
-            }
-        }
-
-        foreach (var pos in floor.clearedCorruptionTiles)
-        {
-            if (IsInsideGrid(pos.x, pos.y))
-            {
-                grid[pos.x, pos.y].tileType = TileType.Empty;
-                grid[pos.x, pos.y].assignedEncounter = null;
-                grid[pos.x, pos.y].isCorrupted = false;
-            }
-        }
-
-        foreach (var pos in floor.clearedEventTiles)
-        {
-            if (IsInsideGrid(pos.x, pos.y))
-            {
-                grid[pos.x, pos.y].tileType = TileType.Empty;
-                grid[pos.x, pos.y].assignedEvent = null;
-            }
-        }
-
-        foreach (var chest in floor.chests)
-        {
-            if (!chest.opened)
-                continue;
-
-            if (IsInsideGrid(chest.gridPosition.x, chest.gridPosition.y))
-            {
-                grid[chest.gridPosition.x, chest.gridPosition.y].tileType = TileType.Empty;
-            }
-        }
-    }
-
     public void clearEventTile(int x, int y)
     {
         if (IsInsideGrid(x, y))
         {
-            grid[x, y].tileType = TileType.Empty;
-            grid[x, y].assignedEvent = null;
+            var floor = RunManager.Instance.CurrentRun.currentFloorData;
+
+            Vector2Int pos = floor.currentGridPosition;
+
+            ModifyTile(pos, tile =>
+            {
+                tile.tileType = TileType.Empty;
+                tile.assignedEvent = null;
+            });
         }
     }
 
@@ -559,5 +524,82 @@ public class GridManager : MonoBehaviour
             GetWorldPosition(pos.x, pos.y) + Vector3.up * 0.75f,
             Quaternion.identity,
             transform);
+    }
+
+    TileOverride GetOverride(Vector2Int pos)
+    {
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
+
+        return floor.tileOverrides.Find(o => o.position == pos);
+    }
+
+    public void SaveTileOverride(Vector2Int pos)
+    {
+        var tile = grid[pos.x, pos.y];
+
+        TileOverride existing = GetOverride(pos);
+
+        if (existing == null)
+        {
+            existing = new TileOverride();
+            existing.position = pos;
+
+            RunManager.Instance.CurrentRun.currentFloorData
+                .tileOverrides
+                .Add(existing);
+        }
+
+        existing.data = new TileOverrideData
+        {
+            hasTileTypeOverride = true,
+            tileType = tile.tileType,
+
+            hasEncounterOverride = true,
+            encounter = tile.assignedEncounter,
+
+            hasEventOverride = true,
+            assignedEvent = tile.assignedEvent,
+
+            isElite = tile.isElite,
+            isCorrupted = tile.isCorrupted
+        };
+    }
+
+    void ApplyTileOverrides()
+    {
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
+
+        foreach (var overrideTile in floor.tileOverrides)
+        {
+            TileData tile =
+                grid[
+                    overrideTile.position.x,
+                    overrideTile.position.y];
+
+            TileOverrideData data = overrideTile.data;
+
+            if (data.hasTileTypeOverride)
+                tile.tileType = data.tileType;
+
+            if (data.hasEncounterOverride)
+                tile.assignedEncounter = data.encounter;
+
+            if (data.hasEventOverride)
+                tile.assignedEvent = data.assignedEvent;
+
+            tile.isElite = data.isElite;
+            tile.isCorrupted = data.isCorrupted;
+        }
+    }
+
+    public void ModifyTile(Vector2Int pos, System.Action<TileData> modify)
+    {
+        TileData tile = grid[pos.x, pos.y];
+
+        modify(tile);
+
+        SaveTileOverride(pos);
+
+        GenerateVisuals();
     }
 }

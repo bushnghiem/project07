@@ -158,8 +158,13 @@ public class ChestUI : MonoBehaviour
                     chest.opened = true;
                     GridManager grid = FindFirstObjectByType<GridManager>();
 
-                    grid.grid[floor.currentGridPosition.x,
-                              floor.currentGridPosition.y].tileType = TileType.Empty;
+                    Vector2Int pos = floor.currentGridPosition;
+
+
+                    grid.ModifyTile(pos, tile =>
+                    {
+                        tile.tileType = TileType.Empty;
+                    });
 
                     grid.ClearTileVisualAt(
                         floor.currentGridPosition.x,
