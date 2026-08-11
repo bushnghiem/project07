@@ -21,6 +21,7 @@ public class FloorData
     public Vector2Int spawnPosition;
 
     public EncounterData currentEncounter;
+    public int currentEncounterSeed;
 
     public bool currentEncounterIsCorrupted;
 

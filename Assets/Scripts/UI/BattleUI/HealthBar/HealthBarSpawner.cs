@@ -16,7 +16,7 @@ public class WorldHealthBarSpawner : MonoBehaviour
             return;
         }
 
-        Debug.Log($"Spawning health bar for {gameObject.name}");
+        //Debug.Log($"Spawning health bar for {gameObject.name}");
 
         HealthBarUI bar =
             Instantiate(healthBarPrefab);

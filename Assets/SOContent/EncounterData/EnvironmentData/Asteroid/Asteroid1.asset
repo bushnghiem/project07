@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 181f31b7e18c0fc4ca3a1b3371b8f510, type: 3}
   m_Name: Asteroid1
   m_EditorClassIdentifier: Assembly-CSharp::EnvironmentLayout
+  spawnMode: 1
   environmentObjects:
   - prefab: {fileID: 5350854036997245697, guid: 4f4261fe773033547b456f6f655da91b, type: 3}
     position: {x: -20, y: 0, z: 10}
@@ -45,3 +46,16 @@ MonoBehaviour:
     position: {x: -10, y: 0, z: 30}
     rotation: {x: 30, y: 180, z: 300}
     scale: {x: 100, y: 100, z: 100}
+  randomSettings:
+    objectCount: 15
+    prefabs:
+    - prefab: {fileID: 5350854036997245697, guid: 4f4261fe773033547b456f6f655da91b, type: 3}
+      weight: 100
+      collisionRadius: 10
+      minScale: {x: 50, y: 50, z: 50}
+      maxScale: {x: 110, y: 110, z: 110}
+    minDistanceFromShips: 10
+    minDistanceFromEnvironment: 5
+    minDistanceFromCenter: 5
+    maxDistanceFromCenter: 50
+    maxAttemptsPerObject: 30

@@ -98,7 +98,7 @@ public class PlayerActions : MonoBehaviour
         if (battleManager == null)
             return;
 
-        Debug.Log(battleManager.CurrentPhase);
+        //Debug.Log(battleManager.CurrentPhase);
 
         bool overlayOpen =
             BattleUIManager.Instance != null &&

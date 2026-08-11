@@ -36,11 +36,12 @@ public class GridMovement : MonoBehaviour
 
         TileData tile = gridManager.grid[gridPosition.x, gridPosition.y];
         HandleTileEvent(tile);
-
+        /*
         if (!string.IsNullOrEmpty(floor.contentProfile.floorName))
             Debug.Log($"Entering: {floor.contentProfile.floorName}");
         else
             Debug.Log($"Entering Floor {floor.floorIndex + 1}");
+        */
         CheckPendingReward();
     }
 
@@ -159,11 +160,19 @@ public class GridMovement : MonoBehaviour
 
     public void HandleCombatTile(TileData tile)
     {
+        var run = RunManager.Instance.CurrentRun;
         var floor = RunManager.Instance.CurrentRun.currentFloorData;
 
         floor.currentGridPosition = gridPosition;
         floor.currentEncounter = tile.assignedEncounter;
         floor.currentEncounterIsCorrupted = tile.isCorrupted;
+
+        floor.currentEncounterSeed = GetEncounterSeed(
+            run.runSeed,
+            floor.floorSeed,
+            gridPosition
+        );
+
 
         if (tile.isElite)
         {
@@ -273,9 +282,16 @@ public class GridMovement : MonoBehaviour
 
     void StartBossFight()
     {
+        var run = RunManager.Instance.CurrentRun;
         var floor = RunManager.Instance.CurrentRun.currentFloorData;
 
         floor.currentEncounter = floor.contentProfile.bossEncounter;
+
+        floor.currentEncounterSeed =
+        GetBossEncounterSeed(
+            run.runSeed,
+            floor.floorSeed
+        );
 
         Debug.Log("Boss Fight: " + floor.currentEncounter?.encounterName);
 
@@ -331,6 +347,38 @@ public class GridMovement : MonoBehaviour
                     });
 
                 break;
+        }
+    }
+
+    private int GetEncounterSeed(
+    int runSeed,
+    int floorSeed,
+    Vector2Int position)
+    {
+        unchecked
+        {
+            int seed = runSeed;
+
+            seed ^= floorSeed * 486187739;
+            seed ^= position.x * 73856093;
+            seed ^= position.y * 19349663;
+
+            return seed;
+        }
+    }
+
+    private int GetBossEncounterSeed(
+        int runSeed,
+        int floorSeed)
+    {
+        unchecked
+        {
+            int seed = runSeed;
+
+            seed = seed * 31 + floorSeed;
+            seed = seed * 31 + 999999;
+
+            return seed;
         }
     }
 }

@@ -1102,7 +1102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 954764198443734371, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000009541123
+      value: 0.00036289656
       objectReference: {fileID: 0}
     - target: {fileID: 954764198443734371, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5467,6 +5467,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604fd5d6e4ddfa24dac1123aa092734c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnvironmentSpawner
+  shipLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  environmentLayers:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!4 &1758376459
 Transform:
   m_ObjectHideFlags: 0

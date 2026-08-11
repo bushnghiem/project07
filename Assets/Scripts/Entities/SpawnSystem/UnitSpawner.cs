@@ -18,10 +18,10 @@ public class UnitSpawner : MonoBehaviour
 
     private void SpawnTeam(List<ShipRunData> units, FormationData formation, GameObject prefab, Transform anchor)
     {
-        Debug.Log($"units: {units}");
-        Debug.Log($"formation: {formation}");
-        Debug.Log($"prefab: {prefab}");
-        Debug.Log($"anchor: {anchor}");
+        //Debug.Log($"units: {units}");
+        //Debug.Log($"formation: {formation}");
+        //Debug.Log($"prefab: {prefab}");
+        //Debug.Log($"anchor: {anchor}");
         for (int i = 0; i < units.Count; i++)
         {
             Vector3 spawnPos = anchor.position;
@@ -31,17 +31,17 @@ public class UnitSpawner : MonoBehaviour
 
             GameObject obj = Instantiate(prefab, spawnPos, Quaternion.identity);
 
-            Debug.Log(obj);
+            //Debug.Log(obj);
             UnitBase unit = obj.GetComponent<UnitBase>();
             unit.Initialize(units[i]);
 
-            Debug.Log(unit);
+            //Debug.Log(unit);
 
             Enemy enemy = unit as Enemy;
             if (enemy != null)
             {
-                Debug.Log(enemy.aiController);
-                Debug.Log(aiDatabase);
+                //Debug.Log(enemy.aiController);
+                //Debug.Log(aiDatabase);
                 enemy.aiController.InitializeFromRunData(units[i],aiDatabase);
             }
         }
@@ -55,7 +55,7 @@ public class UnitSpawner : MonoBehaviour
     public void SpawnPlayerTeam(List<ShipRunData> players, FormationData formation)
     {
         SpawnTeam(players, formation, playerUnitPrefab, playerAnchor);
-        Debug.Log("Spawned Players");
+       //Debug.Log("Spawned Players");
     }
 
 }

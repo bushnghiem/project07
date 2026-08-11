@@ -12,7 +12,7 @@ public class StatusEffectController : MonoBehaviour
     void Awake()
     {
         unit = GetComponent<Unit>();
-        Debug.Log($"StatusEffectController attached to {unit}");
+        //Debug.Log($"StatusEffectController attached to {unit}");
     }
 
     void OnEnable()
@@ -76,7 +76,7 @@ public class StatusEffectController : MonoBehaviour
 
     public void OnTurnStart()
     {
-        Debug.Log("Call start Turn");
+        //Debug.Log("Call start Turn");
 
         for (int i = activeEffects.Count - 1; i >= 0; i--)
         {
@@ -86,7 +86,7 @@ public class StatusEffectController : MonoBehaviour
 
     public void OnTurnEnd()
     {
-        Debug.Log("Call end Turn");
+        //Debug.Log("Call end Turn");
 
         for (int i = activeEffects.Count - 1; i >= 0; i--)
         {

@@ -13,21 +13,42 @@ public class TestRun : MonoBehaviour
 
         MusicManager.PlayMusic(encounterData.music);
 
-        unitSpawner.SetAnchorPositions(encounterData.playerAnchorPosition, encounterData.enemyAnchorPosition);
+        unitSpawner.SetAnchorPositions(
+            encounterData.playerAnchorPosition,
+            encounterData.enemyAnchorPosition
+        );
 
         if (encounterData.playerFormation != null)
         {
-            unitSpawner.SpawnPlayerTeam(runData.team, encounterData.playerFormation);
+            unitSpawner.SpawnPlayerTeam(
+                runData.team,
+                encounterData.playerFormation
+            );
         }
         else
         {
-            unitSpawner.SpawnPlayerTeam(runData.team, runData.playerFormation);
+            unitSpawner.SpawnPlayerTeam(
+                runData.team,
+                runData.playerFormation
+            );
         }
 
-        unitSpawner.SpawnEnemyTeam(encounterData.enemies, encounterData.enemyFormation);
+        unitSpawner.SpawnEnemyTeam(
+            encounterData.enemies,
+            encounterData.enemyFormation
+        );
+
         if (encounterData.environmentLayout != null)
         {
-            environmentSpawner.SpawnEnvironment(encounterData.environmentLayout);
+            Vector3 combatCenter =
+                (encounterData.playerAnchorPosition +
+                 encounterData.enemyAnchorPosition) * 0.5f;
+            Debug.Log(runData.currentFloorData.currentEncounterSeed);
+            environmentSpawner.SpawnEnvironment(
+                encounterData.environmentLayout,
+                combatCenter,
+                runData.currentFloorData.currentEncounterSeed
+            );
         }
     }
 
