@@ -98,6 +98,11 @@ public class GridMovement : MonoBehaviour
 
     void HandleTileEvent(TileData tile)
     {
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
+        if (floor.pendingReward != PendingRewardType.None)
+        {
+            return;
+        }
         switch (tile.tileType)
         {
             case TileType.Event:
@@ -316,6 +321,13 @@ public class GridMovement : MonoBehaviour
     void CheckPendingReward()
     {
         var floor = RunManager.Instance.CurrentRun.currentFloorData;
+        TileData tile = gridManager.grid[gridPosition.x, gridPosition.y];
+        HandleTileEvent(tile);
+
+        if (tile.tileType == TileType.Combat)
+        {
+            return;
+        }
 
         switch (floor.pendingReward)
         {
