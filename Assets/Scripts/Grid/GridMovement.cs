@@ -99,10 +99,10 @@ public class GridMovement : MonoBehaviour
     void HandleTileEvent(TileData tile)
     {
         var floor = RunManager.Instance.CurrentRun.currentFloorData;
-        if (floor.pendingReward != PendingRewardType.None)
-        {
-            return;
-        }
+        //if (floor.pendingReward != PendingRewardType.None)
+       // {
+       //     return;
+       // }
         switch (tile.tileType)
         {
             case TileType.Event:
@@ -198,12 +198,14 @@ public class GridMovement : MonoBehaviour
         // Boss floor and boss not defeated yet
         if (IsBossFloor() && !floor.bossDefeated)
         {
+            Debug.Log("Start Boss");
             floor.pendingReward = PendingRewardType.Boss;
             StartBossFight();
             return;
         }
         else
         {
+            Debug.Log("Don't Start Boss");
             if (floor.pendingReward != PendingRewardType.Boss)
             {
                 StartCoroutine(HandleFloorTransition());
@@ -325,6 +327,11 @@ public class GridMovement : MonoBehaviour
         HandleTileEvent(tile);
 
         if (tile.tileType == TileType.Combat)
+        {
+            return;
+        }
+
+        if (tile.tileType == TileType.Portal && !floor.bossDefeated)
         {
             return;
         }

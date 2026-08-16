@@ -15,9 +15,10 @@ MonoBehaviour:
   encounterName: Solo Pirate
   enemies:
   - uniqueID: Pirate
-    templateID: ship_scrap_ship
+    templateID: ship_pirate
     aiBehaviorID: default_ai
     currentHealth: 100
+    currentCharges: 0
     isDead: 0
     statModifiers: []
     items:
