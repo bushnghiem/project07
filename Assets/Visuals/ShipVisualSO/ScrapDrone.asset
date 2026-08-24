@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a56ede619abf93e44aa09a42e54d2a70, type: 3}
+  m_Name: ScrapDrone
+  m_EditorClassIdentifier: Assembly-CSharp::ShipVisualData
+  visualPrefab: {fileID: 4709177694803210717, guid: 8585beec7a7d11d4b956d6a9baa83146, type: 3}
+  visualScale: 0.5
+  shipIcon: {fileID: 21300000, guid: 0562afe0fa667cb4b9bd5483dc9d8348, type: 3}
+  overrideMaterial: {fileID: 0}

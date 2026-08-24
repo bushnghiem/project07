@@ -13,8 +13,9 @@ public class ShipAudioComponent : MonoBehaviour
         unit = GetComponent<UnitBase>();
     }
 
-    private void Start()
+    public void SetUp()
     {
+        Debug.Log("Audio Data is set up");
         audioData = unit.Template.AudioData;
     }
 

@@ -32,6 +32,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bf2a9fd193ea26d43a88b72107aa5e7a, type: 2}
   - {fileID: 11400000, guid: 7ff246d9ab758c64181976bf1c5c818b, type: 2}
   - {fileID: 11400000, guid: 3c8c9a3d692cbc548b5d7a140d37e20e, type: 2}
+  - {fileID: 11400000, guid: 0c15ee423cfad44428842d0e904ea9bc, type: 2}
   eliteEncounters:
   - {fileID: 11400000, guid: d643acb2ea1cabf4798ac726933d2251, type: 2}
   corruptionEncounters:

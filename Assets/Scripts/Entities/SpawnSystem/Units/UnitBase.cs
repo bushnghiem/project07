@@ -119,7 +119,7 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
     {
         runData = data;
         template = shipDatabase.GetTemplate(runData.templateID);
-
+        audioComp.SetUp();
         ApplyStats();
         //collisionDamageComp.SetCollisionSounds(template.AudioData.Collision);
     }

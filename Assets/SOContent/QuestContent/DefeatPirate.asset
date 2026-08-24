@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69089d811fce9834491ff3d953ac90fd, type: 3}
   m_Name: DefeatPirate
   m_EditorClassIdentifier: Assembly-CSharp::DefeatEncounterObjective
-  encounter: {fileID: 11400000, guid: e0181069af6320f4e807c10a5b5ecb77, type: 2}
+  encounter: {fileID: 11400000, guid: 0c15ee423cfad44428842d0e904ea9bc, type: 2}
