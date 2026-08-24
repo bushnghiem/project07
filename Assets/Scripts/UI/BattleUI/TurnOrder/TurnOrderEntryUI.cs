@@ -11,14 +11,9 @@ public class TurnOrderEntryUI : MonoBehaviour
     public void Setup(Unit unit, bool isCurrentTurn)
     {
         this.unit = unit;
-
+        UnitBase unitBase = unit as UnitBase;
         SetCurrent(isCurrentTurn);
-
-        // Temporary coloring until portraits are added
-        portraitImage.color =
-            unit.IsPlayerControllable
-            ? Color.cyan
-            : Color.red;
+        portraitImage.sprite = unitBase.Template.VisualData.shipIcon;
     }
 
     public void SetCurrent(bool value)

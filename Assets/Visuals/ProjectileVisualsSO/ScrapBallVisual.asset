@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileVisualData
   visualPrefab: {fileID: 7072269872703248457, guid: e3ecb60ab05e8394e96552df71b0d3da, type: 3}
   overrideMaterial: {fileID: 0}
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 84c7da9cfd340c74ea2fc1d691a1635d, type: 3}
   visualScale: 80
