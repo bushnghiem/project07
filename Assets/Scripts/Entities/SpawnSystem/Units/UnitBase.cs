@@ -242,6 +242,20 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
         }
     }
 
+    public bool RemoveItemFromRunData(Item item)
+    {
+        if (runData.items == null || item == null)
+            return false;
+
+        int index = runData.items.FindIndex(i => i.itemID == item.itemID);
+
+        if (index < 0)
+            return false;
+
+        runData.items.RemoveAt(index);
+        return true;
+    }
+
     public virtual void EquipPassive(PassiveItem passive)
     {
         var instance = new PassiveItemInstance(passive);
@@ -249,14 +263,19 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
         passiveItems.Add(instance);
     }
 
-    public virtual void RemovePassive(PassiveItem passive)
+    public virtual bool RemovePassive(PassiveItem passive)
     {
         var instance = passiveItems.Find(p => p.itemData == passive);
-        if (instance != null)
-        {
-            instance.Remove(this);
-            passiveItems.Remove(instance);
-        }
+
+        if (instance == null)
+            return false;
+
+        instance.Remove(this);
+        passiveItems.Remove(instance);
+
+        RemoveItemFromRunData(passive);
+
+        return true;
     }
 
     public virtual void EquipActive(ActiveItem item)
@@ -264,14 +283,30 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
         activeItem = new ActiveItemInstance(item);
     }
 
+    public virtual bool RemoveActive(ActiveItem item)
+    {
+        if (activeItem == null)
+            return false;
+
+        if (activeItem.itemData != item)
+            return false;
+
+        activeItem = null;
+
+        RemoveItemFromRunData(item);
+
+        return true;
+    }
+
     public virtual void EquipProjectile(ProjectileItem projectileItem)
     {
+        RemoveOnShootProjectileInjectedEffects(effectController);
+
         this.projectile = projectileItem.projectile;
         this.projectileItem = projectileItem;
 
-        if (effectController == null) return;
-
-        RemoveOnShootProjectileInjectedEffects(effectController);
+        if (effectController == null)
+            return;
 
         if (this.projectile.effects != null)
         {
@@ -279,23 +314,48 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
             {
                 if (effect.trigger == EffectTrigger.OnShoot)
                 {
-                    Effect projectileInjectedEffect = Instantiate(effect);
-                    effectController.effects.Add(projectileInjectedEffect);
-                    onShootEffectsFromProjectile.Add(projectileInjectedEffect);
+                    Effect runtimeEffect = Instantiate(effect);
+                    effectController.effects.Add(runtimeEffect);
+                    onShootEffectsFromProjectile.Add(runtimeEffect);
                 }
             }
         }
     }
 
-    protected void RemoveOnShootProjectileInjectedEffects(EffectController effectController)
+
+    public virtual bool RemoveProjectile(ProjectileItem item)
+    {
+        if (projectileItem == null)
+            return false;
+
+        if (projectileItem != item)
+            return false;
+
+        RemoveOnShootProjectileInjectedEffects(effectController);
+
+        projectile = null;
+        projectileItem = null;
+
+        RemoveItemFromRunData(item);
+
+        return true;
+    }
+
+    protected void RemoveOnShootProjectileInjectedEffects(
+    EffectController effectController)
     {
         foreach (var effect in onShootEffectsFromProjectile)
         {
-            effectController.effects.Remove(effect);
+            if (effectController != null)
+                effectController.effects.Remove(effect);
+
+            Destroy(effect);
         }
 
         onShootEffectsFromProjectile.Clear();
     }
+
+
 
     public void AddProjectileRuntimeEffect(Effect effect)
     {
@@ -329,17 +389,11 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
     public void AddItemToRunData(Item item)
     {
+        if (item == null)
+            return;
+
         if (runData.items == null)
             runData.items = new List<ItemSaveData>();
-
-        if (item.slotType != ItemSlotType.Passive)
-        {
-            runData.items.RemoveAll(i =>
-            {
-                Item existing = GetItemFromID(i.itemID);
-                return existing != null && existing.slotType == item.slotType;
-            });
-        }
 
         runData.items.Add(new ItemSaveData
         {
@@ -357,6 +411,123 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
         return itemDatabaseRef.GetItem(id);
     }
+
+    public bool HasItem(Item item)
+    {
+        return GetItemCount(item) > 0;
+    }
+
+    public bool HasItem(string itemID)
+    {
+        if (string.IsNullOrEmpty(itemID))
+            return false;
+
+        Item item = GetItemFromID(itemID);
+
+        return item != null && HasItem(item);
+    }
+
+
+    public int GetItemCount(Item item)
+    {
+        if (item == null)
+            return 0;
+
+        switch (item.slotType)
+        {
+            case ItemSlotType.Passive:
+                int count = 0;
+
+                foreach (var instance in passiveItems)
+                {
+                    if (instance.itemData == item)
+                        count++;
+                }
+
+                return count;
+
+            case ItemSlotType.Active:
+                return activeItem != null &&
+                       activeItem.itemData == item
+                    ? 1
+                    : 0;
+
+            case ItemSlotType.Projectile:
+                return projectileItem == item
+                    ? 1
+                    : 0;
+
+            default:
+                return 0;
+        }
+    }
+
+    public int GetItemCount(string itemID)
+    {
+        if (string.IsNullOrEmpty(itemID))
+            return 0;
+
+        Item item = GetItemFromID(itemID);
+
+        return item != null ? GetItemCount(item) : 0;
+    }
+
+    public virtual bool AcquireItem(Item item)
+    {
+        if (item == null)
+            return false;
+
+        if (item.slotType != ItemSlotType.Passive)
+        {
+            Item existingItem = GetItem(item.slotType);
+
+            if (existingItem != null)
+                Debug.Log("Not Passive Remove old Item");
+                RemoveItem(existingItem);
+        }
+
+        item.OnAcquire(this);
+        AddItemToRunData(item);
+
+        return true;
+    }
+
+    public Item GetItem(ItemSlotType slotType)
+    {
+        switch (slotType)
+        {
+            case ItemSlotType.Active:
+                return activeItem?.itemData;
+
+            case ItemSlotType.Projectile:
+                return projectileItem;
+
+            default:
+                return null;
+        }
+    }
+
+    public virtual bool RemoveItem(Item item)
+    {
+        if (item == null)
+            return false;
+
+        switch (item)
+        {
+            case PassiveItem passive:
+                return RemovePassive(passive);
+
+            case ActiveItem active:
+                return RemoveActive(active);
+
+            case ProjectileItem projectile:
+                return RemoveProjectile(projectile);
+
+            default:
+                return false;
+        }
+    }
+
 
     public void RefreshItemDebug()
     {

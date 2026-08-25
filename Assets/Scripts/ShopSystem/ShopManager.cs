@@ -98,10 +98,8 @@ public class ShopManager : MonoBehaviour
         */
         shopItem.purchased = true;
 
-        shopItem.item.OnAcquire(player);
-
-        player.AddItemToRunData(shopItem.item);
-        player.RefreshItemDebug();
+        RewardManager.Instance.AddItemToPlayer(player, shopItem.item);
+        //player.RefreshItemDebug();
 
         return true;
     }

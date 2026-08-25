@@ -81,19 +81,51 @@ public class RewardManager : MonoBehaviour
         player.Hurt(damageInfo);
     }
 
+    public void AddItemToPlayer(Player player, Item item)
+    {
+        player.AcquireItem(item);
+    }
+
     public void AddItemToAllPlayers(Item item)
     {
         foreach (var player in shipHolder.allPlayers)
         {
-            item.OnAcquire(player);
-            player.AddItemToRunData(item);
+            player.AcquireItem(item);
         }
     }
 
-    public void AddItemToPlayer(Player player, Item item)
+    public bool HasItem(Player player, Item item)
     {
-        item.OnAcquire(player);
-        player.AddItemToRunData(item);
+        return player.HasItem(item);
+    }
+
+    public bool AllPlayersHaveItem(Item item)
+    {
+        foreach (var player in shipHolder.allPlayers)
+        {
+            if (!player.HasItem(item))
+                return false;
+        }
+
+        return true;
+    }
+
+    public bool RemoveItemFromPlayer(Player player, Item item)
+    {
+        return player.RemoveItem(item);
+    }
+
+    public bool RemoveItemFromAllPlayers(Item item)
+    {
+        bool removedAny = false;
+
+        foreach (var player in shipHolder.allPlayers)
+        {
+            if (player.RemoveItem(item))
+                removedAny = true;
+        }
+
+        return removedAny;
     }
 
     public void AddChargesToAllPlayers(int amount)
