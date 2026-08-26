@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Quest Objectives/Visit Location")]
 public class ReachLocationObjective : QuestObjective
 {
     public override void PlaceObjective(GridManager grid,

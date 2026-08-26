@@ -12,4 +12,6 @@ public class QuestInstance
     public Vector2Int targetPosition;
 
     public object runtimeData;
+
+    public string deliveryPlayerId;
 }

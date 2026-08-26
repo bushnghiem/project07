@@ -19,9 +19,9 @@ MonoBehaviour:
   price: 100
   slotType: 2
   statAdjustments:
-  - statType: 4
+  - statType: 5
     flatBonus: 5
     percentBonus: 0
-  - statType: 7
+  - statType: 8
     flatBonus: 100
     percentBonus: 0

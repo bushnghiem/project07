@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc24fce5b4cfa2f478c7d2f9f6de8283, type: 3}
-  m_Name: DeliverTest
+  m_Script: {fileID: 11500000, guid: 9784fa22f73013b4184c7b03c28d5524, type: 3}
+  m_Name: ItemDelivery
   m_EditorClassIdentifier: Assembly-CSharp::DeliverItemObjective
-  item:
-  - {fileID: 11400000, guid: 47c47d562818bd54a9685eefc20ca448, type: 2}

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Quest Objectives/Visit Portal")]
 public class VisitPortalObjective : QuestObjective
 {
     public override void PlaceObjective(GridManager grid,

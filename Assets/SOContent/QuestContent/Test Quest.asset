@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: Test Quest
   m_EditorClassIdentifier: Assembly-CSharp::QuestData
   questId: 0
-  questName: Go To the Tile
-  description: Go to the Location
-  objective: {fileID: 11400000, guid: 102c76c046ffbb546aafc66732312b3b, type: 2}
+  questName: Delivery
+  description: 'Deliver the Bulk Cargo
+
+'
+  objective: {fileID: 11400000, guid: 7b2bc9866198cb643955b4606fa18be6, type: 2}
   floorsAhead: 0
   rewards:
   - {fileID: 11400000, guid: dd81e06afc039b847a8e131283561633, type: 2}
   - {fileID: 11400000, guid: 3651b6826b53d144b81d0a525bed07fe, type: 2}
   rewardsToChoose: 2
+  deliveryItem: {fileID: 11400000, guid: 7e68fc54394137149807636a55ad5520, type: 2}

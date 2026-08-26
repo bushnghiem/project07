@@ -18,4 +18,6 @@ public class QuestData : ScriptableObject
     public List<RewardDefinition> rewards;
 
     public int rewardsToChoose = 1;
+
+    public Item deliveryItem;
 }

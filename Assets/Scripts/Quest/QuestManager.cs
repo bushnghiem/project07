@@ -35,16 +35,25 @@ public class QuestManager : MonoBehaviour
 
         run.activeQuests.Add(instance);
 
-        SaveManager.Instance.SaveRun();
+        quest.objective.OnQuestStarted(
+            instance,
+            () =>
+            {
+                SaveManager.Instance.SaveRun();
 
-        if (CurrentGrid != null)
-        {
-            ApplyQuestObjectives(CurrentGrid);
-            CurrentGrid.GenerateVisuals();
-        }
+                if (CurrentGrid != null)
+                {
+                    ApplyQuestObjectives(CurrentGrid);
+                    CurrentGrid.GenerateVisuals();
+                }
 
-        Debug.Log("Started quest: " + quest.questName);
+                Debug.Log(
+                    "Started quest: " +
+                    quest.questName);
+            });
     }
+
+
 
     public void ApplyQuestObjectives(GridManager grid)
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Quest Objectives/Defeat Encounter")]
 public class DefeatEncounterObjective : QuestObjective
 {
     public EncounterData encounter;
