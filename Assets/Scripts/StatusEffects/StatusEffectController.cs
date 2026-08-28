@@ -50,15 +50,72 @@ public class StatusEffectController : MonoBehaviour
 
         OnEffectsChanged?.Invoke();
 
-        //Debug.Log($"Applied effect: {data.name} | stacks={stacks} on {unit}");
+        Debug.Log($"Applied effect: {data.name} | stacks={stacks} on {unit}");
     }
 
     public void RemoveEffect(StatusEffectInstance effect)
     {
+        if (effect == null)
+            return;
+
+        if (!activeEffects.Remove(effect))
+            return;
+
         effect.OnRemove();
-        activeEffects.Remove(effect);
 
         OnEffectsChanged?.Invoke();
+    }
+
+    public bool HasEffect(StatusEffectData data)
+    {
+        return activeEffects.Exists(e => e.data == data);
+    }
+
+    public StatusEffectInstance GetEffect(StatusEffectData data)
+    {
+        return activeEffects.Find(e => e.data == data);
+    }
+
+    public bool RemoveEffect(StatusEffectData data)
+    {
+        var effect = GetEffect(data);
+
+        if (effect == null)
+            return false;
+
+        RemoveEffect(effect);
+        return true;
+    }
+
+    public float ModifyStat(
+        ShipStatType statType,
+        float value)
+    {
+        float result = value;
+
+        foreach (var effect in activeEffects)
+        {
+            result = effect.ModifyStat(statType, result);
+        }
+
+        return result;
+    }
+
+    public float ModifyIncomingDamage(
+    DamageInfo damageInfo,
+    float damage)
+    {
+        float result = damage;
+
+        foreach (var effect in activeEffects)
+        {
+            result = effect.ModifyIncomingDamage(
+                damageInfo,
+                result
+            );
+        }
+
+        return result;
     }
 
     void OnUnitEvent(UnitEvent e)
@@ -98,7 +155,6 @@ public class StatusEffectController : MonoBehaviour
             if (effect.IsExpired)
             {
                 RemoveEffect(effect);
-                OnEffectsChanged?.Invoke();
             }
                 
         }

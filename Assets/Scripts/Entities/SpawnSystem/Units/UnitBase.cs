@@ -51,7 +51,11 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
     protected int currentAP;
     public int CurrentAP => currentAP;
-    protected int MaxAP;
+    public int MaxAP =>
+        Mathf.Max(0, Mathf.RoundToInt(
+            GetStat(ShipStatType.ActionPoints)
+        ));
+
 
     public ActiveItemInstance ActiveItem => activeItem;
 
@@ -113,6 +117,21 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
         statusController = GetComponent<StatusEffectController>();
         sphereCollider = GetComponent<SphereCollider>();
         audioComp = GetComponent<ShipAudioComponent>();
+        statusController = GetComponent<StatusEffectController>();
+
+        if (statusController != null)
+        {
+            statusController.OnEffectsChanged += OnStatusEffectsChanged;
+        }
+
+    }
+
+    protected virtual void OnDestroy()
+    {
+        if (statusController != null)
+        {
+            statusController.OnEffectsChanged -= OnStatusEffectsChanged;
+        }
     }
 
     public virtual void Initialize(ShipRunData data)
@@ -126,34 +145,49 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
     protected virtual void ApplyStats()
     {
+        // Things that need to be initialized.
         float maxHealth = GetStat(ShipStatType.MaxHealth);
         int maxCharges = Mathf.RoundToInt(GetStat(ShipStatType.MaxCharges));
         int shield = Mathf.RoundToInt(GetStat(ShipStatType.StartingShield));
-        float mass = GetStat(ShipStatType.Mass);
-        float collisionDamage = GetStat(ShipStatType.CollisionDamage);
-        float collisionKnockback = GetStat(ShipStatType.CollisionKnockback);
-        MaxAP = (int)GetStat(ShipStatType.ActionPoints);
 
         healthComp.SetMaxHealth(maxHealth);
         healthComp.SetShield(shield);
         chargeComp.SetMaxCharges(maxCharges);
 
         healthComp.SetCurrentHealth(
-            runData.currentHealth > 0 ? runData.currentHealth : maxHealth
-            );
+            runData.currentHealth > 0
+                ? runData.currentHealth
+                : maxHealth
+        );
 
         chargeComp.SetCurrentCharges(runData.currentCharges);
 
-        rb.mass = mass;
-
-        if (collisionDamageComp != null)
-            collisionDamageComp.SetCollisionStats(collisionDamage, collisionKnockback);
+        RefreshDerivedStats();
 
         if (sphereCollider != null)
-        {
             sphereCollider.radius = template.CollisionRadius;
+    }
+
+    protected virtual void RefreshDerivedStats()
+    {
+        if (rb != null)
+            rb.mass = GetStat(ShipStatType.Mass);
+
+        if (collisionDamageComp != null)
+        {
+            collisionDamageComp.SetCollisionStats(
+                GetStat(ShipStatType.CollisionDamage),
+                GetStat(ShipStatType.CollisionKnockback)
+            );
         }
     }
+
+    private void OnStatusEffectsChanged()
+    {
+        statsDirty = true;
+        RefreshDerivedStats();
+    }
+
 
     public float GetStat(ShipStatType statType)
     {
@@ -186,7 +220,16 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
             float finalValue = (baseValue + totalFlat) * (1f + totalPercent);
 
+            if (statusController != null)
+            {
+                finalValue = statusController.ModifyStat(
+                    statType,
+                    finalValue
+                );
+            }
+
             cachedStats[statType] = finalValue;
+
 
             debugStats.Add(new DebugStatEntry
             {
@@ -202,15 +245,16 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
     {
         runData.statModifiers.Add(modifier);
         statsDirty = true;
-        ApplyStats();
+        RefreshDerivedStats();
     }
 
     public void RemoveStatModifier(StatModifier modifier)
     {
         runData.statModifiers.Remove(modifier);
         statsDirty = true;
-        ApplyStats();
+        RefreshDerivedStats();
     }
+
 
     public void RemoveModifiersFromSource(string sourceID)
     {
@@ -656,6 +700,15 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
             Debug.Log($"Damage after Element Resistance: {finalDamage}");
         }
 
+        // Status effects
+        if (statusController != null)
+        {
+            finalDamage = statusController.ModifyIncomingDamage(
+                damageInfo,
+                finalDamage
+            );
+        }
+
         DamageInfo resolvedDamage = damageInfo;
         resolvedDamage.Amount = finalDamage;
 
@@ -705,6 +758,12 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
             source = this,
             type = UnitEventType.Move
         });
+
+        effectController?.TriggerEffects(
+            EffectTrigger.OnMove,
+            transform.position,
+            this
+        );
     }
 
     public void Shot()

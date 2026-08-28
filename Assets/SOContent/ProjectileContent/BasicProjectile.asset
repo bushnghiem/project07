@@ -16,8 +16,11 @@ MonoBehaviour:
   projectileName: Basic
   effects:
   - {fileID: 11400000, guid: b0481528f2774814b8c7a6ee7a4dd213, type: 2}
-  movements:
-  - {fileID: 11400000, guid: 8ccc2fd4c44007f4685891ae17d3db0b, type: 2}
+  statusEffects:
+  - effect: {fileID: 0}
+    stacks: 0
+    sourceID: 
+  movements: []
   baseStats:
   - statType: 0
     value: 10

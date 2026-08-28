@@ -4,5 +4,6 @@ public enum EffectTrigger
 {
     OnShoot,
     OnDeath,
-    OnHit
+    OnHit,
+    OnMove
 }

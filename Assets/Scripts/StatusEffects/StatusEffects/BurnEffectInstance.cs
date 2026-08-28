@@ -31,11 +31,9 @@ public class BurnEffectInstance : StatusEffectInstance
 
     public override void OnTurnEnd()
     {
-        SetStacks(Stacks - 1);
+        RemoveStacks(1);
 
         if (Stacks <= 0)
-        {
             SetDuration(0);
-        }
     }
 }

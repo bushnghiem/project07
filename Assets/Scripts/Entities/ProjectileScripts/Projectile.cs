@@ -44,6 +44,9 @@ public class Projectile : ScriptableObject
     [Header("Effects")]
     public List<Effect> effects;
 
+    [Header("Status Effects")]
+    public List<AppliedStatusEffect> statusEffects;
+
     [Header("Movement")]
     public List<ProjectileMovement> movements = new();
 

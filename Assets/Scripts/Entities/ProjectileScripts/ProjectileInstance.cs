@@ -123,6 +123,17 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
             }
         }
 
+        if (template.statusEffects != null)
+        {
+            foreach (var applied in template.statusEffects)
+            {
+                if (applied.effect == null)
+                    continue;
+
+                collisionDamageComp.statusEffects.Add(applied);
+            }
+        }
+
         if (template.useLifetime)
         {
             Invoke(nameof(Expire), template.lifeTime);

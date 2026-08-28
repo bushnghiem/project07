@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae059c4c82793984092cf630b6f73ec8, type: 3}
+  m_Name: DrillBuff
+  m_EditorClassIdentifier: Assembly-CSharp::CompositePassive
+  itemID: passive_drill_buff
+  itemName: Spinning Drill
+  icon: {fileID: 21300000, guid: ac471b1b50d46134781b4c2236ec8550, type: 3}
+  description: Gain Collision Damage on Move
+  price: 100
+  slotType: 2
+  modifiers:
+  - {fileID: 11400000, guid: 283d3a03591544e41b90e4f6d28e158f, type: 2}

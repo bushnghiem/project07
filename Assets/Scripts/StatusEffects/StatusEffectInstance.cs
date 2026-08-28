@@ -18,6 +18,25 @@ public abstract class StatusEffectInstance
         RemainingDuration = value;
     }
 
+    public void AddStacks(int amount)
+    {
+        Stacks = Mathf.Clamp(
+            Stacks + amount,
+            0,
+            data.maxStacks
+        );
+    }
+
+    public void RemoveStacks(int amount)
+    {
+        Stacks = Mathf.Max(0, Stacks - amount);
+    }
+
+    public void RefreshDuration()
+    {
+        RemainingDuration = data.duration;
+    }
+
     public virtual void OnApply() { }
     public virtual void OnRemove() { }
 
@@ -25,6 +44,21 @@ public abstract class StatusEffectInstance
     public virtual void OnTurnEnd() { }
 
     public virtual void OnEvent(UnitEvent e) { }
+
+    public virtual float ModifyStat(
+        ShipStatType statType,
+        float value)
+    {
+        return value;
+    }
+
+    public virtual float ModifyIncomingDamage(
+        DamageInfo damageInfo,
+        float damage)
+    {
+        return damage;
+    }
+
 
     public virtual void TickDuration()
     {
@@ -38,7 +72,7 @@ public abstract class StatusEffectInstance
         this.data = data;
         this.target = target;
 
-        this.Stacks = stacks;
-        this.RemainingDuration = data.duration;
+        Stacks = stacks;
+        RemainingDuration = data.duration;
     }
 }
