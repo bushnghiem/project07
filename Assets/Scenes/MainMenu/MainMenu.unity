@@ -504,12 +504,11 @@ MonoBehaviour:
       currentGridPosition: {x: 0, y: 0}
       spawnPosition: {x: 0, y: 0}
       currentEncounter: {fileID: 0}
+      currentEncounterSeed: 0
       currentEncounterIsCorrupted: 0
       timeElapsed: 0
       nextCorruptionTimeThreshold: 5
-      clearedCombatTiles: []
-      clearedCorruptionTiles: []
-      clearedEventTiles: []
+      tileOverrides: []
       discoveredEventTiles: []
       shops: []
       chests: []
@@ -517,13 +516,14 @@ MonoBehaviour:
       hasShownFloorIntro: 0
       hasInitializedSpawn: 0
       bossDefeated: 0
+      pendingReward: 0
     completedFloors: []
     playerFormation: {fileID: 11400000, guid: ea09909161c27d04d923a2d9c407861b, type: 2}
     team:
     - uniqueID: Player 1
       templateID: 0
       aiBehaviorID: 
-      currentHealth: 90
+      currentHealth: 80
       currentCharges: 0
       isDead: 0
       statModifiers: []
@@ -550,6 +550,7 @@ MonoBehaviour:
       - itemID: passive_all_fire
       - itemID: passive_side_cannons
       - itemID: passive_three_burst
+    activeQuests: []
     runCurrency: 0
     runKeys: 100
   continueButton: {fileID: 1354013984}

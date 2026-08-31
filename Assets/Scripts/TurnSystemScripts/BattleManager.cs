@@ -83,10 +83,11 @@ public class BattleManager : MonoBehaviour
         if (index == -1) return;
 
         // If the removed unit is before the current index, shift the index back
-        if (index < currentIndex)
+        if (index <= currentIndex)
         {
             currentIndex--;
         }
+
 
         allUnits.RemoveAt(index);
 

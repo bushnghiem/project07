@@ -1,15 +1,18 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StatusEffectRowUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text effectNameText;
     [SerializeField] private TMP_Text stacksText;
     [SerializeField] private TMP_Text durationText;
+    [SerializeField] private Image statusImage;
 
     public void Setup(StatusEffectInstance effect)
     {
         effectNameText.text = effect.data.displayName;
+        statusImage.sprite = effect.data.statusIcon;
 
         stacksText.text =
             effect.data.isStackable
