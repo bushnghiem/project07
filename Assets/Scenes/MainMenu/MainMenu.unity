@@ -507,7 +507,7 @@ MonoBehaviour:
       currentEncounterSeed: 0
       currentEncounterIsCorrupted: 0
       timeElapsed: 0
-      nextCorruptionTimeThreshold: 5
+      nextCorruptionTimeThreshold: 20
       tileOverrides: []
       discoveredEventTiles: []
       shops: []
@@ -553,6 +553,7 @@ MonoBehaviour:
     activeQuests: []
     runCurrency: 0
     runKeys: 100
+    usedUniqueEventIds: []
   continueButton: {fileID: 1354013984}
 --- !u!4 &295304960
 Transform:

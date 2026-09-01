@@ -5,7 +5,7 @@ public class CorruptionManager : MonoBehaviour
 {
     public static CorruptionManager Instance;
 
-    public int stepsPerShrink = 5;
+    public int stepsPerShrink = 20;
     public int currentRadius;
 
     private GridManager grid;

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: DebrisField
   m_EditorClassIdentifier: Assembly-CSharp::EventData
   eventName: Debris Field
+  eventId: ae7dbe55-bb78-48ea-b50b-64b52ae7fd4f
   description: You find yourself caught in a debris field. You could have sworn that
     you were careful.
   options:
@@ -34,6 +35,7 @@ MonoBehaviour:
           bypassResistance: 0
         encounter: {fileID: 0}
         item: {fileID: 0}
+        quest: {fileID: 0}
         chance: 1
     - groupName: 
       description: Ran Into Debris
@@ -50,6 +52,7 @@ MonoBehaviour:
           bypassResistance: 0
         encounter: {fileID: 0}
         item: {fileID: 0}
+        quest: {fileID: 0}
         chance: 1
       - type: 9
         tileModification: 0
@@ -62,6 +65,7 @@ MonoBehaviour:
           bypassResistance: 0
         encounter: {fileID: 0}
         item: {fileID: 0}
+        quest: {fileID: 0}
         chance: 1
     removeAfterUse: 0
   - optionText: Carefully Navigate
@@ -82,8 +86,9 @@ MonoBehaviour:
           bypassResistance: 0
         encounter: {fileID: 0}
         item: {fileID: 0}
+        quest: {fileID: 0}
         chance: 1
     removeAfterUse: 0
   minFloor: 0
-  maxFloor: 0
+  maxFloor: 3
   unique: 0

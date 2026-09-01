@@ -26,7 +26,7 @@ public class FloorData
     public bool currentEncounterIsCorrupted;
 
     public int timeElapsed = 0;
-    public int nextCorruptionTimeThreshold = 5;
+    public int nextCorruptionTimeThreshold = 20;
 
     public int TurnsUntilCorruption => nextCorruptionTimeThreshold - timeElapsed;
 

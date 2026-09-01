@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Test Quest
   m_EditorClassIdentifier: Assembly-CSharp::EventData
   eventName: Test Quest
+  eventId: 40619c47-f6c3-425f-b4c5-26e27dc31716
   description: 'Give The Player a Quest
 
 '
@@ -39,5 +40,5 @@ MonoBehaviour:
         chance: 1
     removeAfterUse: 0
   minFloor: 0
-  maxFloor: 0
-  unique: 0
+  maxFloor: 3
+  unique: 1

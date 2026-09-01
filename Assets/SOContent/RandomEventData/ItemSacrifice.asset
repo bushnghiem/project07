@@ -13,48 +13,16 @@ MonoBehaviour:
   m_Name: ItemSacrifice
   m_EditorClassIdentifier: Assembly-CSharp::EventData
   eventName: Get this item
+  eventId: fa42fd18-17df-4d85-98b7-76c9812e28b5
   description: It Hurts
   options:
   - optionText: Item
     conditions: []
-    outcomes:
-    - type: 5
-      tileModification: 0
-      value: 0
-      damage:
-        amount: 0
-        category: 0
-        element: 0
-        bypassShields: 0
-        bypassResistance: 0
-      encounter: {fileID: 0}
-      item: {fileID: 11400000, guid: 8bf9194d88906d54fb8f9a29babaa7bc, type: 2}
-    - type: 4
-      tileModification: 1
-      value: 0
-      damage:
-        amount: 50
-        category: 5
-        element: 0
-        bypassShields: 1
-        bypassResistance: 1
-      encounter: {fileID: 0}
-      item: {fileID: 0}
+    outcomeGroups: []
     removeAfterUse: 0
   - optionText: Get money
     conditions: []
-    outcomes:
-    - type: 0
-      tileModification: 1
-      value: 20
-      damage:
-        amount: 0
-        category: 0
-        element: 0
-        bypassShields: 0
-        bypassResistance: 0
-      encounter: {fileID: 0}
-      item: {fileID: 0}
+    outcomeGroups: []
     removeAfterUse: 0
   minFloor: 0
   maxFloor: 0

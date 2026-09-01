@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: FloatingBattery
   m_EditorClassIdentifier: Assembly-CSharp::EventData
   eventName: Floating Battery
+  eventId: 7229cbcf-2300-4e33-89e1-0a64e7308d58
   description: You find a battery floating in space
   options:
   - optionText: Use Battery
@@ -58,5 +59,5 @@ MonoBehaviour:
         chance: 1
     removeAfterUse: 0
   minFloor: 0
-  maxFloor: 0
+  maxFloor: 3
   unique: 0

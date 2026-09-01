@@ -43,7 +43,7 @@ public class EventManager : MonoBehaviour
 
         if (outcome.tileModification == TileModification.Clear)
         {
-            gridManager.clearEventTile(pos.x, pos.y);
+            gridManager.ClearEventTile(pos.x, pos.y);
             gridManager.ClearEventVisualAt(pos.x, pos.y);
         }
 

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Scavenge
   m_EditorClassIdentifier: Assembly-CSharp::EventData
   eventName: Scavenge
+  eventId: 1fe202d3-3dab-4289-b356-807cfac43c6d
   description: 'You spot a seemingly abandoned ship. It''s security systems still
     seem to be running. You might make some money scavenging the ship at your own
     risk.
@@ -88,5 +89,5 @@ MonoBehaviour:
         chance: 1
     removeAfterUse: 0
   minFloor: 0
-  maxFloor: 0
+  maxFloor: 3
   unique: 0

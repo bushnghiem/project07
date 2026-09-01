@@ -144,19 +144,32 @@ public class GridMovement : MonoBehaviour
         if (tile.assignedEvent == null)
             return;
 
-        var floor = RunManager.Instance.CurrentRun.currentFloorData;
+        var run = RunManager.Instance.CurrentRun;
+        var floor = run.currentFloorData;
 
+        // Track that this particular map tile was discovered.
         if (!floor.discoveredEventTiles.Contains(gridPosition))
         {
             floor.discoveredEventTiles.Add(gridPosition);
-            SaveManager.Instance.SaveRun();
         }
+
+        // Unique events can only be encountered once per run.
+        if (tile.assignedEvent.unique)
+        {
+            if (!run.usedUniqueEventIds.Contains(tile.assignedEvent.EventId))
+            {
+                run.usedUniqueEventIds.Add(tile.assignedEvent.EventId);
+            }
+        }
+
+        SaveManager.Instance.SaveRun();
 
         GridUIManager.Instance.SetState(UIState.Event);
 
         inputLocked = true;
         eventUI.ShowEvent(tile.assignedEvent);
     }
+
 
     public void HandleEmptyTile()
     {
@@ -274,7 +287,7 @@ public class GridMovement : MonoBehaviour
 
             currentGridPosition = Vector2Int.zero,
             timeElapsed = 0,
-            nextCorruptionTimeThreshold = 5,
+            nextCorruptionTimeThreshold = 20,
             corruptionRadius = -1
         };
     }

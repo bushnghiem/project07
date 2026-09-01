@@ -13,39 +13,18 @@ MonoBehaviour:
   m_Name: PayOrPain
   m_EditorClassIdentifier: Assembly-CSharp::EventData
   eventName: Pay or Pain
+  eventId: 1ba826c4-c60f-489e-9d7e-d3e2b160e7f4
   description: Pay the toll or else
   options:
   - optionText: Pay Up
     conditions:
     - type: 0
       value: 50
-    outcomes:
-    - type: 1
-      tileModification: 1
-      value: 50
-      damage:
-        amount: 0
-        category: 0
-        element: 0
-        bypassShields: 0
-        bypassResistance: 0
-      encounter: {fileID: 0}
-      item: {fileID: 0}
+    outcomeGroups: []
     removeAfterUse: 0
   - optionText: Take It
     conditions: []
-    outcomes:
-    - type: 4
-      tileModification: 1
-      value: 0
-      damage:
-        amount: 10
-        category: 5
-        element: 0
-        bypassShields: 1
-        bypassResistance: 1
-      encounter: {fileID: 0}
-      item: {fileID: 0}
+    outcomeGroups: []
     removeAfterUse: 0
   minFloor: 0
   maxFloor: 0

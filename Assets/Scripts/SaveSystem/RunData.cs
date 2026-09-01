@@ -18,4 +18,7 @@ public class RunData
 
     public int runCurrency = 0;
     public int runKeys = 0;
+
+    public List<string> usedUniqueEventIds = new();
+
 }

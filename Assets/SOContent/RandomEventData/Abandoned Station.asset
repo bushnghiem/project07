@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Abandoned Station
   m_EditorClassIdentifier: Assembly-CSharp::EventData
   eventName: Abandoned Repair Station
+  eventId: fa34f081-aa1d-4c41-a91d-98c488d93fd1
   description: 'You find an abandoned repair station. It just so happens that some
     of the equipment is still working. They seem quite valuable. '
   options:
@@ -106,5 +107,5 @@ MonoBehaviour:
         chance: 1
     removeAfterUse: 0
   minFloor: 0
-  maxFloor: 0
+  maxFloor: 9
   unique: 0

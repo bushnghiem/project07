@@ -549,11 +549,9 @@ MonoBehaviour:
   width: 10
   height: 10
   tileSize: 1
-  combatEncounterPool: {fileID: 11400000, guid: 4243f17fef1fc234abc05843fc0174bc, type: 2}
-  eventPool: {fileID: 11400000, guid: ce30007323fead3498a3a618649ce4f7, type: 2}
-  emptyChance: 50
-  combatChance: 20
-  eventChance: 30
+  emptyChance: 80
+  combatChance: 10
+  eventChance: 10
   maxShops: 1
   maxChests: 2
   safeZoneRadius: 1

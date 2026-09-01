@@ -18,8 +18,6 @@ public class GridManager : MonoBehaviour
     public float tileSize = 1f;
 
     public TileData[,] grid;
-    public EncounterPool combatEncounterPool;
-    public EventPool eventPool;
 
     private System.Random rng;
 
@@ -60,12 +58,20 @@ public class GridManager : MonoBehaviour
         rng = new System.Random(seed);
         grid = new TileData[width, height];
 
+        var run = RunManager.Instance.CurrentRun;
+        var floor = run.currentFloorData;
+
+        // Tracks unique events that have already been assigned
+        // to a tile during this floor's generation.
+        HashSet<string> uniqueEventsAssignedThisFloor = new();
+
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
                 grid[x, y] = new TileData();
 
+                // Border walls
                 if (x == 0 || y == 0 || x == width - 1 || y == height - 1)
                 {
                     grid[x, y].tileType = TileType.Wall;
@@ -74,11 +80,41 @@ public class GridManager : MonoBehaviour
 
                 grid[x, y].tileType = RandomTileType();
 
+                // Combat
                 if (grid[x, y].tileType == TileType.Combat)
-                    grid[x, y].assignedEncounter = GetDeterministicEncounter(x, y);
+                {
+                    grid[x, y].assignedEncounter =
+                        GetDeterministicEncounter(x, y);
+                }
 
+                // Event
                 if (grid[x, y].tileType == TileType.Event)
-                    grid[x, y].assignedEvent = GetDeterministicEvent(x, y);
+                {
+                    EventData eventData = GetDeterministicEvent(
+                        x,
+                        y,
+                        uniqueEventsAssignedThisFloor
+                    );
+
+                    if (eventData != null)
+                    {
+                        grid[x, y].assignedEvent = eventData;
+
+                        // If this event is unique, remember that
+                        // we've already assigned it on this floor.
+                        if (eventData.unique)
+                        {
+                            uniqueEventsAssignedThisFloor.Add(
+                                eventData.EventId
+                            );
+                        }
+                    }
+                    else
+                    {
+                        // No valid event was available.
+                        grid[x, y].tileType = TileType.Empty;
+                    }
+                }
             }
         }
 
@@ -86,12 +122,10 @@ public class GridManager : MonoBehaviour
         PlaceShops();
         PlaceChests();
         PlaceEliteEncounters();
-        
+
         ApplyTileOverrides();
 
         QuestManager.Instance.ApplyQuestObjectives(this);
-
-        var floor = RunManager.Instance.CurrentRun.currentFloorData;
 
         if (!floor.hasInitializedSpawn)
         {
@@ -112,6 +146,7 @@ public class GridManager : MonoBehaviour
         GenerateVisuals();
         IsGridReady = true;
     }
+
 
     public Vector2Int GetSafeSpawnPosition()
     {
@@ -307,21 +342,20 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    public void clearEventTile(int x, int y)
+    public void ClearEventTile(int x, int y)
     {
-        if (IsInsideGrid(x, y))
+        if (!IsInsideGrid(x, y))
+            return;
+
+        Vector2Int pos = new Vector2Int(x, y);
+
+        ModifyTile(pos, tile =>
         {
-            var floor = RunManager.Instance.CurrentRun.currentFloorData;
-
-            Vector2Int pos = floor.currentGridPosition;
-
-            ModifyTile(pos, tile =>
-            {
-                tile.tileType = TileType.Empty;
-                tile.assignedEvent = null;
-            });
-        }
+            tile.tileType = TileType.Empty;
+            tile.assignedEvent = null;
+        });
     }
+
 
     public void ClearEventVisualAt(int x, int y)
     {
@@ -365,7 +399,10 @@ public class GridManager : MonoBehaviour
         return pool[tileRng.Next(0, pool.Count)];
     }
 
-    private EventData GetDeterministicEvent(int x, int y)
+    private EventData GetDeterministicEvent(
+    int x,
+    int y,
+    HashSet<string> uniqueEventsAssignedThisFloor)
     {
         var run = RunManager.Instance.CurrentRun;
         var floor = run.currentFloorData;
@@ -384,14 +421,60 @@ public class GridManager : MonoBehaviour
             return null;
         }
 
+        List<EventData> availableEvents = new();
+
+        foreach (EventData eventData in pool)
+        {
+            if (eventData == null)
+                continue;
+
+            // Floor restriction
+            if (floor.floorIndex < eventData.minFloor ||
+                floor.floorIndex > eventData.maxFloor)
+            {
+                continue;
+            }
+
+            // Non-unique events can always be selected.
+            if (!eventData.unique)
+            {
+                availableEvents.Add(eventData);
+                continue;
+            }
+
+            // Unique event has already been encountered
+            // somewhere earlier in this run.
+            if (run.usedUniqueEventIds.Contains(eventData.EventId))
+            {
+                continue;
+            }
+
+            // Unique event has already been assigned to another
+            // tile during this floor's generation.
+            if (uniqueEventsAssignedThisFloor.Contains(eventData.EventId))
+            {
+                continue;
+            }
+
+            availableEvents.Add(eventData);
+        }
+
+        if (availableEvents.Count == 0)
+        {
+            return null;
+        }
+
+        // Deterministic selection.
         int seed = run.runSeed
+                   ^ floor.floorSeed
                    ^ (x * 92837111)
                    ^ (y * 689287499);
 
         System.Random tileRng = new System.Random(seed);
 
-        return pool[tileRng.Next(0, pool.Count)];
+        return availableEvents[tileRng.Next(availableEvents.Count)];
     }
+
 
     public void GenerateVisuals()
     {
