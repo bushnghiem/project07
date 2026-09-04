@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileItem
   itemID: projectile_basic
   itemName: Basic Projectile
-  icon: {fileID: 0}
-  description: 
+  icon: {fileID: 21300000, guid: feb25f69f402e0840a1e22bfebd411c7, type: 3}
+  description: A BOMB THAT EXPLODES ON CONTACT
   price: 100
+  slotType: 1
   projectile: {fileID: 11400000, guid: dfcfebb38526d6d49bf5283443fae21c, type: 2}

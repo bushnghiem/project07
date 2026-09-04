@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TractorBeamItem
   itemID: active_tractor_beam
   itemName: Tractor Beam
-  icon: {fileID: 0}
-  description: 
+  icon: {fileID: 21300000, guid: 2a8f768e2fb6d0d43ab4f7ba5b506e40, type: 3}
+  description: PULL EVERYTHING IN
   price: 100
   slotType: 0
   previewPrefab: {fileID: 2906971151795962351, guid: a698f9053de4b2544b82c2bc2629cbaf, type: 3}
@@ -24,5 +24,6 @@ MonoBehaviour:
   coneAngle: 120
   effectRadius: 20
   cooldownTurns: 2
+  chargeCost: 1
   range: 20
   force: 100

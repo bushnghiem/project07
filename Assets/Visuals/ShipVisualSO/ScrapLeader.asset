@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ScrapLeader
   m_EditorClassIdentifier: Assembly-CSharp::ShipVisualData
   visualPrefab: {fileID: 6600504696277370120, guid: d326126a345227042b442a098e52013c, type: 3}
-  visualScale: 0.8
+  visualScale: 1
   shipIcon: {fileID: 21300000, guid: 750608cb2cf9c58428c488796a2bd613, type: 3}
   overrideMaterial: {fileID: 0}

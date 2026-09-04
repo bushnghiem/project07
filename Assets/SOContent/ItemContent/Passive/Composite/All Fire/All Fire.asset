@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: passive_all_fire
   itemName: All Fire
   icon: {fileID: 0}
-  description: 
+  description: PROJECTILES AND SHIP APPLY FIRE
   price: 100
   slotType: 2
   modifiers:

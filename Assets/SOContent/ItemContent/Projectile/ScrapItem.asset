@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileItem
   itemID: projectile_scrap
   itemName: Piece of Scrap
-  icon: {fileID: 0}
-  description: 
+  icon: {fileID: 21300000, guid: daa93813e5d14d54fa2865e72d216759, type: 3}
+  description: 'A PIECE OF SCRAP '
   price: 100
   slotType: 1
   projectile: {fileID: 11400000, guid: 28395094fc309b54083c32c841f40486, type: 2}

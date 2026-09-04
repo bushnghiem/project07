@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: passive_back_shot
   itemName: Back Shot
   icon: {fileID: 0}
-  description: 
+  description: EXTRA SHOT FROM BEHIND
   price: 100
   slotType: 2
   modifiers:

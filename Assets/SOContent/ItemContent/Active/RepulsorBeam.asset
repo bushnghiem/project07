@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RepulsorBeamItem
   itemID: active_repulsor_beam
   itemName: Repusor Beam
-  icon: {fileID: 0}
-  description: 
+  icon: {fileID: 21300000, guid: 3d9983133842b7d4a87f8d0f4fd42dd5, type: 3}
+  description: PUSH EVERYTHING AWAY
   price: 100
   slotType: 0
   previewPrefab: {fileID: 2906971151795962351, guid: a698f9053de4b2544b82c2bc2629cbaf, type: 3}
@@ -24,5 +24,6 @@ MonoBehaviour:
   coneAngle: 45
   effectRadius: 20
   cooldownTurns: 2
+  chargeCost: 1
   range: 10
   force: 200

@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: passive_burn_shot
   itemName: Burning Shot
   icon: {fileID: 0}
-  description: 
+  description: PROJECTILES APPLY FIRE
   price: 100
   slotType: 2
   statusEffects:

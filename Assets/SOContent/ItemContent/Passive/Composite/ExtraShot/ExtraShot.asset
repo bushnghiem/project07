@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: passive_extra_shot
   itemName: Extra Shot
   icon: {fileID: 0}
-  description: 
+  description: AN EXTRA SHOT
   price: 100
   slotType: 2
   modifiers:

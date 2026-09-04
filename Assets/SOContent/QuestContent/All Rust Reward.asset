@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e756d2361af7d1245b8345ebeb724062, type: 3}
-  m_Name: DeliverItem
+  m_Name: All Rust Reward
   m_EditorClassIdentifier: Assembly-CSharp::RewardDefinition
-  rewardName: Bulk
-  description: 'Bulk up
+  rewardName: All Rust
+  description: 'Gain Control over Rust
 
 '
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: daa93813e5d14d54fa2865e72d216759, type: 3}
   rewardType: 2
   value: 0
-  item: {fileID: 11400000, guid: 7e68fc54394137149807636a55ad5520, type: 2}
+  item: {fileID: 11400000, guid: db227cb2c257710489e4b21c0fee725a, type: 2}
   ship:
     uniqueID: 
     templateID: 

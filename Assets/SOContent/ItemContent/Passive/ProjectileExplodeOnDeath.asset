@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: passive_projectile_explosive_death
   itemName: Shot go boom
   icon: {fileID: 0}
-  description: 
+  description: PROJECTILES EXPLODE
   price: 100
   slotType: 2
   grantedEffects:

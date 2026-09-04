@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: passive_explosive_death
   itemName: Boom Baby
   icon: {fileID: 0}
-  description: 
+  description: EXPLODE ON DEATH
   price: 100
   slotType: 2
   grantedEffects:

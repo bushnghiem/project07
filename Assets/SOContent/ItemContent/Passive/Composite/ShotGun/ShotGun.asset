@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: passive_shotgun
   itemName: Shotgun Mod
   icon: {fileID: 0}
-  description: 
+  description: COVERTS PROJECTILES INTO A SHOTGUN PATTERN
   price: 100
   slotType: 2
   modifiers:

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealEveryTurn
   itemID: passive_heal_turn
   itemName: HET
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: d5967cf3dd01d3a45a7bdcd38c52b40e, type: 3}
   description: Heal at start of turn
   price: 100
+  slotType: 2
   healAmount: 5

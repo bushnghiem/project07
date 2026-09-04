@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: passive_bounce_shot
   itemName: Bounce Shot
   icon: {fileID: 0}
-  description: 
+  description: PROJECTILES GET A LAYER OF SHIELD FOR AN EXTRA BOUNCE
   price: 100
   slotType: 2
   modifiers:

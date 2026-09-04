@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EventData
   eventName: Floating Battery
   eventId: 7229cbcf-2300-4e33-89e1-0a64e7308d58
-  description: You find a battery floating in space
+  description: You find an unsused battery floating in space. It seems slightly damaged
+    and is emitting strange energies, it may be dangerous to absorb its energy.
   options:
   - optionText: Use Battery
     conditions: []
@@ -24,13 +25,26 @@ MonoBehaviour:
       groupChance: 1
       outcomes:
       - type: 8
-        tileModification: 1
+        tileModification: 0
         value: 5
         damage:
           amount: 0
           category: 0
           element: 0
           bypassShields: 0
+          bypassResistance: 0
+        encounter: {fileID: 0}
+        item: {fileID: 0}
+        quest: {fileID: 0}
+        chance: 1
+      - type: 6
+        tileModification: 1
+        value: 5
+        damage:
+          amount: 25
+          category: 0
+          element: 3
+          bypassShields: 1
           bypassResistance: 0
         encounter: {fileID: 0}
         item: {fileID: 0}

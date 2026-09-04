@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DamageFieldItem
   itemID: active_test
   itemName: dam field
-  icon: {fileID: 0}
-  description: 
+  icon: {fileID: 21300000, guid: ac147ebfb022f43489e3a65b41c368a2, type: 3}
+  description: PUT DOWN A DAMAGE FIELD
   price: 100
   slotType: 0
   previewPrefab: {fileID: 919132149155446097, guid: 330cc02628650e246b6becab861384e4, type: 3}
   validColor: {r: 0, g: 1, b: 0, a: 1}
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
+  coneAngle: 45
+  effectRadius: 8
   cooldownTurns: 2
+  chargeCost: 1
   range: 10
   fieldPrefab: {fileID: 216280543112345849, guid: 48c6bc9704dd7f34f85fc60e125f098c, type: 3}

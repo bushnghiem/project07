@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c171056d76cdbd488e5abca6435a283, type: 3}
-  m_Name: Test Quest
+  m_Name: Deliver Cargo
   m_EditorClassIdentifier: Assembly-CSharp::QuestData
   questId: 0
   questName: Delivery
-  description: 'Deliver the Bulk Cargo
-
-'
+  description: You stumble across a stationary delivery ship sending out a signal.
+    You recieve a message from this ship as follows "Yoooo, can you please finish
+    up this delivery of mine, Im almost outta fuel and the delivery spot is literaly
+    in this system, please help me out. Oh god I hope you are not pirates."
   objective: {fileID: 11400000, guid: 7b2bc9866198cb643955b4606fa18be6, type: 2}
   floorsAhead: 0
   rewards:

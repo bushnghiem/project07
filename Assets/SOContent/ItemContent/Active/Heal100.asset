@@ -15,12 +15,15 @@ MonoBehaviour:
   itemID: active_heal_100
   itemName: 100 HP Health Pot
   icon: {fileID: 21300000, guid: d5967cf3dd01d3a45a7bdcd38c52b40e, type: 3}
-  description: 
+  description: SELF REPAIR KIT
   price: 100
   slotType: 0
   previewPrefab: {fileID: 919132149155446097, guid: 330cc02628650e246b6becab861384e4, type: 3}
   validColor: {r: 0, g: 1, b: 0, a: 1}
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
+  coneAngle: 45
+  effectRadius: 8
   cooldownTurns: 2
+  chargeCost: 1
   range: 10
   healAmount: 100

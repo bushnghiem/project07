@@ -14,8 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShieldItem
   itemID: active_shield
   itemName: Sheild 1
-  icon: {fileID: 0}
-  description: 
+  icon: {fileID: 21300000, guid: 393368a6c7470ad45ab4c46b44280cdd, type: 3}
+  description: GAIN A LAYER OF SHIELD
   price: 100
+  slotType: 0
+  previewPrefab: {fileID: 0}
+  validColor: {r: 0, g: 1, b: 0, a: 1}
+  invalidColor: {r: 1, g: 0, b: 0, a: 1}
+  coneAngle: 45
+  effectRadius: 8
   cooldownTurns: 1
+  chargeCost: 1
+  range: 10
   shieldAmount: 1

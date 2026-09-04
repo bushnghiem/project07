@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c171056d76cdbd488e5abca6435a283, type: 3}
+  m_Name: Defeat a Pirate
+  m_EditorClassIdentifier: Assembly-CSharp::QuestData
+  questId: 1
+  questName: Simple Revenge
+  description: At a rest station, an individual comes up to you and requests that
+    you attack a specific pirate which destroyed his ship, killed his family, and
+    stole his dog and girlfriend.
+  objective: {fileID: 11400000, guid: 102c76c046ffbb546aafc66732312b3b, type: 2}
+  floorsAhead: 0
+  rewards:
+  - {fileID: 11400000, guid: 67c37a54c526a154f938c5c35558bbb0, type: 2}
+  - {fileID: 11400000, guid: 0af437174b6e1074b9f32f4179989ad9, type: 2}
+  rewardsToChoose: 1
+  deliveryItem: {fileID: 0}

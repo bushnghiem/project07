@@ -15,10 +15,10 @@ MonoBehaviour:
   itemID: passive_collision_damage_up
   itemName: Thorns
   icon: {fileID: 0}
-  description: 
+  description: COLLISION DAMAGE UP
   price: 100
   slotType: 2
   statAdjustments:
-  - statType: 6
+  - statType: 7
     flatBonus: 100
     percentBonus: 0
