@@ -545,7 +545,7 @@ MonoBehaviour:
   portalPrefab: {fileID: 6342586742600291344, guid: b6c216cba9735d14f96fa4bb5a249d05, type: 3}
   shopPrefab: {fileID: 1717754367839012154, guid: 80d72ade07063f642b80d2ffacb787ed, type: 3}
   chestPrefab: {fileID: 6648129664210920724, guid: f77481e252a1a2141ac27b00cf5a76f2, type: 3}
-  questMarkerPrefab: {fileID: 2572868541310583009, guid: 5338e0031e84dab4b9e79e7a4a26e719, type: 3}
+  questMarkerPrefab: {fileID: 3147624842687092712, guid: 7ed83b9fe16fcdc44b922813c8a64c69, type: 3}
   width: 10
   height: 10
   tileSize: 1

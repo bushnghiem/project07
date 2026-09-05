@@ -69,13 +69,16 @@ public class QuestManager : MonoBehaviour
 
             if (quest.targetPosition != Vector2Int.zero)
             {
-                grid.grid[
-                    quest.targetPosition.x,
-                    quest.targetPosition.y]
-                    .activeQuest = quest;
+                TileData tile =
+                    grid.grid[
+                        quest.targetPosition.x,
+                        quest.targetPosition.y];
+
+                tile.activeQuest = quest;
 
                 continue;
             }
+
 
             quest.quest.objective.PlaceObjective(grid, quest);
         }

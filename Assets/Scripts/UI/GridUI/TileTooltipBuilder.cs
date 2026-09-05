@@ -7,6 +7,13 @@ public static class TileTooltipBuilder
         Vector2Int position,
         GridManager gridManager)
     {
+        if (tile.activeQuest != null)
+        {
+            return new TooltipData(
+                        "Quest",
+                        tile.activeQuest.quest.questName);
+        }
+
         switch (tile.tileType)
         {
             case TileType.Combat:

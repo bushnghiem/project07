@@ -123,10 +123,6 @@ public class GridManager : MonoBehaviour
         PlaceChests();
         PlaceEliteEncounters();
 
-        ApplyTileOverrides();
-
-        QuestManager.Instance.ApplyQuestObjectives(this);
-
         if (!floor.hasInitializedSpawn)
         {
             Vector2Int spawnPos = GetSafeSpawnPosition();
@@ -143,7 +139,12 @@ public class GridManager : MonoBehaviour
             ClearArea(floor.spawnPosition);
         }
 
+        ApplyTileOverrides();
+
+        QuestManager.Instance.ApplyQuestObjectives(this);
+
         GenerateVisuals();
+
         IsGridReady = true;
     }
 
@@ -552,10 +553,12 @@ public class GridManager : MonoBehaviour
 
         if (tile.activeQuest != null)
         {
+            Vector3 newPos = position + new Vector3(0, 0, -1);
+            rotation = Quaternion.Euler(270f, 90f, 0f);
             Instantiate(
                 questMarkerPrefab,
-                position + Vector3.up * 0.75f,
-                Quaternion.identity,
+                newPos + Vector3.up * 0.30f,
+                rotation,
                 transform);
         }
     }
@@ -654,6 +657,12 @@ public class GridManager : MonoBehaviour
 
         foreach (var overrideTile in floor.tileOverrides)
         {
+            Debug.Log(
+            $"OVERRIDE LOAD: Pos={overrideTile.position}, " +
+            $"Type={overrideTile.data.tileType}, " +
+            $"HasEncounter={overrideTile.data.hasEncounterOverride}, " +
+            $"Encounter={(overrideTile.data.encounter != null ? overrideTile.data.encounter.encounterName : "NULL")}"
+            );
             TileData tile =
                 grid[
                     overrideTile.position.x,
