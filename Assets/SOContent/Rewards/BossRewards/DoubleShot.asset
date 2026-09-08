@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DoubleShot
   m_EditorClassIdentifier: Assembly-CSharp::BossRewardDefinition
   rewardName: DoubleShot
-  description: 
+  description: Get Double Shot
   icon: {fileID: 0}
   rewardType: 2
   value: 0

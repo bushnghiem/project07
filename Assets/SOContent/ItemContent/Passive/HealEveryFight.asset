@@ -18,4 +18,4 @@ MonoBehaviour:
   description: Heals HP at start of Fight
   price: 100
   slotType: 2
-  healAmount: 100
+  healAmount: 20

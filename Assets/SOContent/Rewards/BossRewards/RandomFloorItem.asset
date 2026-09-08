@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e756d2361af7d1245b8345ebeb724062, type: 3}
-  m_Name: Money
-  m_EditorClassIdentifier: Assembly-CSharp::BossRewardDefinition
-  rewardName: Money
-  description: Money is Good
+  m_Name: RandomFloorItem
+  m_EditorClassIdentifier: Assembly-CSharp::RewardDefinition
+  rewardName: Random Item
+  description: An item, how Random
   icon: {fileID: 0}
-  rewardType: 0
+  rewardType: 2
   valueMode: 0
-  value: 200
+  value: 0
   minValue: 0
   maxValue: 0
-  itemMode: 0
+  itemMode: 1
   item: {fileID: 0}
   ship:
     uniqueID: 

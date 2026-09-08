@@ -13,10 +13,16 @@ MonoBehaviour:
   m_Name: ExtraShot
   m_EditorClassIdentifier: Assembly-CSharp::RewardDefinition
   rewardName: Extra Shot
-  description: 
+  description: 'An extra shot for your projectiiles
+
+'
   icon: {fileID: 0}
   rewardType: 2
+  valueMode: 0
   value: 0
+  minValue: 0
+  maxValue: 0
+  itemMode: 0
   item: {fileID: 11400000, guid: 7192575e04c3d0f48a034e315aa0e0d9, type: 2}
   ship:
     uniqueID: 

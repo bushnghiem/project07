@@ -13,7 +13,7 @@ public class FloorContentProfile : ScriptableObject
 
 
     [Header("Shop")]
-    public List<Item> shopItems;
+    public List<Item> floorItemPool;
 
     [Header("Encounters")]
     public List<EncounterData> combatEncounters;

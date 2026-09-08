@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ProjectileExplodeOnDeath
   m_EditorClassIdentifier: Assembly-CSharp::GrantProjectileEffect
   itemID: passive_projectile_explosive_death
-  itemName: Shot go boom
-  icon: {fileID: 0}
-  description: PROJECTILES EXPLODE
+  itemName: Explosive Coating
+  icon: {fileID: 21300000, guid: e75404d0d6a5c84429ff44e7fbc8e9ff, type: 3}
+  description: Projectiles Explode on Death
   price: 100
   slotType: 2
   grantedEffects:

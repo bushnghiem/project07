@@ -95,7 +95,7 @@ public class ChestUI : MonoBehaviour
 
         System.Random rng = new System.Random(seed);
 
-        var allItems = floor.contentProfile.shopItems;
+        var allItems = floor.contentProfile.floorItemPool;
 
         var passives =
             allItems.Where(i => i.slotType == ItemSlotType.Passive).ToList();
@@ -105,6 +105,8 @@ public class ChestUI : MonoBehaviour
 
         var projectiles =
             allItems.Where(i => i.slotType == ItemSlotType.Projectile).ToList();
+
+
 
         if (chest.rewardItemIDs.Count == 0)
         {
@@ -123,8 +125,12 @@ public class ChestUI : MonoBehaviour
 
     Item GetRandom(List<Item> pool, System.Random rng)
     {
+        if (pool == null || pool.Count == 0)
+            return null;
+
         return pool[rng.Next(pool.Count)];
     }
+
 
     void PopulateRewards()
     {

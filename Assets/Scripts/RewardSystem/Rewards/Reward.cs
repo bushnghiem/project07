@@ -4,9 +4,17 @@ public class Reward
 {
     public RewardDefinition Definition { get; }
 
-    public Reward(RewardDefinition definition)
+    public int Value { get; }
+    public Item Item { get; }
+
+    public Reward(
+        RewardDefinition definition,
+        int value = 0,
+        Item item = null)
     {
         Definition = definition;
+        Value = value;
+        Item = item;
     }
 
     public string Title => Definition.rewardName;
@@ -18,18 +26,21 @@ public class Reward
         switch (Definition.rewardType)
         {
             case RewardType.Currency:
-                RewardManager.Instance.AddRunCurrency(
-                    Definition.value);
+
+                RewardManager.Instance.AddRunCurrency(Value);
+
                 break;
 
             case RewardType.Keys:
-                RewardManager.Instance.AddRunKeys(
-                    Definition.value);
+
+                RewardManager.Instance.AddRunKeys(Value);
+
                 break;
 
             case RewardType.HealAllPlayers:
-                RewardManager.Instance.HealAllPlayers(
-                    Definition.value);
+
+                RewardManager.Instance.HealAllPlayers(Value);
+
                 break;
 
             case RewardType.Item:
@@ -40,7 +51,7 @@ public class Reward
                     {
                         RewardManager.Instance.AddItemToPlayer(
                             player,
-                            Definition.item);
+                            Item);
 
                         RewardMenuUI.Instance.FinishReward();
                     });
@@ -49,7 +60,8 @@ public class Reward
 
             case RewardType.Ship:
 
-                RunManager.Instance.CurrentRun.team.Add(Definition.ship);
+                RunManager.Instance.CurrentRun.team.Add(
+                    Definition.ship);
 
                 break;
         }

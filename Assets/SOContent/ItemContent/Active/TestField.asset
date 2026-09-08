@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TestField
   m_EditorClassIdentifier: Assembly-CSharp::DamageFieldItem
   itemID: active_test
-  itemName: dam field
+  itemName: Damage Field
   icon: {fileID: 21300000, guid: ac147ebfb022f43489e3a65b41c368a2, type: 3}
   description: PUT DOWN A DAMAGE FIELD
   price: 100

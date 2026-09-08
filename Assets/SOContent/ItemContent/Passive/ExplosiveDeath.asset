@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ExplosiveDeath
   m_EditorClassIdentifier: Assembly-CSharp::GrantEffectPassive
   itemID: passive_explosive_death
-  itemName: Boom Baby
+  itemName: M.A.D
   icon: {fileID: 0}
-  description: EXPLODE ON DEATH
+  description: Ship Explodes on Death
   price: 100
   slotType: 2
   grantedEffects:

@@ -13,10 +13,14 @@ MonoBehaviour:
   m_Name: Keys
   m_EditorClassIdentifier: Assembly-CSharp::RewardDefinition
   rewardName: Keys
-  description: 10 of them
+  description: 5 of them
   icon: {fileID: 0}
   rewardType: 1
-  value: 10
+  valueMode: 0
+  value: 5
+  minValue: 0
+  maxValue: 0
+  itemMode: 0
   item: {fileID: 0}
   ship:
     uniqueID: 

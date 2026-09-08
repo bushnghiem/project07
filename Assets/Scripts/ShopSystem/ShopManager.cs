@@ -48,7 +48,7 @@ public class ShopManager : MonoBehaviour
 
         System.Random rng = new System.Random(seed);
 
-        var allItems = floor.contentProfile.shopItems;
+        var allItems = floor.contentProfile.floorItemPool;
 
         var passiveItems = allItems.Where(i => i.slotType == ItemSlotType.Passive).ToList();
         var activeItems = allItems.Where(i => i.slotType == ItemSlotType.Active).ToList();

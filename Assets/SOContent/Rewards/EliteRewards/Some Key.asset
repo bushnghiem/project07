@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e756d2361af7d1245b8345ebeb724062, type: 3}
   m_Name: Some Key
   m_EditorClassIdentifier: Assembly-CSharp::RewardDefinition
-  rewardName: Some Keys
-  description: 3 Keys
+  rewardName: Elite Key
+  description: 2 of them
   icon: {fileID: 0}
   rewardType: 1
-  value: 3
+  valueMode: 0
+  value: 2
+  minValue: 0
+  maxValue: 0
+  itemMode: 0
   item: {fileID: 0}
   ship:
     uniqueID: 
