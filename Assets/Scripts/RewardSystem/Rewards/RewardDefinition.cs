@@ -5,20 +5,16 @@ public enum RewardType
     Currency,
     Keys,
     Item,
+    RandomItem,
     Ship,
     HealAllPlayers
 }
+
 
 public enum RewardValueMode
 {
     Fixed,
     RandomRange
-}
-
-public enum RewardItemMode
-{
-    Fixed,
-    RandomFromFloorPool
 }
 
 [CreateAssetMenu(menuName = "Scriptable Objects/Reward")]
@@ -41,9 +37,6 @@ public class RewardDefinition : ScriptableObject
     public int value;
     public int minValue;
     public int maxValue;
-
-    [Header("Item")]
-    public RewardItemMode itemMode = RewardItemMode.Fixed;
 
     public Item item;
 

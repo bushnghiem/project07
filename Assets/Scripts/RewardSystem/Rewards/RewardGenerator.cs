@@ -1,92 +1,119 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class RewardGenerator
 {
     public static List<Reward> Generate(
-    List<RewardDefinition> rewardPool,
-    int amount)
+        List<RewardDefinition> rewardPool,
+        int amount)
     {
-        var floor = RunManager.Instance.CurrentRun.currentFloorData;
+        var floor =
+            RunManager.Instance.CurrentRun.currentFloorData;
 
         return Generate(
             rewardPool,
             amount,
             RunManager.Instance.CurrentRun.runSeed
-                + floor.floorIndex * 1000
-                + 500);
+            + floor.floorIndex * 1000
+            + 500);
     }
-
 
     public static List<Reward> Generate(
         List<RewardDefinition> rewardPool,
         int amount,
         int seed)
     {
-        List<RewardDefinition> pool = new(rewardPool);
-        List<Reward> rewards = new();
+        List<RewardDefinition> pool =
+            new(rewardPool);
 
-        System.Random rng = new(seed);
+        List<Reward> rewards =
+            new();
 
-        while (rewards.Count < amount && pool.Count > 0)
+        System.Random rng =
+            new(seed);
+
+        while (rewards.Count < amount &&
+               pool.Count > 0)
         {
-            int index = rng.Next(pool.Count);
+            int index =
+                rng.Next(pool.Count);
 
-            RewardDefinition definition = pool[index];
-
-            rewards.Add(
-                ResolveReward(definition, rng));
+            RewardDefinition definition =
+                pool[index];
 
             pool.RemoveAt(index);
+
+            Reward reward =
+                new Reward(definition);
+
+            ResolveReward(
+                reward,
+                rng);
+
+            rewards.Add(reward);
         }
 
         return rewards;
     }
 
-    private static Reward ResolveReward(
-        RewardDefinition definition,
+    private static void ResolveReward(
+        Reward reward,
         System.Random rng)
     {
-        int value = ResolveValue(definition, rng);
-        Item item = ResolveItem(definition, rng);
+        switch (reward.Definition.rewardType)
+        {
+            case RewardType.Item:
 
-        return new Reward(
-            definition,
-            value,
-            item);
+                reward.SetResolvedItem(
+                    reward.Definition.item);
+
+                break;
+
+            case RewardType.RandomItem:
+
+                ResolveRandomItem(
+                    reward,
+                    rng);
+
+                break;
+        }
     }
 
-    private static int ResolveValue(
-        RewardDefinition definition,
+    private static void ResolveRandomItem(
+        Reward reward,
         System.Random rng)
     {
-        if (definition.valueMode == RewardValueMode.Fixed)
-            return definition.value;
-
-        return rng.Next(
-            definition.minValue,
-            definition.maxValue + 1);
-    }
-
-    private static Item ResolveItem(
-        RewardDefinition definition,
-        System.Random rng)
-    {
-        if (definition.rewardType != RewardType.Item)
-            return null;
-
-        if (definition.itemMode == RewardItemMode.Fixed)
-            return definition.item;
-
         var floor =
             RunManager.Instance.CurrentRun.currentFloorData;
 
-        var pool = floor.contentProfile.floorItemPool;
+        if (floor == null ||
+            floor.contentProfile == null)
+        {
+            Debug.LogError(
+                "Cannot generate RandomItem reward: " +
+                "current floor or content profile is missing.");
 
-        if (pool == null || pool.Count == 0)
-            return null;
+            return;
+        }
 
-        return pool[rng.Next(pool.Count)];
+        var itemPool =
+            floor.contentProfile.floorItemPool;
+
+        if (itemPool == null ||
+            itemPool.Count == 0)
+        {
+            Debug.LogError(
+                "Cannot generate RandomItem reward: " +
+                "current floor has no items in its item pool.");
+
+            return;
+        }
+
+        Item item =
+            itemPool[rng.Next(itemPool.Count)];
+
+        reward.SetResolvedItem(item);
     }
 
     public static List<Reward> GenerateQuestRewards(

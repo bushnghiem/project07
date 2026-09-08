@@ -15,7 +15,7 @@ MonoBehaviour:
   rewardName: Random Item
   description: An item, how Random
   icon: {fileID: 0}
-  rewardType: 2
+  rewardType: 3
   valueMode: 0
   value: 0
   minValue: 0

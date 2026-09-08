@@ -15,7 +15,7 @@ MonoBehaviour:
   rewardName: Junker Driller
   description: Get junker driller as an ally
   icon: {fileID: 0}
-  rewardType: 3
+  rewardType: 4
   valueMode: 0
   value: 0
   minValue: 0

@@ -4,22 +4,64 @@ public class Reward
 {
     public RewardDefinition Definition { get; }
 
-    public int Value { get; }
-    public Item Item { get; }
+    // The actual item this reward represents.
+    // Used by both the UI and Claim().
+    public Item ResolvedItem { get; private set; }
 
-    public Reward(
-        RewardDefinition definition,
-        int value = 0,
-        Item item = null)
+    public Reward(RewardDefinition definition)
     {
         Definition = definition;
-        Value = value;
-        Item = item;
     }
 
-    public string Title => Definition.rewardName;
-    public string Description => Definition.description;
-    public Sprite Icon => Definition.icon;
+    public string Title
+    {
+        get
+        {
+            if ((Definition.rewardType == RewardType.Item ||
+                 Definition.rewardType == RewardType.RandomItem) &&
+                ResolvedItem != null)
+            {
+                return ResolvedItem.itemName;
+            }
+
+            return Definition.rewardName;
+        }
+    }
+
+    public string Description
+    {
+        get
+        {
+            if ((Definition.rewardType == RewardType.Item ||
+                 Definition.rewardType == RewardType.RandomItem) &&
+                ResolvedItem != null)
+            {
+                return ResolvedItem.GetTooltipText();
+            }
+
+            return Definition.description;
+        }
+    }
+
+    public Sprite Icon
+    {
+        get
+        {
+            if ((Definition.rewardType == RewardType.Item ||
+                 Definition.rewardType == RewardType.RandomItem) &&
+                ResolvedItem != null)
+            {
+                return ResolvedItem.icon;
+            }
+
+            return Definition.icon;
+        }
+    }
+
+    public void SetResolvedItem(Item item)
+    {
+        ResolvedItem = item;
+    }
 
     public void Claim()
     {
@@ -27,23 +69,36 @@ public class Reward
         {
             case RewardType.Currency:
 
-                RewardManager.Instance.AddRunCurrency(Value);
+                RewardManager.Instance.AddRunCurrency(
+                    Definition.value);
 
                 break;
 
             case RewardType.Keys:
 
-                RewardManager.Instance.AddRunKeys(Value);
+                RewardManager.Instance.AddRunKeys(
+                    Definition.value);
 
                 break;
 
             case RewardType.HealAllPlayers:
 
-                RewardManager.Instance.HealAllPlayers(Value);
+                RewardManager.Instance.HealAllPlayers(
+                    Definition.value);
 
                 break;
 
             case RewardType.Item:
+            case RewardType.RandomItem:
+
+                if (ResolvedItem == null)
+                {
+                    Debug.LogError(
+                        $"Reward '{Definition.rewardName}' " +
+                        "has no resolved item.");
+
+                    return;
+                }
 
                 PlayerSelectionUI.Instance.Open(
                     RewardManager.Instance.shipHolder.allPlayers,
@@ -51,7 +106,7 @@ public class Reward
                     {
                         RewardManager.Instance.AddItemToPlayer(
                             player,
-                            Item);
+                            ResolvedItem);
 
                         RewardMenuUI.Instance.FinishReward();
                     });
@@ -59,6 +114,15 @@ public class Reward
                 return;
 
             case RewardType.Ship:
+
+                if (Definition.ship == null)
+                {
+                    Debug.LogError(
+                        $"Reward '{Definition.rewardName}' " +
+                        "has no ship assigned.");
+
+                    return;
+                }
 
                 RunManager.Instance.CurrentRun.team.Add(
                     Definition.ship);
