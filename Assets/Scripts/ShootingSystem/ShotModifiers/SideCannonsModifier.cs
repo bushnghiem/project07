@@ -3,49 +3,74 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Shot Modifiers/Side Cannons")]
 public class SideCannonsModifier : ShotModifier
 {
+    [Range(0f, 180f)]
     public float angle = 90f;
 
     public float lateralOffset = 1.5f;
 
-    public override void Modify(ShotPattern pattern, UnitBase shooter)
+    public override void Modify(
+        ShotPattern pattern,
+        UnitBase shooter)
     {
         int count = pattern.projectiles.Count;
-
-        Vector3 right = shooter.transform.right;
 
         for (int i = 0; i < count; i++)
         {
             var shot = pattern.projectiles[i];
 
-            Vector3 baseDir = shot.direction.normalized;
+            Vector3 baseDirection =
+                shot.direction.normalized;
 
-            Vector3 leftDir =
-                (Quaternion.AngleAxis(-angle, Vector3.up) * baseDir).normalized;
+            Vector3 right =
+                Vector3.Cross(
+                    Vector3.up,
+                    baseDirection
+                ).normalized;
 
-            Vector3 rightDir =
-                (Quaternion.AngleAxis(angle, Vector3.up) * baseDir).normalized;
-
-            Vector3 leftPos =
-                shot.position + right * lateralOffset;
-
-            Vector3 rightPos =
-                shot.position - right * lateralOffset;
-
-            pattern.projectiles.Add(new ProjectileSpawnData
+            // Fallback for unusual/vertical directions.
+            if (right.sqrMagnitude < 0.001f)
             {
-                position = leftPos,
-                direction = leftDir,
-                force = shot.force,
-                projectile = shot.projectile
-            });
+                right =
+                    Vector3.Cross(
+                        Vector3.forward,
+                        baseDirection
+                    ).normalized;
+            }
 
-            pattern.projectiles.Add(new ProjectileSpawnData
-            {
-                position = rightPos,
-                direction = rightDir,
-                force = shot.force,
-                projectile = shot.projectile
-            });
+            Vector3 leftDirection =
+                (
+                    Quaternion.AngleAxis(
+                        -angle,
+                        Vector3.up
+                    ) * baseDirection
+                ).normalized;
+
+            Vector3 rightDirection =
+                (
+                    Quaternion.AngleAxis(
+                        angle,
+                        Vector3.up
+                    ) * baseDirection
+                ).normalized;
+
+            var leftShot = shot;
+
+            leftShot.direction = leftDirection;
+
+            leftShot.spawnOffset =
+                shot.spawnOffset -
+                right * lateralOffset;
+
+            var rightShot = shot;
+
+            rightShot.direction = rightDirection;
+
+            rightShot.spawnOffset =
+                shot.spawnOffset +
+                right * lateralOffset;
+
+            pattern.projectiles.Add(leftShot);
+            pattern.projectiles.Add(rightShot);
         }
     }
 }

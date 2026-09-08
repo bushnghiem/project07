@@ -82,7 +82,6 @@ public class UnitActionExecutor : MonoBehaviour
 
         ShotPattern pattern =
             ShotPatternFactory.CreateBasicShot(
-                action.actor,
                 projectile,
                 action.direction,
                 force

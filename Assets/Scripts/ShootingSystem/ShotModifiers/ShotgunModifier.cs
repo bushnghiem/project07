@@ -4,16 +4,22 @@ using System.Collections.Generic;
 [CreateAssetMenu(menuName = "Shot Modifiers/Shotgun")]
 public class ShotgunModifier : ShotModifier
 {
+    [Min(1)]
     public int pelletCount = 2;
+
+    [Range(0f, 180f)]
     public float spreadAngle = 30f;
 
-    public override void Modify(ShotPattern pattern, UnitBase shooter)
+    public override void Modify(
+        ShotPattern pattern,
+        UnitBase shooter)
     {
         List<ProjectileSpawnData> result = new();
 
         foreach (var shot in pattern.projectiles)
         {
-            Vector3 baseDir = shot.direction.normalized;
+            Vector3 baseDirection =
+                shot.direction.normalized;
 
             for (int i = 0; i < pelletCount; i++)
             {
@@ -22,18 +28,24 @@ public class ShotgunModifier : ShotModifier
                     : i / (float)(pelletCount - 1);
 
                 float angle =
-                    Mathf.Lerp(-spreadAngle * 0.5f, spreadAngle * 0.5f, t);
+                    Mathf.Lerp(
+                        -spreadAngle * 0.5f,
+                        spreadAngle * 0.5f,
+                        t
+                    );
 
-                Vector3 dir =
-                    Quaternion.AngleAxis(angle, Vector3.up) * baseDir;
+                Vector3 direction =
+                    Quaternion.AngleAxis(
+                        angle,
+                        Vector3.up
+                    ) * baseDirection;
 
-                result.Add(new ProjectileSpawnData
-                {
-                    position = shot.position,
-                    direction = dir.normalized,
-                    force = shot.force,
-                    projectile = shot.projectile
-                });
+                var pellet = shot;
+
+                pellet.direction =
+                    direction.normalized;
+
+                result.Add(pellet);
             }
         }
 

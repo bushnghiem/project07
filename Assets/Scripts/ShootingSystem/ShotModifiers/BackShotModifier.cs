@@ -7,13 +7,11 @@ public class BackShotModifier : ShotModifier
         ShotPattern pattern,
         UnitBase shooter)
     {
-        int count =
-            pattern.projectiles.Count;
+        int count = pattern.projectiles.Count;
 
         for (int i = 0; i < count; i++)
         {
-            var shot =
-                pattern.projectiles[i];
+            var shot = pattern.projectiles[i];
 
             shot.direction *= -1f;
 

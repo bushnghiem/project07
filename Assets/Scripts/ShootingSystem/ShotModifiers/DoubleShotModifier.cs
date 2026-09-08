@@ -7,8 +7,7 @@ public class DoubleShotModifier : ShotModifier
         ShotPattern pattern,
         UnitBase shooter)
     {
-        int count =
-            pattern.projectiles.Count;
+        int count = pattern.projectiles.Count;
 
         for (int i = 0; i < count; i++)
         {
