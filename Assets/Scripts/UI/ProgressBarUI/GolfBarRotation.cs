@@ -7,37 +7,58 @@ public class GolfBarRotation : MonoBehaviour
     private Vector2 dragStartPos;
     private bool dragging;
 
-    void Update()
+    private void Awake()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            dragStartPos = Input.mousePosition;
-            dragging = true;
-            barRoot.gameObject.SetActive(true);
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            dragging = false;
-            barRoot.gameObject.SetActive(false);
-        }
-
-        if (dragging)
-        {
-            RotateBar();
-        }
+        Hide();
     }
 
-    void RotateBar()
+    public void BeginDrag(Vector2 startPosition)
     {
-        Vector2 currentMousePos = Input.mousePosition;
-        Vector2 dragVector = dragStartPos - currentMousePos;
+        dragStartPos = startPosition;
+        dragging = true;
+
+        barRoot.gameObject.SetActive(true);
+    }
+
+    public void UpdateDrag(Vector2 currentMousePosition)
+    {
+        if (!dragging)
+            return;
+
+        Vector2 dragVector =
+            dragStartPos - currentMousePosition;
 
         if (dragVector.sqrMagnitude < 0.01f)
             return;
 
-        float angle = Mathf.Atan2(dragVector.y, dragVector.x) * Mathf.Rad2Deg;
-        barRoot.rotation = Quaternion.Euler(0, 0, angle);
+        float angle =
+            Mathf.Atan2(
+                dragVector.y,
+                dragVector.x
+            ) * Mathf.Rad2Deg;
+
+        barRoot.rotation =
+            Quaternion.Euler(0f, 0f, angle);
+    }
+
+    public void EndDrag()
+    {
+        dragging = false;
+        Hide();
+    }
+
+    public void ResetBar()
+    {
+        dragging = false;
+
+        barRoot.rotation =
+            Quaternion.identity;
+
+        Hide();
+    }
+
+    private void Hide()
+    {
+        barRoot.gameObject.SetActive(false);
     }
 }
-

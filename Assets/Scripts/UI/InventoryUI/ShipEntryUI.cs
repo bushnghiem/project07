@@ -16,7 +16,7 @@ public class ShipEntryUI : MonoBehaviour
         fleetUI = ui;
 
         label.text =
-            $"{p.RunData.uniqueID} ({Mathf.RoundToInt(p.CurrentHealth)} HP)";
+            $"{p.RunData.uniqueID}";
 
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() =>

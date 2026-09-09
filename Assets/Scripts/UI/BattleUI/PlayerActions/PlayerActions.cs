@@ -43,7 +43,7 @@ public class PlayerActions : MonoBehaviour
         TurnEvent.OnUnitTurnEnd -= HandleTurnChanged;
         TurnEvent.OnUnitActionResolved -= HandleTurnChanged;
 
-        BattleManager.OnBattlePhaseChanged += RefreshVisibility;
+        BattleManager.OnBattlePhaseChanged -= RefreshVisibility;
 
         BattleUIManager.OnUIScreenChanged -= RefreshVisibility;
     }

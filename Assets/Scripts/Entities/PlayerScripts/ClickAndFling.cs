@@ -15,6 +15,9 @@ public class ClickAndFling : MonoBehaviour
     bool flingable = false;
 
     [SerializeField]
+    private GolfBarRotation golfBar;
+
+    [SerializeField]
     ActionType currentActionType;
 
     public Projectile projectile;
@@ -40,12 +43,33 @@ public class ClickAndFling : MonoBehaviour
         startRotation = transform.rotation;
 
         owner = GetComponent<UnitBase>();
+
+        if (golfBar == null)
+        {
+            golfBar = FindFirstObjectByType<GolfBarRotation>();
+        }
+
+        if (golfBar == null)
+        {
+            Debug.Log(
+                "ClickAndFling: No GolfBarRotation found in scene, not combat."
+            );
+        }
     }
+
 
     public void SetFlingable(bool value)
     {
         flingable = value;
+
+        if (!value)
+        {
+            isDragging = false;
+            golfBar?.ResetBar();
+            FlingEvent.OnPowerChanged?.Invoke(0f);
+        }
     }
+
 
     public void SetActionType(ActionType type)
     {
@@ -106,9 +130,13 @@ public class ClickAndFling : MonoBehaviour
                     startRotation;
 
                 FlingEvent.OnPowerChanged?.Invoke(0f);
+
+                golfBar?.BeginDrag(mouseStart);
             }
         }
     }
+
+
 
     void HandleDrag()
     {
@@ -143,7 +171,10 @@ public class ClickAndFling : MonoBehaviour
             );
 
         FlingEvent.OnPowerChanged?.Invoke(t);
+
+        golfBar?.UpdateDrag(Input.mousePosition);
     }
+
 
     void HandleRelease()
     {
@@ -158,7 +189,10 @@ public class ClickAndFling : MonoBehaviour
             drag.magnitude;
 
         if (dragLength < 10f)
+        {
+            CancelPendingAction();
             return;
+        }
 
         float t =
             Mathf.Clamp01(
@@ -177,32 +211,38 @@ public class ClickAndFling : MonoBehaviour
             new UnitAction
             {
                 actor = owner,
-
-                actionType =
-                    currentActionType,
-
+                actionType = currentActionType,
                 direction = direction,
-
                 powerPercent = t,
-
                 projectile = projectile
             };
 
         if (executor == null)
         {
-            executor = FindFirstObjectByType<UnitActionExecutor>();
+            executor =
+                FindFirstObjectByType<UnitActionExecutor>();
         }
 
         if (executor == null)
         {
-            Debug.LogError("No UnitActionExecutor found in scene!");
+            Debug.LogError(
+                "No UnitActionExecutor found in scene!"
+            );
+
+            CancelPendingAction();
             return;
         }
+
+        // No longer waiting for player targeting.
+        flingable = false;
+
+        golfBar?.EndDrag();
 
         executor.Execute(action);
 
         FlingEvent.OnPowerChanged?.Invoke(0f);
     }
+
 
     public void SetForces(float movement, float shooting)
     {
@@ -218,9 +258,11 @@ public class ClickAndFling : MonoBehaviour
     public void CancelPendingAction()
     {
         flingable = false;
-
         isDragging = false;
+
+        golfBar?.ResetBar();
 
         FlingEvent.OnPowerChanged?.Invoke(0f);
     }
+
 }

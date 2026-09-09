@@ -1,11 +1,11 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CurrentUnitPanel : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private TMP_Text nameText;
-    [SerializeField] private TMP_Text turnText;
     [SerializeField] private TMP_Text hpText;
     [SerializeField] private TMP_Text shieldText;
     [SerializeField] private TMP_Text apText;
@@ -13,6 +13,8 @@ public class CurrentUnitPanel : MonoBehaviour
     [SerializeField] private TMP_Text cooldownText;
     [SerializeField] private TMP_Text currentChargeText;
     [SerializeField] private TMP_Text chargeCostText;
+    [SerializeField] private Image shipIcon;
+    [SerializeField] private Image itemIcon;
 
     [Header("Status UI")]
     [SerializeField] private Transform statusContainer;
@@ -110,23 +112,31 @@ public class CurrentUnitPanel : MonoBehaviour
         if (currentUnit == null) return;
 
         nameText.text = currentUnit.RunData.uniqueID;
-        turnText.text = currentUnit.IsPlayerControllable ? "PLAYER TURN" : "ENEMY TURN";
         hpText.text = $"HP {currentUnit.CurrentHealth:0}/{currentUnit.MaxHealth:0}";
         shieldText.text = $"Shield {currentUnit.CurrentShield}";
         apText.text = $"AP {currentUnit.CurrentAP}/{(int)currentUnit.GetStat(ShipStatType.ActionPoints)}";
         currentChargeText.text = $"Charges {currentUnit.CurrentCharges:0}/{currentUnit.MaxCharges:0}";
 
+        shipIcon.sprite = currentUnit.Template.VisualData.shipIcon;
+
         if (currentUnit.ActiveItem != null)
         {
             activeItemText.text = currentUnit.ActiveItem.itemData.itemName;
+            itemIcon.sprite = currentUnit.ActiveItem.itemData.icon;
+            itemIcon.gameObject.SetActive(true);
 
             int cd = currentUnit.ActiveItem.GetRemainingCooldown();
             int cc = currentUnit.ActiveItem.itemData.chargeCost;
+            int charges = currentUnit.CurrentCharges;
+
+            bool ready = cd <= 0 && charges >= cc;
 
             cooldownText.text =
-                cd <= 0
-                ? "Ready"
-                : $"Cooldown: {cd}";
+                ready
+                    ? "Ready"
+                    : cd > 0
+                        ? $"{cd}"
+                        : $"Need Charge";
 
             chargeCostText.text = $"Charge Cost: {cc}";
         }
@@ -134,7 +144,11 @@ public class CurrentUnitPanel : MonoBehaviour
         {
             activeItemText.text = "No Active Item";
             cooldownText.text = "-";
+            chargeCostText.text = "-";
+
+            itemIcon.gameObject.SetActive(false);
         }
+
     }
 
     private void RefreshStatus()
