@@ -49,7 +49,13 @@ public static class TileTooltipBuilder
 
                 return new TooltipData(
                     "Shop",
-                    "Purchase equipment.");
+                    "Purchase with Credits.");
+
+            case TileType.Chest:
+
+                return new TooltipData(
+                    "Chest",
+                    "Open with Keys.");
 
             case TileType.Portal:
 

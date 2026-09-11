@@ -534,7 +534,7 @@ public class GridManager : MonoBehaviour
 
             case TileType.Chest:
                 prefab = chestPrefab;
-                rotation = Quaternion.Euler(270f, 90f, 0f);
+                rotation = Quaternion.Euler(270f, -90f, 0f);
                 break;
         }
 
