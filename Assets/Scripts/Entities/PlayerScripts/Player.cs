@@ -105,11 +105,7 @@ public class Player : UnitBase
 
     public override void Move()
     {
-        clickAndFlingComponent.SetFlingable(true);
-
-        clickAndFlingComponent.SetActionType(
-            ActionType.Move
-        );
+        clickAndFlingComponent.BeginAction(ActionType.Move);
     }
 
     public override void Moved()
@@ -120,11 +116,7 @@ public class Player : UnitBase
 
     public override void Shoot()
     {
-        clickAndFlingComponent.SetFlingable(true);
-
-        clickAndFlingComponent.SetActionType(
-            ActionType.Shoot
-        );
+        clickAndFlingComponent.BeginAction(ActionType.Shoot);
     }
 
     public override void Item()

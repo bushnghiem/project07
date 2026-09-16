@@ -199,6 +199,8 @@ public class GridMovement : MonoBehaviour
 
         Debug.Log("Fight: " + tile.assignedEncounter?.encounterName);
 
+        CleanupDeadUnits();
+
         shipHolder.RemovePlayersPassiveEffects();
 
         SceneManager.LoadScene("SpawnTestScene");
@@ -267,6 +269,8 @@ public class GridMovement : MonoBehaviour
 
         GenerateNextFloor(run);
 
+        CleanupDeadUnits();
+
         SaveManager.Instance.SaveRun();
 
         SceneManager.LoadScene("TestGrid");
@@ -314,6 +318,8 @@ public class GridMovement : MonoBehaviour
         );
 
         Debug.Log("Boss Fight: " + floor.currentEncounter?.encounterName);
+
+        CleanupDeadUnits();
 
         shipHolder.RemovePlayersPassiveEffects();
 
@@ -412,5 +418,12 @@ public class GridMovement : MonoBehaviour
 
             return seed;
         }
+    }
+
+    private void CleanupDeadUnits()
+    {
+        RunData run = RunManager.Instance.CurrentRun;
+
+        run.team.RemoveAll(ship => ship.isDead);
     }
 }

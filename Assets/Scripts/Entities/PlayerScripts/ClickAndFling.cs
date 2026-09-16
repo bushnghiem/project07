@@ -57,7 +57,6 @@ public class ClickAndFling : MonoBehaviour
         }
     }
 
-
     public void SetFlingable(bool value)
     {
         flingable = value;
@@ -66,10 +65,10 @@ public class ClickAndFling : MonoBehaviour
         {
             isDragging = false;
             golfBar?.ResetBar();
-            FlingEvent.OnPowerChanged?.Invoke(0f);
+            FlingEvent.PowerChanged(0f);
+
         }
     }
-
 
     public void SetActionType(ActionType type)
     {
@@ -81,13 +80,38 @@ public class ClickAndFling : MonoBehaviour
         projectile = newProjectile;
     }
 
+    public void BeginAction(ActionType actionType)
+    {
+        Debug.Log("BeginAction called: " + actionType);
+
+        currentActionType = actionType;
+        flingable = true;
+        isDragging = false;
+
+        FlingEvent.PowerChanged(0f);
+
+        FlingEvent.FlingTargetingStarted(currentActionType);
+    }
+
+
     void Update()
     {
-        if (BattleUIManager.Instance != null && BattleUIManager.Instance.IsOverlayOpen())
+        if (BattleUIManager.Instance != null &&
+            BattleUIManager.Instance.IsOverlayOpen())
         {
             isDragging = false;
             return;
         }
+
+        // Right click cancels Move/Shoot targeting.
+        if (Input.GetMouseButtonDown(1))
+        {
+            CancelPendingAction();
+            return;
+        }
+
+        if (!flingable)
+            return;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -102,7 +126,6 @@ public class ClickAndFling : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && isDragging)
         {
             HandleRelease();
-
             isDragging = false;
         }
     }
@@ -129,14 +152,12 @@ public class ClickAndFling : MonoBehaviour
                 transform.rotation =
                     startRotation;
 
-                FlingEvent.OnPowerChanged?.Invoke(0f);
+                FlingEvent.PowerChanged(0f);
 
                 golfBar?.BeginDrag(mouseStart);
             }
         }
     }
-
-
 
     void HandleDrag()
     {
@@ -170,11 +191,10 @@ public class ClickAndFling : MonoBehaviour
                 maxDragDistance
             );
 
-        FlingEvent.OnPowerChanged?.Invoke(t);
+        FlingEvent.PowerChanged(t);
 
         golfBar?.UpdateDrag(Input.mousePosition);
     }
-
 
     void HandleRelease()
     {
@@ -238,11 +258,12 @@ public class ClickAndFling : MonoBehaviour
 
         golfBar?.EndDrag();
 
+        FlingEvent.FlingTargetingEnded();
+
         executor.Execute(action);
 
-        FlingEvent.OnPowerChanged?.Invoke(0f);
+        FlingEvent.PowerChanged(0f);
     }
-
 
     public void SetForces(float movement, float shooting)
     {
@@ -257,12 +278,18 @@ public class ClickAndFling : MonoBehaviour
 
     public void CancelPendingAction()
     {
+        if (!flingable)
+            return;
+
         flingable = false;
         isDragging = false;
 
         golfBar?.ResetBar();
 
-        FlingEvent.OnPowerChanged?.Invoke(0f);
-    }
+        FlingEvent.PowerChanged(0f);
 
+        FlingEvent.FlingTargetingEnded();
+
+        CameraEvent.UnlockCamera?.Invoke();
+    }
 }

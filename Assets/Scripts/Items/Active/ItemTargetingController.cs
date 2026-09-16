@@ -54,15 +54,13 @@ public class ItemTargetingController : MonoBehaviour
         currentUser = user;
         currentItem = item;
 
-        if (item.itemData.TargetType == ItemTargetType.Self)
-        {
-            ConfirmSelf();
-            return;
-        }
-
         targeting = true;
 
-        if (item.itemData.TargetType != ItemTargetType.Direction)
+        CameraEvent.LockCamera?.Invoke();
+        CameraEvent.RecenterCamera?.Invoke();
+
+
+        if (item.itemData.TargetType != ItemTargetType.Direction && item.itemData.TargetType != ItemTargetType.Self)
         {
             activeIndicator = Instantiate(rangeIndicatorPrefab);
 
@@ -83,11 +81,30 @@ public class ItemTargetingController : MonoBehaviour
         if (!targeting)
             return;
 
+        // Right click = cancel for every item.
+        if (Input.GetMouseButtonDown(1))
+        {
+            CancelTargeting();
+            return;
+        }
+
+        // Self-targeting doesn't need a raycast.
+        if (currentItem.itemData.TargetType == ItemTargetType.Self)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                ConfirmSelf();
+            }
+
+            return;
+        }
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             lastHit = hit;
+
             if (currentItem.itemData.TargetType == ItemTargetType.Unit)
             {
                 UnitBase unit = GetUnitUnderMouse(hit);
@@ -111,12 +128,8 @@ public class ItemTargetingController : MonoBehaviour
                 HandleClick();
             }
         }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            CancelTargeting();
-        }
     }
+
 
     private void UpdatePreview(Vector3 point)
     {
@@ -360,6 +373,8 @@ public class ItemTargetingController : MonoBehaviour
 
         currentUser = null;
         currentItem = null;
+
+        CameraEvent.UnlockCamera?.Invoke();
     }
 
     public void CancelTargeting()
@@ -377,6 +392,8 @@ public class ItemTargetingController : MonoBehaviour
 
         currentUser = null;
         currentItem = null;
+
+        CameraEvent.UnlockCamera?.Invoke();
 
         Debug.Log("Cancelled targeting");
     }
