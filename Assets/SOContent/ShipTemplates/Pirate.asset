@@ -46,7 +46,7 @@ MonoBehaviour:
   - statType: 14
     value: 2
   - statType: 15
-    value: 0
+    value: 1
   - statType: 16
     value: 0
   - statType: 17
@@ -59,10 +59,14 @@ MonoBehaviour:
     value: 0
   - statType: 21
     value: 0
+  - statType: 22
+    value: 0
+  - statType: 23
+    value: 0
   visualData: {fileID: 11400000, guid: 4e1a85bc155a8a34bb8ce5455fa932f7, type: 2}
   audioData: {fileID: 11400000, guid: c7b0fc4da74c57349a74552f28276ddf, type: 2}
   collisionRadius: 3
-  projectileSpawnRadius: 3
+  projectileSpawnRadius: 1
   startingActiveItemID: 
   startingPassiveItemIDs: []
   startingProjectileID: projectile_basic

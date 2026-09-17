@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Scrap Collection Drone
   baseStats:
   - statType: 0
-    value: 50
+    value: 100
   - statType: 1
     value: 0
   - statType: 2
@@ -26,11 +26,11 @@ MonoBehaviour:
   - statType: 4
     value: 500
   - statType: 5
-    value: 5
+    value: 10
   - statType: 6
-    value: 11
+    value: 10
   - statType: 7
-    value: 20
+    value: 10
   - statType: 8
     value: 0
   - statType: 9
@@ -46,7 +46,7 @@ MonoBehaviour:
   - statType: 14
     value: 1
   - statType: 15
-    value: 0
+    value: 1
   - statType: 16
     value: 0
   - statType: 17
@@ -58,6 +58,10 @@ MonoBehaviour:
   - statType: 20
     value: 0
   - statType: 21
+    value: 0
+  - statType: 22
+    value: 0
+  - statType: 23
     value: 0
   visualData: {fileID: 11400000, guid: 3be6b9fbc4c672a4799c156535f755db, type: 2}
   audioData: {fileID: 11400000, guid: c7b0fc4da74c57349a74552f28276ddf, type: 2}

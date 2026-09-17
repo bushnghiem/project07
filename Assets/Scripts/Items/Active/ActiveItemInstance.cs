@@ -15,7 +15,8 @@ public class ActiveItemInstance
     public bool CanUse(UnitBase user)
     {
         return remainingCooldown <= 0 &&
-               user.CurrentCharges >= itemData.chargeCost;
+               user.CurrentCharges >= itemData.chargeCost &&
+               user.CurrentAP >= itemData.apCost;
     }
 
     public bool Use(

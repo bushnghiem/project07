@@ -46,7 +46,7 @@ MonoBehaviour:
   - statType: 14
     value: 2
   - statType: 15
-    value: 0
+    value: 1
   - statType: 16
     value: 0
   - statType: 17
@@ -58,6 +58,10 @@ MonoBehaviour:
   - statType: 20
     value: 0
   - statType: 21
+    value: 0
+  - statType: 22
+    value: 0
+  - statType: 23
     value: 0
   visualData: {fileID: 11400000, guid: 8559cdb8d3eb1754d8c6a23375eb3a45, type: 2}
   audioData: {fileID: 11400000, guid: dd002a4a740107e44be87c0d876f87bf, type: 2}

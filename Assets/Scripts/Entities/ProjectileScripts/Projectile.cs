@@ -8,7 +8,8 @@ public enum ProjectileStatType
     StartingShield,
     CollisionDamage,
     CollisionKnockback,
-    Mass
+    Mass,
+    APCost
 }
 
 [Serializable]

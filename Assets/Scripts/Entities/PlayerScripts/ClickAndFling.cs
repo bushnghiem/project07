@@ -234,8 +234,38 @@ public class ClickAndFling : MonoBehaviour
                 actionType = currentActionType,
                 direction = direction,
                 powerPercent = t,
-                projectile = projectile
+                projectile = projectile,
+                apCost = owner.GetShootCost()
             };
+
+        if (currentActionType == ActionType.Move)
+        {
+            action =
+            new UnitAction
+            {
+                actor = owner,
+                actionType = currentActionType,
+                direction = direction,
+                powerPercent = t,
+                projectile = projectile,
+                apCost = owner.GetMoveCost()
+            };
+        }
+
+        else if (currentActionType == ActionType.Shoot)
+        {
+            action =
+            new UnitAction
+            {
+                actor = owner,
+                actionType = currentActionType,
+                direction = direction,
+                powerPercent = t,
+                projectile = projectile,
+                apCost = owner.GetShootCost()
+            };
+        }
+
 
         if (executor == null)
         {

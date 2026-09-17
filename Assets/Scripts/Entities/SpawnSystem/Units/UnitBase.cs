@@ -863,6 +863,39 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
         chargeComp.Gain(amount);
     }
 
+    public int GetMoveCost()
+    {
+        return Mathf.RoundToInt(GetStat(ShipStatType.MoveAPCost));
+    }
+
+    public int GetShootCost()
+    {
+        return Mathf.RoundToInt(Projectile.GetBaseStat(ProjectileStatType.APCost))
+            + Mathf.RoundToInt(GetStat(ShipStatType.ShootAPCostModifier));
+    }
+
+    public bool CanMove()
+    {
+        int MoveCost = GetMoveCost();
+
+        if (currentAP >= MoveCost)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool CanShoot()
+    {
+        int ShootCost = GetShootCost();
+
+        if (currentAP >= ShootCost)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public virtual InspectionData GetInspectionData()
     {
         return new InspectionData

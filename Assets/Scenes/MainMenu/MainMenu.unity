@@ -534,17 +534,16 @@ MonoBehaviour:
       - itemID: passive_heal_turn
       - itemID: passive_explosive_death
     - uniqueID: Player 2
-      templateID: 0
+      templateID: ship_pirate
       aiBehaviorID: 
       currentHealth: 100
       currentCharges: 5
       isDead: 0
       statModifiers: []
       items:
-      - itemID: projectile_iron_ball
+      - itemID: projectile_basic
       - itemID: passive_heal_kill
       - itemID: active_repulsor_beam
-      - itemID: passive_extra_shot
       - itemID: passive_projectile_explosive_death
       - itemID: passive_all_fire
       - itemID: passive_side_cannons

@@ -38,6 +38,7 @@ public class ProjectileItem : Item
         AddStat(sb, "Collision Damage", ProjectileStatType.CollisionDamage);
         AddStat(sb, "Knockback", ProjectileStatType.CollisionKnockback);
         AddStat(sb, "Mass", ProjectileStatType.Mass);
+        AddStat(sb, "AP Cost", ProjectileStatType.APCost);
         return sb.ToString();
     }
 

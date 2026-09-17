@@ -355,7 +355,8 @@ public class ItemTargetingController : MonoBehaviour
             actor = currentUser,
             actionType = ActionType.Item,
             activeItem = currentItem,
-            itemTargetData = data
+            itemTargetData = data,
+            apCost = CurrentItem.itemData.apCost
         };
 
         executor.Execute(action);

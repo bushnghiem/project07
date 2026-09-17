@@ -25,5 +25,6 @@ MonoBehaviour:
   effectRadius: 20
   cooldownTurns: 2
   chargeCost: 1
+  apCost: 1
   range: 20
   force: 100

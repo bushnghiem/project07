@@ -23,6 +23,8 @@ public enum ShipStatType
     ProjectileShield,
 
     ActionPoints,
+    MoveAPCost,
+    ShootAPCostModifier,
 
     CollisionResistance,
     ExplosionResistance,

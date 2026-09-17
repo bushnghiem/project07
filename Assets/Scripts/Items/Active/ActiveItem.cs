@@ -14,6 +14,7 @@ public abstract class ActiveItem : Item
 
     public int cooldownTurns = 2;
     public int chargeCost = 1;
+    public int apCost = 1;
     public float range = 10f;
 
     public abstract ItemTargetType TargetType { get; }
@@ -45,6 +46,7 @@ public abstract class ActiveItem : Item
 
         sb.AppendLine($"Cooldown: {cooldownTurns} turns");
         sb.AppendLine($"Charge Cost: {chargeCost} charge");
+        sb.AppendLine($"AP Cost: {apCost} AP");
         sb.AppendLine($"Target Type: {TargetType}°");
 
         switch (TargetType)
