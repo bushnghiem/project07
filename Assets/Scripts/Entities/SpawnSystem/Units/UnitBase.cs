@@ -899,7 +899,7 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
     public bool CanAffordAP(int cost)
     {
-        return cost >= 0 && currentAP >= cost;
+        return cost > 0 && currentAP >= cost;
     }
 
     public virtual InspectionData GetInspectionData()

@@ -10,4 +10,10 @@ public class EnemyAIContext
     public int turnsWithoutLOS;
 
     public Vector3 lastKnownTargetPosition;
+
+    public ActionType lastActionType;
+
+    public int actionsThisTurn;
+
+    public int lastActionCost;
 }

@@ -15,6 +15,9 @@ public class AttackState : EnemyState
     {
         var target = EnemyAIUtility.GetClosestPlayer(enemy, battleManager);
 
+        if (enemy.GetProjectile() == null)
+            return null;
+
         if (target == null)
             return null;
 

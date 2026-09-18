@@ -3,40 +3,55 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "AI/Ram AI")]
 public class RamAIBehavior : EnemyAIBehavior
 {
-    public float ramDistanceThreshold = 3f;
+    [Header("Ram Behavior")]
+    [Tooltip("Within this distance, the enemy commits to a direct ram.")]
+    public float directRamDistance = 3f;
 
     public override UnitAction DecideAction(
         Enemy enemy,
         BattleManager battleManager,
         EnemyAIContext context)
     {
-        Player target = EnemyAIUtility.GetClosestPlayer(enemy, battleManager);
+        Player target =
+            EnemyAIUtility.GetClosestPlayer(
+                enemy,
+                battleManager);
 
         if (target == null)
             return null;
 
-        float distance = Vector3.Distance(enemy.Position, target.Position);
+        // Get horizontal direction to target.
+        Vector3 offset =
+            target.Position -
+            enemy.Position;
 
-        Vector3 dir = (target.Position - enemy.Position).normalized;
+        offset.y = 0f;
 
-        if (distance <= ramDistanceThreshold)
+        float distance = offset.magnitude;
+
+        // Already essentially on top of the target.
+        if (distance < 0.001f)
+            return null;
+
+        Vector3 direction =
+            offset.normalized;
+
+        // At longer range, use steering so the rammer
+        // can navigate around obstacles.
+        if (distance > directRamDistance)
         {
-            return new UnitAction
-            {
-                actor = enemy,
-                actionType = ActionType.Move,
-                direction = dir,
-                powerPercent = 1f
-            };
+            direction =
+                EnemyAIUtility.GetSteeredDirection(
+                    enemy,
+                    direction);
         }
 
-        dir = EnemyAIUtility.GetSteeredDirection(enemy, dir);
-
+        // A rammer always uses maximum movement power.
         return new UnitAction
         {
             actor = enemy,
             actionType = ActionType.Move,
-            direction = dir,
+            direction = direction,
             powerPercent = 1f
         };
     }
