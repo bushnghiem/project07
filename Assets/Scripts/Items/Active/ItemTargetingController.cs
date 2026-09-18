@@ -356,7 +356,6 @@ public class ItemTargetingController : MonoBehaviour
             actionType = ActionType.Item,
             activeItem = currentItem,
             itemTargetData = data,
-            apCost = CurrentItem.itemData.apCost
         };
 
         executor.Execute(action);

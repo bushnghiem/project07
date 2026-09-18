@@ -771,7 +771,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1401740533}
   m_HandleRect: {fileID: 1401740532}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -886,7 +886,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 954764198443734371, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.0007221833
+      value: 0.00017450668
       objectReference: {fileID: 0}
     - target: {fileID: 954764198443734371, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -4942,7 +4942,7 @@ MonoBehaviour:
   useKeyboardPan: 1
   edgeSize: 25
   moveSpeed: 15
-  maxPanDistance: 8
+  maxPanDistance: 20
   controlsEnabled: 1
   forceCenterSpeed: 10
 --- !u!114 &1521778652

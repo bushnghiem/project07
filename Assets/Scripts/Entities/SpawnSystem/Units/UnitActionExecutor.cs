@@ -9,6 +9,13 @@ public class UnitActionExecutor : MonoBehaviour
         if (action == null || action.actor == null)
             return;
 
+        if (!action.CanAfford())
+        {
+            Debug.LogWarning(
+                $"{action.actor.name} cannot afford {action.actionType}");
+            return;
+        }
+
         switch (action.actionType)
         {
             case ActionType.Move:
@@ -143,7 +150,7 @@ public class UnitActionExecutor : MonoBehaviour
 
     private void ResolveAction(UnitAction action)
     {
-        action.actor.SpendAP(action.apCost);
+        action.actor.SpendAP(action.APCost);
 
         action.actor.ActionResolved();
     }

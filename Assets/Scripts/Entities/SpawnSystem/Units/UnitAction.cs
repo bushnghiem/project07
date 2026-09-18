@@ -34,6 +34,32 @@ public class UnitAction
     // Camera/action tracking
     public ActionContext actionContext;
 
-    // Costs
-    public int apCost = 1;
+    public int APCost
+    {
+        get
+        {
+            if (actor == null)
+                return int.MaxValue;
+
+            switch (actionType)
+            {
+                case ActionType.Move:
+                    return actor.GetMoveCost();
+
+                case ActionType.Shoot:
+                    return actor.GetShootCost();
+
+                case ActionType.Item:
+                    return actor.GetItemCost();
+
+                default:
+                    return int.MaxValue;
+            }
+        }
+    }
+
+    public bool CanAfford()
+    {
+        return actor != null && actor.CurrentAP >= APCost;
+    }
 }

@@ -865,35 +865,41 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
     public int GetMoveCost()
     {
-        return Mathf.RoundToInt(GetStat(ShipStatType.MoveAPCost));
+        int cost = Mathf.RoundToInt(GetStat(ShipStatType.MoveAPCost));
+
+        return Mathf.Max(1, cost);
     }
 
     public int GetShootCost()
     {
-        return Mathf.RoundToInt(Projectile.GetBaseStat(ProjectileStatType.APCost))
-            + Mathf.RoundToInt(GetStat(ShipStatType.ShootAPCostModifier));
+        if (Projectile == null)
+            return int.MaxValue;
+
+        int cost =
+            Mathf.RoundToInt(
+                Projectile.GetBaseStat(
+                    ProjectileStatType.APCost))
+            + Mathf.RoundToInt(
+                GetStat(
+                    ShipStatType.ShootAPCostModifier));
+
+        return Mathf.Max(1, cost);
     }
 
-    public bool CanMove()
+    public int GetItemCost()
     {
-        int MoveCost = GetMoveCost();
+        if (activeItem == null ||
+            activeItem.itemData == null)
+            return int.MaxValue;
 
-        if (currentAP >= MoveCost)
-        {
-            return true;
-        }
-        return false;
+        return Mathf.Max(
+            1,
+            activeItem.itemData.apCost);
     }
 
-    public bool CanShoot()
+    public bool CanAffordAP(int cost)
     {
-        int ShootCost = GetShootCost();
-
-        if (currentAP >= ShootCost)
-        {
-            return true;
-        }
-        return false;
+        return cost >= 0 && currentAP >= cost;
     }
 
     public virtual InspectionData GetInspectionData()
