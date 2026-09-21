@@ -133,25 +133,34 @@ public class ItemTargetingController : MonoBehaviour
 
     private void UpdatePreview(Vector3 point)
     {
-        if (currentItem == null || currentItem.itemData.previewPrefab == null)
+        if (currentItem == null ||
+            currentItem.itemData.previewPrefab == null)
             return;
 
         if (activePreviewObject == null)
         {
-            activePreviewObject = Instantiate(currentItem.itemData.previewPrefab);
-            activePreviewRenderer = activePreviewObject.GetComponentInChildren<Renderer>();
+            activePreviewObject =
+                Instantiate(currentItem.itemData.previewPrefab);
+
+            activePreviewRenderer =
+                activePreviewObject.GetComponentInChildren<Renderer>();
         }
+
+        point.y = currentUser.Position.y;
 
         activePreviewObject.transform.position = point;
 
-        bool valid = IsInRange(point);
+        bool valid = IsValidPositionTarget(point);
 
         if (activePreviewRenderer != null)
         {
             activePreviewRenderer.material.color =
-                valid ? currentItem.itemData.validColor : currentItem.itemData.invalidColor;
+                valid
+                    ? currentItem.itemData.validColor
+                    : currentItem.itemData.invalidColor;
         }
     }
+
 
     private void UpdateUnitPreview(UnitBase unit)
     {
@@ -212,6 +221,25 @@ public class ItemTargetingController : MonoBehaviour
         }
     }
 
+    private bool IsValidPositionTarget(Vector3 point)
+    {
+        if (currentUser == null || currentItem == null)
+            return false;
+
+        if (!IsInRange(point))
+            return false;
+
+        ItemTargetData data = new ItemTargetData
+        {
+            targetPosition = point
+        };
+
+        return currentItem.itemData.IsValidTarget(
+            currentUser,
+            data
+        );
+    }
+
     private void ClearPreview()
     {
         if (activePreviewObject != null)
@@ -270,28 +298,29 @@ public class ItemTargetingController : MonoBehaviour
                 Input.mousePosition
             );
 
-        if (
-            Physics.Raycast(
-                ray,
-                out RaycastHit hit
-            )
-        )
+        if (!Physics.Raycast(
+            ray,
+            out RaycastHit hit
+        ))
         {
-            if (!IsInRange(hit.point))
-            {
-                Debug.Log("Out of range");
-                return;
-            }
-
-            ItemTargetData data =
-                new ItemTargetData
-                {
-                    targetPosition = hit.point
-                };
-
-            ExecuteItem(data);
+            return;
         }
-        Debug.Log("Hit object: " + hit.collider.name);
+
+        Vector3 position = hit.point;
+        position.y = currentUser.Position.y;
+
+        if (!IsValidPositionTarget(position))
+        {
+            Debug.Log("Invalid target position");
+            return;
+        }
+
+        ItemTargetData data = new ItemTargetData
+        {
+            targetPosition = position
+        };
+
+        ExecuteItem(data);
     }
 
     private void ConfirmUnit()

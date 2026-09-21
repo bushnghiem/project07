@@ -34,6 +34,15 @@ public abstract class ActiveItem : Item
         ActionContext context
     );
 
+    public virtual bool IsValidTarget(
+    UnitBase user,
+    ItemTargetData target
+    )
+    {
+        return true;
+    }
+
+
     public override string GetTooltipText(int? shopPrice = null)
     {
         StringBuilder sb = new StringBuilder();

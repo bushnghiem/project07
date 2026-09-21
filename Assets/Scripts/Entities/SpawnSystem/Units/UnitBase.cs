@@ -902,6 +902,80 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
         return cost > 0 && currentAP >= cost;
     }
 
+    public virtual bool CanTeleportTo(Vector3 position)
+    {
+        position.y = Position.y;
+
+        float radius = GetCollisionRadius();
+
+        Collider[] hits = Physics.OverlapSphere(
+            position,
+            radius,
+            ~0,
+            QueryTriggerInteraction.Ignore
+        );
+
+        foreach (Collider hit in hits)
+        {
+            // Ignore our own colliders.
+            if (hit.transform.IsChildOf(transform))
+                continue;
+
+            // Don't allow teleporting into another unit.
+            UnitBase otherUnit =
+                hit.GetComponentInParent<UnitBase>();
+
+            if (otherUnit != null)
+                return false;
+
+            // Don't allow teleporting into obstacles.
+            if (hit.CompareTag("Environment"))
+                return false;
+        }
+
+        return true;
+    }
+
+    public virtual bool TeleportTo(Vector3 position)
+    {
+        position.y = Position.y;
+
+        if (!CanTeleportTo(position))
+        {
+            Debug.Log(
+                $"{gameObject.name} cannot teleport to {position}"
+            );
+
+            return false;
+        }
+
+        if (rb != null)
+        {
+            rb.position = position;
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+        else
+        {
+            transform.position = position;
+        }
+
+        Moved();
+
+        return true;
+    }
+
+    public float GetCollisionRadius()
+    {
+        if (sphereCollider != null)
+            return sphereCollider.radius;
+
+        if (template != null)
+            return template.CollisionRadius;
+
+        return 0.5f;
+    }
+
     public virtual InspectionData GetInspectionData()
     {
         return new InspectionData

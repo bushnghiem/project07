@@ -523,14 +523,14 @@ MonoBehaviour:
     - uniqueID: Player 1
       templateID: 0
       aiBehaviorID: 
-      currentHealth: 25
+      currentHealth: 100
       currentCharges: 0
       isDead: 0
       statModifiers: []
       items:
       - itemID: projectile_basic
       - itemID: passive_maxhp_up
-      - itemID: active_test
+      - itemID: active_teleport
       - itemID: passive_heal_turn
       - itemID: passive_explosive_death
     - uniqueID: Player 2
