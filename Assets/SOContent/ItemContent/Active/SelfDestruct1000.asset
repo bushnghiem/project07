@@ -18,7 +18,7 @@ MonoBehaviour:
   description: BLOW EVERYTHING UP (INCLUDING YOURSELF)
   price: 100
   slotType: 0
-  aiEvaluator: {fileID: 0}
+  aiEvaluator: {fileID: 11400000, guid: 960b4efaf0d5bf743b9bc5d0ac2b4658, type: 2}
   previewPrefab: {fileID: 0}
   validColor: {r: 0, g: 1, b: 0, a: 1}
   invalidColor: {r: 1, g: 0, b: 0, a: 1}

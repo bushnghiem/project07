@@ -18,6 +18,7 @@ MonoBehaviour:
   description: PUT DOWN A DAMAGE FIELD
   price: 100
   slotType: 0
+  aiEvaluator: {fileID: 11400000, guid: 42422f641889eb14c9b0518d10e4a4ab, type: 2}
   previewPrefab: {fileID: 919132149155446097, guid: 330cc02628650e246b6becab861384e4, type: 3}
   validColor: {r: 0, g: 1, b: 0, a: 1}
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
@@ -25,5 +26,6 @@ MonoBehaviour:
   effectRadius: 8
   cooldownTurns: 2
   chargeCost: 1
+  apCost: 1
   range: 10
   fieldPrefab: {fileID: 216280543112345849, guid: 48c6bc9704dd7f34f85fc60e125f098c, type: 3}

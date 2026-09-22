@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b84216727a905bf48bc05693b735bdc3, type: 3}
+  m_Name: SelfDestructEvaluator
+  m_EditorClassIdentifier: Assembly-CSharp::SelfDestructItemAIEvaluator
+  enemyValue: 10
+  damagePotentialWeight: 5
+  multiTargetBonus: 5
+  selfPreservationWeight: 10
+  lethalBonus: 20
+  minimumTargets: 1
+  minimumHealthPercent: 0.5
+  explosionRadius: 3
+  enableDebugLogs: 1
