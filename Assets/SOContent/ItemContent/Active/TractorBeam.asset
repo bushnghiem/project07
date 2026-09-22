@@ -18,6 +18,7 @@ MonoBehaviour:
   description: PULL EVERYTHING IN
   price: 100
   slotType: 0
+  aiEvaluator: {fileID: 11400000, guid: 3c48e16aff7608441a592c076698319b, type: 2}
   previewPrefab: {fileID: 2906971151795962351, guid: a698f9053de4b2544b82c2bc2629cbaf, type: 3}
   validColor: {r: 0, g: 1, b: 0, a: 1}
   invalidColor: {r: 1, g: 0, b: 0, a: 1}

@@ -9,23 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 616c1c4b2368c8d48b0dee6176a0a270, type: 3}
-  m_Name: SelfDestruct1000
-  m_EditorClassIdentifier: Assembly-CSharp::SelfDestructionItem
-  itemID: active_self_explode
-  itemName: Self Destruct
+  m_Script: {fileID: 11500000, guid: 57c6afeb9237dea4bb9735983faea2cd, type: 3}
+  m_Name: Explosion
+  m_EditorClassIdentifier: Assembly-CSharp::ExplosionItem
+  itemID: active_explode
+  itemName: Spontanious Combustion
   icon: {fileID: 21300000, guid: e75404d0d6a5c84429ff44e7fbc8e9ff, type: 3}
-  description: BLOW EVERYTHING UP (INCLUDING YOURSELF)
+  description: Blow up your enemies at the press of a button
   price: 100
   slotType: 0
-  aiEvaluator: {fileID: 0}
-  previewPrefab: {fileID: 0}
+  aiEvaluator: {fileID: 11400000, guid: 0a325712125523745a30faa68367b212, type: 2}
+  previewPrefab: {fileID: 919132149155446097, guid: 330cc02628650e246b6becab861384e4, type: 3}
   validColor: {r: 0, g: 1, b: 0, a: 1}
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
   coneAngle: 45
   effectRadius: 8
   cooldownTurns: 2
-  chargeCost: 0
-  apCost: 1
-  range: 10
+  chargeCost: 3
+  apCost: 2
+  range: 15
   explosion: {fileID: 11400000, guid: b0481528f2774814b8c7a6ee7a4dd213, type: 2}

@@ -14,10 +14,14 @@ public class ActiveItemInstance
 
     public bool CanUse(UnitBase user)
     {
+        if (user == null || itemData == null)
+            return false;
+
         return remainingCooldown <= 0 &&
                user.CurrentCharges >= itemData.chargeCost &&
                user.CurrentAP >= itemData.apCost;
     }
+
 
     public bool Use(
         Unit user,

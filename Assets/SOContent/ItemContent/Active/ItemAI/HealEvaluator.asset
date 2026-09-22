@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec117708d16329f4f80f6c1f49286d72, type: 3}
+  m_Name: HealEvaluator
+  m_EditorClassIdentifier: Assembly-CSharp::HealItemAIEvaluator
+  missingHealthWeight: 20
+  selfHealBonus: 1

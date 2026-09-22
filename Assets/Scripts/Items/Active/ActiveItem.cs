@@ -3,6 +3,9 @@ using System.Text;
 
 public abstract class ActiveItem : Item
 {
+    [Header("AI")]
+    public ActiveItemAIEvaluator aiEvaluator;
+
     [Header("Targeting Visuals (Optional)")]
     public GameObject previewPrefab;
     public Color validColor = Color.green;

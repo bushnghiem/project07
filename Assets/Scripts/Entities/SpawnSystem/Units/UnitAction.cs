@@ -31,6 +31,8 @@ public class UnitAction
 
     public ItemTargetData itemTargetData;
 
+    public float aiScore;
+
     // Camera/action tracking
     public ActionContext actionContext;
 

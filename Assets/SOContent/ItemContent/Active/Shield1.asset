@@ -18,6 +18,7 @@ MonoBehaviour:
   description: Gain a layer of shield that protects against one hit
   price: 100
   slotType: 0
+  aiEvaluator: {fileID: 11400000, guid: d4ebe25ae9d0d114f8b7cad4fcc33004, type: 2}
   previewPrefab: {fileID: 0}
   validColor: {r: 0, g: 1, b: 0, a: 1}
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
@@ -25,5 +26,6 @@ MonoBehaviour:
   effectRadius: 8
   cooldownTurns: 1
   chargeCost: 1
+  apCost: 1
   range: 10
   shieldAmount: 1
