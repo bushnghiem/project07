@@ -6,7 +6,7 @@ public class ShieldItem : ActiveItem
     public int shieldAmount = 1;
 
     public override ItemTargetType TargetType =>
-        ItemTargetType.Self;
+        ItemTargetType.Unit;
 
     public override void Execute(
         Unit user,
@@ -14,13 +14,10 @@ public class ShieldItem : ActiveItem
         ActionContext context
     )
     {
-        if (user is UnitBase unit)
-        {
-            unit.AddShield(shieldAmount);
+        if (data.targetUnit == null)
+            return;
 
-            Debug.Log(
-                $"{unit.gameObject.name} gained {shieldAmount} shield"
-            );
-        }
+        if (data.targetUnit is UnitBase unitBase)
+            unitBase.AddShield(shieldAmount);
     }
 }

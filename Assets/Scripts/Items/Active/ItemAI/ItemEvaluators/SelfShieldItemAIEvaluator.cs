@@ -26,8 +26,8 @@ public class SelfShieldItemAIEvaluator : ActiveItemAIEvaluator
         if (item.itemData == null)
             return null;
 
-        ShieldItem shieldItem =
-            item.itemData as ShieldItem;
+        SelfShieldItem shieldItem =
+            item.itemData as SelfShieldItem;
 
         if (shieldItem == null)
             return null;

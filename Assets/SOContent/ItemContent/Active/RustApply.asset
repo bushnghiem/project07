@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fba4075113947b4880f5ff72cd39e2b, type: 3}
-  m_Name: Shield1
-  m_EditorClassIdentifier: Assembly-CSharp::ShieldItem
-  itemID: active_shield
-  itemName: Protective Barrier
-  icon: {fileID: 21300000, guid: 393368a6c7470ad45ab4c46b44280cdd, type: 3}
-  description: 
+  m_Script: {fileID: 11500000, guid: 3502f1993ef87c14689387efa1125a90, type: 3}
+  m_Name: RustApply
+  m_EditorClassIdentifier: Assembly-CSharp::StatusEffectItem
+  itemID: active_rust_apply
+  itemName: Ruster
+  icon: {fileID: 21300000, guid: daa93813e5d14d54fa2865e72d216759, type: 3}
+  description: Apply Rust to a Ship
   price: 100
   slotType: 0
-  aiEvaluator: {fileID: 11400000, guid: 3a256fe048fba8345bae36974dd059fa, type: 2}
+  aiEvaluator: {fileID: 11400000, guid: 916d3598626d41c4491fe148beaac53c, type: 2}
   previewPrefab: {fileID: 0}
   validColor: {r: 0, g: 1, b: 0, a: 1}
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
@@ -28,4 +28,5 @@ MonoBehaviour:
   chargeCost: 1
   apCost: 1
   range: 10
-  shieldAmount: 1
+  statusEffect: {fileID: 11400000, guid: 1c187403d0c26d8429da69614b8a456e, type: 2}
+  stacks: 5

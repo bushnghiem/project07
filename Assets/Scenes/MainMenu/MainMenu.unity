@@ -530,7 +530,7 @@ MonoBehaviour:
       items:
       - itemID: projectile_basic
       - itemID: passive_maxhp_up
-      - itemID: active_explode
+      - itemID: active_rust_apply
       - itemID: passive_heal_turn
       - itemID: passive_explosive_death
     - uniqueID: Player 2
@@ -543,7 +543,7 @@ MonoBehaviour:
       items:
       - itemID: projectile_basic
       - itemID: passive_heal_kill
-      - itemID: active_repulsor_beam
+      - itemID: active_shield
       - itemID: passive_projectile_explosive_death
       - itemID: passive_all_fire
       - itemID: passive_side_cannons
