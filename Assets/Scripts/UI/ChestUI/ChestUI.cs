@@ -17,6 +17,7 @@ public class ChestUI : MonoBehaviour
     [Header("Buttons")]
     public Button openButton;
     public Button leaveButton;
+    public Button closeButton;
 
     [Header("Reward Slots")]
     public Transform rewardParent;
@@ -33,6 +34,7 @@ public class ChestUI : MonoBehaviour
 
         openButton.onClick.AddListener(OpenChest);
         leaveButton.onClick.AddListener(CloseChest);
+        closeButton.onClick.AddListener(SkipChest);
     }
 
     public void Show()
@@ -185,6 +187,38 @@ public class ChestUI : MonoBehaviour
 
     public void CloseChest()
     {
+        gameObject.SetActive(false);
+
+        GridUIManager.Instance.ClearState();
+
+        FindFirstObjectByType<GridMovement>().inputLocked = false;
+    }
+
+    public void SkipChest()
+    {
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
+
+        ChestData chest =
+            floor.chests.Find(c => c.gridPosition == floor.currentGridPosition);
+
+        if (chest != null)
+        {
+            chest.opened = true;
+            GridManager grid = FindFirstObjectByType<GridManager>();
+
+            Vector2Int pos = floor.currentGridPosition;
+
+
+            grid.ModifyTile(pos, tile =>
+            {
+                tile.tileType = TileType.Empty;
+            });
+
+            grid.ClearTileVisualAt(
+                floor.currentGridPosition.x,
+                floor.currentGridPosition.y);
+        }
+
         gameObject.SetActive(false);
 
         GridUIManager.Instance.ClearState();

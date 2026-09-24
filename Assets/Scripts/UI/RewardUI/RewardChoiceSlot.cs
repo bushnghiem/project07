@@ -16,7 +16,6 @@ public class RewardSlot : MonoBehaviour
     public void Setup(Reward reward, Action<Reward> onChosen)
     {
         this.reward = reward;
-
         icon.sprite = reward.Icon;
         title.text = reward.Title;
 

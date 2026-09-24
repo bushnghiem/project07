@@ -45,6 +45,16 @@ public class GridMovement : MonoBehaviour
         CheckPendingReward();
     }
 
+    private void OnEnable()
+    {
+        DeathEvent.OnEntityDeath += CleanupDeadUnits;
+    }
+
+    private void OnDisable()
+    {
+        DeathEvent.OnEntityDeath -= CleanupDeadUnits;
+    }
+
     void Update()
     {
         if (inputLocked)
@@ -199,8 +209,6 @@ public class GridMovement : MonoBehaviour
 
         Debug.Log("Fight: " + tile.assignedEncounter?.encounterName);
 
-        CleanupDeadUnits();
-
         shipHolder.RemovePlayersPassiveEffects();
 
         SceneManager.LoadScene("SpawnTestScene");
@@ -269,8 +277,6 @@ public class GridMovement : MonoBehaviour
 
         GenerateNextFloor(run);
 
-        CleanupDeadUnits();
-
         SaveManager.Instance.SaveRun();
 
         SceneManager.LoadScene("TestGrid");
@@ -318,8 +324,6 @@ public class GridMovement : MonoBehaviour
         );
 
         Debug.Log("Boss Fight: " + floor.currentEncounter?.encounterName);
-
-        CleanupDeadUnits();
 
         shipHolder.RemovePlayersPassiveEffects();
 
@@ -420,10 +424,25 @@ public class GridMovement : MonoBehaviour
         }
     }
 
-    private void CleanupDeadUnits()
+    private void CleanupDeadUnits(Entity entity)
     {
         RunData run = RunManager.Instance.CurrentRun;
 
         run.team.RemoveAll(ship => ship.isDead);
+
+        if (run.team.Count <= 0)
+        {
+            Debug.Log("No Players!");
+            RunLost();
+        }
+        Debug.Log("Clean Up!");
+    }
+
+    private void RunLost()
+    {
+        SaveManager.Instance.DeleteRun();
+        SaveManager.Instance.SaveMeta();
+        SceneManager.LoadScene("MainMenu");
+        Debug.Log("You Lose!");
     }
 }

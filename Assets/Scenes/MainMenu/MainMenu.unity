@@ -537,7 +537,7 @@ MonoBehaviour:
       templateID: ship_pirate
       aiBehaviorID: 
       currentHealth: 100
-      currentCharges: 5
+      currentCharges: 0
       isDead: 0
       statModifiers: []
       items:
