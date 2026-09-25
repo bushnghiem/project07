@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a9a45c7127e6ba4d9adfceafd5f81dc, type: 3}
-  m_Name: ItemAI
+  m_Name: SniperAI
   m_EditorClassIdentifier: Assembly-CSharp::ItemUsingAIBehavior
-  behaviorID: item_ai
-  preferredShootDistancePercent: 0.7
-  aggression: 0.7
+  behaviorID: sniper_ai
+  preferredShootDistancePercent: 1
+  aggression: 0.3
   orbitPreference: 0.5
   decisiveness: 0.7
-  aimErrorAngle: 12
+  aimErrorAngle: 4
   futureActionValue: 1
   remainingAPValue: 0.15

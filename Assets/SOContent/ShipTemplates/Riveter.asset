@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71147c860272f964cb1629a3b4bafdeb, type: 3}
-  m_Name: ScrapDriller
+  m_Name: Riveter
   m_EditorClassIdentifier: Assembly-CSharp::ShipTemplate
-  templateID: ship_scrap_driller
-  displayName: Scrap Driller
+  templateID: ship_riveter
+  displayName: Rivet Sniper
   baseStats:
   - statType: 0
     value: 100
@@ -30,7 +30,7 @@ MonoBehaviour:
   - statType: 6
     value: 10
   - statType: 7
-    value: 25
+    value: 10
   - statType: 8
     value: 0
   - statType: 9
@@ -63,10 +63,10 @@ MonoBehaviour:
     value: 0
   - statType: 23
     value: 0
-  visualData: {fileID: 11400000, guid: ca74290350d29dc41b5ea7829db0fff2, type: 2}
+  visualData: {fileID: 11400000, guid: fc67a2e8f8f2cba43bb621fe6d7b1b70, type: 2}
   audioData: {fileID: 11400000, guid: c7b0fc4da74c57349a74552f28276ddf, type: 2}
   collisionRadius: 2
   projectileSpawnRadius: 3
   startingActiveItemID: 
   startingPassiveItemIDs: []
-  startingProjectileID: projectile_scrap_ball
+  startingProjectileID: projectile_rivet

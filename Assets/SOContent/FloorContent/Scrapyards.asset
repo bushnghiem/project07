@@ -41,6 +41,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1f9b4e861908ef8448b43880d62d11e2, type: 2}
   - {fileID: 11400000, guid: 72dcf4ff1c66ddc439b08f47b64fe2b3, type: 2}
   - {fileID: 11400000, guid: 0a030d1808072c045ba45bc17bc94ee2, type: 2}
+  - {fileID: 11400000, guid: e54292c6b6e1a8246b6cdd925076a92d, type: 2}
+  - {fileID: 11400000, guid: 0a030d1808072c045ba45bc17bc94ee2, type: 2}
+  - {fileID: 11400000, guid: f5a69b43e305d5740a84807cd0d3b502, type: 2}
+  - {fileID: 11400000, guid: 1cae9b1a5c377c4419d0078acdf3b148, type: 2}
+  - {fileID: 11400000, guid: 055100b35b040e843be000d98e3e78fe, type: 2}
+  - {fileID: 11400000, guid: 85d53b41e54377d41bdf02bf05f9de04, type: 2}
   combatEncounters:
   - {fileID: 11400000, guid: 62d4f349102a88b44817a5cc2cd4be58, type: 2}
   - {fileID: 11400000, guid: ef0ced9d7730ec64ca9d4121db8c3f4e, type: 2}
@@ -50,6 +56,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7ff246d9ab758c64181976bf1c5c818b, type: 2}
   - {fileID: 11400000, guid: 3c8c9a3d692cbc548b5d7a140d37e20e, type: 2}
   - {fileID: 11400000, guid: 0c15ee423cfad44428842d0e904ea9bc, type: 2}
+  - {fileID: 11400000, guid: b5a01dfa7e565194d80447605d5dcfba, type: 2}
   eliteEncounters:
   - {fileID: 11400000, guid: d643acb2ea1cabf4798ac726933d2251, type: 2}
   corruptionEncounters:

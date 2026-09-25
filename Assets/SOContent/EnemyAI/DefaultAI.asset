@@ -17,4 +17,6 @@ MonoBehaviour:
   aggression: 0.7
   orbitPreference: 0.5
   decisiveness: 0.7
-  aimErrorAngle: 6
+  aimErrorAngle: 12
+  futureActionValue: 1
+  remainingAPValue: 0.15
