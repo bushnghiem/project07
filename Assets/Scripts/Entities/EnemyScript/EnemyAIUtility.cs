@@ -263,4 +263,32 @@ public static class EnemyAIUtility
 
         return bestDir;
     }
+
+    public static float GetMovementDistanceChange(
+        Enemy enemy,
+        Player target,
+        UnitAction action)
+    {
+        float moveDistance =
+            EstimateMoveRange(enemy) *
+            action.powerPercent;
+
+        Vector3 futurePosition =
+            enemy.Position +
+            action.direction.normalized *
+            moveDistance;
+
+        float currentDistance =
+            Vector3.Distance(
+                enemy.Position,
+                target.Position);
+
+        float futureDistance =
+            Vector3.Distance(
+                futurePosition,
+                target.Position);
+
+        return futureDistance - currentDistance;
+    }
+
 }

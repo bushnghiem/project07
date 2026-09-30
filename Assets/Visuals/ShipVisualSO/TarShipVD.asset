@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a56ede619abf93e44aa09a42e54d2a70, type: 3}
-  m_Name: ScrapDrone
+  m_Name: TarShipVD
   m_EditorClassIdentifier: Assembly-CSharp::ShipVisualData
-  visualPrefab: {fileID: 4709177694803210717, guid: 8585beec7a7d11d4b956d6a9baa83146, type: 3}
-  visualScale: 0.8
-  shipIcon: {fileID: 21300000, guid: 0562afe0fa667cb4b9bd5483dc9d8348, type: 3}
+  visualPrefab: {fileID: 3098007494326789179, guid: e8bbf0be6136d284ab048cd7d3be5bd9, type: 3}
+  visualScale: 1
+  shipIcon: {fileID: 21300000, guid: b01fe10db0e7644488081a78e9562092, type: 3}
   overrideMaterial: {fileID: 0}

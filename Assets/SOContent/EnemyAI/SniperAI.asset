@@ -9,14 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a9a45c7127e6ba4d9adfceafd5f81dc, type: 3}
+  m_Script: {fileID: 11500000, guid: f54e51fb773a28143bf7a2eba37040bf, type: 3}
   m_Name: SniperAI
-  m_EditorClassIdentifier: Assembly-CSharp::ItemUsingAIBehavior
+  m_EditorClassIdentifier: Assembly-CSharp::SniperAIBehavior
   behaviorID: sniper_ai
-  preferredShootDistancePercent: 1
-  aggression: 0.3
+  preferredShootDistancePercent: 0.7
+  aggression: 0.7
   orbitPreference: 0.5
   decisiveness: 0.7
-  aimErrorAngle: 4
+  aimErrorAngle: 6
   futureActionValue: 1
   remainingAPValue: 0.15
+  sniperDistancePercent: 0.85
+  minimumDistancePercent: 0.45
+  retreatUrgency: 8
+  retreatMovementValue: 0.5
+  emergencyRetreatBonus: 10
+  closeRangeShootPenalty: 8

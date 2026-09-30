@@ -165,6 +165,7 @@ public class Player : UnitBase
             effectController.TriggerEffects(EffectTrigger.OnDeath, transform.position, this);
 
         base.Kill();
+        EndTurn();
         DeathEvent.OnEntityDeath?.Invoke(this);
     }
 

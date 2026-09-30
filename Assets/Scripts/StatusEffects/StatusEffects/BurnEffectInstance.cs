@@ -14,7 +14,7 @@ public class BurnEffectInstance : StatusEffectInstance
         }
     }
 
-    public override void OnTurnStart()
+    public override void OnTurnEnd()
     {
         if (target == null)
         {
@@ -27,10 +27,7 @@ public class BurnEffectInstance : StatusEffectInstance
         Debug.Log($"Burn Damage: {damage}");
 
         target.Hurt(DamagePresets.Burn(damage));
-    }
 
-    public override void OnTurnEnd()
-    {
         RemoveStacks(1);
 
         if (Stacks <= 0)

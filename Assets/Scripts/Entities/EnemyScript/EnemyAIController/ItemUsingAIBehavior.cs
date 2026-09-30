@@ -174,7 +174,7 @@ public class ItemUsingAIBehavior : EnemyAIBehavior
         return bestAction;
     }
 
-    private float ScoreAction(
+    protected virtual float ScoreAction(
         UnitAction action,
         Enemy enemy,
         Player target,
@@ -208,7 +208,7 @@ public class ItemUsingAIBehavior : EnemyAIBehavior
         }
     }
 
-    private float ScoreShoot(
+    protected virtual float ScoreShoot(
         UnitAction action,
         Enemy enemy,
         Player target)
@@ -279,7 +279,7 @@ public class ItemUsingAIBehavior : EnemyAIBehavior
         return score;
     }
 
-    private float ScoreMove(
+    protected virtual float ScoreMove(
         UnitAction action,
         Enemy enemy,
         Player target,
@@ -365,7 +365,7 @@ public class ItemUsingAIBehavior : EnemyAIBehavior
         return score;
     }
 
-    private float ScoreItem(
+    protected virtual float ScoreItem(
         UnitAction action,
         Enemy enemy,
         EnemyAIContext context,
@@ -375,7 +375,7 @@ public class ItemUsingAIBehavior : EnemyAIBehavior
     }
 
 
-    private float ScoreRemainingAP(
+    protected virtual float ScoreRemainingAP(
         Enemy enemy,
         int remainingAP)
     {
