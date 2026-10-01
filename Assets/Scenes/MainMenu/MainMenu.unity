@@ -528,7 +528,7 @@ MonoBehaviour:
       isDead: 0
       statModifiers: []
       items:
-      - itemID: projectile_tar_ball
+      - itemID: projectile_steel_ball
       - itemID: passive_maxhp_up
       - itemID: active_rust_apply
       - itemID: passive_heal_turn
@@ -541,7 +541,7 @@ MonoBehaviour:
       isDead: 0
       statModifiers: []
       items:
-      - itemID: projectile_basic
+      - itemID: projectile_gold_ball
       - itemID: passive_heal_kill
       - itemID: active_shield
       - itemID: passive_projectile_explosive_death

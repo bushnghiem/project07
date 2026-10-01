@@ -538,6 +538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridManager
   floorPrefab: {fileID: 6648129664210920724, guid: f77481e252a1a2141ac27b00cf5a76f2, type: 3}
+  emptyPrefab: {fileID: 6648129664210920724, guid: f77481e252a1a2141ac27b00cf5a76f2, type: 3}
   combatPrefab: {fileID: 833147167041455206, guid: cf127f166e1c8ed418a15059a2f9bd9e, type: 3}
   eliteCombatPrefab: {fileID: 2688079224309105907, guid: 66870bb055cadeb46b2320eddd1add7e, type: 3}
   corruptionCombatPrefab: {fileID: 3313524537570429678, guid: 4e3366428f3732f4381a693014371e92, type: 3}

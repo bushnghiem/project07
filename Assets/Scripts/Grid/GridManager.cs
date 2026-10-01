@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class GridManager : MonoBehaviour
 {
     public GameObject floorPrefab;
+    public GameObject emptyPrefab;
     public GameObject combatPrefab;
     public GameObject eliteCombatPrefab;
     public GameObject corruptionCombatPrefab;
@@ -500,6 +501,10 @@ public class GridManager : MonoBehaviour
 
         switch (tile.tileType)
         {
+            case TileType.Empty:
+                prefab = emptyPrefab;
+                break;
+
             case TileType.Combat:
 
                 if (tile.isCorrupted)

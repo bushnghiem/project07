@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 118ed928165d27c4c86d0fca1de2c61e, type: 3}
+  m_Name: GoldBallVisual
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileVisualData
+  visualPrefab: {fileID: 3189743628526857742, guid: 58b1bf8a77cb27d48b285657fb36d467, type: 3}
+  overrideMaterial: {fileID: 0}
+  icon: {fileID: 21300000, guid: fb4fc2d7ff9130e4dbd27d7d38d3b8fe, type: 3}
+  visualScale: 80

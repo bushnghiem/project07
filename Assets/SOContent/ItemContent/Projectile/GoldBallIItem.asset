@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2c664bab9c5444438311191def0d038, type: 3}
+  m_Name: GoldBallIItem
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileItem
+  itemID: projectile_gold_ball
+  itemName: Gold Ball
+  icon: {fileID: 21300000, guid: fb4fc2d7ff9130e4dbd27d7d38d3b8fe, type: 3}
+  description: Money is Power
+  price: 100
+  slotType: 1
+  projectile: {fileID: 11400000, guid: 10bda02073ea35040933aab500e88b32, type: 2}
