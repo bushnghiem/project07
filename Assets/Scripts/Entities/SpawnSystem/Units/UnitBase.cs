@@ -145,13 +145,23 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
     protected virtual void ApplyStats()
     {
-        // Things that need to be initialized.
-        float maxHealth = GetStat(ShipStatType.MaxHealth);
-        int maxCharges = Mathf.RoundToInt(GetStat(ShipStatType.MaxCharges));
-        int shield = Mathf.RoundToInt(GetStat(ShipStatType.StartingShield));
+        float maxHealth =
+            GetStat(ShipStatType.MaxHealth);
+
+        int maxCharges =
+            Mathf.RoundToInt(
+                GetStat(ShipStatType.MaxCharges)
+            );
+
+        int shield =
+            Mathf.RoundToInt(
+                GetStat(ShipStatType.StartingShield)
+            );
 
         healthComp.SetMaxHealth(maxHealth);
+
         healthComp.SetShield(shield);
+
         chargeComp.SetMaxCharges(maxCharges);
 
         healthComp.SetCurrentHealth(
@@ -160,13 +170,17 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
                 : maxHealth
         );
 
-        chargeComp.SetCurrentCharges(runData.currentCharges);
+        chargeComp.SetCurrentCharges(
+            runData.currentCharges
+        );
 
         RefreshDerivedStats();
 
         if (sphereCollider != null)
-            sphereCollider.radius = template.CollisionRadius;
+            sphereCollider.radius =
+                template.CollisionRadius;
     }
+
 
     protected virtual void RefreshDerivedStats()
     {
@@ -185,9 +199,17 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
     private void OnStatusEffectsChanged()
     {
         statsDirty = true;
-        RefreshDerivedStats();
-    }
 
+        RefreshDerivedStats();
+
+        // Max health may have changed because of a status effect.
+        if (healthComp != null)
+        {
+            healthComp.SetMaxHealth(
+                GetStat(ShipStatType.MaxHealth)
+            );
+        }
+    }
 
     public float GetStat(ShipStatType statType)
     {
@@ -197,18 +219,21 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
         return cachedStats[statType];
     }
 
-    void RecalculateStats()
+    private void RecalculateStats()
     {
         cachedStats.Clear();
         debugStats.Clear();
 
-        foreach (ShipStatType statType in System.Enum.GetValues(typeof(ShipStatType)))
+        foreach (ShipStatType statType in
+                 System.Enum.GetValues(typeof(ShipStatType)))
         {
-            float baseValue = template.GetBaseStat(statType);
+            float baseValue =
+                template.GetBaseStat(statType);
 
             float totalFlat = 0f;
             float totalPercent = 0f;
 
+            // Run / item / passive modifiers
             foreach (var mod in runData.statModifiers)
             {
                 if (mod.statType != statType)
@@ -218,18 +243,25 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
                 totalPercent += mod.percentBonus;
             }
 
-            float finalValue = (baseValue + totalFlat) * (1f + totalPercent);
-
+            // Status effect modifiers
             if (statusController != null)
             {
-                finalValue = statusController.ModifyStat(
-                    statType,
-                    finalValue
-                );
+                foreach (var mod in
+                         statusController.GetStatModifiers())
+                {
+                    if (mod.statType != statType)
+                        continue;
+
+                    totalFlat += mod.flatBonus;
+                    totalPercent += mod.percentBonus;
+                }
             }
 
-            cachedStats[statType] = finalValue;
+            float finalValue =
+                (baseValue + totalFlat) *
+                (1f + totalPercent);
 
+            cachedStats[statType] = finalValue;
 
             debugStats.Add(new DebugStatEntry
             {
@@ -240,6 +272,7 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
         statsDirty = false;
     }
+
 
     public void AddStatModifier(StatModifier modifier)
     {

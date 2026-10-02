@@ -7,18 +7,31 @@ public class ShockedEffectInstance : StatusEffectInstance
     public override void OnApply()
     {
         shockedData = data as ShockedEffectData;
+
+        if (shockedData == null)
+        {
+            Debug.LogError(
+                "ShockedEffectInstance: Invalid data type!"
+            );
+
+            return;
+        }
+
+        UpdateStatModifiers();
     }
 
-    public override float ModifyStat(
-        ShipStatType statType,
-        float value)
+    protected override void UpdateStatModifiers()
     {
-        if (statType != ShipStatType.ActionPoints)
-            return value;
+        if (shockedData == null)
+            return;
 
         float reduction =
-            shockedData.actionPointsLostPerStack * Stacks;
+            shockedData.actionPointsLostPerStack
+            * Stacks;
 
-        return Mathf.Max(0f, value - reduction);
+        SetStatModifier(
+            ShipStatType.ActionPoints,
+            -reduction
+        );
     }
 }

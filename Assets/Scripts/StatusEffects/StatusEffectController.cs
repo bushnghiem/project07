@@ -4,56 +4,90 @@ using System.Collections.Generic;
 public class StatusEffectController : MonoBehaviour
 {
     private List<StatusEffectInstance> activeEffects = new();
-    public IReadOnlyList<StatusEffectInstance> ActiveEffects => activeEffects;
+
+    public IReadOnlyList<StatusEffectInstance> ActiveEffects =>
+        activeEffects;
+
     private Unit unit;
 
     public event System.Action OnEffectsChanged;
 
-    void Awake()
+    private void Awake()
     {
         unit = GetComponent<Unit>();
-        //Debug.Log($"StatusEffectController attached to {unit}");
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         EventBus.Subscribe(OnUnitEvent);
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         EventBus.Unsubscribe(OnUnitEvent);
     }
 
-    public void ApplyEffect(StatusEffectData data, int stacks)
+    public void ApplyEffect(
+        StatusEffectData data,
+        int stacks)
     {
-        var existing = activeEffects.Find(e => e.data == data);
+        if (data == null)
+            return;
+
+        var existing = activeEffects.Find(
+            e => e.data == data
+        );
 
         if (existing != null)
         {
             if (data.isStackable)
             {
                 existing.SetStacks(
-                    Mathf.Min(existing.Stacks + stacks, data.maxStacks)
+                    Mathf.Min(
+                        existing.Stacks + stacks,
+                        data.maxStacks
+                    )
                 );
             }
 
-            existing.SetDuration(data.duration);
+            existing.RefreshDuration();
+
+            OnEffectsChanged?.Invoke();
+
             return;
         }
 
         var instance = data.CreateInstance(unit);
-        instance.Init(data, unit, stacks);
+
+        instance.Init(
+            data,
+            unit,
+            stacks
+        );
+
+        instance.SetModifierChangedCallback(
+            HandleEffectModifiersChanged
+        );
 
         activeEffects.Add(instance);
+
         instance.OnApply();
 
         OnEffectsChanged?.Invoke();
 
-        Debug.Log($"Applied effect: {data.name} | stacks={stacks} on {unit}");
+        Debug.Log(
+            $"Applied effect: {data.name} | " +
+            $"stacks={stacks} on {unit}"
+        );
     }
 
-    public void RemoveEffect(StatusEffectInstance effect)
+    private void HandleEffectModifiersChanged()
+    {
+        OnEffectsChanged?.Invoke();
+    }
+
+    public void RemoveEffect(
+        StatusEffectInstance effect)
     {
         if (effect == null)
             return;
@@ -68,12 +102,17 @@ public class StatusEffectController : MonoBehaviour
 
     public bool HasEffect(StatusEffectData data)
     {
-        return activeEffects.Exists(e => e.data == data);
+        return activeEffects.Exists(
+            e => e.data == data
+        );
     }
 
-    public StatusEffectInstance GetEffect(StatusEffectData data)
+    public StatusEffectInstance GetEffect(
+        StatusEffectData data)
     {
-        return activeEffects.Find(e => e.data == data);
+        return activeEffects.Find(
+            e => e.data == data
+        );
     }
 
     public bool RemoveEffect(StatusEffectData data)
@@ -84,26 +123,24 @@ public class StatusEffectController : MonoBehaviour
             return false;
 
         RemoveEffect(effect);
+
         return true;
     }
 
-    public float ModifyStat(
-        ShipStatType statType,
-        float value)
+    public IEnumerable<StatModifier> GetStatModifiers()
     {
-        float result = value;
-
         foreach (var effect in activeEffects)
         {
-            result = effect.ModifyStat(statType, result);
+            foreach (var modifier in effect.StatModifiers)
+            {
+                yield return modifier;
+            }
         }
-
-        return result;
     }
 
     public float ModifyIncomingDamage(
-    DamageInfo damageInfo,
-    float damage)
+        DamageInfo damageInfo,
+        float damage)
     {
         float result = damage;
 
@@ -118,11 +155,14 @@ public class StatusEffectController : MonoBehaviour
         return result;
     }
 
-    void OnUnitEvent(UnitEvent e)
+    private void OnUnitEvent(UnitEvent e)
     {
-        if (e.source != unit && e.target != unit) return;
+        if (e.source != unit &&
+            e.target != unit)
+            return;
 
-        if (e.type == UnitEventType.TurnStart || e.type == UnitEventType.TurnEnd)
+        if (e.type == UnitEventType.TurnStart ||
+            e.type == UnitEventType.TurnEnd)
             return;
 
         for (int i = activeEffects.Count - 1; i >= 0; i--)
@@ -133,8 +173,6 @@ public class StatusEffectController : MonoBehaviour
 
     public void OnTurnStart()
     {
-        //Debug.Log("Call start Turn");
-
         for (int i = activeEffects.Count - 1; i >= 0; i--)
         {
             activeEffects[i].OnTurnStart();
@@ -143,8 +181,6 @@ public class StatusEffectController : MonoBehaviour
 
     public void OnTurnEnd()
     {
-        //Debug.Log("Call end Turn");
-
         for (int i = activeEffects.Count - 1; i >= 0; i--)
         {
             var effect = activeEffects[i];
@@ -156,7 +192,6 @@ public class StatusEffectController : MonoBehaviour
             {
                 RemoveEffect(effect);
             }
-                
         }
     }
 }

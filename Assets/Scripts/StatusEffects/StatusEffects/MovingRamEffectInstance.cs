@@ -7,16 +7,29 @@ public class MovingRamEffectInstance : StatusEffectInstance
     public override void OnApply()
     {
         ramData = data as MovingRamEffectData;
+
+        if (ramData == null)
+        {
+            Debug.LogError(
+                "MovingRamEffectInstance: Invalid data type!"
+            );
+
+            return;
+        }
+
+        UpdateStatModifiers();
     }
 
-    public override float ModifyStat(
-        ShipStatType statType,
-        float value)
+    protected override void UpdateStatModifiers()
     {
-        if (statType != ShipStatType.CollisionDamage)
-            return value;
+        if (ramData == null)
+            return;
 
-        return value * (1f + ramData.collisionDamageBonus);
+        SetStatModifier(
+            ShipStatType.CollisionDamage,
+            0f,
+            ramData.collisionDamageBonus
+        );
     }
 
     public override void OnTurnEnd()
@@ -24,4 +37,3 @@ public class MovingRamEffectInstance : StatusEffectInstance
         SetDuration(0);
     }
 }
-

@@ -6,50 +6,51 @@ public class HealthComponent : MonoBehaviour
     [Header("Health")]
     [SerializeField] private float currentHealth;
     [SerializeField] private float maxHealth;
+
+    [Header("Shield")]
     [SerializeField] private int shield;
+
     public bool isDead = false;
 
     public event Action<float> OnDamaged;
     public event Action<float> OnHealed;
     public event Action OnDeath;
     public event Action OnFullHealth;
+
     public event Action<float, float> OnHealthChanged;
     public event Action<float, float> OnMaxHealthChanged;
     public event Action<int> OnShieldChanged;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void SetCurrentHealth(float newCurrentHealth)
+    public void SetCurrentHealth(
+        float newCurrentHealth)
     {
         float oldHealth = currentHealth;
 
-        //Debug.Log($"[SET HP] {oldHealth} → {newCurrentHealth} frame={Time.frameCount}");
+        currentHealth = Mathf.Clamp(
+            newCurrentHealth,
+            0f,
+            maxHealth
+        );
 
-        currentHealth = Mathf.Clamp(newCurrentHealth, 0f, maxHealth);
-
-        //Debug.Log($"[CLAMPED HP] now={currentHealth}");
-
-        OnHealthChanged?.Invoke(oldHealth, currentHealth);
+        if (!Mathf.Approximately(
+            oldHealth,
+            currentHealth))
+        {
+            OnHealthChanged?.Invoke(
+                oldHealth,
+                currentHealth
+            );
+        }
 
         if (currentHealth <= 0f && !isDead)
         {
             isDead = true;
-            //Debug.Log($"[DEATH TRIGGERED]");
             OnDeath?.Invoke();
         }
 
-        if (currentHealth == maxHealth)
+        if (Mathf.Approximately(
+            currentHealth,
+            maxHealth))
         {
             OnFullHealth?.Invoke();
         }
@@ -60,11 +61,32 @@ public class HealthComponent : MonoBehaviour
         return currentHealth;
     }
 
-    public void SetMaxHealth(float newMaxHealth)
+    public void SetMaxHealth(
+        float newMaxHealth)
     {
-        float oldMaxhealth = maxHealth;
+        newMaxHealth =
+            Mathf.Max(0f, newMaxHealth);
+
+        float oldMaxHealth = maxHealth;
+
         maxHealth = newMaxHealth;
-        OnMaxHealthChanged?.Invoke(oldMaxhealth, maxHealth);
+
+        // Max HP went down.
+        // Current HP cannot remain above it.
+        if (currentHealth > maxHealth)
+        {
+            SetCurrentHealth(maxHealth);
+        }
+
+        if (!Mathf.Approximately(
+            oldMaxHealth,
+            maxHealth))
+        {
+            OnMaxHealthChanged?.Invoke(
+                oldMaxHealth,
+                maxHealth
+            );
+        }
     }
 
     public float GetMaxHealth()
@@ -74,7 +96,7 @@ public class HealthComponent : MonoBehaviour
 
     public void SetShield(int newShield)
     {
-        shield = newShield;
+        shield = Mathf.Max(0, newShield);
 
         OnShieldChanged?.Invoke(shield);
     }
@@ -98,27 +120,40 @@ public class HealthComponent : MonoBehaviour
         if (blockedByShield)
         {
             shield--;
-            OnShieldChanged?.Invoke(shield);
+
+            OnShieldChanged?.Invoke(
+                shield
+            );
+
             return;
         }
 
-        SetCurrentHealth(currentHealth - damage);
+        SetCurrentHealth(
+            currentHealth - damage
+        );
 
         OnDamaged?.Invoke(damage);
     }
 
     public void Heal(float gain)
     {
-        if (isDead) return;
+        if (isDead)
+            return;
 
-        SetCurrentHealth(currentHealth + gain);
+        SetCurrentHealth(
+            currentHealth + gain
+        );
+
         OnHealed?.Invoke(gain);
     }
 
     public void addShield(int shieldGain)
     {
-        if (isDead) return;
+        if (isDead)
+            return;
 
-        SetShield(shield + shieldGain);
+        SetShield(
+            shield + shieldGain
+        );
     }
 }

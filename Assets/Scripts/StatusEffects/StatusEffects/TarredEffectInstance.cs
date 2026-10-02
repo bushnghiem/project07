@@ -1,21 +1,36 @@
 using UnityEngine;
 
-public class TarredEffectInstance : StatusEffectInstance
+public class TarredEffectInstance
+    : StatusEffectInstance
 {
     private TarredEffectData tarredData;
 
     public override void OnApply()
     {
-        tarredData = data as TarredEffectData;
+        tarredData =
+            data as TarredEffectData;
+
+        if (tarredData == null)
+        {
+            Debug.LogError(
+                "TarredEffectInstance: " +
+                "Invalid data type!"
+            );
+
+            return;
+        }
+
+        UpdateStatModifiers();
     }
 
-    public override float ModifyStat(
-        ShipStatType statType,
-        float value)
+    protected override void UpdateStatModifiers()
     {
-        if (statType != ShipStatType.MoveAPCost)
-            return value;
+        if (tarredData == null)
+            return;
 
-        return value + tarredData.moveAPCostIncrease;
+        SetStatModifier(
+            ShipStatType.MoveAPCost,
+            tarredData.moveAPCostIncrease
+        );
     }
 }
