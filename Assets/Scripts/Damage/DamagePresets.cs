@@ -95,6 +95,23 @@ public static class DamagePresets
         };
     }
 
+    public static DamageInfo Radiation(
+        float amount,
+        UnitBase instigator = null,
+        Entity source = null)
+    {
+        return new DamageInfo(
+            amount,
+            DamageCategory.DamageOverTime,
+            DamageElement.Radiation,
+            instigator,
+            source
+        )
+        {
+            BypassShields = true
+        };
+    }
+
     public static DamageInfo Poison(
         float amount,
         UnitBase instigator = null,

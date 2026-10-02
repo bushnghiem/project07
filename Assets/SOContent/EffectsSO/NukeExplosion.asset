@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7cf1134c2b930744b8bd7415e11d4f4, type: 3}
+  m_Name: NukeExplosion
+  m_EditorClassIdentifier: Assembly-CSharp::ExplosionEffect
+  trigger: 1
+  explosionSound: {fileID: 11400000, guid: 4f085445f508c2542a7469ada5f30274, type: 2}
+  statusEffects:
+  - effect: {fileID: 11400000, guid: 2d6c8855f77b5894abd58f27ccf23f84, type: 2}
+    stacks: 5
+    sourceID: explosion
+  radius: 5
+  damage: 100
+  force: 200
+  upwardModifier: 2
+  damageLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  visualPrefab: {fileID: 7576036889374145669, guid: e6ca7d90d9da45845ae0e715ac0f622b, type: 3}

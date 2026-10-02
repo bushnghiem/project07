@@ -28,5 +28,5 @@ MonoBehaviour:
   chargeCost: 1
   apCost: 1
   range: 10
-  statusEffect: {fileID: 11400000, guid: 1c187403d0c26d8429da69614b8a456e, type: 2}
+  statusEffect: {fileID: 11400000, guid: 2d6c8855f77b5894abd58f27ccf23f84, type: 2}
   stacks: 5
