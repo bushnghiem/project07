@@ -132,6 +132,7 @@ public abstract class StatusEffectInstance
             existing.flatBonus = flatBonus;
             existing.percentBonus = percentBonus;
             existing.sourceID = data.effectID;
+            existing.sourceName = data.displayName;
         }
         else
         {
@@ -140,7 +141,8 @@ public abstract class StatusEffectInstance
                 statType = statType,
                 flatBonus = flatBonus,
                 percentBonus = percentBonus,
-                sourceID = data.effectID
+                sourceID = data.effectID,
+                sourceName = data.displayName
             });
         }
     }

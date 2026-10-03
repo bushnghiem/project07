@@ -17,7 +17,8 @@ public class StatModifierModule : PassiveModifier
                 statType = adjustment.statType,
                 flatBonus = adjustment.flatBonus,
                 percentBonus = adjustment.percentBonus,
-                sourceID = instance.itemData.itemID
+                sourceID = instance.itemData.itemID,
+                sourceName = instance.itemData.itemName
             });
         }
     }

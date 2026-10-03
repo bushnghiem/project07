@@ -10,23 +10,26 @@ public class StatEntryUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private string tooltipStatName;
     private string tooltipText;
     private FleetTooltipUI tooltip;
+    private StatBreakdown breakdown;
 
-    public void Init(string statName, float value, FleetTooltipUI tooltipUI)
+    public void Init(
+        StatBreakdown breakdown,
+        FleetTooltipUI tooltipUI)
     {
-        nameText.text = statName;
-        valueText.text = value.ToString("0.##");
-
+        this.breakdown = breakdown;
         tooltip = tooltipUI;
-        tooltipStatName = $"{statName}";
-        tooltipText = $"Value: {value}";
+
+        StatDefinition definition =
+            ShipStatDefinitions.Get(breakdown.StatType);
+
+        nameText.text = definition.DisplayName;
+        valueText.text =
+            breakdown.FinalValue.ToString("0.##");
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        tooltip.Show(
-            tooltipStatName,
-            tooltipText
-        );
+        tooltip.ShowStat(breakdown);
     }
 
     public void OnPointerExit(PointerEventData eventData)

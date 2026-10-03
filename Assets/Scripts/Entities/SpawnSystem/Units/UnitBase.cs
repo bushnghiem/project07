@@ -273,6 +273,67 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
         statsDirty = false;
     }
 
+    public StatBreakdown GetStatBreakdown(ShipStatType statType)
+    {
+        if (statsDirty)
+            RecalculateStats();
+
+        StatBreakdown breakdown = new StatBreakdown
+        {
+            StatType = statType,
+            BaseValue = template.GetBaseStat(statType)
+        };
+
+        breakdown.Entries.Add(new StatBreakdownEntry
+        {
+            SourceName = "Base",
+            FlatBonus = breakdown.BaseValue
+        });
+
+        float totalFlat = 0f;
+        float totalPercent = 0f;
+
+        foreach (var mod in runData.statModifiers)
+        {
+            if (mod.statType != statType)
+                continue;
+
+            breakdown.Entries.Add(new StatBreakdownEntry
+            {
+                SourceName = mod.sourceName,
+                FlatBonus = mod.flatBonus,
+                PercentBonus = mod.percentBonus
+            });
+
+            totalFlat += mod.flatBonus;
+            totalPercent += mod.percentBonus;
+        }
+
+        if (statusController != null)
+        {
+            foreach (var mod in statusController.GetStatModifiers())
+            {
+                if (mod.statType != statType)
+                    continue;
+
+                breakdown.Entries.Add(new StatBreakdownEntry
+                {
+                    SourceName = mod.sourceName,
+                    FlatBonus = mod.flatBonus,
+                    PercentBonus = mod.percentBonus
+                });
+
+                totalFlat += mod.flatBonus;
+                totalPercent += mod.percentBonus;
+            }
+        }
+
+        breakdown.FinalValue =
+            (breakdown.BaseValue + totalFlat) *
+            (1f + totalPercent);
+
+        return breakdown;
+    }
 
     public void AddStatModifier(StatModifier modifier)
     {

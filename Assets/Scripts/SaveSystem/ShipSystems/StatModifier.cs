@@ -10,4 +10,5 @@ public class StatModifier
     public float percentBonus;
 
     public string sourceID;
+    public string sourceName;
 }

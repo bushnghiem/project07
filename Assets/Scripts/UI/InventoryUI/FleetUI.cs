@@ -107,7 +107,8 @@ public class FleetUI : AnimatedUI
 
         foreach (ShipStatType stat in System.Enum.GetValues(typeof(ShipStatType)))
         {
-            float value = player.GetStat(stat);
+            StatBreakdown breakdown =
+                player.GetStatBreakdown(stat);
 
             GameObject entry =
                 Instantiate(
@@ -117,8 +118,7 @@ public class FleetUI : AnimatedUI
 
             entry.GetComponent<StatEntryUI>()
                 .Init(
-                    stat.ToString(),
-                    value,
+                    breakdown,
                     tooltipUI
                 );
         }
