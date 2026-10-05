@@ -30,7 +30,9 @@ public class TarredEffectInstance
 
         SetStatModifier(
             ShipStatType.MoveAPCost,
-            tarredData.moveAPCostIncrease
+            tarredData.moveAPCostIncrease,
+            StatModifierOperation.Flat
         );
     }
+
 }

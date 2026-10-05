@@ -532,6 +532,7 @@ MonoBehaviour:
       - itemID: active_rust_apply
       - itemID: passive_heal_turn
       - itemID: passive_explosive_death
+      - itemID: passive_one_health
     - uniqueID: Player 2
       templateID: ship_pirate
       aiBehaviorID: 

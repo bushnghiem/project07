@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 public class StatBreakdown
 {
-    public ShipStatType StatType;
+    public ShipStatType statType;
 
-    public float BaseValue;
-    public float FinalValue;
+    public float baseValue;
+    public float finalValue;
 
-    public List<StatBreakdownEntry> Entries = new();
+    public List<StatBreakdownEntry> entries = new();
 }
 

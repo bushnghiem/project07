@@ -1,12 +1,23 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class StatBreakdownEntry
 {
-    public string SourceName;
-    public float FlatBonus;
-    public float PercentBonus;
+    public string sourceName;
 
-    public bool IsBase =>
-        SourceName == "Base";
+    public StatModifierOperation operation;
+
+    public float value;
+
+    public StatBreakdownEntry(
+        string sourceName,
+        StatModifierOperation operation,
+        float value)
+    {
+        this.sourceName = sourceName;
+        this.operation = operation;
+        this.value = value;
+    }
 }
+
 

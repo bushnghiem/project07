@@ -7,21 +7,23 @@ public class StatModifierModule : PassiveModifier
     public List<StatAdjustment> statAdjustments = new();
 
     public override void Apply(
-        UnitBase unit,
-        PassiveItemInstance instance)
+    UnitBase unit,
+    PassiveItemInstance instance)
     {
         foreach (var adjustment in statAdjustments)
         {
-            unit.AddStatModifier(new StatModifier
-            {
-                statType = adjustment.statType,
-                flatBonus = adjustment.flatBonus,
-                percentBonus = adjustment.percentBonus,
-                sourceID = instance.itemData.itemID,
-                sourceName = instance.itemData.itemName
-            });
+            unit.AddStatModifier(
+                new StatModifier(
+                    adjustment.statType,
+                    adjustment.operation,
+                    adjustment.value,
+                    instance.itemData.itemID,
+                    instance.itemData.itemName
+                )
+            );
         }
     }
+
 
     public override void Remove(
         UnitBase unit,

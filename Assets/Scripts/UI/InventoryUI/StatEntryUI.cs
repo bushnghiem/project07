@@ -2,15 +2,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class StatEntryUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class StatEntryUI
+    : MonoBehaviour,
+      IPointerEnterHandler,
+      IPointerExitHandler
 {
     public TMP_Text nameText;
     public TMP_Text valueText;
 
-    private string tooltipStatName;
-    private string tooltipText;
-    private FleetTooltipUI tooltip;
     private StatBreakdown breakdown;
+    private FleetTooltipUI tooltip;
 
     public void Init(
         StatBreakdown breakdown,
@@ -20,19 +21,25 @@ public class StatEntryUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         tooltip = tooltipUI;
 
         StatDefinition definition =
-            ShipStatDefinitions.Get(breakdown.StatType);
+            ShipStatDefinitions.Get(
+                breakdown.statType
+            );
 
-        nameText.text = definition.DisplayName;
+        nameText.text =
+            definition.DisplayName;
+
         valueText.text =
-            breakdown.FinalValue.ToString("0.##");
+            breakdown.finalValue.ToString("0.##");
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerEnter(
+        PointerEventData eventData)
     {
         tooltip.ShowStat(breakdown);
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public void OnPointerExit(
+        PointerEventData eventData)
     {
         tooltip.Hide();
     }

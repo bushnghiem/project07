@@ -15,7 +15,9 @@ public class FleetTooltipUI : MonoBehaviour
         Hide();
     }
 
-    public void Show(string title, string description)
+    public void Show(
+        string title,
+        string description)
     {
         panel.SetActive(true);
 
@@ -25,43 +27,59 @@ public class FleetTooltipUI : MonoBehaviour
     }
 
     public void ShowStat(
-    StatBreakdown breakdown)
+        StatBreakdown breakdown)
     {
+        if (breakdown == null)
+            return;
+
         StatDefinition definition =
-            ShipStatDefinitions.Get(breakdown.StatType);
+            ShipStatDefinitions.Get(
+                breakdown.statType);
 
         string text =
             definition.Description +
             "\n\n";
 
-        foreach (var entry in breakdown.Entries)
+        foreach (var entry in breakdown.entries)
         {
-            if (entry.IsBase)
+            switch (entry.operation)
             {
-                text +=
-                    $"{entry.SourceName}: " +
-                    $"{entry.FlatBonus:0.##}\n";
+                case StatModifierOperation.Flat:
 
-                continue;
-            }
+                    text +=
+                        $"{entry.sourceName}: " +
+                        $"{FormatSigned(entry.value)}\n";
 
-            if (Mathf.Abs(entry.FlatBonus) > 0.001f)
-            {
-                text +=
-                    $"{entry.SourceName}: " +
-                    $"{FormatSigned(entry.FlatBonus)}\n";
-            }
+                    break;
 
-            if (Mathf.Abs(entry.PercentBonus) > 0.001f)
-            {
-                text +=
-                    $"{entry.SourceName}: " +
-                    $"{FormatPercent(entry.PercentBonus)}\n";
+                case StatModifierOperation.PercentAdd:
+
+                    text +=
+                        $"{entry.sourceName}: " +
+                        $"{FormatPercent(entry.value)}\n";
+
+                    break;
+
+                case StatModifierOperation.PercentMultiply:
+
+                    text +=
+                        $"{entry.sourceName}: " +
+                        $"×{entry.value:0.##}\n";
+
+                    break;
+
+                case StatModifierOperation.Override:
+
+                    text +=
+                        $"{entry.sourceName}: " +
+                        $"Set to {entry.value:0.##}\n";
+
+                    break;
             }
         }
 
         text +=
-            $"\nFinal: {breakdown.FinalValue:0.##}";
+            $"\nFinal: {breakdown.finalValue:0.##}";
 
         Show(
             definition.DisplayName,
@@ -71,7 +89,7 @@ public class FleetTooltipUI : MonoBehaviour
 
     private string FormatSigned(float value)
     {
-        return value >= 0
+        return value >= 0f
             ? $"+{value:0.##}"
             : $"{value:0.##}";
     }
@@ -80,16 +98,14 @@ public class FleetTooltipUI : MonoBehaviour
     {
         float percentage = value * 100f;
 
-        return percentage >= 0
+        return percentage >= 0f
             ? $"+{percentage:0.##}%"
             : $"{percentage:0.##}%";
     }
-
 
     public void Hide()
     {
         typewriter.StopTyping();
         panel.SetActive(false);
     }
-
 }

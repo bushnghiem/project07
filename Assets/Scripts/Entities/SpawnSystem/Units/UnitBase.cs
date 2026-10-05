@@ -14,6 +14,9 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
     protected ShipRunData runData;
     protected ShipTemplate template;
 
+    private readonly Dictionary<ShipStatType, StatBreakdown>
+    statBreakdowns = new();
+
     protected Dictionary<ShipStatType, float> cachedStats = new();
     protected bool statsDirty = true;
 
@@ -194,7 +197,15 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
                 GetStat(ShipStatType.CollisionKnockback)
             );
         }
+
+        if (healthComp != null)
+        {
+            healthComp.SetMaxHealth(
+                GetStat(ShipStatType.MaxHealth)
+            );
+        }
     }
+
 
     private void OnStatusEffectsChanged()
     {
@@ -223,122 +234,240 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
     {
         cachedStats.Clear();
         debugStats.Clear();
+        statBreakdowns.Clear();
 
         foreach (ShipStatType statType in
                  System.Enum.GetValues(typeof(ShipStatType)))
         {
-            float baseValue =
-                template.GetBaseStat(statType);
+            StatBreakdown breakdown =
+                CalculateStat(statType);
 
-            float totalFlat = 0f;
-            float totalPercent = 0f;
+            cachedStats[statType] =
+                breakdown.finalValue;
 
-            // Run / item / passive modifiers
-            foreach (var mod in runData.statModifiers)
-            {
-                if (mod.statType != statType)
-                    continue;
-
-                totalFlat += mod.flatBonus;
-                totalPercent += mod.percentBonus;
-            }
-
-            // Status effect modifiers
-            if (statusController != null)
-            {
-                foreach (var mod in
-                         statusController.GetStatModifiers())
-                {
-                    if (mod.statType != statType)
-                        continue;
-
-                    totalFlat += mod.flatBonus;
-                    totalPercent += mod.percentBonus;
-                }
-            }
-
-            float finalValue =
-                (baseValue + totalFlat) *
-                (1f + totalPercent);
-
-            cachedStats[statType] = finalValue;
+            statBreakdowns[statType] =
+                breakdown;
 
             debugStats.Add(new DebugStatEntry
             {
                 statType = statType,
-                value = finalValue
+                value = breakdown.finalValue
             });
         }
 
         statsDirty = false;
     }
 
-    public StatBreakdown GetStatBreakdown(ShipStatType statType)
+    private StatBreakdown CalculateStat(
+    ShipStatType statType)
+    {
+        float baseValue =
+            template.GetBaseStat(statType);
+
+        StatBreakdown breakdown =
+            new StatBreakdown
+            {
+                statType = statType,
+                baseValue = baseValue
+            };
+
+        // Base value
+        breakdown.entries.Add(
+            new StatBreakdownEntry(
+                "Base",
+                StatModifierOperation.Flat,
+                baseValue
+            )
+        );
+
+        List<StatModifier> modifiers =
+            GetAllModifiersForStat(statType);
+
+        float value = baseValue;
+
+        // --------------------------------------------------
+        // 1. Flat modifiers
+        // --------------------------------------------------
+
+        foreach (var modifier in modifiers)
+        {
+            if (modifier.operation !=
+                StatModifierOperation.Flat)
+                continue;
+
+            value += modifier.value;
+
+            breakdown.entries.Add(
+                new StatBreakdownEntry(
+                    modifier.sourceName,
+                    modifier.operation,
+                    modifier.value
+                )
+            );
+        }
+
+        // --------------------------------------------------
+        // 2. Additive percentage modifiers
+        // --------------------------------------------------
+
+        float percentAdd = 0f;
+
+        foreach (var modifier in modifiers)
+        {
+            if (modifier.operation !=
+                StatModifierOperation.PercentAdd)
+                continue;
+
+            percentAdd += modifier.value;
+
+            breakdown.entries.Add(
+                new StatBreakdownEntry(
+                    modifier.sourceName,
+                    modifier.operation,
+                    modifier.value
+                )
+            );
+        }
+
+        value *= 1f + percentAdd;
+
+        // --------------------------------------------------
+        // 3. Multiplicative percentage modifiers
+        // --------------------------------------------------
+
+        foreach (var modifier in modifiers)
+        {
+            if (modifier.operation !=
+                StatModifierOperation.PercentMultiply)
+                continue;
+
+            value *= modifier.value;
+
+            breakdown.entries.Add(
+                new StatBreakdownEntry(
+                    modifier.sourceName,
+                    modifier.operation,
+                    modifier.value
+                )
+            );
+        }
+
+        // --------------------------------------------------
+        // 4. Overrides
+        // --------------------------------------------------
+
+        foreach (var modifier in modifiers)
+        {
+            if (modifier.operation !=
+                StatModifierOperation.Override)
+                continue;
+
+            value = modifier.value;
+
+            breakdown.entries.Add(
+                new StatBreakdownEntry(
+                    modifier.sourceName,
+                    modifier.operation,
+                    modifier.value
+                )
+            );
+        }
+
+        breakdown.finalValue = value;
+
+        return breakdown;
+    }
+
+    private List<StatModifier> GetAllModifiersForStat(
+    ShipStatType statType)
+    {
+        List<StatModifier> modifiers = new();
+
+        // Run / item modifiers
+        if (runData != null &&
+            runData.statModifiers != null)
+        {
+            foreach (var modifier in runData.statModifiers)
+            {
+                if (modifier.statType == statType)
+                    modifiers.Add(modifier);
+            }
+        }
+
+        // Status effect modifiers
+        if (statusController != null)
+        {
+            foreach (var modifier in
+                     statusController.GetStatModifiers())
+            {
+                if (modifier.statType == statType)
+                    modifiers.Add(modifier);
+            }
+        }
+
+        return modifiers;
+    }
+
+    public StatBreakdown GetStatBreakdown(
+    ShipStatType statType)
     {
         if (statsDirty)
             RecalculateStats();
 
-        StatBreakdown breakdown = new StatBreakdown
+        if (statBreakdowns.TryGetValue(
+            statType,
+            out StatBreakdown breakdown))
         {
-            StatType = statType,
-            BaseValue = template.GetBaseStat(statType)
-        };
-
-        breakdown.Entries.Add(new StatBreakdownEntry
-        {
-            SourceName = "Base",
-            FlatBonus = breakdown.BaseValue
-        });
-
-        float totalFlat = 0f;
-        float totalPercent = 0f;
-
-        foreach (var mod in runData.statModifiers)
-        {
-            if (mod.statType != statType)
-                continue;
-
-            breakdown.Entries.Add(new StatBreakdownEntry
-            {
-                SourceName = mod.sourceName,
-                FlatBonus = mod.flatBonus,
-                PercentBonus = mod.percentBonus
-            });
-
-            totalFlat += mod.flatBonus;
-            totalPercent += mod.percentBonus;
+            return breakdown;
         }
 
-        if (statusController != null)
-        {
-            foreach (var mod in statusController.GetStatModifiers())
+        // This should normally never happen because
+        // RecalculateStats creates every stat.
+        return CreateStatBreakdown(statType);
+    }
+
+    private StatBreakdown CreateStatBreakdown(
+    ShipStatType statType)
+    {
+        float baseValue =
+            template.GetBaseStat(statType);
+
+        StatBreakdown breakdown =
+            new StatBreakdown
             {
-                if (mod.statType != statType)
-                    continue;
+                statType = statType,
+                baseValue = baseValue
+            };
 
-                breakdown.Entries.Add(new StatBreakdownEntry
-                {
-                    SourceName = mod.sourceName,
-                    FlatBonus = mod.flatBonus,
-                    PercentBonus = mod.percentBonus
-                });
-
-                totalFlat += mod.flatBonus;
-                totalPercent += mod.percentBonus;
-            }
-        }
-
-        breakdown.FinalValue =
-            (breakdown.BaseValue + totalFlat) *
-            (1f + totalPercent);
+        breakdown.entries.Add(
+            new StatBreakdownEntry(
+                "Base",
+                StatModifierOperation.Flat,
+                baseValue
+            )
+        );
 
         return breakdown;
     }
 
     public void AddStatModifier(StatModifier modifier)
     {
+        if (modifier == null)
+            return;
+
+        if (runData == null)
+        {
+            Debug.LogError("Cannot add stat modifier: runData is null.");
+            return;
+        }
+
+        if (runData.statModifiers == null)
+            runData.statModifiers = new List<StatModifier>();
+
         runData.statModifiers.Add(modifier);
+
         statsDirty = true;
+
         RefreshDerivedStats();
     }
 
@@ -352,10 +481,27 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
     public void RemoveModifiersFromSource(string sourceID)
     {
-        runData.statModifiers.RemoveAll(m => m.sourceID == sourceID);
+        if (runData == null ||
+            runData.statModifiers == null)
+            return;
+
+        runData.statModifiers.RemoveAll(
+            m => m.sourceID == sourceID
+        );
+
         statsDirty = true;
-        ApplyStats();
+
+        RecalculateStats();
+        RefreshDerivedStats();
+
+        if (healthComp != null)
+        {
+            healthComp.SetMaxHealth(
+                GetStat(ShipStatType.MaxHealth)
+            );
+        }
     }
+
 
     public void SetCollisionStatusEffects(List<AppliedStatusEffect> newStatusEffects)
     {

@@ -27,8 +27,8 @@ public class MovingRamEffectInstance : StatusEffectInstance
 
         SetStatModifier(
             ShipStatType.CollisionDamage,
-            0f,
-            ramData.collisionDamageBonus
+            ramData.collisionDamageBonus,
+            StatModifierOperation.PercentAdd
         );
     }
 

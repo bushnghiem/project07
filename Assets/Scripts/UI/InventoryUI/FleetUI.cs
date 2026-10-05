@@ -105,7 +105,8 @@ public class FleetUI : AnimatedUI
             Destroy(child.gameObject);
         }
 
-        foreach (ShipStatType stat in System.Enum.GetValues(typeof(ShipStatType)))
+        foreach (ShipStatType stat in
+                 System.Enum.GetValues(typeof(ShipStatType)))
         {
             StatBreakdown breakdown =
                 player.GetStatBreakdown(stat);

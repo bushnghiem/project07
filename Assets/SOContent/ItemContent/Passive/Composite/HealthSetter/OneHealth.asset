@@ -10,9 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dc46a97f086ac54295393d7519be524, type: 3}
-  m_Name: Max HP UP
+  m_Name: OneHealth
   m_EditorClassIdentifier: Assembly-CSharp::StatModifierModule
   statAdjustments:
   - statType: 0
+    operation: 1
+    value: -0.5
+  - statType: 1
     operation: 0
-    value: 100
+    value: 5

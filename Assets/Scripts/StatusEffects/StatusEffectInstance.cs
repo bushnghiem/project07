@@ -119,31 +119,32 @@ public abstract class StatusEffectInstance
     }
 
     protected void SetStatModifier(
-        ShipStatType statType,
-        float flatBonus,
-        float percentBonus = 0f)
+    ShipStatType statType,
+    float value,
+    StatModifierOperation operation =
+        StatModifierOperation.Flat)
     {
         StatModifier existing = statModifiers.Find(
-            m => m.statType == statType
+            m =>
+                m.statType == statType &&
+                m.operation == operation
         );
 
         if (existing != null)
         {
-            existing.flatBonus = flatBonus;
-            existing.percentBonus = percentBonus;
+            existing.value = value;
             existing.sourceID = data.effectID;
             existing.sourceName = data.displayName;
         }
         else
         {
-            statModifiers.Add(new StatModifier
-            {
-                statType = statType,
-                flatBonus = flatBonus,
-                percentBonus = percentBonus,
-                sourceID = data.effectID,
-                sourceName = data.displayName
-            });
+            statModifiers.Add(new StatModifier(
+                statType,
+                operation,
+                value,
+                data.effectID,
+                data.displayName
+            ));
         }
     }
 
