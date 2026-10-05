@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 118ed928165d27c4c86d0fca1de2c61e, type: 3}
-  m_Name: RivetVisual
-  m_EditorClassIdentifier: Assembly-CSharp::ProjectileVisualData
-  visualPrefab: {fileID: 1891184931982569833, guid: 6219cb5a447b9164a955a8e88949c886, type: 3}
-  overrideMaterial: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: c2c664bab9c5444438311191def0d038, type: 3}
+  m_Name: IkeJimeItem
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileItem
+  itemID: projectile_ike_jime
+  itemName: Ike Jime
   icon: {fileID: 21300000, guid: f9a0386d770437b428cd9486811a5995, type: 3}
-  visualScale: 0.5
+  description: 
+  price: 100
+  slotType: 1
+  projectile: {fileID: 11400000, guid: 29cc50df18eda9c4c8dfe96558fd5b20, type: 2}

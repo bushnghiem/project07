@@ -16,6 +16,11 @@ public static class TileTooltipBuilder
 
         switch (tile.tileType)
         {
+            case TileType.Empty:
+
+                return new TooltipData(
+                    "Empty", "");
+
             case TileType.Combat:
 
                 if (tile.isCorrupted)
