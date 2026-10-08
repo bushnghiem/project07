@@ -135,27 +135,27 @@ public class ClickAndFling : MonoBehaviour
         if (!flingable)
             return;
 
-        Ray ray =
-            cam.ScreenPointToRay(
-                Input.mousePosition
-            );
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(
+            ray,
+            out RaycastHit hit,
+            Mathf.Infinity,
+            Physics.DefaultRaycastLayers,
+            QueryTriggerInteraction.Ignore))
         {
-            if (hit.collider.gameObject == gameObject)
-            {
-                isDragging = true;
+            if (!IsOwnCollider(hit.collider))
+                return;
 
-                mouseStart =
-                    Input.mousePosition;
+            isDragging = true;
 
-                transform.rotation =
-                    startRotation;
+            mouseStart = Input.mousePosition;
 
-                FlingEvent.PowerChanged(0f);
+            transform.rotation = startRotation;
 
-                golfBar?.BeginDrag(mouseStart);
-            }
+            FlingEvent.PowerChanged(0f);
+
+            golfBar?.BeginDrag(mouseStart);
         }
     }
 
@@ -291,5 +291,10 @@ public class ClickAndFling : MonoBehaviour
         FlingEvent.FlingTargetingEnded();
 
         CameraEvent.UnlockCamera?.Invoke();
+    }
+
+    private bool IsOwnCollider(Collider collider)
+    {
+        return collider.GetComponentInParent<UnitBase>() == owner;
     }
 }

@@ -226,6 +226,12 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
 
     private void OnEnable()
     {
+        if (healthComp == null)
+            healthComp = GetComponent<HealthComponent>();
+
+        if (healthComp == null)
+            return;
+
         healthComp.OnDamaged += HandleDamaged;
         healthComp.OnHealed += HandleHealed;
         healthComp.OnDeath += HandleDeath;
@@ -233,6 +239,9 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
 
     private void OnDisable()
     {
+        if (healthComp == null)
+            return;
+
         healthComp.OnDamaged -= HandleDamaged;
         healthComp.OnHealed -= HandleHealed;
         healthComp.OnDeath -= HandleDeath;

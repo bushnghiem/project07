@@ -9,12 +9,14 @@ public class DamageOnCollision : MonoBehaviour
     public float ContactDamage => contactDamage;
     [SerializeField] private float knockbackStrength = 12f;
     private float spawnTime;
+    private Entity ownerEntity;
 
     public event Action OnCollisionOccurred;
 
     void Awake()
     {
         spawnTime = Time.time;
+        ownerEntity = GetComponentInParent<Entity>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -22,27 +24,23 @@ public class DamageOnCollision : MonoBehaviour
         if (Time.time - spawnTime < 0.05f)
             return;
 
-        Entity entity = collision.collider.GetComponentInParent<Entity>();
-        if (entity == null) return;
-
         Entity otherEntity = collision.collider.GetComponentInParent<Entity>();
+        if (otherEntity == null)
+            return;
 
-        if (otherEntity != null)
+        ActionContext context = GetComponentInParent<Entity>()?.ActionContext;
+
+        if (context != null)
         {
-            ActionContext context = GetComponentInParent<Entity>()?.ActionContext;
-
-            if (context != null)
-            {
-                ActionContextTracker.Instance.TrackCollision(
-                    context,
-                    otherEntity,
-                    collision.rigidbody);
-            }
+            ActionContextTracker.Instance.TrackCollision(
+                context,
+                otherEntity,
+                collision.rigidbody);
         }
 
-        Entity source = GetComponentInParent<Entity>();
+        Entity source = ownerEntity;
 
-        entity.Hurt(
+        otherEntity.Hurt(
             DamagePresets.Collision(
                 contactDamage,
                 source?.Instigator,
@@ -61,15 +59,19 @@ public class DamageOnCollision : MonoBehaviour
 
             rb.AddForce(physicsImpulse + bonusImpulse, ForceMode.Impulse);
         }
-        var unit = collision.collider.GetComponent<Unit>();
+        var unit = collision.collider.GetComponentInParent<UnitBase>();
         if (unit != null)
         {
-            var statusController = collision.collider.GetComponent<StatusEffectController>();
+            var statusController =
+                unit.GetComponent<StatusEffectController>();
+
             if (statusController != null)
             {
                 foreach (var applied in statusEffects)
                 {
-                    statusController.ApplyEffect(applied.effect, applied.stacks);
+                    statusController.ApplyEffect(
+                        applied.effect,
+                        applied.stacks);
                 }
             }
         }

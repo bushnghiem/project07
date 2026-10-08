@@ -30,7 +30,7 @@ public class ExplosionEffect : Effect
 
         foreach (var hit in hits)
         {
-            Entity entity = hit.GetComponent<Entity>();
+            Entity entity = hit.GetComponentInParent<Entity>();
             if (entity != null && hitEntities.Add(entity))
             {
                 Debug.Log($"Boom Hit {entity} for {damage}");
@@ -64,10 +64,13 @@ public class ExplosionEffect : Effect
                     )
                 );
 
-                var unit = hit.GetComponent<Unit>();
+                var unit = hit.GetComponentInParent<UnitBase>();
                 if (unit != null)
                 {
-                    var statusController = hit.GetComponent<StatusEffectController>();
+                    var statusController =
+                        unit != null
+                            ? unit.GetComponent<StatusEffectController>()
+                            : null;
                     if (statusController != null)
                     {
                         foreach (var applied in statusEffects)

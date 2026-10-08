@@ -884,7 +884,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1401740533}
   m_HandleRect: {fileID: 1401740532}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -999,7 +999,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 954764198443734371, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.0007915697
+      value: 0.000051850373
       objectReference: {fileID: 0}
     - target: {fileID: 954764198443734371, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -4219,7 +4219,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2019153024}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6927,7 +6927,7 @@ Transform:
   m_GameObject: {fileID: 2036778864}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 503.63306, y: -0, z: 799.324}
+  m_LocalPosition: {x: 503.63306, y: -1, z: 0}
   m_LocalScale: {x: 200, y: 200, z: 200}
   m_ConstrainProportionsScale: 1
   m_Children: []

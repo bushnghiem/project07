@@ -82,7 +82,6 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
     public string DisplayName => RunData.uniqueID;
 
-    protected SphereCollider sphereCollider;
     protected ShipAudioComponent audioComp;
 
     protected List<ShotModifier> shotModifiers = new();
@@ -118,7 +117,6 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
         collisionDamageComp = GetComponent<DamageOnCollision>();
         effectController = GetComponent<EffectController>();
         statusController = GetComponent<StatusEffectController>();
-        sphereCollider = GetComponent<SphereCollider>();
         audioComp = GetComponent<ShipAudioComponent>();
         statusController = GetComponent<StatusEffectController>();
 
@@ -143,6 +141,8 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
         template = shipDatabase.GetTemplate(runData.templateID);
         audioComp.SetUp();
         ApplyStats();
+        //rb.centerOfMass = Vector3.zero;
+        //rb.inertiaTensorRotation = new Quaternion(0, 0, 0, 1);
         //collisionDamageComp.SetCollisionSounds(template.AudioData.Collision);
     }
 
@@ -178,10 +178,6 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
         );
 
         RefreshDerivedStats();
-
-        if (sphereCollider != null)
-            sphereCollider.radius =
-                template.CollisionRadius;
     }
 
 
@@ -1146,7 +1142,7 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
     {
         position.y = Position.y;
 
-        float radius = GetCollisionRadius();
+        float radius = GetApproximateCollisionRadius();
 
         Collider[] hits = Physics.OverlapSphere(
             position,
@@ -1205,11 +1201,8 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
         return true;
     }
 
-    public float GetCollisionRadius()
+    public float GetApproximateCollisionRadius()
     {
-        if (sphereCollider != null)
-            return sphereCollider.radius;
-
         if (template != null)
             return template.CollisionRadius;
 
