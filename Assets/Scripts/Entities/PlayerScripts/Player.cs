@@ -66,7 +66,15 @@ public class Player : UnitBase
         float moveStrength = GetStat(ShipStatType.MoveStrength);
         float shotStrength = GetStat(ShipStatType.ShotStrength);
 
+        int shield =
+            Mathf.RoundToInt(
+                GetStat(ShipStatType.StartingShield)
+            );
+
         clickAndFlingComponent.SetForces(moveStrength, shotStrength);
+
+        healthComp.SetShield(shield);
+
         RefreshItemDebug();
 
         SpawnEvent.OnUnitSpawned?.Invoke(this);

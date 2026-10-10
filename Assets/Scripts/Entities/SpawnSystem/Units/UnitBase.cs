@@ -141,9 +141,6 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
         template = shipDatabase.GetTemplate(runData.templateID);
         audioComp.SetUp();
         ApplyStats();
-        //rb.centerOfMass = Vector3.zero;
-        //rb.inertiaTensorRotation = new Quaternion(0, 0, 0, 1);
-        //collisionDamageComp.SetCollisionSounds(template.AudioData.Collision);
     }
 
     protected virtual void ApplyStats()

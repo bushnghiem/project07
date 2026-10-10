@@ -98,6 +98,8 @@ public class HealthComponent : MonoBehaviour
     {
         shield = Mathf.Max(0, newShield);
 
+        Debug.Log("set shield to " + shield);
+
         OnShieldChanged?.Invoke(shield);
     }
 
