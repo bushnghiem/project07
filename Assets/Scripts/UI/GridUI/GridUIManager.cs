@@ -19,6 +19,8 @@ public class GridUIManager : MonoBehaviour
 
     public UIState CurrentState { get; private set; } = UIState.None;
 
+    [SerializeField] private GridMovement gridMove;
+
     [Header("UI References")]
     public FleetUI fleetUI;
     public ShopUI shopUI;
@@ -45,6 +47,17 @@ public class GridUIManager : MonoBehaviour
         if (tooltipUI != null)
             tooltipUI.Hide();
 
+        if (newState == UIState.None)
+        {
+            Debug.Log("can move");
+            gridMove.SetInputLocked(false);
+        }
+        else
+        {
+            Debug.Log("cant move");
+            gridMove.SetInputLocked(true);
+        }
+
         // Close conflicting UI
         if (newState != UIState.Fleet && fleetUI != null)
             fleetUI.Close();
@@ -65,6 +78,8 @@ public class GridUIManager : MonoBehaviour
     public void ClearState()
     {
         CurrentState = UIState.None;
+        gridMove.SetInputLocked(false);
+        Debug.Log("can move");
 
         if (tooltipUI != null)
             tooltipUI.Hide();
@@ -95,7 +110,11 @@ public class GridUIManager : MonoBehaviour
         tooltipUI?.LockWorldTooltips();
 
         if (playerSelectionUI != null)
+        {
             playerSelectionUI.Open(players, callback);
+            gridMove.SetInputLocked(true);
+            Debug.Log("cant move");
+        }
     }
 
     public void ClosePlayerSelection()
@@ -103,6 +122,15 @@ public class GridUIManager : MonoBehaviour
         tooltipUI?.UnlockWorldTooltips();
 
         if (playerSelectionUI != null)
+        {
             playerSelectionUI.gameObject.SetActive(false);
+            gridMove.SetInputLocked(false);
+        }
+    }
+
+    public void SetInput(bool value)
+    {
+        gridMove.SetInputLocked(value);
+        //Debug.Log("cant move");
     }
 }

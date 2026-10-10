@@ -857,6 +857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1a85552944fcd4c822c0931bedd52b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridUIManager
+  gridMove: {fileID: 24435315}
   fleetUI: {fileID: 432693003}
   shopUI: {fileID: 863262719}
   eventUI: {fileID: 685578318}

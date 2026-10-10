@@ -54,8 +54,8 @@ MonoBehaviour:
       collisionRadius: 10
       minScale: {x: 50, y: 50, z: 50}
       maxScale: {x: 110, y: 110, z: 110}
-    minDistanceFromShips: 20
-    minDistanceFromEnvironment: 5
+    minDistanceFromShips: 30
+    minDistanceFromEnvironment: 10
     minDistanceFromCenter: 5
     maxDistanceFromCenter: 50
     maxAttemptsPerObject: 30

@@ -16,19 +16,19 @@ MonoBehaviour:
   enemies:
   - uniqueID: Ball Junker
     templateID: ship_scrap_ship
-    aiBehaviorID: default_ai
+    aiBehaviorID: item_ai
     currentHealth: 100
     currentCharges: 0
-    isDead: 0
+    isDead: 1
     statModifiers: []
     items:
     - itemID: projectile_scrap_ball
   - uniqueID: Shotgun Junker
     templateID: ship_scrap_ship
-    aiBehaviorID: default_ai
+    aiBehaviorID: item_ai
     currentHealth: 100
     currentCharges: 0
-    isDead: 0
+    isDead: 1
     statModifiers: []
     items:
     - itemID: projectile_scrap
@@ -38,7 +38,7 @@ MonoBehaviour:
     aiBehaviorID: ram_ai
     currentHealth: 100
     currentCharges: 0
-    isDead: 0
+    isDead: 1
     statModifiers: []
     items:
     - itemID: projectile_scrap

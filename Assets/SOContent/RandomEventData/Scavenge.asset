@@ -28,7 +28,7 @@ MonoBehaviour:
       groupChance: 1
       outcomes:
       - type: 0
-        tileModification: 0
+        tileModification: 1
         value: 100
         damage:
           amount: 0
@@ -41,7 +41,7 @@ MonoBehaviour:
         quest: {fileID: 0}
         chance: 1
       - type: 6
-        tileModification: 1
+        tileModification: 0
         value: 1
         damage:
           amount: 20

@@ -36,7 +36,6 @@ public class TileHoverManager : MonoBehaviour
                 if (hover != currentHover)
                 {
                     currentHover = hover;
-                    Debug.Log(hover.tile.tileType);
                     TooltipUI.Instance.Show(
                         TileTooltipBuilder.Build(
                             hover.tile,

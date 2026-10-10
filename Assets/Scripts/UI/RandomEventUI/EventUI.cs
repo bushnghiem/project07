@@ -95,8 +95,6 @@ public class EventUI : MonoBehaviour
         EventManager.Instance.ExecuteOption(option);
 
         gameObject.SetActive(false);
-
-        FindFirstObjectByType<GridMovement>().inputLocked = false;
     }
 
     bool IsOptionUsed(int index, EventOption option)

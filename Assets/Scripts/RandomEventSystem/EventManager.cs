@@ -49,6 +49,17 @@ public class EventManager : MonoBehaviour
 
     void ApplyOutcomeToPlayer(EventOutcome outcome, Player player)
     {
+        var run = RunManager.Instance.CurrentRun;
+        Vector2Int pos =
+            run.currentFloorData.currentGridPosition;
+
+        if (outcome.tileModification == TileModification.Clear)
+        {
+            Debug.Log("Clear the Tile");
+            gridManager.ClearEventTile(pos.x, pos.y);
+            gridManager.ClearEventVisualAt(pos.x, pos.y);
+        }
+
         switch (outcome.type)
         {
             case OutcomeType.HealPlayer:
@@ -99,6 +110,7 @@ public class EventManager : MonoBehaviour
 
         if (outcome.tileModification == TileModification.Clear)
         {
+            Debug.Log("Clear the Tile");
             gridManager.ClearEventTile(pos.x, pos.y);
             gridManager.ClearEventVisualAt(pos.x, pos.y);
         }
@@ -188,6 +200,7 @@ public class EventManager : MonoBehaviour
                 else
                 {
                     ApplyOutcome(outcome);
+                    GridUIManager.Instance.ClearState();
                 }
             }
         }
@@ -196,15 +209,17 @@ public class EventManager : MonoBehaviour
         // ask for the player only once.
         if (playerOutcomes.Count > 0)
         {
-            PlayerSelectionUI.Instance.Open(
+            GridUIManager.Instance.OpenPlayerSelection(
                 shipHolder.allPlayers,
                 (player) =>
                 {
                     foreach (var outcome in playerOutcomes)
                     {
                         ApplyOutcomeToPlayer(outcome, player);
+                        GridUIManager.Instance.ClearState();
                     }
-                });
+                }
+            );
         }
     }
 

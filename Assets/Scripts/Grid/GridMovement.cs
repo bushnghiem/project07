@@ -176,7 +176,6 @@ public class GridMovement : MonoBehaviour
 
         GridUIManager.Instance.SetState(UIState.Event);
 
-        inputLocked = true;
         eventUI.ShowEvent(tile.assignedEvent);
     }
 
@@ -244,8 +243,6 @@ public class GridMovement : MonoBehaviour
 
         GridUIManager.Instance.SetState(UIState.Shop);
 
-        inputLocked = true;
-
         shopUI.PopulateShop();
         shopUI.gameObject.SetActive(true);
     }
@@ -261,8 +258,6 @@ public class GridMovement : MonoBehaviour
             return;
 
         GridUIManager.Instance.OpenChest();
-
-        inputLocked = true;
     }
 
     IEnumerator HandleFloorTransition()
@@ -444,5 +439,10 @@ public class GridMovement : MonoBehaviour
         SaveManager.Instance.SaveMeta();
         SceneManager.LoadScene("MainMenu");
         Debug.Log("You Lose!");
+    }
+
+    public void SetInputLocked(bool value)
+    {
+        inputLocked = value;
     }
 }

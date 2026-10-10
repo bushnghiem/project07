@@ -40,7 +40,5 @@ public class EventOptionButton : MonoBehaviour
     void OnClick()
     {
         eventUI.SelectOption(option, optionIndex);
-        GridUIManager.Instance.ClearState();
-        FindFirstObjectByType<GridMovement>().inputLocked = false;
     }
 }
