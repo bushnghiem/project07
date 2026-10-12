@@ -10,6 +10,13 @@ public abstract class QuestObjective : ScriptableObject
         QuestInstance quest,
         TileData tile);
 
+    public virtual string GetProgressText(
+        QuestInstance quest,
+        GridManager grid)
+    {
+        return "Complete the objective";
+    }
+
     public virtual void OnQuestStarted(
         QuestInstance quest,
         System.Action onComplete)

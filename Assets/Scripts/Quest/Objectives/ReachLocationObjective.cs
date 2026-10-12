@@ -19,4 +19,11 @@ public class ReachLocationObjective : QuestObjective
     {
         return tile.activeQuest == quest;
     }
+
+    public override string GetProgressText(
+        QuestInstance quest,
+        GridManager grid)
+    {
+        return $"Reach the marked location";
+    }
 }

@@ -82,5 +82,23 @@ public class DeliverItemObjective : QuestObjective
         );
     }
 
+    public override string GetProgressText(
+        QuestInstance quest,
+        GridManager grid)
+    {
+        Player deliveryPlayer =
+            FindPlayerById(quest.deliveryPlayerId);
 
+        if (deliveryPlayer == null)
+            return $"The Courier is Gone";
+
+        if (!RewardManager.Instance.HasItem(
+                deliveryPlayer,
+                quest.quest.deliveryItem))
+        {
+            return $"Failed: Delivery Item is Gone";
+        }
+
+        return $"Deliver the item at the marked location";
+    }
 }

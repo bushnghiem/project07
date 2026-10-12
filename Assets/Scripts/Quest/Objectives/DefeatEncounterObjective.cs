@@ -28,4 +28,20 @@ public class DefeatEncounterObjective : QuestObjective
     {
         return tile.assignedEncounter == null;
     }
+
+    public override string GetProgressText(
+        QuestInstance quest,
+        GridManager grid)
+    {
+        if (grid == null)
+            return "Travel to the encounter location";
+
+        Vector2Int pos = quest.targetPosition;
+        TileData tile = grid.grid[pos.x, pos.y];
+
+        if (tile.assignedEncounter == null)
+            return "Encounter defeated";
+
+        return "Defeat the hostile encounter";
+    }
 }
