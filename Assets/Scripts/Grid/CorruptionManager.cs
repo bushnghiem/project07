@@ -110,16 +110,13 @@ public class CorruptionManager : MonoBehaviour
 
     void CorruptTile(Vector2Int pos)
     {
-        var floor =
-            RunManager.Instance.CurrentRun.currentFloorData;
-
         TileData tile = grid.grid[pos.x, pos.y];
 
-        if (tile.tileType == TileType.Portal)
+        if (tile.tileType == TileType.Portal ||
+            tile.tileType == TileType.Wall)
+        {
             return;
-
-        if (tile.tileType == TileType.Wall)
-            return;
+        }
 
         grid.ModifyTile(pos, tile =>
         {
@@ -127,6 +124,11 @@ public class CorruptionManager : MonoBehaviour
             tile.assignedEncounter = GetCorruptionEncounter(pos);
             tile.isCorrupted = true;
         });
+
+        QuestManager.Instance.NotifyEvent(
+            new QuestEvent(
+                QuestEventType.TileCorrupted,
+                position: pos));
     }
 
     EncounterData GetCorruptionEncounter(Vector2Int pos)

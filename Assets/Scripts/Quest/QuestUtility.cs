@@ -24,7 +24,9 @@ public static class QuestUtility
         return candidates[rng.Next(candidates.Count)];
     }
 
-    public static Vector2Int FindEmptyTile(GridManager grid, QuestInstance quest)
+    public static Vector2Int? FindEmptyTile(
+    GridManager grid,
+    QuestInstance quest)
     {
         var rng = GetQuestRng(quest);
 
@@ -34,12 +36,21 @@ public static class QuestUtility
         {
             for (int y = 1; y < grid.height - 1; y++)
             {
-                if (grid.grid[x, y].tileType == TileType.Empty)
+                TileData tile = grid.grid[x, y];
+
+                if (tile.tileType == TileType.Empty &&
+                    !tile.isCorrupted &&
+                    tile.activeQuest == null)
+                {
                     candidates.Add(new Vector2Int(x, y));
+                }
             }
         }
 
-        return PickRandom(candidates, rng);
+        if (candidates.Count == 0)
+            return null;
+
+        return candidates[rng.Next(candidates.Count)];
     }
 
     public static Vector2Int FindPortal(GridManager grid)

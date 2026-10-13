@@ -268,6 +268,11 @@ public class GridMovement : MonoBehaviour
         // Save completed floor
         run.completedFloors.Add(run.currentFloorData);
 
+        QuestManager.Instance.NotifyEvent(
+            new QuestEvent(
+                QuestEventType.FloorExited,
+                floor: run.currentFloor));
+
         run.currentFloor++;
 
         GenerateNextFloor(run);

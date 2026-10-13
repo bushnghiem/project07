@@ -1,16 +1,29 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quest Objectives/Visit Location")]
-public class ReachLocationObjective : QuestObjective
+public class ReachLocationObjective : TileQuestObjective
 {
-    public override void PlaceObjective(GridManager grid,
-                                    QuestInstance quest)
+    public override void PlaceObjective(
+        GridManager grid,
+        QuestInstance quest)
     {
-        Vector2Int pos = QuestUtility.FindEmptyTile(grid, quest);
+        Vector2Int? pos = QuestUtility.FindEmptyTile(grid, quest);
 
-        quest.targetPosition = pos;
+        if (!pos.HasValue)
+        {
+            Debug.LogWarning(
+                $"No valid tile found for quest: {quest.quest.questName}");
 
-        grid.grid[pos.x, pos.y].activeQuest = quest;
+            return;
+        }
+
+        quest.targetPosition = pos.Value;
+        quest.hasTargetPosition = true;
+
+        grid.ModifyTile(pos.Value, tile =>
+        {
+            tile.activeQuest = quest;
+        });
     }
 
     public override bool TryComplete(
@@ -24,6 +37,19 @@ public class ReachLocationObjective : QuestObjective
         QuestInstance quest,
         GridManager grid)
     {
-        return $"Reach the marked location";
+        return "Reach the marked location";
+    }
+
+    protected override string HandleSpecificEvent(
+        QuestInstance quest,
+        QuestEvent questEvent)
+    {
+        if (questEvent.type == QuestEventType.FloorExited &&
+            questEvent.floor == quest.targetFloor)
+        {
+            return "The sector was abandoned before the location was reached.";
+        }
+
+        return null;
     }
 }

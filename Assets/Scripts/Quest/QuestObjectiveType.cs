@@ -10,6 +10,13 @@ public abstract class QuestObjective : ScriptableObject
         QuestInstance quest,
         TileData tile);
 
+    public virtual string HandleEvent(
+        QuestInstance quest,
+        QuestEvent questEvent)
+    {
+        return null;
+    }
+
     public virtual string GetProgressText(
         QuestInstance quest,
         GridManager grid)
@@ -24,5 +31,3 @@ public abstract class QuestObjective : ScriptableObject
         onComplete?.Invoke();
     }
 }
-
-

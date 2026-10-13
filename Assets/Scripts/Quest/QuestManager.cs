@@ -61,51 +61,105 @@ public class QuestManager : MonoBehaviour
 
         foreach (var quest in run.activeQuests)
         {
-            if (quest.completed)
+            if (!quest.IsActive)
                 continue;
 
             if (quest.targetFloor != run.currentFloor)
                 continue;
 
-            if (quest.targetPosition != Vector2Int.zero)
+            if (quest.hasTargetPosition)
             {
-                TileData tile =
-                    grid.grid[
-                        quest.targetPosition.x,
-                        quest.targetPosition.y];
+                Vector2Int pos = quest.targetPosition;
 
-                tile.activeQuest = quest;
+                if (!grid.IsInsideGrid(pos.x, pos.y))
+                {
+                    Debug.LogWarning(
+                        $"Invalid target position for quest: {quest.quest.questName}");
 
+                    continue;
+                }
+
+                grid.grid[pos.x, pos.y].activeQuest = quest;
                 continue;
             }
-
 
             quest.quest.objective.PlaceObjective(grid, quest);
         }
     }
 
 
-    public void CompleteQuest(QuestInstance quest)
+    public bool CompleteQuest(QuestInstance quest)
     {
-        if (quest.quest.rewards.Count > 0)
+        if (quest == null || !quest.IsActive)
+            return false;
+
+        if (quest.quest.rewards != null &&
+            quest.quest.rewards.Count > 0)
         {
             RewardMenuUI.Instance.Show(
                 RewardGenerator.GenerateQuestRewards(quest),
                 () => FinishQuest(quest));
+
+            return true;
         }
-        else
-        {
-            FinishQuest(quest);
-        }
+
+        FinishQuest(quest);
+        return true;
+    }
+
+    public bool FailQuest(
+        QuestInstance quest,
+        string reason = null)
+    {
+        if (quest == null || !quest.IsActive)
+            return false;
+
+        quest.state = QuestState.Failed;
+        quest.failureReason = string.IsNullOrEmpty(reason)
+            ? "The objective can no longer be completed."
+            : reason;
+
+        SaveManager.Instance.SaveRun();
+
+        Debug.Log(
+            $"Quest failed: {quest.quest.questName}. " +
+            quest.failureReason);
+
+        return true;
     }
 
     private void FinishQuest(QuestInstance quest)
     {
-        quest.completed = true;
+        if (quest == null || !quest.IsActive)
+            return;
+
+        quest.state = QuestState.Completed;
 
         SaveManager.Instance.SaveRun();
 
-        Debug.Log("Quest Complete!");
+        Debug.Log(
+            $"Quest completed: {quest.quest.questName}");
+    }
+
+    public void NotifyEvent(QuestEvent questEvent)
+    {
+        var run = RunManager.Instance.CurrentRun;
+
+        foreach (var quest in run.activeQuests)
+        {
+            if (!quest.IsActive)
+                continue;
+
+            string failureReason =
+                quest.quest.objective.HandleEvent(
+                    quest,
+                    questEvent);
+
+            if (!string.IsNullOrEmpty(failureReason))
+            {
+                FailQuest(quest, failureReason);
+            }
+        }
     }
 }
 

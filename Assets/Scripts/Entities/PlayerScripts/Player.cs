@@ -204,6 +204,10 @@ public class Player : UnitBase
     {
         Death(); // Signal death event for effects
         Kill();
+        QuestManager.Instance.NotifyEvent(
+            new QuestEvent(
+                QuestEventType.PlayerDied,
+                playerId: DisplayName));
     }
 
     private void EnsureExecutor()

@@ -25,14 +25,33 @@ public class RunStatusUI : MonoBehaviour
     public Transform questListContainer;
     public QuestEntryUI questEntryPrefab;
     public TMP_Text questHeaderText;
+    public UnityEngine.UI.Button questHeaderButton;
 
-    private readonly List<QuestEntryUI> questEntries = new();
+    private bool showAllQuests = false;
+
+    private readonly Dictionary<QuestInstance, QuestEntryUI>
+        questEntries = new();
 
     void Start()
     {
+        if (questHeaderButton != null)
+        {
+            questHeaderButton.onClick.AddListener(ToggleQuestView);
+        }
+
         canvasGroup.alpha = 0f;
         panel.SetActive(true);
         Refresh();
+    }
+
+    void OnDestroy()
+    {
+        if (questHeaderButton != null)
+        {
+            questHeaderButton.onClick.RemoveListener(
+                ToggleQuestView
+            );
+        }
     }
 
     void Update()
@@ -50,6 +69,9 @@ public class RunStatusUI : MonoBehaviour
             targetAlpha,
             speed * Time.deltaTime
         );
+
+        canvasGroup.blocksRaycasts = show;
+        canvasGroup.interactable = show;
     }
 
     void Refresh()
@@ -92,46 +114,71 @@ public class RunStatusUI : MonoBehaviour
         List<QuestInstance> quests,
         int currentFloor)
     {
-        foreach (var entry in questEntries)
-        {
-            if (entry != null)
-                Destroy(entry.gameObject);
-        }
-
-        questEntries.Clear();
+        HashSet<QuestInstance> visibleQuests = new();
 
         int activeCount = 0;
 
         foreach (var quest in quests)
         {
-            if (quest == null ||
-                quest.quest == null)
-            {
+            if (quest == null || quest.quest == null)
                 continue;
+
+            if (quest.IsActive)
+                activeCount++;
+
+            // In active-only mode, hide completed and failed quests.
+            if (!showAllQuests && !quest.IsActive)
+                continue;
+
+            visibleQuests.Add(quest);
+
+            if (!questEntries.TryGetValue(
+                    quest, out QuestEntryUI entry)
+                || entry == null)
+            {
+                entry = Instantiate(
+                    questEntryPrefab,
+                    questListContainer
+                );
+
+                questEntries[quest] = entry;
             }
 
-            activeCount++;
-
-            QuestEntryUI entry = Instantiate(
-                questEntryPrefab,
-                questListContainer
-            );
-
+            entry.gameObject.SetActive(true);
             entry.Setup(quest, currentFloor);
-            questEntries.Add(entry);
+        }
+
+        // Hide entries that are not part of the current view.
+        foreach (var pair in questEntries)
+        {
+            if (pair.Value == null)
+                continue;
+
+            pair.Value.gameObject.SetActive(
+                visibleQuests.Contains(pair.Key)
+            );
         }
 
         if (questHeaderText != null)
         {
-            questHeaderText.text =
-                $"ACTIVE QUESTS ({activeCount})";
+            questHeaderText.text = showAllQuests
+                ? $"ALL QUESTS ({quests.FindAll(q => q != null && q.quest != null).Count})"
+                : $"ACTIVE QUESTS ({activeCount})";
         }
 
         if (questListContainer != null)
         {
             questListContainer.gameObject.SetActive(
-                activeCount > 0
+                visibleQuests.Count > 0
             );
         }
+    }
+
+    void ToggleQuestView()
+    {
+        Debug.Log("Toggle Quests");
+        showAllQuests = !showAllQuests;
+
+        Refresh();
     }
 }
