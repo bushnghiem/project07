@@ -118,6 +118,23 @@ public class CorruptionManager : MonoBehaviour
             return;
         }
 
+        var floor = RunManager.Instance.CurrentRun.currentFloorData;
+
+        TileOverride savedOverride =
+            floor.tileOverrides.Find(o => o.position == pos);
+
+        // This corrupted encounter was already defeated.
+        if (savedOverride != null &&
+            savedOverride.data != null &&
+            savedOverride.data.corruptionCleared)
+        {
+            return;
+        }
+
+        // Already corrupted; don't generate a new encounter.
+        if (tile.isCorrupted)
+            return;
+
         grid.ModifyTile(pos, tile =>
         {
             tile.tileType = TileType.Combat;

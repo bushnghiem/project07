@@ -14,4 +14,6 @@ public class TileOverrideData
 
     public bool isElite;
     public bool isCorrupted;
+
+    public bool corruptionCleared;
 }
