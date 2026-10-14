@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!224 &50113939 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5212154736050113946, guid: c75906be982f9b040ba65192953a4170, type: 3}
+  m_PrefabInstance: {fileID: 299373569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &95429378
 GameObject:
   m_ObjectHideFlags: 0
@@ -999,7 +1004,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 954764198443734371, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000046382607
+      value: -0.000027694272
       objectReference: {fileID: 0}
     - target: {fileID: 954764198443734371, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1163,7 +1168,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3408883887859835605, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_Size
-      value: 0.99998564
+      value: 0.99998283
+      objectReference: {fileID: 0}
+    - target: {fileID: 3408883887859835605, guid: c75906be982f9b040ba65192953a4170, type: 3}
+      propertyPath: m_Value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3569840943649146159, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1255,7 +1264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4742924371219042120, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4813591171487539873, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1272,6 +1281,38 @@ PrefabInstance:
     - target: {fileID: 4930392887672753650, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_Value
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5212154736050113946, guid: c75906be982f9b040ba65192953a4170, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5212154736050113946, guid: c75906be982f9b040ba65192953a4170, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5212154736050113946, guid: c75906be982f9b040ba65192953a4170, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5212154736050113946, guid: c75906be982f9b040ba65192953a4170, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5212154736050113946, guid: c75906be982f9b040ba65192953a4170, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5212154736050113946, guid: c75906be982f9b040ba65192953a4170, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5212154736050113946, guid: c75906be982f9b040ba65192953a4170, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 5212154736050113946, guid: c75906be982f9b040ba65192953a4170, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5329372513254242599, guid: c75906be982f9b040ba65192953a4170, type: 3}
       propertyPath: m_AnchorMax.y
@@ -4238,7 +4279,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2019153025}
   m_HandleRect: {fileID: 2019153024}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4946,6 +4987,7 @@ GameObject:
   - component: {fileID: 1474467626}
   - component: {fileID: 1474467627}
   - component: {fileID: 1474467628}
+  - component: {fileID: 1474467629}
   m_Layer: 5
   m_Name: FleetRoot
   m_TagString: Untagged
@@ -4987,6 +5029,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FleetUI
   animator: {fileID: 0}
   shipHolder: {fileID: 1707256311}
+  statusEffectListUI: {fileID: 1474467629}
   shipListParent: {fileID: 299373582}
   shipEntryPrefab: {fileID: 8941645740710153600, guid: 3ba8864708987714a8a77d0a527c6d7b, type: 3}
   statsParent: {fileID: 299373571}
@@ -5036,6 +5079,21 @@ MonoBehaviour:
   cursorOffset: {x: 10, y: -10, z: 0}
   playSound: 1
   typingSound: {fileID: 11400000, guid: 2f5d056d78cb68144b5c66152b3ab113, type: 2}
+--- !u!114 &1474467629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474467624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c077f9bf91403fd4eb1031cddebe1f86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusEffectListUI
+  content: {fileID: 50113939}
+  entryPrefab: {fileID: 6141417358464107946, guid: c237b4e57512d7a4e8d2c3134f0e25f9, type: 3}
+  tooltip: {fileID: 1474467627}
 --- !u!1 &1521778650
 GameObject:
   m_ObjectHideFlags: 0

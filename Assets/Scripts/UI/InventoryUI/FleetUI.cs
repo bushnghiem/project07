@@ -5,6 +5,7 @@ public class FleetUI : AnimatedUI
 {
     [Header("References")]
     public ShipHolder shipHolder;
+    public StatusEffectListUI statusEffectListUI;
 
     [Header("Ship List")]
     public Transform shipListParent;
@@ -199,5 +200,7 @@ public class FleetUI : AnimatedUI
 
         PopulateStats(selectedPlayer);
         PopulateItems(selectedPlayer);
+
+        statusEffectListUI?.ShowUnit(selectedPlayer);
     }
 }

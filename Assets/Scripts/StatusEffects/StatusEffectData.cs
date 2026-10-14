@@ -12,5 +12,8 @@ public abstract class StatusEffectData : ScriptableObject
     public int maxStacks = 1;
     public int duration; // in turns
 
+    [TextArea(3, 6)]
+    public string description;
+
     public abstract StatusEffectInstance CreateInstance(Unit target);
 }

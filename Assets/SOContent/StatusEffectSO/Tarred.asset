@@ -18,4 +18,5 @@ MonoBehaviour:
   isStackable: 0
   maxStacks: 1
   duration: 2
+  description: Moving takes one more action point
   moveAPCostIncrease: 1

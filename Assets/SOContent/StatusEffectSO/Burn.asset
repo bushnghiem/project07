@@ -18,4 +18,5 @@ MonoBehaviour:
   isStackable: 1
   maxStacks: 10
   duration: 10
+  description: Take 2 * X at the end of your turn
   damagePerStack: 2

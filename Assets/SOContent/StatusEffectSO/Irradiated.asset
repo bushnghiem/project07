@@ -18,5 +18,6 @@ MonoBehaviour:
   isStackable: 1
   maxStacks: 5
   duration: 10
+  description: Lowers Max HP by 5 * X at end of turn
   damagePerStackPerTurn: 2
   maxHealthReductionPerStackPerTurn: 5

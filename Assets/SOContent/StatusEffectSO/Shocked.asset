@@ -18,4 +18,5 @@ MonoBehaviour:
   isStackable: 0
   maxStacks: 1
   duration: 2
+  description: Lowers the amount of actions taken
   actionPointsLostPerStack: 1

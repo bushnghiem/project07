@@ -18,4 +18,5 @@ MonoBehaviour:
   isStackable: 1
   maxStacks: 10
   duration: 2
+  description: 'Increases damage taken by 10% * X '
   damageTakenPerStack: 0.1
