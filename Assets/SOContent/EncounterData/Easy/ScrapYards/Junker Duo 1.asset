@@ -25,7 +25,7 @@ MonoBehaviour:
     - itemID: projectile_scrap_ball
   - uniqueID: Shotgun Junker
     templateID: ship_scrap_ship
-    aiBehaviorID: default_ai
+    aiBehaviorID: shotgun_ai
     currentHealth: 100
     currentCharges: 0
     isDead: 0
@@ -33,6 +33,12 @@ MonoBehaviour:
     items:
     - itemID: projectile_scrap
     - itemID: passive_shotgun
+  enemySpawnMode: 2
+  enemySpawnSettings:
+    anchorAreaSize: {x: 20, y: 0, z: 20}
+    randomAreaSize: {x: 40, y: 0, z: 40}
+    minDistanceBetweenShips: 30
+    maxAttemptsPerShip: 30
   enemyFormation: {fileID: 11400000, guid: de0e0e80fdb089648b239068d3e95764, type: 2}
   playerFormation: {fileID: 11400000, guid: de0e0e80fdb089648b239068d3e95764, type: 2}
   environmentLayout: {fileID: 11400000, guid: 6add0c906359a4b4796f168346113753, type: 2}

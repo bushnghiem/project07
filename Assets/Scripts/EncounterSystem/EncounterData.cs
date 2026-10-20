@@ -6,6 +6,10 @@ public class EncounterData : ScriptableObject
 {
     public string encounterName;
     public List<ShipRunData> enemies;
+
+    public EnemySpawnMode enemySpawnMode;
+    public EnemySpawnSettings enemySpawnSettings = new EnemySpawnSettings();
+
     public FormationData enemyFormation;
     public FormationData playerFormation;
     public EnvironmentLayout environmentLayout;

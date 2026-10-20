@@ -5,56 +5,66 @@ public class TestRun : MonoBehaviour
     public UnitSpawner unitSpawner;
     public EnvironmentSpawner environmentSpawner;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         var runData = RunManager.Instance.CurrentRun;
-        var encounterData = runData.currentFloorData.currentEncounter;
+        var floorData = runData.currentFloorData;
+        var encounterData = floorData.currentEncounter;
+
+        if (encounterData == null)
+        {
+            Debug.LogError("No current encounter assigned!");
+            return;
+        }
 
         MusicManager.PlayMusic(encounterData.music);
 
+        // Set the normal player and enemy anchor positions.
         unitSpawner.SetAnchorPositions(
             encounterData.playerAnchorPosition,
             encounterData.enemyAnchorPosition
         );
 
-        if (encounterData.playerFormation != null)
-        {
-            unitSpawner.SpawnPlayerTeam(
-                runData.team,
-                encounterData.playerFormation
-            );
-        }
-        else
-        {
-            unitSpawner.SpawnPlayerTeam(
-                runData.team,
-                runData.playerFormation
-            );
-        }
+        // Spawn player team using the selected formation.
+        FormationData playerFormation =
+            encounterData.playerFormation != null
+                ? encounterData.playerFormation
+                : runData.playerFormation;
 
-        unitSpawner.SpawnEnemyTeam(
-            encounterData.enemies,
-            encounterData.enemyFormation
+        unitSpawner.SpawnPlayerTeam(
+            runData.team,
+            playerFormation
         );
 
+        // Calculate the center of the combat arena.
+        Vector3 combatCenter =
+            (encounterData.playerAnchorPosition +
+             encounterData.enemyAnchorPosition) * 0.5f;
+
+        // Use the saved encounter seed for deterministic spawning.
+        int encounterSeed = floorData.currentEncounterSeed;
+
+        Debug.Log($"Encounter Seed: {encounterSeed}");
+        Debug.Log($"Enemy Spawn Mode: {encounterData.enemySpawnMode}");
+
+        // Spawn enemies using the configured spawn mode.
+        unitSpawner.SpawnEnemyTeam(
+            encounterData.enemies,
+            encounterData.enemyFormation,
+            encounterData.enemySpawnMode,
+            encounterData.enemySpawnSettings,
+            combatCenter,
+            encounterSeed
+        );
+
+        // Spawn the environment with the same encounter seed.
         if (encounterData.environmentLayout != null)
         {
-            Vector3 combatCenter =
-                (encounterData.playerAnchorPosition +
-                 encounterData.enemyAnchorPosition) * 0.5f;
-            Debug.Log(runData.currentFloorData.currentEncounterSeed);
             environmentSpawner.SpawnEnvironment(
                 encounterData.environmentLayout,
                 combatCenter,
-                runData.currentFloorData.currentEncounterSeed
+                encounterSeed
             );
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
