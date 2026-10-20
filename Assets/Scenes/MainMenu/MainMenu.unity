@@ -520,7 +520,7 @@ MonoBehaviour:
     completedFloors: []
     playerFormation: {fileID: 11400000, guid: ea09909161c27d04d923a2d9c407861b, type: 2}
     team:
-    - uniqueID: Player 1
+    - uniqueID: Amadeus
       templateID: 0
       aiBehaviorID: 
       currentHealth: 100
@@ -528,29 +528,10 @@ MonoBehaviour:
       isDead: 0
       statModifiers: []
       items:
-      - itemID: projectile_atomic
-      - itemID: active_rust_apply
-      - itemID: passive_heal_turn
-      - itemID: passive_explosive_death
-      - itemID: passive_one_health
-    - uniqueID: Player 2
-      templateID: ship_pirate
-      aiBehaviorID: 
-      currentHealth: 100
-      currentCharges: 0
-      isDead: 0
-      statModifiers: []
-      items:
-      - itemID: projectile_gold_ball
-      - itemID: passive_heal_kill
-      - itemID: active_shield
-      - itemID: passive_projectile_explosive_death
-      - itemID: passive_all_fire
-      - itemID: passive_side_cannons
-      - itemID: passive_three_burst
+      - itemID: projectile_iron_ball
     activeQuests: []
     runCurrency: 0
-    runKeys: 100
+    runKeys: 0
     usedUniqueEventIds: []
   continueButton: {fileID: 1354013984}
 --- !u!4 &295304960

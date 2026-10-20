@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: active_repulsor_beam
   itemName: Repusor Beam
   icon: {fileID: 21300000, guid: 3d9983133842b7d4a87f8d0f4fd42dd5, type: 3}
-  description: PUSH EVERYTHING AWAY
+  description: Push Objects Away
   price: 100
   slotType: 0
   aiEvaluator: {fileID: 11400000, guid: ace35000fee0ba246a7674431e7c880e, type: 2}

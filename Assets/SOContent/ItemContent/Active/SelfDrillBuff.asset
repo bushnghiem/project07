@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: active_self_drill_buff
   itemName: Drill Buff
   icon: {fileID: 21300000, guid: ac471b1b50d46134781b4c2236ec8550, type: 3}
-  description: Start Spinning Your Drill to Deal More Collision Damage
+  description: Apply Spinning Drill Self Buff on Move
   price: 100
   slotType: 0
   aiEvaluator: {fileID: 11400000, guid: 88b3c5821f7e92c4382f753ee140dbe2, type: 2}

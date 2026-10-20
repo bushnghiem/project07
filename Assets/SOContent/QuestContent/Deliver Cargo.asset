@@ -24,4 +24,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dd81e06afc039b847a8e131283561633, type: 2}
   - {fileID: 11400000, guid: 3651b6826b53d144b81d0a525bed07fe, type: 2}
   rewardsToChoose: 2
-  deliveryItem: {fileID: 11400000, guid: 7e68fc54394137149807636a55ad5520, type: 2}
+  deliveryItem: {fileID: 11400000, guid: 5aff9d6f775e7e747846977a461c102c, type: 2}

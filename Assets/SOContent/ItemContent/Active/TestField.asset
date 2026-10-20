@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: active_test
   itemName: Damage Field
   icon: {fileID: 21300000, guid: ac147ebfb022f43489e3a65b41c368a2, type: 3}
-  description: PUT DOWN A DAMAGE FIELD
+  description: Put Down a Damage Field
   price: 100
   slotType: 0
   aiEvaluator: {fileID: 11400000, guid: 42422f641889eb14c9b0518d10e4a4ab, type: 2}

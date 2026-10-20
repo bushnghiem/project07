@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: active_tractor_beam
   itemName: Tractor Beam
   icon: {fileID: 21300000, guid: 2a8f768e2fb6d0d43ab4f7ba5b506e40, type: 3}
-  description: PULL EVERYTHING IN
+  description: Pull Objects In
   price: 100
   slotType: 0
   aiEvaluator: {fileID: 11400000, guid: 3c48e16aff7608441a592c076698319b, type: 2}

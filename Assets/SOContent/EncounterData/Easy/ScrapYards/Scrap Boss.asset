@@ -30,6 +30,6 @@ MonoBehaviour:
   playerAnchorPosition: {x: 0, y: 0, z: 0}
   enemyAnchorPosition: {x: 0, y: 0, z: 20}
   encounterType: 2
-  runCurrencyReward: 100
+  runCurrencyReward: 200
   metaCurrencyReward: 100
   music: 3

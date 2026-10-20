@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StatusCollision
   itemID: passive_burn_on_collision
   itemName: Burning Touch
-  icon: {fileID: 21300000, guid: 3b5f9f2c6b73ad6429495655651826b2, type: 3}
-  description: Burn Everything On Collision
+  icon: {fileID: 21300000, guid: e75404d0d6a5c84429ff44e7fbc8e9ff, type: 3}
+  description: Burn On Collision
   price: 100
   slotType: 2
   statusEffects:
