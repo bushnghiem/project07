@@ -104,7 +104,7 @@ public class DestructableEnvironment : MonoBehaviour, Entity, IInspectable
     {
         return new InspectionData
         {
-            Name = gameObject.name,
+            Name = displayName,
 
             CurrentHP = healthComp.GetCurrentHealth(),
             MaxHP = healthComp.GetMaxHealth(),

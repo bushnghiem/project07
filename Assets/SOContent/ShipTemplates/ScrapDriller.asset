@@ -32,7 +32,7 @@ MonoBehaviour:
   - statType: 7
     value: 25
   - statType: 8
-    value: 0
+    value: 100
   - statType: 9
     value: 0
   - statType: 10

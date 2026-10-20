@@ -21,9 +21,22 @@ MonoBehaviour:
     conditions: []
     outcomeGroups:
     - groupName: 
-      description: Rush Through Safely
+      description: Scrape By
       groupChance: 0.5
       outcomes:
+      - type: 6
+        tileModification: 0
+        value: 1
+        damage:
+          amount: 5
+          category: 0
+          element: 1
+          bypassShields: 0
+          bypassResistance: 0
+        encounter: {fileID: 0}
+        item: {fileID: 0}
+        quest: {fileID: 0}
+        chance: 1
       - type: 9
         tileModification: 0
         value: 1
