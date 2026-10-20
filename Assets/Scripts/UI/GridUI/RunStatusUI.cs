@@ -90,7 +90,7 @@ public class RunStatusUI : MonoBehaviour
             $"Sector {run.currentFloor + 1} // " +
             floor.contentProfile.floorName;
 
-        currencyText.text = $"Units: {run.runCurrency}";
+        currencyText.text = $"Credits: {run.runCurrency}";
         keyText.text = $"Keys: {run.runKeys}";
         timeText.text = $"Time Elapsed: {floor.timeElapsed}";
 

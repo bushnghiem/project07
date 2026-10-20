@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167c904c79647bb469a1eca48e2949f4, type: 3}
+  m_Name: ScrapBossAI
+  m_EditorClassIdentifier: Assembly-CSharp::AlternatingBossAIBehavior
+  behaviorID: scrap_boss_ai
+  normalBehavior: {fileID: 11400000, guid: 31972f32e62d0c64cba571cf630faf62, type: 2}
+  ramBehavior: {fileID: 11400000, guid: 1979e3a2bd13cea4fba454e30769ce06, type: 2}
+  startWithNormalTurn: 1

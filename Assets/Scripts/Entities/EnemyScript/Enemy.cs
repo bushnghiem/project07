@@ -103,6 +103,8 @@ public class Enemy : UnitBase
     {
         base.StartTurn();
         TurnEvent.OnUnitTurnStart?.Invoke(this);
+        aiController?.OnTurnStarted();
+
         aiController?.TakeTurn();
     }
 

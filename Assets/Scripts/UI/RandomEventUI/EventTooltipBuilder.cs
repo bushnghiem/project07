@@ -51,11 +51,11 @@ public static class EventTooltipBuilder
                 switch (outcome.type)
                 {
                     case OutcomeType.GainCurrency:
-                        sb.AppendLine($"{chanceText}+{outcome.value} Scrap");
+                        sb.AppendLine($"{chanceText}+{outcome.value} Credit{(outcome.value == 1 ? "" : "s")}");
                         break;
 
                     case OutcomeType.LoseCurrency:
-                        sb.AppendLine($"{chanceText}-{outcome.value} Scrap");
+                        sb.AppendLine($"{chanceText}-{outcome.value} Credit{(outcome.value == 1 ? "" : "s")}");
                         break;
 
                     case OutcomeType.GainKeys:

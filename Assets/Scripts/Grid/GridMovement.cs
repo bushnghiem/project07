@@ -279,7 +279,19 @@ public class GridMovement : MonoBehaviour
 
         SaveManager.Instance.SaveRun();
 
-        SceneManager.LoadScene("TestGrid");
+        // Change this after fake ending is no longer needed
+        if (run.currentFloor >= 3)
+        {
+            SaveManager.Instance.DeleteRun();
+            SaveManager.Instance.SaveMeta();
+            SceneManager.LoadScene("MainMenu");
+        }
+
+        else
+        {
+            SceneManager.LoadScene("TestGrid");
+        }
+            //SceneManager.LoadScene("TestGrid");
         yield break;
     }
 

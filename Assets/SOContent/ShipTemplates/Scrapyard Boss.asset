@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Scrap Leader
   baseStats:
   - statType: 0
-    value: 100
+    value: 200
   - statType: 1
     value: 0
   - statType: 2
@@ -32,7 +32,7 @@ MonoBehaviour:
   - statType: 7
     value: 10
   - statType: 8
-    value: 0
+    value: 100
   - statType: 9
     value: 0
   - statType: 10
@@ -46,7 +46,7 @@ MonoBehaviour:
   - statType: 14
     value: 2
   - statType: 15
-    value: 1
+    value: 2
   - statType: 16
     value: 0
   - statType: 17

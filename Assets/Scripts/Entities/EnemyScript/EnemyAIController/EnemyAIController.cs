@@ -55,6 +55,11 @@ public class EnemyAIController : MonoBehaviour
         currentBehavior = loaded;
     }
 
+    public void OnTurnStarted()
+    {
+        currentBehavior?.OnTurnStarted(enemy, context);
+    }
+
     public void TakeTurn()
     {
         if (currentBehavior == null)

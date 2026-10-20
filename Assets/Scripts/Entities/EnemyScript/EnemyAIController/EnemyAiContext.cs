@@ -16,4 +16,7 @@ public class EnemyAIContext
     public int actionsThisTurn;
 
     public int lastActionCost;
+
+    public bool alternatingBossInitialized;
+    public bool bossNormalTurn;
 }

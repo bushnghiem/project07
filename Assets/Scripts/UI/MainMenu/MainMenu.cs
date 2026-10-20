@@ -46,7 +46,6 @@ public class MainMenu : MonoBehaviour
     public void Options()
     {
         Debug.Log("Options lol");
-
     }
 
     public void QuitGame()
