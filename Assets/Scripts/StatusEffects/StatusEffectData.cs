@@ -1,5 +1,11 @@
 using UnityEngine;
 
+public enum StatusEffectApplicationPolicy
+{
+    Refresh,
+    Independent
+}
+
 public abstract class StatusEffectData : ScriptableObject
 {
     public string effectID;
@@ -7,6 +13,10 @@ public abstract class StatusEffectData : ScriptableObject
 
     [Header("UI")]
     public Sprite statusIcon;
+
+    [Header("Application")]
+    public StatusEffectApplicationPolicy applicationPolicy =
+    StatusEffectApplicationPolicy.Refresh;
 
     public bool isStackable;
     public int maxStacks = 1;

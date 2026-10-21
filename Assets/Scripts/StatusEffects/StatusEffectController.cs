@@ -27,16 +27,21 @@ public class StatusEffectController : MonoBehaviour
         EventBus.Unsubscribe(OnUnitEvent);
     }
 
-    public void ApplyEffect(
-        StatusEffectData data,
-        int stacks)
+    public void ApplyEffect(StatusEffectData data, int stacks)
     {
-        if (data == null)
+        if (data == null || stacks <= 0)
             return;
 
-        var existing = activeEffects.Find(
-            e => e.data == data
-        );
+        // Independent effects always get a new instance.
+        if (data.applicationPolicy ==
+            StatusEffectApplicationPolicy.Independent)
+        {
+            AddNewInstance(data, stacks);
+            return;
+        }
+
+        // Existing behavior for normal effects.
+        var existing = activeEffects.Find(e => e.data == data);
 
         if (existing != null)
         {
@@ -51,19 +56,18 @@ public class StatusEffectController : MonoBehaviour
             }
 
             existing.RefreshDuration();
-
             OnEffectsChanged?.Invoke();
-
             return;
         }
 
+        AddNewInstance(data, stacks);
+    }
+
+    private void AddNewInstance(StatusEffectData data, int stacks)
+    {
         var instance = data.CreateInstance(unit);
 
-        instance.Init(
-            data,
-            unit,
-            stacks
-        );
+        instance.Init(data, unit, stacks);
 
         instance.SetModifierChangedCallback(
             HandleEffectModifiersChanged
