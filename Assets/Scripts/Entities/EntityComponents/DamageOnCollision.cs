@@ -13,10 +13,17 @@ public class DamageOnCollision : MonoBehaviour
 
     public event Action OnCollisionOccurred;
 
+    private readonly HashSet<Entity> damagedThisPhysicsStep = new();
+
     void Awake()
     {
         spawnTime = Time.time;
         ownerEntity = GetComponentInParent<Entity>();
+    }
+
+    private void FixedUpdate()
+    {
+        damagedThisPhysicsStep.Clear();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -26,6 +33,9 @@ public class DamageOnCollision : MonoBehaviour
 
         Entity otherEntity = collision.collider.GetComponentInParent<Entity>();
         if (otherEntity == null)
+            return;
+
+        if (!damagedThisPhysicsStep.Add(otherEntity))
             return;
 
         ActionContext context = GetComponentInParent<Entity>()?.ActionContext;

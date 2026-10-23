@@ -528,7 +528,16 @@ MonoBehaviour:
       isDead: 0
       statModifiers: []
       items:
-      - itemID: projectile_iron_ball
+      - itemID: projectile_bomb_injector
+    - uniqueID: Amadeus
+      templateID: 0
+      aiBehaviorID: 
+      currentHealth: 100
+      currentCharges: 5
+      isDead: 0
+      statModifiers: []
+      items:
+      - itemID: projectile_bomb_injector
     activeQuests: []
     runCurrency: 0
     runKeys: 0
