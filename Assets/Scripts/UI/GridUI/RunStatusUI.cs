@@ -174,6 +174,21 @@ public class RunStatusUI : MonoBehaviour
         }
     }
 
+    public void RefreshTimeValue()
+    {
+        var run = RunManager.Instance.CurrentRun;
+
+        if (run == null)
+            return;
+
+        var floor = run.currentFloorData;
+
+        if (floor == null || floor.contentProfile == null)
+            return;
+
+        timeText.text = $"Time Elapsed: {floor.timeElapsed}";
+    }
+
     void ToggleQuestView()
     {
         Debug.Log("Toggle Quests");

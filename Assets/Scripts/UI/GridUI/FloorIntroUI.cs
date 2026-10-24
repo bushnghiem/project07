@@ -1,76 +1,36 @@
-using TMPro;
 using UnityEngine;
-using System.Collections;
 
 public class FloorIntroUI : MonoBehaviour
 {
-    [Header("UI")]
-    public CanvasGroup canvasGroup;
-    public TMP_Text titleText;
+    [Header("Floor Intro")]
+    [SerializeField] private Color floorIntroColor = Color.white;
+    [SerializeField] private float typingSpeed = 20f;
+    [SerializeField] private float holdTime = 2f;
 
-    [Header("Timing")]
-    public float fadeInTime = 0.5f;
-    public float holdTime = 2f;
-    public float fadeOutTime = 1f;
-
-    [SerializeField] private TMPTerminalTypewriter typewriter;
-
-    private IEnumerator Start()
+    private void Start()
     {
         var floor = RunManager.Instance.CurrentRun.currentFloorData;
 
         if (floor.hasShownFloorIntro)
-        {
-            gameObject.SetActive(false);
-            yield break;
-        }
+            return;
 
         floor.hasShownFloorIntro = true;
 
-        string floorName = string.IsNullOrEmpty(floor.contentProfile.floorName)
+        string floorName = string.IsNullOrEmpty(
+            floor.contentProfile.floorName)
             ? $"Floor {floor.floorIndex + 1}"
             : floor.contentProfile.floorName;
 
-        yield return StartCoroutine(PlayIntro());
+        string message =
+            $"Entering\n<size=120%>{floorName}</size>\n" +
+            $"<size=60%>Sector {floor.floorIndex + 1}</size>";
 
-        gameObject.SetActive(false);
-    }
-
-    private IEnumerator PlayIntro()
-    {
-        canvasGroup.alpha = 0f;
-
-        float t = 0f;
-
-        while (t < fadeInTime)
-        {
-            t += Time.deltaTime;
-            canvasGroup.alpha = Mathf.Clamp01(t / fadeInTime);
-            yield return null;
-        }
-
-        canvasGroup.alpha = 1f;
-
-        var floor = RunManager.Instance.CurrentRun.currentFloorData;
-
-        string floorName = string.IsNullOrEmpty(floor.contentProfile.floorName)
-            ? $"Floor {floor.floorIndex + 1}"
-            : floor.contentProfile.floorName;
-
-        yield return typewriter.TypeText(
-            $"Entering\n<size=120%>{floorName}</size>\n<size=60%>Sector {floor.floorIndex + 1}</size>");
-
-        yield return new WaitForSeconds(holdTime);
-
-        t = 0f;
-
-        while (t < fadeOutTime)
-        {
-            t += Time.deltaTime;
-            canvasGroup.alpha = 1f - Mathf.Clamp01(t / fadeOutTime);
-            yield return null;
-        }
-
-        canvasGroup.alpha = 0f;
+        ScreenMessageController.Instance.ShowMessage(
+            message,
+            floorIntroColor,
+            typingSpeed,
+            holdTime,
+            priority: 10
+        );
     }
 }

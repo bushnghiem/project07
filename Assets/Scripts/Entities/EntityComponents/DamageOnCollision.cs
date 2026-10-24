@@ -28,7 +28,7 @@ public class DamageOnCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (Time.time - spawnTime < 0.05f)
+        if (Time.time - spawnTime < 0.01f)
             return;
 
         Entity otherEntity = collision.collider.GetComponentInParent<Entity>();

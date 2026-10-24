@@ -35,53 +35,43 @@ public class TMPTerminalTypewriter : MonoBehaviour
 
     public IEnumerator TypeText(string message)
     {
+        yield return TypeText(message, charactersPerSecond);
+    }
+
+    public IEnumerator TypeText(string message, float speed)
+    {
         StopTyping();
 
         yield return new WaitForSeconds(startDelay);
-
 
         text.text = message;
         text.maxVisibleCharacters = 0;
         text.ForceMeshUpdate();
 
-
         totalCharacters = text.textInfo.characterCount;
         visibleCharacters = 0;
 
-
         cursor.gameObject.SetActive(true);
+        cursor.enabled = true;
         cursorRoutine = StartCoroutine(CursorBlink());
 
-
-        float delay = 1f / charactersPerSecond;
-
+        float delay = 1f / Mathf.Max(1f, speed);
 
         while (visibleCharacters < totalCharacters)
         {
             visibleCharacters++;
-
             text.maxVisibleCharacters = visibleCharacters;
 
             UpdateCursorPosition();
 
-
-            if (playSound)
-            {
+            if (playSound && typingSound != null)
                 AudioManager.Play(typingSound);
-            }
-
 
             yield return new WaitForSeconds(delay);
         }
 
-
         UpdateCursorPosition();
-
-        //yield return new WaitForSeconds(endDelay);
-        // End Delay is not active right now
-        //StopTyping();
     }
-
 
 
     private IEnumerator CursorBlink()

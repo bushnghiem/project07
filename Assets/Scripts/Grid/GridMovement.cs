@@ -9,6 +9,7 @@ public class GridMovement : MonoBehaviour
     public GridManager gridManager;
     public UnitSpawner unitSpawner;
     public ShopManager shopManager;
+    public RunStatusUI runStatusUI;
     public ShopUI shopUI;
     public ChestUI chestUI;
     public EventUI eventUI;
@@ -102,6 +103,8 @@ public class GridMovement : MonoBehaviour
         floor.timeElapsed += amount;
 
         CorruptionManager.Instance.OnTimePassed();
+
+        runStatusUI.RefreshTimeValue();
 
         SaveManager.Instance.SaveRun();
     }

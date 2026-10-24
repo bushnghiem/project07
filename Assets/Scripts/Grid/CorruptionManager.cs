@@ -8,6 +8,11 @@ public class CorruptionManager : MonoBehaviour
     public int stepsPerShrink = 20;
     public int currentRadius;
 
+    [Header("Corruption Message")]
+    [SerializeField] private Color textColor = Color.purple;
+    [SerializeField] private float typingSpeed = 20f;
+    [SerializeField] private float holdTime = 2f;
+
     private GridManager grid;
 
     void Awake()
@@ -54,6 +59,17 @@ public class CorruptionManager : MonoBehaviour
             floor.nextCorruptionTimeThreshold += stepsPerShrink;
 
             ApplyCorruption(oldRadius, currentRadius);
+
+            string message =
+            $"<size=120%>Corruption is Spreading</size>\n";
+
+            ScreenMessageController.Instance.ShowMessage(
+                message,
+                textColor,
+                typingSpeed,
+                holdTime,
+                priority: 10
+            );
 
             SaveManager.Instance.SaveRun();
         }
