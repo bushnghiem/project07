@@ -36,7 +36,7 @@ public class ItemAction : TurnAction
 
         if (item == null)
         {
-            Debug.LogError("ItemAction: no active item equipped");
+            Debug.Log("ItemAction: no active item equipped");
             return;
         }
 
@@ -48,7 +48,13 @@ public class ItemAction : TurnAction
 
         if (item.CanUse(unitBase))
         {
+            unitBase.PreviewAPCost(unitBase.GetItemCost());
+
             targetingController.BeginTargeting(unitBase, item);
+        }
+        else
+        {
+            unitBase.NotEnoughAP(unitBase.GetItemCost());
         }
     }
 }

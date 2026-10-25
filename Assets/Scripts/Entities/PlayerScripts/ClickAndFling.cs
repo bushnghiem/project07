@@ -286,6 +286,8 @@ public class ClickAndFling : MonoBehaviour
 
         golfBar?.ResetBar();
 
+        owner.ClearAPPreview();
+
         FlingEvent.PowerChanged(0f);
 
         FlingEvent.FlingTargetingEnded();

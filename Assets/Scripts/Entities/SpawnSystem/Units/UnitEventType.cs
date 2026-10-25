@@ -12,5 +12,9 @@ public enum UnitEventType
     Heal,
     Death,
     ItemUse,
-    Shield
+    Shield,
+
+    NotEnoughAP,
+    APPreview,
+    APClearPreview
 }

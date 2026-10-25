@@ -1072,6 +1072,8 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
             source = this,
             type = UnitEventType.ActionResolved
         });
+
+        ClearAPPreview();
     }
 
     public virtual bool SpendAP(int amount)
@@ -1133,6 +1135,35 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
     public bool CanAffordAP(int cost)
     {
         return cost > 0 && currentAP >= cost;
+    }
+
+    public void NotEnoughAP(int cost)
+    {
+        EventBus.Raise(new UnitEvent
+        {
+            source = this,
+            type = UnitEventType.NotEnoughAP,
+            value = cost
+        });
+    }
+
+    public void PreviewAPCost(int cost)
+    {
+        EventBus.Raise(new UnitEvent
+        {
+            source = this,
+            type = UnitEventType.APPreview,
+            value = cost
+        });
+    }
+
+    public void ClearAPPreview()
+    {
+        EventBus.Raise(new UnitEvent
+        {
+            source = this,
+            type = UnitEventType.APClearPreview
+        });
     }
 
     public virtual bool CanTeleportTo(Vector3 position)

@@ -8,7 +8,7 @@ public class CurrentUnitPanel : MonoBehaviour
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text hpText;
     [SerializeField] private TMP_Text shieldText;
-    [SerializeField] private TMP_Text apText;
+    [SerializeField] private APIconDisplay apIconDisplay;
     [SerializeField] private TMP_Text activeItemText;
     [SerializeField] private TMP_Text cooldownText;
     [SerializeField] private TMP_Text currentChargeText;
@@ -28,12 +28,16 @@ public class CurrentUnitPanel : MonoBehaviour
     {
         TurnEvent.OnUnitTurnStart += HandleTurnStart;
         TurnEvent.OnUnitActionResolved += HandleActionResolved;
+
+        EventBus.Subscribe(HandleUnitEvent);
     }
 
     private void OnDisable()
     {
         TurnEvent.OnUnitTurnStart -= HandleTurnStart;
         TurnEvent.OnUnitActionResolved -= HandleActionResolved;
+
+        EventBus.Unsubscribe(HandleUnitEvent);
 
         UnhookUnit();
     }
@@ -114,7 +118,10 @@ public class CurrentUnitPanel : MonoBehaviour
         nameText.text = currentUnit.RunData.uniqueID;
         hpText.text = $"HP {currentUnit.CurrentHealth:0}/{currentUnit.MaxHealth:0}";
         shieldText.text = $"Shield {currentUnit.CurrentShield}";
-        apText.text = $"AP {currentUnit.CurrentAP}/{(int)currentUnit.GetStat(ShipStatType.ActionPoints)}";
+        apIconDisplay.Refresh(
+            currentUnit.CurrentAP,
+            currentUnit.MaxAP
+        );
         currentChargeText.text = $"Charges {currentUnit.CurrentCharges:0}/{currentUnit.MaxCharges:0}";
 
         shipIcon.sprite = currentUnit.Template.VisualData.shipIcon;
@@ -162,6 +169,31 @@ public class CurrentUnitPanel : MonoBehaviour
         {
             var row = Instantiate(statusRowPrefab, statusContainer);
             row.Setup(effect);
+        }
+    }
+
+    private void HandleUnitEvent(UnitEvent e)
+    {
+        if (currentUnit == null || e.source != currentUnit)
+            return;
+
+        switch (e.type)
+        {
+            case UnitEventType.NotEnoughAP:
+                apIconDisplay?.PlayNotEnoughAPAnimation(
+                    Mathf.RoundToInt(e.value)
+                );
+                break;
+
+            case UnitEventType.APPreview:
+                apIconDisplay?.PreviewAPCost(
+                    Mathf.RoundToInt(e.value)
+                );
+                break;
+
+            case UnitEventType.APClearPreview:
+                apIconDisplay?.ClearAPPreview();
+                break;
         }
     }
 }

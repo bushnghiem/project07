@@ -6,10 +6,22 @@ public class ShootAction : TurnAction
 
     public void Execute(Unit unit)
     {
-        CameraEvent.LockCamera?.Invoke();
-        CameraEvent.RecenterCamera?.Invoke();
+        if (unit is UnitBase unitBase)
+        {
+            if (unitBase.CanAffordAP(unitBase.GetShootCost()))
+            {
+                unitBase.PreviewAPCost(unitBase.GetShootCost());
 
-        unit.Shoot();
+                CameraEvent.LockCamera?.Invoke();
+                CameraEvent.RecenterCamera?.Invoke();
+
+                unit.Shoot();
+            }
+            else
+            {
+                unitBase.NotEnoughAP(unitBase.GetShootCost());
+            }
+        }
     }
 }
 

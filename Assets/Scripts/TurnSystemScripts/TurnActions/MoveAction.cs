@@ -6,10 +6,22 @@ public class MoveAction : TurnAction
 
     public void Execute(Unit unit)
     {
-        CameraEvent.LockCamera?.Invoke();
-        CameraEvent.RecenterCamera?.Invoke();
+        if (unit is UnitBase unitBase)
+        {
+            if (unitBase.CanAffordAP(unitBase.GetMoveCost()))
+            {
+                unitBase.PreviewAPCost(unitBase.GetMoveCost());
 
-        unit.Move();
+                CameraEvent.LockCamera?.Invoke();
+                CameraEvent.RecenterCamera?.Invoke();
+
+                unit.Move();
+            }
+            else
+            {
+                unitBase.NotEnoughAP(unitBase.GetMoveCost());
+            }
+        }
     }
 }
 

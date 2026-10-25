@@ -419,6 +419,8 @@ public class ItemTargetingController : MonoBehaviour
 
         ClearPreview();
 
+        currentUser.ClearAPPreview();
+
         currentUser = null;
         currentItem = null;
 
