@@ -82,7 +82,7 @@ public class ClickAndFling : MonoBehaviour
 
     public void BeginAction(ActionType actionType)
     {
-        Debug.Log("BeginAction called: " + actionType);
+        //Debug.Log("BeginAction called: " + actionType);
 
         currentActionType = actionType;
         flingable = true;

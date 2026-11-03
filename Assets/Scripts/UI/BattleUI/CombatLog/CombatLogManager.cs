@@ -6,6 +6,9 @@ public class CombatLogManager : MonoBehaviour
 {
     public static CombatLogManager Instance { get; private set; }
 
+    [Header("Settings")]
+    [SerializeField] private int maxStoredEntries = 200;
+
     private readonly List<CombatLogEntry> entries = new();
 
     public IReadOnlyList<CombatLogEntry> Entries => entries;
@@ -46,9 +49,13 @@ public class CombatLogManager : MonoBehaviour
 
         entries.Add(entry);
 
-        OnLogAdded?.Invoke(entry);
+        // Keep the history within the configured limit.
+        while (entries.Count > maxStoredEntries)
+        {
+            entries.RemoveAt(0);
+        }
 
-        //Debug.Log($"[Combat Log] {message}");
+        OnLogAdded?.Invoke(entry);
     }
 
     private string BuildMessage(UnitEvent evt)

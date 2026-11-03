@@ -9,4 +9,9 @@ public class CombatLogRow : MonoBehaviour
     {
         messageText.text = entry.Message;
     }
+
+    public void ResetRow()
+    {
+        messageText.text = string.Empty;
+    }
 }

@@ -78,11 +78,12 @@ public class StatusEffectController : MonoBehaviour
         instance.OnApply();
 
         OnEffectsChanged?.Invoke();
-
+        /*
         Debug.Log(
             $"Applied effect: {data.name} | " +
             $"stacks={stacks} on {unit}"
         );
+        */
     }
 
     private void HandleEffectModifiersChanged()

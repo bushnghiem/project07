@@ -14,13 +14,13 @@ public static class FlingEvent
 
     public static void FlingTargetingStarted(ActionType actionType)
     {
-        Debug.Log("FlingTargetingStarted event fired: " + actionType);
+        //Debug.Log("FlingTargetingStarted event fired: " + actionType);
         OnFlingTargetingStarted?.Invoke(actionType);
     }
 
     public static void FlingTargetingEnded()
     {
-        Debug.Log("FlingTargetingEnded event fired");
+        //Debug.Log("FlingTargetingEnded event fired");
         OnFlingTargetingEnded?.Invoke();
     }
 }

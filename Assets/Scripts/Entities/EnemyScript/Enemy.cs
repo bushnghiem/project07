@@ -152,12 +152,12 @@ public class Enemy : UnitBase
 
     private void HandleDamaged(float damage)
     {
-        Debug.Log($"Enemy took {damage} damage");
+        //Debug.Log($"Enemy took {damage} damage");
     }
 
     private void HandleHealed(float amount)
     {
-        Debug.Log($"Enemy healed {amount}");
+        //Debug.Log($"Enemy healed {amount}");
     }
 
     private void HandleDeath()

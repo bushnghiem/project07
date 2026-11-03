@@ -32,7 +32,7 @@ public class FlingTargetingUI : MonoBehaviour
     private void Show(ActionType actionType)
     {
         panel.SetActive(true);
-        Debug.Log("Show panel");
+        //Debug.Log("Show panel");
 
         switch (actionType)
         {

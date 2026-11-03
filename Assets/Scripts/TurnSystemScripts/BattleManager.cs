@@ -56,7 +56,7 @@ public class BattleManager : MonoBehaviour
     public void RoundStart()
     {
         currentRound += 1;
-        Debug.Log(currentRound);
+        Debug.Log($"It is now Round {currentRound}");
         SortByInitiative();
         currentIndex = 0;
         currentUnit = allUnits[currentIndex];
@@ -131,6 +131,7 @@ public class BattleManager : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
+        battlefieldCoroutine = null;
         ResolvePostAction(actingUnit);
     }
 
@@ -175,20 +176,22 @@ public class BattleManager : MonoBehaviour
 
     private bool IsAnythingMoving()
     {
-        Rigidbody[] bodies = FindObjectsByType<Rigidbody>(FindObjectsSortMode.None);
+        Rigidbody[] bodies = FindObjectsByType<Rigidbody>(
+            FindObjectsSortMode.None
+        );
 
         const float velocityThreshold = 0.05f;
         const float angularThreshold = 0.05f;
 
         foreach (var rb in bodies)
         {
-            if (rb.isKinematic) continue;
+            if (rb == null || rb.isKinematic) continue;
 
-            if (rb.linearVelocity.sqrMagnitude > velocityThreshold * velocityThreshold)
+            if (rb.linearVelocity.sqrMagnitude > velocityThreshold * velocityThreshold ||
+                rb.angularVelocity.sqrMagnitude > angularThreshold * angularThreshold)
+            {
                 return true;
-
-            if (rb.angularVelocity.sqrMagnitude > angularThreshold * angularThreshold)
-                return true;
+            }
         }
 
         return false;
@@ -225,6 +228,8 @@ public class BattleManager : MonoBehaviour
             );
 
             SwitchState(new UnitTurnState(this, true));
+
+            Debug.Log($"Round: {currentRound} and Turn Index: {currentIndex}");
         }
     }
 
@@ -255,13 +260,28 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    private Coroutine battlefieldCoroutine;
+
+    private int actionResolutionCount = 0;
+
     public void HandleUnitActionResolved(Unit unit)
     {
-        Debug.Log("ACTION RESOLVED");
+        if (battlefieldCoroutine != null)
+        {
+            StopCoroutine(battlefieldCoroutine);
+        }
+
+        actionResolutionCount++;
+
+        Debug.Log(
+            $"ACTION RESOLVED #{actionResolutionCount} | " +
+            $"Round: {currentRound} | " +
+            $"Unit: {unit}"
+        );
 
         SetPhase(BattlePhase.ResolvingAction);
 
-        StartCoroutine(
+        battlefieldCoroutine = StartCoroutine(
             WaitForBattlefieldToSettle(unit)
         );
     }

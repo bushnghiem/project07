@@ -535,9 +535,15 @@ MonoBehaviour:
       currentHealth: 100
       currentCharges: 5
       isDead: 0
-      statModifiers: []
+      statModifiers:
+      - statType: 6
+        operation: 0
+        value: -4
+        sourceID: 
+        sourceName: 
       items:
       - itemID: projectile_bomb_injector
+      - itemID: passive_slow_start
     activeQuests: []
     runCurrency: 0
     runKeys: 0

@@ -110,13 +110,13 @@ public class DefaultAIBehavior : EnemyAIBehavior
                     enemy,
                     target,
                     battleManager);
-
+            /*
             Debug.Log(
                 $"{enemy.name} evaluating {action.actionType}: " +
                 $"Cost={action.APCost}, " +
                 $"AP={enemy.CurrentAP}, " +
                 $"Score={score:F2}");
-
+            */
             if (score > bestScore)
             {
                 bestScore = score;

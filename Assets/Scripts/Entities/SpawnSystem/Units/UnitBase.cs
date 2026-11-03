@@ -909,17 +909,17 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
     public virtual void Hurt(DamageInfo damageInfo)
     {
         float finalDamage = damageInfo.Amount;
-        Debug.Log($"Initial Damage: {damageInfo.Amount}");
+        //Debug.Log($"Initial Damage: {damageInfo.Amount}");
 
         // Category Res
         ShipStatType? categoryStat = DamageStatUtility.GetResistanceStat(damageInfo.Category);
         if (categoryStat.HasValue)
         {
             float resist = GetStat(categoryStat.Value);
-            Debug.Log($"Category Resistance ({categoryStat.Value}): {resist}");
+            //Debug.Log($"Category Resistance ({categoryStat.Value}): {resist}");
 
             finalDamage *= Mathf.Max(0f, 1f - resist);
-            Debug.Log($"Damage after Category Resistance: {finalDamage}");
+           // Debug.Log($"Damage after Category Resistance: {finalDamage}");
         }
 
         // Element Res
@@ -927,10 +927,10 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
         if (elementStat.HasValue)
         {
             float resist = GetStat(elementStat.Value);
-            Debug.Log($"Element Resistance ({elementStat.Value}): {resist}");
+            //Debug.Log($"Element Resistance ({elementStat.Value}): {resist}");
 
             finalDamage *= Mathf.Max(0f, 1f - resist);
-            Debug.Log($"Damage after Element Resistance: {finalDamage}");
+            //Debug.Log($"Damage after Element Resistance: {finalDamage}");
         }
 
         // Status effects
@@ -945,7 +945,7 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
         DamageInfo resolvedDamage = damageInfo;
         resolvedDamage.Amount = finalDamage;
 
-        Debug.Log($"Final Damage to Apply: {finalDamage}");
+        //Debug.Log($"Final Damage to Apply: {finalDamage}");
         healthComp.Hurt(resolvedDamage);
 
         EventBus.Raise(new UnitEvent
@@ -980,7 +980,7 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
             type = UnitEventType.Shield,
             value = amount
         });
-        Debug.Log($"{gameObject.name} gained {amount} shield");
+        //Debug.Log($"{gameObject.name} gained {amount} shield");
     }
 
     public virtual void Moved()

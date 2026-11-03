@@ -33,7 +33,7 @@ public class ExplosionEffect : Effect
             Entity entity = hit.GetComponentInParent<Entity>();
             if (entity != null && hitEntities.Add(entity))
             {
-                Debug.Log($"Boom Hit {entity} for {damage}");
+                //Debug.Log($"Boom Hit {entity} for {damage}");
 
                 Rigidbody rigidBody = hit.attachedRigidbody;
 

@@ -419,14 +419,17 @@ public class ItemTargetingController : MonoBehaviour
 
         ClearPreview();
 
-        currentUser.ClearAPPreview();
+        if (currentUser != null)
+        {
+            currentUser.ClearAPPreview();
 
-        currentUser = null;
-        currentItem = null;
+            currentUser = null;
+            currentItem = null;
+        }
 
         CameraEvent.UnlockCamera?.Invoke();
 
-        Debug.Log("Cancelled targeting");
+        //Debug.Log("Cancelled targeting");
     }
 
     private bool IsInRange(Vector3 pos)

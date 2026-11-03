@@ -247,8 +247,14 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
         healthComp.OnDeath -= HandleDeath;
     }
 
-    private void HandleDamaged(float dmg) => Debug.Log($"{gameObject.name} took {dmg} damage");
-    private void HandleHealed(float amt) => Debug.Log($"{gameObject.name} healed {amt}");
+    private void HandleDamaged(float dmg)
+    {
+        return;
+    }
+    private void HandleHealed(float amt)
+    {
+        return;
+    }
 
     private void HandleDeath()
     {
