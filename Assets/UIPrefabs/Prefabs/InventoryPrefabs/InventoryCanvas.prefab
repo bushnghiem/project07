@@ -811,7 +811,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.047796838, y: 0}
+  m_AnchoredPosition: {x: 15.6247015, y: 0}
   m_SizeDelta: {x: -183, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7732944511626569926
@@ -1085,6 +1085,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FleetUI
   animator: {fileID: 0}
   shipHolder: {fileID: 0}
+  statusEffectListUI: {fileID: 0}
   shipListParent: {fileID: 3584351569589836297}
   shipEntryPrefab: {fileID: 8941645740710153600, guid: 3ba8864708987714a8a77d0a527c6d7b, type: 3}
   statsParent: {fileID: 8743182535349169664}
@@ -1234,7 +1235,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4196985809196219279}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9997362
+  m_Size: 0.88751495
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2361,7 +2362,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 987819705508193874}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

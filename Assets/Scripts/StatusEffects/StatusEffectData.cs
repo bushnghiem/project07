@@ -6,6 +6,13 @@ public enum StatusEffectApplicationPolicy
     Independent
 }
 
+public enum StatusEffectPolarity
+{
+    Neutral,
+    Buff,
+    Debuff
+}
+
 public abstract class StatusEffectData : ScriptableObject
 {
     public string effectID;
@@ -17,6 +24,10 @@ public abstract class StatusEffectData : ScriptableObject
     [Header("Application")]
     public StatusEffectApplicationPolicy applicationPolicy =
     StatusEffectApplicationPolicy.Refresh;
+
+    [Header("Classification")]
+    public StatusEffectPolarity polarity =
+    StatusEffectPolarity.Neutral;
 
     public bool isStackable;
     public int maxStacks = 1;

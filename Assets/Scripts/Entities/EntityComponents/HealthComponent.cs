@@ -21,6 +21,9 @@ public class HealthComponent : MonoBehaviour
     public event Action<float, float> OnMaxHealthChanged;
     public event Action<int> OnShieldChanged;
 
+    public event Action<int> OnShieldGained;
+    public event Action<int> OnShieldLost;
+
     public void SetCurrentHealth(
         float newCurrentHealth)
     {
@@ -108,12 +111,11 @@ public class HealthComponent : MonoBehaviour
         return shield;
     }
 
+
     public void Hurt(DamageInfo damageInfo)
     {
         if (isDead)
             return;
-
-        float damage = damageInfo.Amount;
 
         bool blockedByShield =
             shield > 0 &&
@@ -123,39 +125,51 @@ public class HealthComponent : MonoBehaviour
         {
             shield--;
 
-            OnShieldChanged?.Invoke(
-                shield
-            );
+            OnShieldChanged?.Invoke(shield);
+            OnShieldLost?.Invoke(1);
 
             return;
         }
 
+        float oldHealth = currentHealth;
+
         SetCurrentHealth(
-            currentHealth - damage
+            currentHealth - damageInfo.Amount
         );
 
-        OnDamaged?.Invoke(damage);
+        float actualDamage = oldHealth - currentHealth;
+
+        if (actualDamage > 0f)
+            OnDamaged?.Invoke(actualDamage);
     }
 
     public void Heal(float gain)
     {
-        if (isDead)
+        if (isDead || gain <= 0f)
             return;
 
-        SetCurrentHealth(
-            currentHealth + gain
-        );
+        float oldHealth = currentHealth;
 
-        OnHealed?.Invoke(gain);
+        SetCurrentHealth(currentHealth + gain);
+
+        float actualHealing = currentHealth - oldHealth;
+
+        if (actualHealing > 0f)
+            OnHealed?.Invoke(actualHealing);
     }
 
     public void addShield(int shieldGain)
     {
-        if (isDead)
+        if (isDead || shieldGain <= 0)
             return;
 
-        SetShield(
-            shield + shieldGain
-        );
+        int oldShield = shield;
+
+        SetShield(shield + shieldGain);
+
+        int actualGain = shield - oldShield;
+
+        if (actualGain > 0)
+            OnShieldGained?.Invoke(actualGain);
     }
 }

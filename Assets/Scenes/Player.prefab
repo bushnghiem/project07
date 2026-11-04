@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 5107186074234832959}
   - component: {fileID: 2460210874807239879}
   - component: {fileID: 1039390686006144073}
+  - component: {fileID: 550396771508788030}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -357,3 +358,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChargeComponent
   currentCharges: 0
   maxCharges: 0
+--- !u!114 &550396771508788030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7295725305768939094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: debb215a4ebfee34387ec4be75ea7f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatTextSpawner

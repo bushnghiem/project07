@@ -45,7 +45,6 @@ GameObject:
   - component: {fileID: 4174896438027537994}
   - component: {fileID: 3374685751876068217}
   - component: {fileID: 422427263791694644}
-  - component: {fileID: 8374612290320036123}
   - component: {fileID: 3702619891664605346}
   - component: {fileID: -7639077806755490702}
   - component: {fileID: -7074283443480327474}
@@ -56,6 +55,7 @@ GameObject:
   - component: {fileID: 4650714341274761275}
   - component: {fileID: 6635890975973173679}
   - component: {fileID: 3182502285230165136}
+  - component: {fileID: 3437554558492253850}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
@@ -208,26 +208,6 @@ MonoBehaviour:
   statusEffects: []
   contactDamage: 15
   knockbackStrength: 12
---- !u!114 &8374612290320036123
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8253756129412509392}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42fe1ac07e5ca1949a6c0b82c532596f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExploderComponent
-  stats:
-    radius: 5
-    damage: 100
-    force: 300
-    upwardModifier: 2
-    damageLayers:
-      serializedVersion: 2
-      m_Bits: 4294967295
 --- !u!114 &3702619891664605346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,3 +353,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChargeComponent
   currentCharges: 0
   maxCharges: 0
+--- !u!114 &3437554558492253850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8253756129412509392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: debb215a4ebfee34387ec4be75ea7f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatTextSpawner

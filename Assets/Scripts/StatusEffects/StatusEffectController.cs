@@ -11,6 +11,8 @@ public class StatusEffectController : MonoBehaviour
     private Unit unit;
 
     public event System.Action OnEffectsChanged;
+    public event System.Action<StatusEffectInstance> OnEffectApplied;
+    public event System.Action<StatusEffectInstance> OnEffectRemoved;
 
     private void Awake()
     {
@@ -57,6 +59,7 @@ public class StatusEffectController : MonoBehaviour
 
             existing.RefreshDuration();
             OnEffectsChanged?.Invoke();
+            OnEffectApplied?.Invoke(existing);
             return;
         }
 
@@ -78,6 +81,7 @@ public class StatusEffectController : MonoBehaviour
         instance.OnApply();
 
         OnEffectsChanged?.Invoke();
+        OnEffectApplied?.Invoke(instance);
         /*
         Debug.Log(
             $"Applied effect: {data.name} | " +
@@ -91,8 +95,7 @@ public class StatusEffectController : MonoBehaviour
         OnEffectsChanged?.Invoke();
     }
 
-    public void RemoveEffect(
-        StatusEffectInstance effect)
+    public void RemoveEffect(StatusEffectInstance effect)
     {
         if (effect == null)
             return;
@@ -101,6 +104,8 @@ public class StatusEffectController : MonoBehaviour
             return;
 
         effect.OnRemove();
+
+        OnEffectRemoved?.Invoke(effect);
 
         OnEffectsChanged?.Invoke();
     }

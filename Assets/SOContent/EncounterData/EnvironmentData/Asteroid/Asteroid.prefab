@@ -79,6 +79,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 51046cd501a57884d8e2906dab9fce57, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5148339862599788593}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 51046cd501a57884d8e2906dab9fce57, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8854023432119784372}
   m_SourcePrefab: {fileID: 100100000, guid: 51046cd501a57884d8e2906dab9fce57, type: 3}
 --- !u!1 &5350854036997245697 stripped
 GameObject:
@@ -181,3 +184,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
+--- !u!114 &8854023432119784372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5350854036997245697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: debb215a4ebfee34387ec4be75ea7f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatTextSpawner

@@ -3746,6 +3746,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1093265778}
   m_CullTransparentMesh: 1
+--- !u!1 &1096725621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1096725622}
+  - component: {fileID: 1096725623}
+  m_Layer: 5
+  m_Name: CombatTextManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1096725622
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1096725621}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1223370637}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1096725623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1096725621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70aee4969c182dc4b8c83026052620d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatTextManager
+  textPrefab: {fileID: 2542711842752016549, guid: f06f82d6b67276b4cb719a2c46252909, type: 3}
+  spawnOffset: {x: 0, y: 2, z: 0}
+  randomSpawnRadius: 0.4
+  damageColor: {r: 0.8980392, g: 0, b: 0.0627451, a: 1}
+  criticalColor: {r: 1, g: 0.8, b: 0.2, a: 1}
+  healingColor: {r: 0.05882353, g: 1, b: 0, a: 1}
+  shieldGainColor: {r: 0.2, g: 0.85, b: 1, a: 1}
+  shieldLossColor: {r: 0.3, g: 0.55, b: 1, a: 1}
+  buffColor: {r: 0.3, g: 0.65, b: 1, a: 1}
+  debuffColor: {r: 1, g: 0.5, b: 0.15, a: 1}
+  statusRemovedColor: {r: 0.65, g: 0.65, b: 0.65, a: 1}
 --- !u!1 &1145772639
 GameObject:
   m_ObjectHideFlags: 0
@@ -4083,6 +4142,7 @@ RectTransform:
   - {fileID: 1228846362}
   - {fileID: 1871463437}
   - {fileID: 2087675768}
+  - {fileID: 1096725622}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4102,6 +4162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2f62d1f60c48314fb7734c49ae8265b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatLogManager
+  maxStoredEntries: 200
 --- !u!114 &1223370639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4305,7 +4366,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2019153024}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999998
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
