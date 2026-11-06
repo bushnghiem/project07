@@ -889,7 +889,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1401740533}
   m_HandleRect: {fileID: 1401740532}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3795,7 +3795,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatTextManager
   textPrefab: {fileID: 2542711842752016549, guid: f06f82d6b67276b4cb719a2c46252909, type: 3}
-  spawnOffset: {x: 0, y: 2, z: 0}
+  spawnOffset: {x: 0, y: 4, z: 0}
   randomSpawnRadius: 0.4
   damageColor: {r: 0.8980392, g: 0, b: 0.0627451, a: 1}
   criticalColor: {r: 1, g: 0.8, b: 0.2, a: 1}
@@ -4366,7 +4366,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2019153024}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9999998
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

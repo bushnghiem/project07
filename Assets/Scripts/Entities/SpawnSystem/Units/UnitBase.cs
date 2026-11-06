@@ -164,11 +164,7 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
         chargeComp.SetMaxCharges(maxCharges);
 
-        healthComp.SetCurrentHealth(
-            runData.currentHealth > 0
-                ? runData.currentHealth
-                : maxHealth
-        );
+        healthComp.SetCurrentHealth(runData.currentHealth);
 
         chargeComp.SetCurrentCharges(
             runData.currentCharges

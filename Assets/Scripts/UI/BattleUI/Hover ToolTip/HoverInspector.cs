@@ -36,7 +36,7 @@ public class HoverInspector : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            Debug.Log("Hit: " + hit.collider.name);
+            //Debug.Log("Hit: " + hit.collider.name);
             IInspectable inspectable =
                 hit.collider.GetComponentInParent<IInspectable>();
 

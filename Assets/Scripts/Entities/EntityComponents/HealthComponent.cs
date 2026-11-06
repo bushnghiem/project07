@@ -74,13 +74,6 @@ public class HealthComponent : MonoBehaviour
 
         maxHealth = newMaxHealth;
 
-        // Max HP went down.
-        // Current HP cannot remain above it.
-        if (currentHealth > maxHealth)
-        {
-            SetCurrentHealth(maxHealth);
-        }
-
         if (!Mathf.Approximately(
             oldMaxHealth,
             maxHealth))

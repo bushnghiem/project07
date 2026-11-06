@@ -52,10 +52,14 @@ MonoBehaviour:
   minLifetime: 0.8
   maxLifetime: 2
   magnitudeForMaxLifetime: 100
-  upwardSpeed: 2
-  sidewaysSpeed: 1.5
+  minMovementSpeed: 0.8
+  maxMovementSpeed: 4
+  minSizeSpeedMultiplier: 0.4
+  maxSizeSpeedMultiplier: 4
   scaleInDuration: 0.12
   fadeStart: 0.5
+  statusSizeMultiplier: 0.55
+  minimumStatusLifetime: 1.2
 --- !u!1 &4832202219009952302
 GameObject:
   m_ObjectHideFlags: 0

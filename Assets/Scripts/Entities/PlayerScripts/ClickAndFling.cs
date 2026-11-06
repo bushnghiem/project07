@@ -51,9 +51,11 @@ public class ClickAndFling : MonoBehaviour
 
         if (golfBar == null)
         {
+            /*
             Debug.Log(
                 "ClickAndFling: No GolfBarRotation found in scene, not combat."
             );
+            */
         }
     }
 
