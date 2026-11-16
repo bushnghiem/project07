@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 282687416752391356}
   - component: {fileID: 2939743892595542977}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1092833197293876734}
   - component: {fileID: 4497123468055630514}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3458257100655803537}
   - component: {fileID: 5218568905167343483}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2935990819672446803}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hitboxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}

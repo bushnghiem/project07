@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8756648337574153564}
   - component: {fileID: 1253621181495027207}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8443286614367920762}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hitboxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8139214357808426590}
   - component: {fileID: 4755427106939059668}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

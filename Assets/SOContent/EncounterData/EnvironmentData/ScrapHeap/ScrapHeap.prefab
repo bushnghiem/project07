@@ -106,6 +106,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 51046cd501a57884d8e2906dab9fce57, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3766460788666207819}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 51046cd501a57884d8e2906dab9fce57, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1827859394725243531}
   m_SourcePrefab: {fileID: 100100000, guid: 51046cd501a57884d8e2906dab9fce57, type: 3}
 --- !u!1 &5350854036997245697 stripped
 GameObject:
@@ -142,7 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnCollision
   statusEffects: []
   contactDamage: 30
-  knockbackStrength: 10
+  knockbackStrength: 100
 --- !u!114 &6126476714967918871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +210,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 4
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &3766460788666207819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,3 +223,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: debb215a4ebfee34387ec4be75ea7f99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatTextSpawner
+--- !u!114 &1827859394725243531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5350854036997245697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa659940f0d46324b95e89e8ba946f71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntitySpeedLimiter
+  maxSpeed: 100

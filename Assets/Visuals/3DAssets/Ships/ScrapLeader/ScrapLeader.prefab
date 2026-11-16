@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 846718387232934903}
   - component: {fileID: 100241077861186793}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3272730560523166950}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hitboxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2322996736190311439}
   - component: {fileID: 1707296869687264397}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DrillBit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8553353611697010139}
   - component: {fileID: 6390028704791358038}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

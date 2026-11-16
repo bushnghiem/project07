@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 6635890975973173679}
   - component: {fileID: 3182502285230165136}
   - component: {fileID: 3437554558492253850}
+  - component: {fileID: 2078749475908147047}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
@@ -154,7 +155,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 4
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &4174896438027537994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,3 +366,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: debb215a4ebfee34387ec4be75ea7f99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatTextSpawner
+--- !u!114 &2078749475908147047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8253756129412509392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa659940f0d46324b95e89e8ba946f71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntitySpeedLimiter
+  maxSpeed: 100

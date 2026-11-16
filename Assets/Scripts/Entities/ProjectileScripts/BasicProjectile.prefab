@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 3844388637100374684}
   - component: {fileID: 8776774397317277743}
   - component: {fileID: 3742593501605320191}
+  - component: {fileID: 2850407758660713487}
   m_Layer: 8
   m_Name: BasicProjectile
   m_TagString: Untagged
@@ -155,7 +156,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 4
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &9039554059832288937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,6 +355,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18bfb474389c29a4d9f1f8f4ced0f0fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileMovementController
+--- !u!114 &2850407758660713487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5911925321295324075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa659940f0d46324b95e89e8ba946f71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntitySpeedLimiter
+  maxSpeed: 300
 --- !u!1 &7202957593706038872
 GameObject:
   m_ObjectHideFlags: 0

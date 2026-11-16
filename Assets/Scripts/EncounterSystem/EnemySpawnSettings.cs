@@ -16,6 +16,9 @@ public class EnemySpawnSettings
     [Header("Fully Random Placement")]
     public Vector3 randomAreaSize = new Vector3(40f, 0f, 40f);
 
+    [Header("Spawn Restrictions")]
     public float minDistanceBetweenShips = 5f;
-    public int maxAttemptsPerShip = 30;
+    public float minDistanceFromPlayer = 15f;
 }
+
+

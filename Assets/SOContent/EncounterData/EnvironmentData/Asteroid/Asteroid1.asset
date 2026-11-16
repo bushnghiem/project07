@@ -51,11 +51,11 @@ MonoBehaviour:
     prefabs:
     - prefab: {fileID: 5350854036997245697, guid: 4f4261fe773033547b456f6f655da91b, type: 3}
       weight: 100
-      collisionRadius: 10
+      collisionRadius: 0.01
       minScale: {x: 50, y: 50, z: 50}
       maxScale: {x: 110, y: 110, z: 110}
-    minDistanceFromShips: 50
-    minDistanceFromEnvironment: 10
+    minDistanceFromShips: 5
+    minDistanceFromEnvironment: 2
     minDistanceFromCenter: 5
-    maxDistanceFromCenter: 50
-    maxAttemptsPerObject: 30
+    maxDistanceFromCenter: 80
+    maxAttemptsPerObject: 100

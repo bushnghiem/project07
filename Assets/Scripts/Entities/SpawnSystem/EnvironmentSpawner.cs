@@ -9,6 +9,12 @@ public class EnvironmentSpawner : MonoBehaviour
     [SerializeField]
     private LayerMask environmentLayers;
 
+    private List<Vector3> spawnedEnvironmentPositions =
+    new List<Vector3>();
+
+    private List<float> spawnedEnvironmentRadii =
+        new List<float>();
+
     public void SpawnEnvironment(
         EnvironmentLayout layout,
         Vector3 combatCenter,
@@ -74,6 +80,9 @@ public class EnvironmentSpawner : MonoBehaviour
 
         System.Random rng = new System.Random(seed);
 
+        spawnedEnvironmentPositions.Clear();
+        spawnedEnvironmentRadii.Clear();
+
         int spawnedCount = 0;
 
         for (int i = 0; i < settings.objectCount; i++)
@@ -87,6 +96,10 @@ public class EnvironmentSpawner : MonoBehaviour
             if (spawned)
                 spawnedCount++;
         }
+
+        Debug.Log(
+            $"Environment spawned: {spawnedCount}/{settings.objectCount}"
+        );
     }
 
     private bool TrySpawnRandomObject(
@@ -94,50 +107,58 @@ public class EnvironmentSpawner : MonoBehaviour
         Vector3 combatCenter,
         System.Random rng)
     {
+        int shipRejections = 0;
+        int environmentRejections = 0;
+
         for (int attempt = 0;
              attempt < settings.maxAttemptsPerObject;
              attempt++)
         {
             RandomEnvironmentPrefab prefabData =
-                GetWeightedRandomPrefab(
-                    settings.prefabs,
-                    rng
-                );
+                GetWeightedRandomPrefab(settings.prefabs, rng);
 
-            if (prefabData == null ||
-                prefabData.prefab == null)
+            if (prefabData == null || prefabData.prefab == null)
+                continue;
+
+            Vector3 scale = GetRandomScale(
+                prefabData.minScale,
+                prefabData.maxScale,
+                rng
+            );
+
+            float effectiveRadius =
+                prefabData.collisionRadius * Mathf.Abs(scale.x);
+
+            Vector3 position = GetRandomPosition(
+                combatCenter,
+                settings,
+                rng
+            );
+
+            bool clear = IsPositionClear(
+                position,
+                effectiveRadius,
+                settings.minDistanceFromShips,
+                settings.minDistanceFromEnvironment,
+                out string rejectionReason
+            );
+
+            if (!clear)
             {
+                if (rejectionReason == "Ship collision")
+                    shipRejections++;
+
+                else if (rejectionReason == "Environment collision")
+                    environmentRejections++;
+
                 continue;
             }
 
-            Vector3 position =
-                GetRandomPosition(
-                    combatCenter,
-                    settings,
-                    rng
-                );
-
-            bool positionClear =
-                IsPositionClear(
-                    position,
-                    prefabData.collisionRadius,
-                    settings.minDistanceFromShips,
-                    settings.minDistanceFromEnvironment
-                );
-
-            if (!positionClear)
-                continue;
-
-            Quaternion rotation =
-                Quaternion.Euler(
-                    0f,
-                    GetRandomFloat(
-                        rng,
-                        0f,
-                        360f
-                    ),
-                    0f
-                );
+            Quaternion rotation = Quaternion.Euler(
+                0f,
+                GetRandomFloat(rng, 0f, 360f),
+                0f
+            );
 
             GameObject obj = Instantiate(
                 prefabData.prefab,
@@ -145,15 +166,20 @@ public class EnvironmentSpawner : MonoBehaviour
                 rotation
             );
 
-            obj.transform.localScale =
-                GetRandomScale(
-                    prefabData.minScale,
-                    prefabData.maxScale,
-                    rng
-                );
+            obj.transform.localScale = scale;
+
+            spawnedEnvironmentPositions.Add(position);
+            spawnedEnvironmentRadii.Add(effectiveRadius);
 
             return true;
         }
+
+        Debug.LogWarning(
+            $"Environment object failed to spawn. " +
+            $"Ship rejections: {shipRejections}, " +
+            $"Environment rejections: {environmentRejections}, " +
+            $"Attempts: {settings.maxAttemptsPerObject}"
+        );
 
         return false;
     }
@@ -190,8 +216,12 @@ public class EnvironmentSpawner : MonoBehaviour
         Vector3 position,
         float collisionRadius,
         float minDistanceFromShips,
-        float minDistanceFromEnvironment)
+        float minDistanceFromEnvironment,
+        out string rejectionReason)
     {
+        rejectionReason = "";
+
+        // Check ship clearance.
         Collider[] ships = Physics.OverlapSphere(
             position,
             collisionRadius + minDistanceFromShips,
@@ -199,18 +229,30 @@ public class EnvironmentSpawner : MonoBehaviour
         );
 
         if (ships.Length > 0)
+        {
+            rejectionReason = "Ship collision";
             return false;
+        }
 
-        Collider[] environment =
-            Physics.OverlapSphere(
-                position,
+        // Check previously spawned environment.
+        for (int i = 0; i < spawnedEnvironmentPositions.Count; i++)
+        {
+            float requiredDistance =
                 collisionRadius +
-                minDistanceFromEnvironment,
-                environmentLayers
+                spawnedEnvironmentRadii[i] +
+                minDistanceFromEnvironment;
+
+            float distance = Vector3.Distance(
+                position,
+                spawnedEnvironmentPositions[i]
             );
 
-        if (environment.Length > 0)
-            return false;
+            if (distance < requiredDistance)
+            {
+                rejectionReason = "Environment collision";
+                return false;
+            }
+        }
 
         return true;
     }
@@ -267,11 +309,13 @@ public class EnvironmentSpawner : MonoBehaviour
         Vector3 max,
         System.Random rng)
     {
-        return new Vector3(
-            GetRandomFloat(rng, min.x, max.x),
-            GetRandomFloat(rng, min.y, max.y),
-            GetRandomFloat(rng, min.z, max.z)
+        float scale = GetRandomFloat(
+            rng,
+            min.x,
+            max.x
         );
+
+        return Vector3.one * scale;
     }
 
     private float GetRandomFloat(

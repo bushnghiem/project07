@@ -58,7 +58,6 @@ public class UnitSpawner : MonoBehaviour
         }
     }
 
-    // New enemy spawning entry point.
     public void SpawnEnemyTeam(
         List<ShipRunData> enemies,
         FormationData formation,
@@ -96,6 +95,7 @@ public class UnitSpawner : MonoBehaviour
                     enemies,
                     settings,
                     combatCenter,
+                    playerAnchor.position,
                     seed
                 );
                 break;
@@ -137,10 +137,12 @@ public class UnitSpawner : MonoBehaviour
         );
     }
 
+
     private void SpawnFullyRandom(
         List<ShipRunData> enemies,
         EnemySpawnSettings settings,
         Vector3 center,
+        Vector3 playerPosition,
         int seed)
     {
         if (settings == null)
@@ -152,10 +154,17 @@ public class UnitSpawner : MonoBehaviour
 
         List<Vector3> spawnedPositions = new List<Vector3>();
 
-        // Keep the spawn area large enough to have reasonable placement options.
-        int attemptsPerShip = Mathf.Max(
-            settings.maxAttemptsPerShip,
-            30
+        // Number of attempts used to find a good position.
+        const int maxAttempts = 30;
+
+        float desiredSpacing = Mathf.Max(
+            0f,
+            settings.minDistanceBetweenShips
+        );
+
+        float playerExclusionRadius = Mathf.Max(
+            0f,
+            settings.minDistanceFromPlayer
         );
 
         for (int i = 0; i < enemies.Count; i++)
@@ -163,53 +172,45 @@ public class UnitSpawner : MonoBehaviour
             Vector3 position = center;
             bool foundPosition = false;
 
-            float desiredSpacing = Mathf.Max(
-                0f,
-                settings.minDistanceBetweenShips
-            );
-
-            // First try the desired spacing, then relax it if necessary.
-            for (int spacingPass = 0; spacingPass < 5; spacingPass++)
+            // Try to find a valid position.
+            for (int attempt = 0; attempt < maxAttempts; attempt++)
             {
-                float spacing = desiredSpacing *
-                    (1f - spacingPass * 0.25f);
+                position = center + new Vector3(
+                    Range(rng, -halfSize.x, halfSize.x),
+                    Range(rng, -halfSize.y, halfSize.y),
+                    Range(rng, -halfSize.z, halfSize.z)
+                );
 
-                for (int attempt = 0;
-                     attempt < attemptsPerShip;
-                     attempt++)
+                // Check distance from player anchor.
+                if (Vector3.Distance(position, playerPosition)
+                    < playerExclusionRadius)
                 {
-                    position = center + new Vector3(
-                        Range(rng, -halfSize.x, halfSize.x),
-                        Range(rng, -halfSize.y, halfSize.y),
-                        Range(rng, -halfSize.z, halfSize.z)
-                    );
+                    continue;
+                }
 
-                    bool tooClose = false;
+                // Check distance from other enemies.
+                bool tooClose = false;
 
-                    foreach (Vector3 existing in spawnedPositions)
+                foreach (Vector3 existing in spawnedPositions)
+                {
+                    if (Vector3.Distance(position, existing)
+                        < desiredSpacing)
                     {
-                        if (Vector3.Distance(position, existing) < spacing)
-                        {
-                            tooClose = true;
-                            break;
-                        }
-                    }
-
-                    if (!tooClose)
-                    {
-                        foundPosition = true;
+                        tooClose = true;
                         break;
                     }
                 }
 
-                if (foundPosition)
-                    break;
+                if (tooClose)
+                    continue;
+
+                foundPosition = true;
+                break;
             }
 
+            // Fallback: guarantee that the enemy always spawns.
             if (!foundPosition)
             {
-                // Guarantee a spawn even when the area is overcrowded.
-                // This may overlap another ship.
                 position = center + new Vector3(
                     Range(rng, -halfSize.x, halfSize.x),
                     Range(rng, -halfSize.y, halfSize.y),
@@ -217,8 +218,7 @@ public class UnitSpawner : MonoBehaviour
                 );
 
                 Debug.LogWarning(
-                    $"Enemy {i} had to use a fallback spawn position. " +
-                    "Consider increasing the spawn area."
+                    $"Enemy {i} required a fallback spawn position."
                 );
             }
 
@@ -231,6 +231,7 @@ public class UnitSpawner : MonoBehaviour
             );
         }
     }
+
 
     private void SpawnUnit(
         ShipRunData data,
