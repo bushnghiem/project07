@@ -67,6 +67,12 @@ public class Projectile : ScriptableObject
     [Header("Gameplay")]
     public float collisionRadius = 0.5f;
 
+    [Header("Collision VFX")]
+    [SerializeField]
+    private CollisionMaterial collisionMaterial = CollisionMaterial.Metal;
+
+    public CollisionMaterial CollisionMaterial => collisionMaterial;
+
     private Dictionary<ProjectileStatType, float> baseStatMap;
     public IReadOnlyDictionary<ProjectileStatType, float> BaseStatMap => baseStatMap;
 

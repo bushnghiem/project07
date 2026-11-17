@@ -62,7 +62,7 @@ public class ActionContextTracker : MonoBehaviour
             {
                 stoppedTimer += Time.deltaTime;
 
-                if (stoppedTimer >= 0.25f)
+                if (stoppedTimer >= 0.5f)
                     break;
             }
             else

@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 8776774397317277743}
   - component: {fileID: 3742593501605320191}
   - component: {fileID: 2850407758660713487}
+  - component: {fileID: 8090892509201393239}
+  - component: {fileID: 8708162074648796143}
   m_Layer: 8
   m_Name: BasicProjectile
   m_TagString: Untagged
@@ -367,7 +369,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa659940f0d46324b95e89e8ba946f71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntitySpeedLimiter
-  maxSpeed: 300
+  maxSpeed: 180
+--- !u!114 &8090892509201393239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5911925321295324075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 976989c18335901498c788373feac938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollisionVFXProfile
+  material: 0
+--- !u!114 &8708162074648796143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5911925321295324075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b55668914a7590458ab6823b7f51ecf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollisionVFX
+  vfxLibrary: {fileID: 11400000, guid: 5c6181bdca4548c418c70d343418aae6, type: 2}
+  minimumImpactSpeed: 1
+  maximumImpactSpeed: 20
+  minimumParticleSize: 0.5
+  maximumParticleSize: 2
 --- !u!1 &7202957593706038872
 GameObject:
   m_ObjectHideFlags: 0

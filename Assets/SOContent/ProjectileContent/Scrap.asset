@@ -28,7 +28,7 @@ MonoBehaviour:
   - statType: 2
     value: 1
   - statType: 3
-    value: 10
+    value: 15
   - statType: 4
     value: 0.25
   - statType: 5
@@ -36,6 +36,7 @@ MonoBehaviour:
   visualData: {fileID: 11400000, guid: 60530ea1423534d4fa94dd435c68f8b2, type: 2}
   audioData: {fileID: 11400000, guid: fac19600c5db6bb49922350d425d9aee, type: 2}
   collisionRadius: 0.25
+  collisionMaterial: 0
   linearDamping: 2
   angularDamping: 2
   useLifetime: 0

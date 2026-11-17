@@ -11,6 +11,8 @@ public class DamageOnCollision : MonoBehaviour
     private float spawnTime;
     private Entity ownerEntity;
 
+    private CollisionVFX collisionVFX;
+
     public event Action OnCollisionOccurred;
 
     private readonly HashSet<Entity> damagedThisPhysicsStep = new();
@@ -19,6 +21,7 @@ public class DamageOnCollision : MonoBehaviour
     {
         spawnTime = Time.time;
         ownerEntity = GetComponentInParent<Entity>();
+        collisionVFX = GetComponent<CollisionVFX>();
     }
 
     private void FixedUpdate()
@@ -47,6 +50,8 @@ public class DamageOnCollision : MonoBehaviour
                 otherEntity,
                 collision.rigidbody);
         }
+
+        collisionVFX?.PlayCollisionEffect(collision);
 
         Entity source = ownerEntity;
 

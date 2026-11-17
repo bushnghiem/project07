@@ -109,6 +109,8 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
 
     public UnitBase Instigator => this;
 
+    protected CollisionVFXProfile collisionVFXProfile;
+
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -125,6 +127,8 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
             statusController.OnEffectsChanged += OnStatusEffectsChanged;
         }
 
+        collisionVFXProfile = GetComponent<CollisionVFXProfile>();
+
     }
 
     protected virtual void OnDestroy()
@@ -139,6 +143,7 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
     {
         runData = data;
         template = shipDatabase.GetTemplate(runData.templateID);
+        collisionVFXProfile?.SetMaterial(template.CollisionMaterial);
         audioComp.SetUp();
         ApplyStats();
     }

@@ -57,6 +57,8 @@ GameObject:
   - component: {fileID: 3182502285230165136}
   - component: {fileID: 3437554558492253850}
   - component: {fileID: 2078749475908147047}
+  - component: {fileID: 9038486676103597602}
+  - component: {fileID: 3719128490492048895}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
@@ -379,3 +381,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntitySpeedLimiter
   maxSpeed: 100
+--- !u!114 &9038486676103597602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8253756129412509392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 976989c18335901498c788373feac938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollisionVFXProfile
+  material: 0
+--- !u!114 &3719128490492048895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8253756129412509392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b55668914a7590458ab6823b7f51ecf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollisionVFX
+  vfxLibrary: {fileID: 11400000, guid: 5c6181bdca4548c418c70d343418aae6, type: 2}
+  minimumImpactSpeed: 1
+  maximumImpactSpeed: 20
+  minimumParticleSize: 0.5
+  maximumParticleSize: 2

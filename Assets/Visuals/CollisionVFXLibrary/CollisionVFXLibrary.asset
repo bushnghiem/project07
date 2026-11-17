@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0818f4863408f7b4aabad01c581ad1ae, type: 3}
+  m_Name: CollisionVFXLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::CollisionVFXLibrary
+  effects:
+  - materialA: 0
+    materialB: 0
+    effect: {fileID: 2465396431497543288, guid: 89e98cf777e64c44083a07f5810bedf5, type: 3}
+    minimumImpactSpeed: 0
+  - materialA: 0
+    materialB: 1
+    effect: {fileID: 3408295065625171280, guid: deebc3ffe9060034eacd022791e1e779, type: 3}
+    minimumImpactSpeed: 0
+  - materialA: 0
+    materialB: 3
+    effect: {fileID: 2465396431497543288, guid: 89e98cf777e64c44083a07f5810bedf5, type: 3}
+    minimumImpactSpeed: 0

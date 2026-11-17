@@ -26,6 +26,12 @@ public class ShipTemplate : ScriptableObject
     [SerializeField] private float collisionRadius = 1f;
     [SerializeField] private float projectileSpawnRadius = 2f;
 
+    [Header("Collision VFX")]
+    [SerializeField]
+    private CollisionMaterial collisionMaterial = CollisionMaterial.Metal;
+
+    public CollisionMaterial CollisionMaterial => collisionMaterial;
+
     public float CollisionRadius => collisionRadius;
     public float ProjectileSpawnRadius => projectileSpawnRadius;
 

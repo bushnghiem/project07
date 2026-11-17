@@ -38,6 +38,8 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
 
     private ProjectileMovementController movementController;
 
+    private CollisionVFXProfile collisionVFXProfile;
+
     public bool HasStopped { get; private set; }
 
 
@@ -53,6 +55,7 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
         sphereCollider = GetComponent<SphereCollider>();
         audioComp = GetComponent<ProjectileAudioComponent>();
         movementController = GetComponent<ProjectileMovementController>();
+        collisionVFXProfile = GetComponent<CollisionVFXProfile>();
     }
 
     public void Initialize(
@@ -63,6 +66,8 @@ public class ProjectileInstance : MonoBehaviour, Entity, IInspectable
         this.template = stats;
         this.owner = owner;
         this.actionContext = context;
+
+        collisionVFXProfile?.SetMaterial(template.CollisionMaterial);
 
         rb = rb ?? GetComponent<Rigidbody>();
         healthComp = healthComp ?? GetComponent<HealthComponent>();

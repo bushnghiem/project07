@@ -32,7 +32,7 @@ MonoBehaviour:
   - statType: 7
     value: 10
   - statType: 8
-    value: 0
+    value: 50
   - statType: 9
     value: 0
   - statType: 10
@@ -67,6 +67,7 @@ MonoBehaviour:
   audioData: {fileID: 11400000, guid: dd002a4a740107e44be87c0d876f87bf, type: 2}
   collisionRadius: 2
   projectileSpawnRadius: 2
+  collisionMaterial: 0
   startingActiveItemID: active_heal_100
   startingPassiveItemIDs: []
   startingProjectileID: projectile_iron_ball

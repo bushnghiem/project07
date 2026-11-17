@@ -37,6 +37,7 @@ MonoBehaviour:
   visualData: {fileID: 11400000, guid: be7493a44ededdc4c9608fd434e79edf, type: 2}
   audioData: {fileID: 11400000, guid: fac19600c5db6bb49922350d425d9aee, type: 2}
   collisionRadius: 0.5
+  collisionMaterial: 3
   linearDamping: 2
   angularDamping: 2
   useLifetime: 1
