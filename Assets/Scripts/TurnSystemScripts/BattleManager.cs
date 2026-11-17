@@ -120,6 +120,7 @@ public class BattleManager : MonoBehaviour
     {
         float stillTimer = 0f;
         const float requiredStillTime = 0.5f;
+        const float postSettleDelay = 1f;
 
         while (stillTimer < requiredStillTime)
         {
@@ -130,6 +131,9 @@ public class BattleManager : MonoBehaviour
 
             yield return new WaitForFixedUpdate();
         }
+
+        // Allow time for collision effects and animations to play.
+        yield return new WaitForSeconds(postSettleDelay);
 
         battlefieldCoroutine = null;
         ResolvePostAction(actingUnit);

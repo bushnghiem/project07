@@ -73,6 +73,8 @@ public class ActionContextTracker : MonoBehaviour
             yield return null;
         }
 
+        Debug.Log($"{entity.DisplayName} has either stopped or died, stop tracking");
+
         context.RemoveTarget(entity);
     }
 
@@ -102,6 +104,8 @@ public class ActionContextTracker : MonoBehaviour
             yield return null;
         }
 
+        Debug.Log($"{entity.DisplayName} track timer of {seconds} seconds ran out, stop tracking");
+
         context.RemoveTarget(entity);
     }
 
@@ -119,6 +123,7 @@ public class ActionContextTracker : MonoBehaviour
 
         if (context.GetTargets().Contains(target))
         {
+            Debug.Log($"routine has finished, stop tracking");
             context.RemoveTarget(target);
         }
     }
