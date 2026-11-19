@@ -21,6 +21,8 @@ public class ExplosionEffect : Effect
 
         AudioManager.Play(explosionSound, position);
 
+        CameraEvent.ShakeCamera?.Invoke(0.5f);
+
         if (visualPrefab != null)
             Object.Instantiate(visualPrefab, position, Quaternion.identity);
 
@@ -82,9 +84,32 @@ public class ExplosionEffect : Effect
             }
 
             Rigidbody rb = hit.attachedRigidbody;
-            if (rb != null)
+
+            if (rb != null && !rb.isKinematic)
             {
-                rb.AddExplosionForce(force, position, radius, upwardModifier, ForceMode.Impulse);
+                Vector3 direction = rb.worldCenterOfMass - position;
+
+                direction.y = 0f;
+
+                float distance = direction.magnitude;
+
+                if (distance > 0.001f && distance < radius)
+                {
+                    direction.Normalize();
+
+                    float falloff = 1f - (distance / radius);
+
+                    Vector3 explosionForce =
+                        direction * force * falloff;
+
+                    // Apply force away from explosion,
+                    // allowing rotational torque.
+                    rb.AddForceAtPosition(
+                        explosionForce,
+                        hit.ClosestPoint(position),
+                        ForceMode.Impulse
+                    );
+                }
             }
         }
     }

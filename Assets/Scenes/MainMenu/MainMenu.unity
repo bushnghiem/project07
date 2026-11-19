@@ -528,7 +528,7 @@ MonoBehaviour:
       isDead: 0
       statModifiers: []
       items:
-      - itemID: projectile_iron_ball
+      - itemID: projectile_missile
     - uniqueID: Amadeus
       templateID: 0
       aiBehaviorID: 

@@ -53,6 +53,8 @@ public class DamageOnCollision : MonoBehaviour
 
         collisionVFX?.PlayCollisionEffect(collision);
 
+        CameraEvent.ShakeCamera?.Invoke(knockbackStrength * 0.05f);
+
         Entity source = ownerEntity;
 
         otherEntity.Hurt(

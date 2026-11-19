@@ -12,4 +12,6 @@ public static class CameraEvent
     public static Action<ActionContext> FollowAction;
 
     public static Action AttackFinished;
+
+    public static Action<float> ShakeCamera;
 }
