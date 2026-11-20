@@ -12,14 +12,34 @@ public class ActiveItemInstance
         itemData = data;
     }
 
+    public bool IsOnCooldown => remainingCooldown > 0;
+
+    public bool HasEnoughCharges(UnitBase user)
+    {
+        if (user == null || itemData == null)
+            return false;
+
+        return user.CurrentCharges >= itemData.chargeCost;
+    }
+
+    public bool HasEnoughAP(UnitBase user)
+    {
+        if (user == null || itemData == null)
+            return false;
+
+        return user.CanAffordAP(
+            Mathf.Max(1, itemData.apCost)
+        );
+    }
+
     public bool CanUse(UnitBase user)
     {
         if (user == null || itemData == null)
             return false;
 
-        return remainingCooldown <= 0 &&
-               user.CurrentCharges >= itemData.chargeCost &&
-               user.CurrentAP >= itemData.apCost;
+        return !IsOnCooldown &&
+               HasEnoughCharges(user) &&
+               HasEnoughAP(user);
     }
 
 

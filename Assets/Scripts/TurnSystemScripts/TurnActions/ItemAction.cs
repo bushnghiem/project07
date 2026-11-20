@@ -10,7 +10,9 @@ public class ItemAction : TurnAction
     {
         if (controller == null)
         {
-            Debug.LogError("ItemAction created with NULL targeting controller");
+            Debug.LogError(
+                "ItemAction created with NULL targeting controller"
+            );
         }
 
         targetingController = controller;
@@ -19,42 +21,68 @@ public class ItemAction : TurnAction
     public void Execute(Unit unit)
     {
         if (unit == null)
-        {
-            Debug.LogError("ItemAction: unit is null");
             return;
-        }
 
         UnitBase unitBase = unit as UnitBase;
 
         if (unitBase == null)
-        {
-            Debug.LogError("ItemAction: unit is not UnitBase");
             return;
-        }
 
         ActiveItemInstance item = unitBase.GetActiveItem();
 
         if (item == null)
         {
-            Debug.Log("ItemAction: no active item equipped");
+            CombatTextManager.Instance?.ShowNoActiveItem(
+                unitBase.transform.position
+            );
+
             return;
         }
 
         if (targetingController == null)
         {
-            Debug.LogError("ItemAction: targetingController not assigned");
+            Debug.LogError(
+                "ItemAction: targetingController not assigned"
+            );
+
             return;
         }
 
-        if (item.CanUse(unitBase))
+        if (item.IsOnCooldown)
         {
-            unitBase.PreviewAPCost(unitBase.GetItemCost());
+            CombatTextManager.Instance?.ShowItemOnCooldown(
+                unitBase.transform.position
+            );
 
-            targetingController.BeginTargeting(unitBase, item);
+            return;
         }
-        else
+
+        if (!item.HasEnoughCharges(unitBase))
         {
-            unitBase.NotEnoughAP(unitBase.GetItemCost());
+            CombatTextManager.Instance?.ShowNotEnoughCharges(
+                unitBase.transform.position
+            );
+
+            return;
         }
+
+        int cost = unitBase.GetItemCost();
+
+        if (!unitBase.CanAffordAP(cost))
+        {
+            unitBase.NotEnoughAPForAction(
+                cost,
+                "Use Item"
+            );
+
+            return;
+        }
+
+        unitBase.PreviewAPCost(cost);
+
+        targetingController.BeginTargeting(
+            unitBase,
+            item
+        );
     }
 }

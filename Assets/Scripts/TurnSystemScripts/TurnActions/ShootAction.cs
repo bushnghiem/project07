@@ -8,9 +8,11 @@ public class ShootAction : TurnAction
     {
         if (unit is UnitBase unitBase)
         {
-            if (unitBase.CanAffordAP(unitBase.GetShootCost()))
+            int cost = unitBase.GetShootCost();
+
+            if (unitBase.CanAffordAP(cost))
             {
-                unitBase.PreviewAPCost(unitBase.GetShootCost());
+                unitBase.PreviewAPCost(cost);
 
                 CameraEvent.LockCamera?.Invoke();
                 CameraEvent.RecenterCamera?.Invoke();
@@ -19,9 +21,8 @@ public class ShootAction : TurnAction
             }
             else
             {
-                unitBase.NotEnoughAP(unitBase.GetShootCost());
+                unitBase.NotEnoughAPForAction(cost, "Shoot");
             }
         }
     }
 }
-

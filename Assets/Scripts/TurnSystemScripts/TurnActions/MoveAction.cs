@@ -8,9 +8,11 @@ public class MoveAction : TurnAction
     {
         if (unit is UnitBase unitBase)
         {
-            if (unitBase.CanAffordAP(unitBase.GetMoveCost()))
+            int cost = unitBase.GetMoveCost();
+
+            if (unitBase.CanAffordAP(cost))
             {
-                unitBase.PreviewAPCost(unitBase.GetMoveCost());
+                unitBase.PreviewAPCost(cost);
 
                 CameraEvent.LockCamera?.Invoke();
                 CameraEvent.RecenterCamera?.Invoke();
@@ -19,9 +21,8 @@ public class MoveAction : TurnAction
             }
             else
             {
-                unitBase.NotEnoughAP(unitBase.GetMoveCost());
+                unitBase.NotEnoughAPForAction(cost, "Move");
             }
         }
     }
 }
-

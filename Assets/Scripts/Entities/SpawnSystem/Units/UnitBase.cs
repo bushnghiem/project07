@@ -1148,6 +1148,16 @@ public abstract class UnitBase : MonoBehaviour, Unit, IInspectable
         });
     }
 
+    public void NotEnoughAPForAction(int cost, string actionName)
+    {
+        NotEnoughAP(cost);
+
+        CombatTextManager.Instance?.ShowActionFailed(
+            transform.position,
+            "NOT ENOUGH AP TO " + actionName.ToUpper()
+        );
+    }
+
     public void PreviewAPCost(int cost)
     {
         EventBus.Raise(new UnitEvent

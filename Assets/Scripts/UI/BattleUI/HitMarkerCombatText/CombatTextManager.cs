@@ -49,6 +49,10 @@ public class CombatTextManager : MonoBehaviour
     private Color statusRemovedColor =
         new Color(0.65f, 0.65f, 0.65f);
 
+    [SerializeField]
+    private Color actionFailedColor =
+        new Color(1f, 0.3f, 0.3f);
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -167,6 +171,32 @@ public class CombatTextManager : MonoBehaviour
             15f,
             true
         );
+    }
+
+    public void ShowActionFailed(Vector3 position, string message)
+    {
+        Spawn(
+            position,
+            message,
+            actionFailedColor,
+            15f,
+            true
+        );
+    }
+
+    public void ShowNotEnoughCharges(Vector3 position)
+    {
+        ShowActionFailed(position, "NOT ENOUGH CHARGES");
+    }
+
+    public void ShowNoActiveItem(Vector3 position)
+    {
+        ShowActionFailed(position, "NO ACTIVE ITEM");
+    }
+
+    public void ShowItemOnCooldown(Vector3 position)
+    {
+        ShowActionFailed(position, "ITEM ON COOLDOWN");
     }
 
     private void Spawn(
