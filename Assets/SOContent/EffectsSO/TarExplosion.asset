@@ -20,7 +20,7 @@ MonoBehaviour:
     sourceID: explosion
   radius: 3
   damage: 10
-  force: 50
+  force: 150
   upwardModifier: 2
   damageLayers:
     serializedVersion: 2

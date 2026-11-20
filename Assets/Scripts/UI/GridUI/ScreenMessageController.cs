@@ -95,6 +95,7 @@ public class ScreenMessageController : MonoBehaviour
     private IEnumerator PlayMessage(Message message)
     {
         titleText.color = message.color;
+        typewriter.SetColor(message.color);
 
         // Fade in.
         canvasGroup.alpha = 0f;

@@ -9,6 +9,7 @@ public class BattleManager : MonoBehaviour
     private BattleState currentState;
 
     public BattlePhase CurrentPhase { get; private set; }
+    public int CurrentRound => currentRound;
 
     public static event Action OnBattlePhaseChanged;
 

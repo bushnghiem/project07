@@ -169,4 +169,9 @@ public class TMPTerminalTypewriter : MonoBehaviour
         typingRoutine = StartCoroutine(TypeText(message));
     }
 
+    public void SetColor(Color color)
+    {
+        text.color = color;
+        cursor.color = color;
+    }
 }

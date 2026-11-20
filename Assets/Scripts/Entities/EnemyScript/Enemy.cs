@@ -7,6 +7,7 @@ public class Enemy : UnitBase
     public float linearDamping = 2f;
     public float angularDamping = 2f;
     public int orbitSide = 1;
+    public float enemyTurnActionDelay = 2.0f;
 
     public ClickAndFling clickAndFlingComp;
     public EnemyAIController aiController;
@@ -101,8 +102,15 @@ public class Enemy : UnitBase
 
     public override void StartTurn()
     {
-        base.StartTurn();
         TurnEvent.OnUnitTurnStart?.Invoke(this);
+        StartCoroutine(StartTurnWithDelay());
+    }
+
+    private IEnumerator StartTurnWithDelay()
+    {
+        yield return new WaitForSeconds(enemyTurnActionDelay);
+
+        base.StartTurn();
         aiController?.OnTurnStarted();
 
         aiController?.TakeTurn();
@@ -115,7 +123,7 @@ public class Enemy : UnitBase
 
     private IEnumerator ContinueWithDelay()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(enemyTurnActionDelay);
         aiController?.TakeTurn();
     }
 
